@@ -4,17 +4,20 @@ import { useGetMeQuery } from "./store/api/authApi";
 import { useSelector } from "react-redux";
 import { selectUser } from "./store/features/userSlice";
 import { Navbar } from "./components/Navbar/Navbar";
+import { useNavigate } from "react-router-dom";
+import { RouterPath } from "./components/AppRouter/routeConfig";
 
 export const App = () => {
   const { user } = useSelector(selectUser);
-  const { isLoading, isError } = useGetMeQuery(null);
+  const navigate = useNavigate();
+  const { isError } = useGetMeQuery(null);
   const token = localStorage.getItem("token");
 
   React.useEffect(() => {
-    if ((!user && !isLoading) || isError) {
-      // Redirect to login page
+    if (!user || isError) {
+      navigate(RouterPath.login);
     }
-  }, [user, isLoading, isError]);
+  }, [user, isError]);
 
   return (
     <>

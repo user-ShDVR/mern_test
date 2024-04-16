@@ -14,7 +14,7 @@ export const Account: React.FC = () => {
   const onFinish = (formValues: IUser) => {
     updateUser({
       ...formValues,
-      avatarUrl: formValues?.avatarUrl?.fileList[0]?.response?.url,
+      avatarUrl: formValues?.avatarUrl?.fileList[0]?.response?.location,
     });
     setIsEdit(!isEdit)
   };

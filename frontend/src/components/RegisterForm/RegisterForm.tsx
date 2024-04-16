@@ -19,7 +19,7 @@ export const RegisterForm = () => {
   const onFinishCreateQuestionnaire = (formValues: IUser) => {
     register({
       ...formValues,
-      avatarUrl: formValues?.avatarUrl?.fileList[0]?.response?.url,
+      avatarUrl: formValues?.avatarUrl?.fileList[0]?.response?.location,
     });
   };
 
