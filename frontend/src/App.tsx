@@ -8,16 +8,16 @@ import { useNavigate } from "react-router-dom";
 import { RouterPath } from "./components/AppRouter/routeConfig";
 
 export const App = () => {
-  const { user } = useSelector(selectUser);
   const navigate = useNavigate();
-  const { isError } = useGetMeQuery(null);
+  const { isLoading, isError } = useGetMeQuery(null);
   const token = localStorage.getItem("token");
+  const { user } = useSelector(selectUser);
 
   React.useEffect(() => {
-    if (!user || isError) {
+    if (( !isLoading && !user ) || isError) {
       navigate(RouterPath.login);
     }
-  }, [user, isError]);
+  }, []);
 
   return (
     <>
