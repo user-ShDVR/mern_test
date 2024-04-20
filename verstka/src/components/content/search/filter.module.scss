@@ -1,0 +1,26 @@
+.filter {
+  width: 200px;
+  display: fixed;
+}
+
+.filter__price {
+  margin-top: 0px;
+  margin-left: 0px;
+  font-weight: 400;
+}
+
+// slider
+
+.container {
+  position: relative;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.priceLabel {
+  font-size: 14px;
+}
