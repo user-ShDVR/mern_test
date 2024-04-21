@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -14,6 +15,9 @@ import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { CookieService } from 'src/utils/cookie/cookie.service';
 import { AuthGuard } from './auth.guard';
 import { SignUpDto } from './dto/signup.dto';
+import { GetSessionInfoDto } from './dto/get.session.info.dto';
+import { SessionInfo } from './decorator/session-info.decorator';
+import { UserResponseDto } from './dto/response.user.info.dto';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
@@ -21,13 +25,16 @@ export class AuthController {
     private readonly authService: AuthService,
     private cookieService: CookieService,
   ) {}
+
   @Post('sign-up')
-  @ApiCreatedResponse()
+  @ApiCreatedResponse({
+    type: UserResponseDto,
+  })
   async signUp(
     @Body() signUpDto: SignUpDto,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { token } = await this.authService.signUp(
+    const { token, user } = await this.authService.signUp(
       signUpDto.email,
       signUpDto.password,
       signUpDto.surname,
@@ -35,11 +42,13 @@ export class AuthController {
       signUpDto.lastname,
     );
     this.cookieService.setToken(res, token);
-    return { token };
+    return { user };
   }
 
   @Post('sign-in')
-  @ApiCreatedResponse()
+  @ApiCreatedResponse({
+    type: UserResponseDto,
+  })
   @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard)
   @ApiOkResponse()
@@ -47,12 +56,12 @@ export class AuthController {
     @Body() signInDto: SignInDto,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { token } = await this.authService.signIn(
+    const { token, user } = await this.authService.signIn(
       signInDto.email,
       signInDto.password,
     );
     this.cookieService.setToken(res, token);
-    return { token };
+    return { user };
   }
 
   @Post('sign-out')
@@ -61,5 +70,14 @@ export class AuthController {
   @ApiOkResponse()
   async signOut(@Res({ passthrough: true }) res: Response) {
     this.cookieService.removeToken(res);
+  }
+
+  @Get('session')
+  @ApiOkResponse({
+    type: UserResponseDto,
+  })
+  @UseGuards(AuthGuard)
+  async getSesssionInfo(@SessionInfo() session: GetSessionInfoDto) {
+    return await this.authService.getSesssionInfo(session.id);
   }
 }

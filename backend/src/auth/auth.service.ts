@@ -40,7 +40,10 @@ export class AuthService {
       role: newUser.role,
     });
 
-    return { token };
+    return {
+      token,
+      user: { ...newUser, hash: null, salt: null, deleted: null },
+    };
   }
 
   async signIn(email: string, password: string) {
@@ -61,6 +64,11 @@ export class AuthService {
       role: user.role,
     });
 
-    return { token };
+    return { token, user: { ...user, hash: null, salt: null, deleted: null } };
+  }
+
+  async getSesssionInfo(id: number) {
+    const user = await this.usersService.findOne(id);
+    return user;
   }
 }

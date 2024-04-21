@@ -33,7 +33,19 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    const user = await this.db.users.findFirst({ where: { id } });
+    const user = await this.db.users.findFirst({
+      select: {
+        hash: false,
+        salt: false,
+        id: true,
+        email: true,
+        surname: true,
+        name: true,
+        lastname: true,
+        role: true,
+      },
+      where: { id },
+    });
     if (!user) {
       throw new NotFoundException('id указан неверно.');
     }

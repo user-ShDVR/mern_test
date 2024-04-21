@@ -10,10 +10,7 @@ import { CookieService } from 'src/utils/cookie/cookie.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(
-    private jwtService: JwtService,
-    cookieService: CookieService,
-  ) {}
+  constructor(private jwtService: JwtService) {}
   canActivate(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest() as Request;
     const token = req.cookies[CookieService.tokenKey];
