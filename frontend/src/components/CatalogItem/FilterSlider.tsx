@@ -57,7 +57,7 @@ export const FilterSlider = (props: FilterSliderProps) => {
           type="primary"
           htmlType="submit"
         >
-          Прменить
+          Применить
         </Button>
       </Form>
     </div>
