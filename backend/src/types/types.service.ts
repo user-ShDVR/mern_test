@@ -29,6 +29,9 @@ export class TypesService {
     const types = await this.db.types.findMany({
       take: limit,
       skip: offset,
+      include: {
+        image: true,
+      },
     });
     return { totalCount, types };
   }
