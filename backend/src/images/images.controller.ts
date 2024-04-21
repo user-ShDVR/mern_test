@@ -1,11 +1,6 @@
 import {
   Controller,
-  Get,
   Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
   UseInterceptors,
   UploadedFile,
   ParseFilePipe,
@@ -13,8 +8,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ImagesService } from './images.service';
-import { CreateImageDto } from './dto/create-image.dto';
-import { UpdateImageDto } from './dto/update-image.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { fileStorage } from 'src/images/storage';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';

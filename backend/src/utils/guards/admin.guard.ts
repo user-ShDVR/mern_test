@@ -1,6 +1,13 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
+import { CookieService } from '../cookie/cookie.service';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
@@ -10,21 +17,21 @@ export class AdminGuard implements CanActivate {
   ) {}
 
   canActivate(context: ExecutionContext): boolean {
-    const roles = this.reflector.get<string[]>('roles', context.getHandler());
-    if (!roles) {
-      return true;
-    }
-
-    const request = context.switchToHttp().getRequest();
-    const token = request.headers.authorization?.split(' ')[1];
+    const req = context.switchToHttp().getRequest() as Request;
+    const token = req.cookies[CookieService.tokenKey];
 
     if (!token) {
-      return false;
+      throw new UnauthorizedException('Почта или пароль указаны неверно');
     }
+    const decodedToken = this.jwtService.verify(token, {
+      secret: process.env.SECRET_KEY,
+    });
 
-    const decodedToken = this.jwtService.verify(token);
     const userRole = decodedToken.role;
-
-    return roles.includes(userRole);
+    if (userRole === 'admin') {
+      return true;
+    } else {
+      throw new UnauthorizedException('Недостаточно прав');
+    }
   }
 }
