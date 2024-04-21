@@ -31,6 +31,8 @@ export class ProductsService {
     filter?: any,
     minPrice?: number,
     maxPrice?: number,
+    sortBy?: string,
+    sortOrder?: string,
   ) {
     const offset = (page - 1) * limit;
     let whereClause = filter
@@ -47,11 +49,18 @@ export class ProductsService {
       };
     }
 
+    // Sorting logic
+    const orderBy = {};
+    if (sortBy && sortOrder) {
+      orderBy[sortBy] = sortOrder;
+    }
+
     const totalCount = await this.db.products.count({ where: whereClause });
     const products = await this.db.products.findMany({
       where: whereClause,
       take: limit,
       skip: offset,
+      orderBy: orderBy,
     });
 
     return { totalCount, products };
@@ -70,6 +79,9 @@ export class ProductsService {
     const product = await this.findOne(id);
     if (!product) {
       throw new NotFoundException('id указан неправильно.');
+    }
+    if (!image) {
+      throw new NotFoundException('image указан неправильно.');
     }
     const updatedProduct = await this.db.products.update({
       where: { id },

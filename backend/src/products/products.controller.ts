@@ -37,8 +37,10 @@ export class ProductsController {
     @Query('limit', ParseIntPipe) limit: number = 16,
     @Query('minPrice', ParseIntPipe) minPrice?: number,
     @Query('maxPrice', ParseIntPipe) maxPrice?: number,
+    @Query('sortBy') sortBy?: string,
+    @Query('sortOrder') sortOrder?: string,
   ) {
-    let filterObject: any = { deleted: false };
+    const filterObject: any = { deleted: false };
 
     return this.productsService.findAll(
       page,
@@ -46,6 +48,8 @@ export class ProductsController {
       filterObject,
       minPrice,
       maxPrice,
+      sortBy,
+      sortOrder,
     );
   }
 

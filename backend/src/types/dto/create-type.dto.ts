@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateTypeDto {
-  @ApiProperty({ example: 'vines' })
+  @ApiProperty({ example: 'Вино' })
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -10,4 +10,8 @@ export class CreateTypeDto {
   @IsNotEmpty()
   @IsNumber()
   image_id: number;
+  @ApiProperty({ example: 'vines' })
+  @IsNotEmpty()
+  @IsString()
+  url: string;
 }

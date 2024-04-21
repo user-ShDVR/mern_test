@@ -12,6 +12,13 @@ export class TypesService {
   ) {}
   async create(createTypeDto: CreateTypeDto) {
     const image = await this.imagesService.findOne(createTypeDto.image_id);
+    const type = await this.findOneByUrl(createTypeDto.url);
+    if (!image) {
+      throw new NotFoundException('Такого изображения не существует.');
+    }
+    if (type) {
+      throw new NotFoundException('Тип с таким url уже существует.');
+    }
     await this.db.types.create({ data: { ...createTypeDto } });
     return 'Тип создан.';
   }
@@ -31,13 +38,27 @@ export class TypesService {
     return type;
   }
 
-  async update(id: number, updateTypeDto: UpdateTypeDto) {
-    const image = await this.imagesService.findOne(updateTypeDto.image_id);
+  async findOneByUrl(url: string) {
+    const type = await this.db.types.findFirst({ where: { url } });
+    return type;
+  }
 
+  async update(id: number, updateTypeDto: UpdateTypeDto) {
     const type = await this.findOne(id);
     if (!type) {
       throw new NotFoundException('id указан неверно.');
     }
+
+    const image = await this.imagesService.findOne(updateTypeDto.image_id);
+    if (!image) {
+      throw new NotFoundException('Такого изображения не существует.');
+    }
+
+    const urlType = await this.findOneByUrl(updateTypeDto.url);
+    if (urlType && urlType.id !== id) {
+      throw new NotFoundException('Тип с таким url уже существует.');
+    }
+
     await this.db.types.update({ where: { id }, data: { ...UpdateTypeDto } });
     return 'Тип обновлён.';
   }

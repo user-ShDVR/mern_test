@@ -48,6 +48,7 @@ model products {
 model types {
   id           Int      @default(autoincrement()) @id
   name         String
+  url          String   @unique
   image_id     Int
   image        images @relation(fields: [image_id], references: [id])
   products     products[]
