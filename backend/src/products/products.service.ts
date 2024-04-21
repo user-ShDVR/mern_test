@@ -61,6 +61,9 @@ export class ProductsService {
       take: limit,
       skip: offset,
       orderBy: orderBy,
+      include: {
+        image: true,
+      },
     });
 
     return { totalCount, products };
