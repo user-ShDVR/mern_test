@@ -42,7 +42,7 @@ export class AuthController {
       signUpDto.lastname,
     );
     this.cookieService.setToken(res, token);
-    return { user };
+    return { ...user };
   }
 
   @Post('sign-in')
@@ -58,7 +58,7 @@ export class AuthController {
       signInDto.password,
     );
     this.cookieService.setToken(res, token);
-    return { user };
+    return { ...user };
   }
 
   @Post('sign-out')

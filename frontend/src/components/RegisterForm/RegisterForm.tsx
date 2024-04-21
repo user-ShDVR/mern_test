@@ -10,7 +10,14 @@ import React from "react";
 import { useAuthControllerSignUpMutation } from "../../store/api/defaultApi";
 import { ProfileFields } from "./profileFields";
 
-export const RegisterForm = () => {
+interface RegisterFormProps {
+  handleCloseModal: () => void;
+  setIsHaveAccount: (isHaveAccount: boolean) => void;
+}
+
+export const RegisterForm = (props: RegisterFormProps) => {
+  const { handleCloseModal, setIsHaveAccount } = props;
+
   const [register, { isSuccess, isLoading, isError }] =
     useAuthControllerSignUpMutation();
 
@@ -23,6 +30,7 @@ export const RegisterForm = () => {
   React.useEffect(() => {
     if (!isLoading && isSuccess) {
       message.success("Профиль создан!");
+      setTimeout(() => handleCloseModal(), 600);
     }
 
     if (isError) {
@@ -57,8 +65,13 @@ export const RegisterForm = () => {
         onFinishFailed={onFailedCreateQuestionnaire}
       >
         <ProfileFields />
+
         <Button type="primary" htmlType="submit">
           Зарегестрироваться
+        </Button>
+
+        <Button type="link" onClick={() => setIsHaveAccount(true)}>
+          Есть аккаунт? Авторизоваться
         </Button>
       </Form>
     </>

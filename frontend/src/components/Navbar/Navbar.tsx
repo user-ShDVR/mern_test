@@ -8,7 +8,7 @@ import DropdownUser from "./DropdownUser";
 export const Navbar = () => {
   return (
     <div className={styles.wrapper}>
-      <Link to={RouterPath.account}>
+      <Link to={RouterPath.catalog}>
         <Button type="primary">Каталог</Button>
       </Link>
 

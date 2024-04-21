@@ -8,5 +8,5 @@ interface PageProps {
 export const Page = (props: PageProps) => {
   const { children } = props;
 
-  return <div className={styles.Page}>{children}</div>;
+  return <div className={styles.wrapper}>{children}</div>;
 };

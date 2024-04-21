@@ -3,19 +3,26 @@ import { Avatar, Button, Dropdown, Typography } from "antd";
 import styles from "./Navbar.module.scss";
 import React from "react";
 import { AuthModal } from "../AuthModal/AuthModal";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/features/userSlice";
+import { useAuthControllerSignOutMutation } from "../../store/api/defaultApi";
 
 const DropdownUser = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
-
-  const isHaveAccount = false;
+  const { user } = useSelector(selectUser);
+  const [logout] = useAuthControllerSignOutMutation();
 
   const items = [
     {
-      label: <Typography.Text>Настройки</Typography.Text>,
+      label: <Typography.Text onClick={() => {}}>Настройки</Typography.Text>,
       key: "0",
     },
     {
-      label: <Typography.Text>Выйти</Typography.Text>,
+      label: (
+        <Typography.Text onClick={() => logout()} type="danger">
+          Выйти
+        </Typography.Text>
+      ),
       key: "1",
     },
   ];
@@ -26,10 +33,10 @@ const DropdownUser = () => {
 
   return (
     <>
-      {isHaveAccount ? (
+      {user ? (
         <Dropdown menu={{ items }} placement="bottom">
           <div className={styles.dropdownWrapper}>
-            <Avatar>ИИ</Avatar>
+            <Avatar>{user.name.slice(0, 2)}</Avatar>
             <DownOutlined className={styles.dropdownIcon} />
           </div>
         </Dropdown>
@@ -40,7 +47,6 @@ const DropdownUser = () => {
       <AuthModal
         isAuthModalOpen={isAuthModalOpen}
         setIsAuthModalOpen={setIsAuthModalOpen}
-        isHaveAccount={isHaveAccount}
       />
     </>
   );

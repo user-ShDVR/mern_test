@@ -1,5 +1,9 @@
-import React from "react";
+import { Typography } from "antd";
 
 export const MainPage = () => {
-  return <div>MainPage</div>;
+  return (
+    <>
+      <Typography.Title>Наши товары</Typography.Title>
+    </>
+  );
 };

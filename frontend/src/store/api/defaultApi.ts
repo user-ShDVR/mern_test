@@ -454,6 +454,14 @@ const injectedRtkApi = api.injectEndpoints({
       AuthControllerSignOutApiArg
     >({
       query: () => ({ url: `/auth/sign-out`, method: "POST" }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(userActions.setUser(null));
+        } catch (error) {
+          console.log(error);
+        }
+      },
     }),
 
     authControllerGetSesssionInfo: build.query<

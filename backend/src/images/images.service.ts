@@ -13,7 +13,6 @@ export class ImagesService {
         size: file.size,
       },
     });
-    console.log(file);
     return image;
   }
 

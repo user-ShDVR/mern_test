@@ -10,7 +10,14 @@ import {
 import React from "react";
 import { useAuthControllerSignInMutation } from "../../store/api/defaultApi";
 
-export const LoginForm = () => {
+interface LoginFormProps {
+  handleCloseModal: () => void;
+  setIsHaveAccount: (isHaveAccount: boolean) => void;
+}
+
+export const LoginForm = (props: LoginFormProps) => {
+  const { handleCloseModal, setIsHaveAccount } = props;
+
   const [login, { isSuccess, isLoading, isError }] =
     useAuthControllerSignInMutation();
 
@@ -23,6 +30,7 @@ export const LoginForm = () => {
   React.useEffect(() => {
     if (!isLoading && isSuccess) {
       message.success("Авторизация прошла успешно!");
+      setTimeout(() => handleCloseModal(), 600);
     }
 
     if (isError) {
@@ -57,8 +65,13 @@ export const LoginForm = () => {
         onFinishFailed={onFailedCreateQuestionnaire}
       >
         <ProfileFields />
+
         <Button type="primary" htmlType="submit">
           Авторизоваться
+        </Button>
+
+        <Button type="link" onClick={() => setIsHaveAccount(false)}>
+          Нет аккаунта? Зарегистрироваться
         </Button>
       </Form>
     </>

@@ -6,6 +6,7 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { useNavigate } from "react-router-dom";
 import { RouterPath } from "./components/AppRouter/routeConfig";
 import { useAuthControllerGetSesssionInfoQuery } from "./store/api/defaultApi";
+import { Page } from "./components/Page/Page";
 
 export const App = () => {
   const navigate = useNavigate();
@@ -21,9 +22,10 @@ export const App = () => {
 
   return (
     <>
-      {/* {user && <Navbar />} */}
       <Navbar />
-      <AppRouter />
+      <Page>
+        <AppRouter />
+      </Page>
     </>
   );
 };

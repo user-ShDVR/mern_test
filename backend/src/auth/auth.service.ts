@@ -49,11 +49,6 @@ export class AuthService {
   async signIn(email: string, password: string) {
     const user = await this.usersService.findOneByEmail(email);
 
-    console.log(email);
-    console.log(password);
-
-    console.log(user);
-
     if (!user) {
       throw new UnauthorizedException('Почта или пароль указаны не верно.');
     }
