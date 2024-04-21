@@ -14,18 +14,26 @@ const DropdownUser = () => {
 
   const items = [
     {
-      label: <Typography.Text onClick={() => {}}>Настройки</Typography.Text>,
+      label: <Typography.Text onClick={() => {console.log(1);
+      }}>Настройки</Typography.Text>,
       key: "0",
     },
     {
       label: (
-        <Typography.Text onClick={() => logout()} type="danger">
+        <Button type="link" block onClick={()=>{handleLogout()}}>
+        <Typography.Text  type="danger">
           Выйти
         </Typography.Text>
+        </Button>
       ),
       key: "1",
     },
   ];
+
+  const handleLogout = () => {
+    logout();
+    console.log(1)
+  };
 
   const handleOpenModal = () => {
     setIsAuthModalOpen(true);
