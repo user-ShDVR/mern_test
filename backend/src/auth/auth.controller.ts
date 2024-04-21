@@ -46,11 +46,8 @@ export class AuthController {
   }
 
   @Post('sign-in')
-  @ApiCreatedResponse({
-    type: UserResponseDto,
-  })
+  @ApiCreatedResponse()
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AuthGuard)
   @ApiOkResponse()
   async signIn(
     @Body() signInDto: SignInDto,

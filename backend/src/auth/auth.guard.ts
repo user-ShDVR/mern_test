@@ -14,6 +14,8 @@ export class AuthGuard implements CanActivate {
   canActivate(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest() as Request;
     const token = req.cookies[CookieService.tokenKey];
+    console.log(req);
+
     if (!token) {
       throw new UnauthorizedException('Почта или пароль указаны неверно');
     }
