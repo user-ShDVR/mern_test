@@ -1,17 +1,15 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-const BASE_URL = "http://localhost:4444";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const uploadApi = createApi({
-  reducerPath: 'uploadApi',
+  reducerPath: "uploadApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: BASE_URL,
+    baseUrl: import.meta.env.VITE_BASE_URL,
   }),
   endpoints: (builder) => ({
     uploadFile: builder.mutation({
       query: (file) => ({
-        url: '/upload',
-        method: 'POST',
+        url: "/upload",
+        method: "POST",
         body: file,
         formData: true,
       }),

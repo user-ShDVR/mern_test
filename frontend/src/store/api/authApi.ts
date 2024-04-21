@@ -1,15 +1,14 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { setUser } from '../features/userSlice';
-const BASE_URL = "http://localhost:4444";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { setUser } from "../features/userSlice";
 
 const getToken = () => {
   return localStorage.getItem("token");
 };
 export const authApi = createApi({
-  reducerPath: 'authApi',
+  reducerPath: "authApi",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: BASE_URL,
+    baseUrl: import.meta.env.VITE_BASE_URL,
     prepareHeaders: (headers) => {
       const token = getToken();
       if (token) {
@@ -21,36 +20,36 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     register: builder.mutation({
       query: (userData) => ({
-        url: '/auth/register',
-        method: 'POST',
+        url: "/auth/register",
+        method: "POST",
         body: userData,
       }),
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
-            const { data } = await queryFulfilled;
-            dispatch(setUser(data));
+          const { data } = await queryFulfilled;
+          dispatch(setUser(data));
         } catch (error) {
-            console.log(error)
+          console.log(error);
         }
-    },
+      },
     }),
     login: builder.mutation({
       query: (credentials) => ({
-        url: '/auth/login',
-        method: 'POST',
+        url: "/auth/login",
+        method: "POST",
         body: credentials,
       }),
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
-            const { data } = await queryFulfilled;
-            dispatch(setUser(data));
+          const { data } = await queryFulfilled;
+          dispatch(setUser(data));
         } catch (error) {
-            console.log(error)
+          console.log(error);
         }
-    },
+      },
     }),
     getMe: builder.query({
-      query: () => '/auth/me',
+      query: () => "/auth/me",
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
