@@ -37,6 +37,7 @@ const DropdownUser = () => {
         <Dropdown menu={{ items }} placement="bottom">
           <div className={styles.dropdownWrapper}>
             <Avatar>{user.name.slice(0, 2)}</Avatar>
+            <Typography.Text>{user.name}</Typography.Text>
             <DownOutlined className={styles.dropdownIcon} />
           </div>
         </Dropdown>

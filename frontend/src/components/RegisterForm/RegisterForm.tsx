@@ -28,7 +28,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
   };
 
   React.useEffect(() => {
-    if (!isLoading && isSuccess) {
+    if (isSuccess) {
       message.success("Профиль создан!");
       setTimeout(() => handleCloseModal(), 600);
     }

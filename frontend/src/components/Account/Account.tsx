@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Page } from "../Page/Page";
 import { Button, Form, Typography } from "antd";
 import { AccountFields } from "./AccountFields";
 import { IUser } from "../../store/api/types";
@@ -29,7 +28,7 @@ export const Account: React.FC = () => {
   }
 
   return (
-    <Page>
+    <>
       <Typography.Title level={2}>Профиль</Typography.Title>
       <Form
         layout="vertical"
@@ -53,6 +52,6 @@ export const Account: React.FC = () => {
           )}
         </Form.Item>
       </Form>
-    </Page>
+    </>
   );
 };

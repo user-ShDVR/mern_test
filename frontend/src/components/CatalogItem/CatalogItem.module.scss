@@ -1,0 +1,64 @@
+// CatalogItem
+.wrapper {
+  display: flex;
+  gap: 40px;
+}
+
+.filtersWrapper {
+  width: 300px;
+  max-height: 295px;
+  box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.3);
+}
+
+.filtersTitle {
+  font-weight: bold;
+}
+
+// FilterSlider
+.container {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rangeInput {
+  width: 100%;
+}
+
+.confirmButton {
+  width: 100%;
+}
+
+// ProductItem
+.cardWrapper {
+  width: 300px;
+}
+
+.cardText {
+  margin-bottom: 20px;
+}
+
+.cardButton {
+  width: 100%;
+}
+
+// productsWrapper
+.productsWrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.paginationWrapper {
+  margin-top: 14vh;
+  display: flex;
+  justify-content: center;
+}

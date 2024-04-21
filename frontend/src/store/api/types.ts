@@ -1,3 +1,6 @@
+import { ICatalogElement } from "../../types/ICatalogElement";
+import { IProductsResponse } from "../../types/IProduct";
+
 export interface IUser {
   name: string;
   surname: string;
@@ -43,12 +46,15 @@ export type ProductsControllerCreateApiArg = {
   createProductDto: CreateProductDto;
 };
 
-export type ProductsControllerFindAllApiResponse = unknown;
+export type ProductsControllerFindAllApiResponse = IProductsResponse;
 export type ProductsControllerFindAllApiArg = {
   page: number;
   limit: number;
   minPrice: number;
   maxPrice: number;
+  sortBy?: string;
+  sortOrder?: string;
+  type?: string;
 };
 
 export type ProductsControllerFindOneApiResponse = unknown;
@@ -72,7 +78,7 @@ export type TypesControllerCreateApiArg = {
   createTypeDto: CreateTypeDto;
 };
 
-export type TypesControllerFindAllApiResponse = unknown;
+export type TypesControllerFindAllApiResponse = ICatalogElement;
 export type TypesControllerFindAllApiArg = {
   page: number;
   limit: number;

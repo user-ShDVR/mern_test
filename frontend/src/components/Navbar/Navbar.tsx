@@ -2,14 +2,21 @@ import { Button, Input, Typography } from "antd";
 import styles from "./Navbar.module.scss";
 import { Link } from "react-router-dom";
 import { RouterPath } from "../AppRouter/routeConfig";
-import { InboxOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import {
+  InboxOutlined,
+  MenuOutlined,
+  ShoppingCartOutlined,
+} from "@ant-design/icons";
 import DropdownUser from "./DropdownUser";
 
 export const Navbar = () => {
   return (
     <div className={styles.wrapper}>
       <Link to={RouterPath.catalog}>
-        <Button type="primary">Каталог</Button>
+        <Button type="primary">
+          <MenuOutlined />
+          Каталог
+        </Button>
       </Link>
 
       <Input.Search className={styles.searchInput} placeholder="Найти товар" />
