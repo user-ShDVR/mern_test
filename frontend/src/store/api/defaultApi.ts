@@ -1,5 +1,7 @@
+import { userActions } from "../features/userSlice";
 import { emptySplitApi as api } from "./emptyApi";
 import {
+  // users
   UsersControllerCreateApiResponse,
   UsersControllerCreateApiArg,
   UsersControllerFindAllApiResponse,
@@ -10,6 +12,9 @@ import {
   UsersControllerUpdateApiArg,
   UsersControllerRemoveApiResponse,
   UsersControllerRemoveApiArg,
+  // users
+
+  // products
   ProductsControllerCreateApiResponse,
   ProductsControllerCreateApiArg,
   ProductsControllerFindAllApiResponse,
@@ -20,6 +25,9 @@ import {
   ProductsControllerUpdateApiArg,
   ProductsControllerRemoveApiResponse,
   ProductsControllerRemoveApiArg,
+  // products
+
+  // types
   TypesControllerCreateApiResponse,
   TypesControllerCreateApiArg,
   TypesControllerFindAllApiResponse,
@@ -30,8 +38,14 @@ import {
   TypesControllerUpdateApiArg,
   TypesControllerRemoveApiResponse,
   TypesControllerRemoveApiArg,
+  // types
+
+  // images
   ImagesControllerCreateApiResponse,
   ImagesControllerCreateApiArg,
+  // images
+
+  // carts
   CartsControllerCreateApiResponse,
   CartsControllerCreateApiArg,
   CartsControllerFindAllApiResponse,
@@ -44,6 +58,9 @@ import {
   CartsControllerRemoveApiArg,
   CartsControllerClearApiResponse,
   CartsControllerClearApiArg,
+  // carts
+
+  // orders
   OrdersControllerCreateApiResponse,
   OrdersControllerCreateApiArg,
   OrdersControllerFindAllApiResponse,
@@ -54,6 +71,9 @@ import {
   OrdersControllerUpdateApiArg,
   OrdersControllerRemoveApiResponse,
   OrdersControllerRemoveApiArg,
+  // orders
+
+  // cartsProducts
   CartsProductsControllerCreateApiResponse,
   CartsProductsControllerCreateApiArg,
   CartsProductsControllerFindAllApiResponse,
@@ -64,12 +84,18 @@ import {
   CartsProductsControllerUpdateApiArg,
   CartsProductsControllerRemoveApiResponse,
   CartsProductsControllerRemoveApiArg,
+  // cartsProducts
+
+  // auth
   AuthControllerSignUpApiResponse,
   AuthControllerSignUpApiArg,
   AuthControllerSignInApiResponse,
   AuthControllerSignInApiArg,
   AuthControllerSignOutApiResponse,
   AuthControllerSignOutApiArg,
+  AuthControllerGetSesssionInfoApiResponse,
+  AuthControllerGetSesssionInfoApiArg,
+  // auth
 } from "./types";
 
 const injectedRtkApi = api.injectEndpoints({
@@ -84,6 +110,7 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.createUserDto,
       }),
     }),
+
     usersControllerFindAll: build.query<
       UsersControllerFindAllApiResponse,
       UsersControllerFindAllApiArg
@@ -93,12 +120,14 @@ const injectedRtkApi = api.injectEndpoints({
         params: { page: queryArg.page, limit: queryArg.limit },
       }),
     }),
+
     usersControllerFindOne: build.query<
       UsersControllerFindOneApiResponse,
       UsersControllerFindOneApiArg
     >({
       query: (queryArg) => ({ url: `/users/${queryArg.id}` }),
     }),
+
     usersControllerUpdate: build.mutation<
       UsersControllerUpdateApiResponse,
       UsersControllerUpdateApiArg
@@ -109,12 +138,14 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.updateUserDto,
       }),
     }),
+
     usersControllerRemove: build.mutation<
       UsersControllerRemoveApiResponse,
       UsersControllerRemoveApiArg
     >({
       query: (queryArg) => ({ url: `/users/${queryArg.id}`, method: "DELETE" }),
     }),
+
     productsControllerCreate: build.mutation<
       ProductsControllerCreateApiResponse,
       ProductsControllerCreateApiArg
@@ -125,6 +156,7 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.createProductDto,
       }),
     }),
+
     productsControllerFindAll: build.query<
       ProductsControllerFindAllApiResponse,
       ProductsControllerFindAllApiArg
@@ -139,12 +171,14 @@ const injectedRtkApi = api.injectEndpoints({
         },
       }),
     }),
+
     productsControllerFindOne: build.query<
       ProductsControllerFindOneApiResponse,
       ProductsControllerFindOneApiArg
     >({
       query: (queryArg) => ({ url: `/products/${queryArg.id}` }),
     }),
+
     productsControllerUpdate: build.mutation<
       ProductsControllerUpdateApiResponse,
       ProductsControllerUpdateApiArg
@@ -155,6 +189,7 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.updateProductDto,
       }),
     }),
+
     productsControllerRemove: build.mutation<
       ProductsControllerRemoveApiResponse,
       ProductsControllerRemoveApiArg
@@ -164,6 +199,7 @@ const injectedRtkApi = api.injectEndpoints({
         method: "DELETE",
       }),
     }),
+
     typesControllerCreate: build.mutation<
       TypesControllerCreateApiResponse,
       TypesControllerCreateApiArg
@@ -174,6 +210,7 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.createTypeDto,
       }),
     }),
+
     typesControllerFindAll: build.query<
       TypesControllerFindAllApiResponse,
       TypesControllerFindAllApiArg
@@ -183,12 +220,14 @@ const injectedRtkApi = api.injectEndpoints({
         params: { page: queryArg.page, limit: queryArg.limit },
       }),
     }),
+
     typesControllerFindOne: build.query<
       TypesControllerFindOneApiResponse,
       TypesControllerFindOneApiArg
     >({
       query: (queryArg) => ({ url: `/types/${queryArg.id}` }),
     }),
+
     typesControllerUpdate: build.mutation<
       TypesControllerUpdateApiResponse,
       TypesControllerUpdateApiArg
@@ -199,12 +238,14 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.updateTypeDto,
       }),
     }),
+
     typesControllerRemove: build.mutation<
       TypesControllerRemoveApiResponse,
       TypesControllerRemoveApiArg
     >({
       query: (queryArg) => ({ url: `/types/${queryArg.id}`, method: "DELETE" }),
     }),
+
     imagesControllerCreate: build.mutation<
       ImagesControllerCreateApiResponse,
       ImagesControllerCreateApiArg
@@ -215,6 +256,7 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.body,
       }),
     }),
+
     cartsControllerCreate: build.mutation<
       CartsControllerCreateApiResponse,
       CartsControllerCreateApiArg
@@ -225,6 +267,7 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.createCartDto,
       }),
     }),
+
     cartsControllerFindAll: build.query<
       CartsControllerFindAllApiResponse,
       CartsControllerFindAllApiArg
@@ -234,12 +277,14 @@ const injectedRtkApi = api.injectEndpoints({
         params: { page: queryArg.page, limit: queryArg.limit },
       }),
     }),
+
     cartsControllerFindOne: build.query<
       CartsControllerFindOneApiResponse,
       CartsControllerFindOneApiArg
     >({
       query: (queryArg) => ({ url: `/carts/${queryArg.id}` }),
     }),
+
     cartsControllerUpdate: build.mutation<
       CartsControllerUpdateApiResponse,
       CartsControllerUpdateApiArg
@@ -250,12 +295,14 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.updateCartDto,
       }),
     }),
+
     cartsControllerRemove: build.mutation<
       CartsControllerRemoveApiResponse,
       CartsControllerRemoveApiArg
     >({
       query: (queryArg) => ({ url: `/carts/${queryArg.id}`, method: "DELETE" }),
     }),
+
     cartsControllerClear: build.mutation<
       CartsControllerClearApiResponse,
       CartsControllerClearApiArg
@@ -265,6 +312,7 @@ const injectedRtkApi = api.injectEndpoints({
         method: "POST",
       }),
     }),
+
     ordersControllerCreate: build.mutation<
       OrdersControllerCreateApiResponse,
       OrdersControllerCreateApiArg
@@ -275,6 +323,7 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.createOrderDto,
       }),
     }),
+
     ordersControllerFindAll: build.query<
       OrdersControllerFindAllApiResponse,
       OrdersControllerFindAllApiArg
@@ -284,12 +333,14 @@ const injectedRtkApi = api.injectEndpoints({
         params: { page: queryArg.page, limit: queryArg.limit },
       }),
     }),
+
     ordersControllerFindOne: build.query<
       OrdersControllerFindOneApiResponse,
       OrdersControllerFindOneApiArg
     >({
       query: (queryArg) => ({ url: `/orders/${queryArg.id}` }),
     }),
+
     ordersControllerUpdate: build.mutation<
       OrdersControllerUpdateApiResponse,
       OrdersControllerUpdateApiArg
@@ -300,6 +351,7 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.updateOrderDto,
       }),
     }),
+
     ordersControllerRemove: build.mutation<
       OrdersControllerRemoveApiResponse,
       OrdersControllerRemoveApiArg
@@ -309,6 +361,7 @@ const injectedRtkApi = api.injectEndpoints({
         method: "DELETE",
       }),
     }),
+
     cartsProductsControllerCreate: build.mutation<
       CartsProductsControllerCreateApiResponse,
       CartsProductsControllerCreateApiArg
@@ -319,6 +372,7 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.createCartsProductDto,
       }),
     }),
+
     cartsProductsControllerFindAll: build.query<
       CartsProductsControllerFindAllApiResponse,
       CartsProductsControllerFindAllApiArg
@@ -328,12 +382,14 @@ const injectedRtkApi = api.injectEndpoints({
         params: { page: queryArg.page, limit: queryArg.limit },
       }),
     }),
+
     cartsProductsControllerFindOne: build.query<
       CartsProductsControllerFindOneApiResponse,
       CartsProductsControllerFindOneApiArg
     >({
       query: (queryArg) => ({ url: `/carts-products/${queryArg.id}` }),
     }),
+
     cartsProductsControllerUpdate: build.mutation<
       CartsProductsControllerUpdateApiResponse,
       CartsProductsControllerUpdateApiArg
@@ -344,6 +400,7 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.updateCartsProductDto,
       }),
     }),
+
     cartsProductsControllerRemove: build.mutation<
       CartsProductsControllerRemoveApiResponse,
       CartsProductsControllerRemoveApiArg
@@ -353,6 +410,7 @@ const injectedRtkApi = api.injectEndpoints({
         method: "DELETE",
       }),
     }),
+
     authControllerSignUp: build.mutation<
       AuthControllerSignUpApiResponse,
       AuthControllerSignUpApiArg
@@ -362,7 +420,16 @@ const injectedRtkApi = api.injectEndpoints({
         method: "POST",
         body: queryArg.signUpDto,
       }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(userActions.setUser(data));
+        } catch (error) {
+          console.log(error);
+        }
+      },
     }),
+
     authControllerSignIn: build.mutation<
       AuthControllerSignInApiResponse,
       AuthControllerSignInApiArg
@@ -372,14 +439,39 @@ const injectedRtkApi = api.injectEndpoints({
         method: "POST",
         body: queryArg.signInDto,
       }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(userActions.setUser(data));
+        } catch (error) {
+          console.log(error);
+        }
+      },
     }),
+
     authControllerSignOut: build.mutation<
       AuthControllerSignOutApiResponse,
       AuthControllerSignOutApiArg
     >({
       query: () => ({ url: `/auth/sign-out`, method: "POST" }),
     }),
+
+    authControllerGetSesssionInfo: build.query<
+      AuthControllerGetSesssionInfoApiResponse,
+      AuthControllerGetSesssionInfoApiArg
+    >({
+      query: () => ({ url: `/auth/session` }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(userActions.setUser(data));
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    }),
   }),
+
   overrideExisting: false,
 });
 export { injectedRtkApi as defaultApi };
@@ -442,5 +534,6 @@ export const {
   useAuthControllerSignUpMutation,
   useAuthControllerSignInMutation,
   useAuthControllerSignOutMutation,
+  useAuthControllerGetSesssionInfoQuery,
   // auth
 } = injectedRtkApi;

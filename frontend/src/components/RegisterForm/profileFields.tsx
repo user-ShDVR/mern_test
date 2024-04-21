@@ -1,11 +1,9 @@
-import { DatePicker, Form, Input, Select } from "antd";
+import { Form, Input } from "antd";
 import {
   DEFAULT_VALIDATE_MESSAGE,
-  genderOptions,
   profileFieldsDataIndexes,
   profileFieldsTitles,
-} from "../../constants/constants";
-import { UploadButton } from "../UploadButton/UploadButton";
+} from "../../constants/profileConstants";
 
 export const ProfileFields = () => {
   const profileFields = [
@@ -16,6 +14,28 @@ export const ProfileFields = () => {
         {
           required: true,
           message: `${DEFAULT_VALIDATE_MESSAGE} имя`,
+        },
+      ],
+      node: <Input />,
+    },
+    {
+      label: profileFieldsTitles.surname,
+      name: profileFieldsDataIndexes.surname,
+      rules: [
+        {
+          required: true,
+          message: `${DEFAULT_VALIDATE_MESSAGE} фамилия`,
+        },
+      ],
+      node: <Input />,
+    },
+    {
+      label: profileFieldsTitles.lastname,
+      name: profileFieldsDataIndexes.lastname,
+      rules: [
+        {
+          required: true,
+          message: `${DEFAULT_VALIDATE_MESSAGE} отчество`,
         },
       ],
       node: <Input />,
@@ -41,33 +61,6 @@ export const ProfileFields = () => {
         },
       ],
       node: <Input />,
-    },
-    {
-      label: profileFieldsTitles.birth_date,
-      name: profileFieldsDataIndexes.birth_date,
-      rules: [
-        {
-          required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} дату рождения`,
-        },
-      ],
-      node: <DatePicker />,
-    },
-    {
-      label: profileFieldsTitles.gender,
-      name: profileFieldsDataIndexes.gender,
-      rules: [
-        {
-          required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} пол`,
-        },
-      ],
-      node: <Select placeholder="Выберите пол" options={genderOptions} />,
-    },
-    {
-      label: profileFieldsTitles.avatarUrl,
-      name: profileFieldsDataIndexes.avatarUrl,
-      node: UploadButton(),
     },
   ];
 

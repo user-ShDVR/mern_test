@@ -10,11 +10,10 @@ interface RequireAuthProps {
 export function RequireAuth(props: RequireAuthProps) {
   const { children } = props;
 
-  const { user} = useSelector(selectUser);
-  const token = localStorage.getItem("token");
+  const { user } = useSelector(selectUser);
 
-  if (!user && !token) {
-    return <Navigate to={RouterPath.register} />;
+  if (!user) {
+    return <Navigate to={RouterPath.main} />;
   }
 
   return children;

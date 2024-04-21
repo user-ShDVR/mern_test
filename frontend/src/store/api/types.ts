@@ -1,3 +1,16 @@
+export interface IUser {
+  name: string;
+  surname: string;
+  lastname: string;
+  email: string;
+  role: string;
+}
+
+export interface IUserState {
+  user: IUser | null;
+}
+
+// generate types
 export type UsersControllerCreateApiResponse = unknown;
 export type UsersControllerCreateApiArg = {
   createUserDto: CreateUserDto;
@@ -174,43 +187,23 @@ export type CartsProductsControllerRemoveApiArg = {
   id: string;
 };
 
-export type AuthControllerSignUpApiResponse = unknown;
+export type AuthControllerSignUpApiResponse =
+  /** status 201  */ UserResponseDto;
 export type AuthControllerSignUpApiArg = {
   signUpDto: SignUpDto;
 };
 
-export type AuthControllerSignInApiResponse = unknown;
+export type AuthControllerSignInApiResponse =
+  /** status 200  */ UserResponseDto;
 export type AuthControllerSignInApiArg = {
   signInDto: SignInDto;
 };
 
 export type AuthControllerSignOutApiResponse = unknown;
 export type AuthControllerSignOutApiArg = void;
-
-export interface IUser {
-  email: string;
-  name: string;
-  gender: string;
-  birth_date: Date;
-  avatarUrl: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-export interface IUserState {
-  user: IUser | null;
-  token: string | null;
-}
-
-export interface IUserFields {
-  token: string | null;
-  email: string;
-  name: string;
-  gender: string;
-  birth_date: Date;
-  avatarUrl: string;
-}
-
+export type AuthControllerGetSesssionInfoApiResponse =
+  /** status 200  */ UserResponseDto;
+export type AuthControllerGetSesssionInfoApiArg = void;
 export type CreateUserDto = {
   email: string;
   hash: string;
@@ -285,6 +278,15 @@ export type UpdateCartsProductDto = {
   cart_id?: number;
   product_id?: number;
   quantity?: number;
+};
+
+export type UserResponseDto = {
+  id: number;
+  email: string;
+  surname: string;
+  name: string;
+  lastname: string;
+  role: string;
 };
 
 export type SignUpDto = {

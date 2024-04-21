@@ -1,33 +1,32 @@
-import { Button } from "antd";
+import { Button, Input, Typography } from "antd";
 import styles from "./Navbar.module.scss";
 import { Link } from "react-router-dom";
 import { RouterPath } from "../AppRouter/routeConfig";
-import { logout } from "../../store/features/userSlice";
-import { useDispatch } from "react-redux";
-import { authApi } from "../../store/api/authApi";
-import { usersApi } from "../../store/api/usersApi";
+import { InboxOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import DropdownUser from "./DropdownUser";
 
 export const Navbar = () => {
-  const dispatch = useDispatch();
-  // func logout  
-  const handleLogout = () => {
-    dispatch(authApi.util.resetApiState());
-    dispatch(usersApi.util.resetApiState());
-    dispatch(logout());
-  };
   return (
-    <div className={styles.navbar}>
+    <div className={styles.wrapper}>
       <Link to={RouterPath.account}>
-        <Button>Профиль</Button>
+        <Button type="primary">Каталог</Button>
       </Link>
 
-      <Link to={RouterPath.peoples}>
-        <Button>Пользователи</Button>
-      </Link>
+      <Input.Search className={styles.searchInput} placeholder="Найти товар" />
 
-      <Button type="dashed" onClick={handleLogout}>
-        Выход
-      </Button>
+      <div className={styles.icons}>
+        <div className={styles.iconWrapper}>
+          <ShoppingCartOutlined className={styles.icon} />
+          <Typography.Text>Заказы</Typography.Text>
+        </div>
+
+        <div className={styles.iconWrapper}>
+          <InboxOutlined className={styles.icon} />
+          <Typography.Text>Корзина</Typography.Text>
+        </div>
+      </div>
+
+      <DropdownUser />
     </div>
   );
 };

@@ -1,25 +1,32 @@
 import React, { useState } from "react";
-import { useGetMeQuery } from "../../store/api/authApi";
 import { Page } from "../Page/Page";
 import { Button, Form, Typography } from "antd";
 import { AccountFields } from "./AccountFields";
-import { useUpdateUserMutation } from "../../store/api/usersApi";
 import { IUser } from "../../store/api/types";
+import {
+  useAuthControllerGetSesssionInfoQuery,
+  useUsersControllerUpdateMutation,
+} from "../../store/api/defaultApi";
 
 export const Account: React.FC = () => {
   const [isEdit, setIsEdit] = useState(false);
-  const { data: userData, isLoading } = useGetMeQuery(null);
-  const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
+
+  const { data: userData, isLoading } = useAuthControllerGetSesssionInfoQuery();
+
+  const [updateUser, { isLoading: isUpdating }] =
+    useUsersControllerUpdateMutation();
 
   const onFinish = (formValues: IUser) => {
     updateUser({
-      ...formValues,
-      avatarUrl: formValues?.avatarUrl?.fileList[0]?.response?.location,
+      id: userData?.id,
+      formValues,
     });
-    setIsEdit(!isEdit)
+    setIsEdit(!isEdit);
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <Page>

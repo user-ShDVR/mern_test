@@ -1,29 +1,28 @@
 import { Button, Form, Typography, message } from "antd";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 import { ProfileFields } from "./ProfileFields";
-import { IUser } from "../../store/api/types";
-import { Link, useNavigate } from "react-router-dom";
-import { RouterPath } from "../AppRouter/routeConfig";
+import { SignInDto } from "../../store/api/types";
+import { useNavigate } from "react-router-dom";
 import {
   AND_VALIDATE_MESSAGE,
   DEFAULT_VALIDATE_MESSAGE,
-} from "../../constants/constants";
-import { useLoginMutation } from "../../store/api/authApi";
+} from "../../constants/profileConstants";
 import React from "react";
-import { Page } from "../Page/Page";
+import { useAuthControllerSignInMutation } from "../../store/api/defaultApi";
 
 export const LoginForm = () => {
-  const [login, { isSuccess, isLoading, isError }] = useLoginMutation();
+  const [login, { isSuccess, isLoading, isError }] =
+    useAuthControllerSignInMutation();
+
   const navigate = useNavigate();
 
-  const onFinishCreateQuestionnaire = (formValues: IUser) => {
-    login(formValues);
+  const onFinishCreateQuestionnaire = (formValues: SignInDto) => {
+    login({ signInDto: formValues });
   };
 
   React.useEffect(() => {
     if (!isLoading && isSuccess) {
       message.success("Авторизация прошла успешно!");
-      navigate(RouterPath.peoples);
     }
 
     if (isError) {
@@ -49,7 +48,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <Page>
+    <>
       <Typography.Title>Авторизоваться</Typography.Title>
 
       <Form
@@ -61,11 +60,7 @@ export const LoginForm = () => {
         <Button type="primary" htmlType="submit">
           Авторизоваться
         </Button>
-
-        <Link to={RouterPath.register}>
-          <Button type="link">Нет аккаунта? Зарегестрироваться</Button>
-        </Link>
       </Form>
-    </Page>
+    </>
   );
 };

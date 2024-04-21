@@ -3,30 +3,26 @@ import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 import {
   AND_VALIDATE_MESSAGE,
   DEFAULT_VALIDATE_MESSAGE,
-} from "../../constants/constants";
-import { useRegisterMutation } from "../../store/api/authApi";
-import { IUser } from "../../store/api/types";
-import { Link, useNavigate } from "react-router-dom";
-import { RouterPath } from "../AppRouter/routeConfig";
-import { Page } from "../Page/Page";
+} from "../../constants/profileConstants";
+import { SignUpDto } from "../../store/api/types";
+import { useNavigate } from "react-router-dom";
 import React from "react";
+import { useAuthControllerSignUpMutation } from "../../store/api/defaultApi";
 import { ProfileFields } from "./profileFields";
 
 export const RegisterForm = () => {
-  const [register, { isSuccess, isLoading, isError }] = useRegisterMutation();
+  const [register, { isSuccess, isLoading, isError }] =
+    useAuthControllerSignUpMutation();
+
   const navigate = useNavigate();
 
-  const onFinishCreateQuestionnaire = (formValues: IUser) => {
-    register({
-      ...formValues,
-      avatarUrl: formValues?.avatarUrl?.fileList[0]?.response?.location,
-    });
+  const onFinishCreateQuestionnaire = (formValues: SignUpDto) => {
+    register({ signUpDto: formValues });
   };
 
   React.useEffect(() => {
     if (!isLoading && isSuccess) {
       message.success("Профиль создан!");
-      navigate(RouterPath.account);
     }
 
     if (isError) {
@@ -52,7 +48,7 @@ export const RegisterForm = () => {
   };
 
   return (
-    <Page>
+    <>
       <Typography.Title>Создать профиль</Typography.Title>
 
       <Form
@@ -64,11 +60,7 @@ export const RegisterForm = () => {
         <Button type="primary" htmlType="submit">
           Зарегестрироваться
         </Button>
-
-        <Link to={RouterPath.login}>
-          <Button type="link">Есть аккаунт? Войти</Button>
-        </Link>
       </Form>
-    </Page>
+    </>
   );
 };

@@ -1,6 +1,40 @@
-.navbar {
+.wrapper {
   display: flex;
-  justify-content: space-evenly;
-  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  padding: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.searchInput {
+  width: 40vw;
+}
+
+.icons {
+  display: flex;
+  gap: 20px;
+}
+
+.iconWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.dropdownWrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+}
+
+.dropdownIcon {
+  font-size: 15px;
 }
