@@ -62,7 +62,7 @@ export class TypesService {
       throw new NotFoundException('Тип с таким url уже существует.');
     }
 
-    await this.db.types.update({ where: { id }, data: { ...UpdateTypeDto } });
+    await this.db.types.update({ where: { id }, data: { ...updateTypeDto } });
     return 'Тип обновлён.';
   }
 
