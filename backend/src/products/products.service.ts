@@ -28,24 +28,27 @@ export class ProductsService {
   async findAll(
     page: number = 1,
     limit: number = 16,
-    filter?: any,
     minPrice?: number,
     maxPrice?: number,
     sortBy?: string,
     sortOrder?: string,
+    type?: string,
   ) {
     const offset = (page - 1) * limit;
-    let whereClause = filter
-      ? { ...filter, deleted: false }
-      : { deleted: false };
+    const whereClause: any = { deleted: false };
 
+    // Include type filter if provided
+    if (type) {
+      whereClause.type = {
+        url: type,
+      };
+    }
+
+    // Price range filter
     if (minPrice !== undefined && maxPrice !== undefined) {
-      whereClause = {
-        ...whereClause,
-        price: {
-          gte: minPrice,
-          lte: maxPrice,
-        },
+      whereClause.price = {
+        gte: minPrice,
+        lte: maxPrice,
       };
     }
 
@@ -55,7 +58,12 @@ export class ProductsService {
       orderBy[sortBy] = sortOrder;
     }
 
-    const totalCount = await this.db.products.count({ where: whereClause });
+    // Fetching total count of products based on filters
+    const totalCount = await this.db.products.count({
+      where: whereClause,
+    });
+
+    // Fetching products with all applied filters and pagination
     const products = await this.db.products.findMany({
       where: whereClause,
       take: limit,
@@ -63,6 +71,7 @@ export class ProductsService {
       orderBy: orderBy,
       include: {
         image: true,
+        type: true,
       },
     });
 

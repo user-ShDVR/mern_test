@@ -39,17 +39,16 @@ export class ProductsController {
     @Query('maxPrice', ParseIntPipe) maxPrice?: number,
     @Query('sortBy') sortBy?: string,
     @Query('sortOrder') sortOrder?: string,
+    @Query('type') type?: string,
   ) {
-    const filterObject: any = { deleted: false };
-
     return this.productsService.findAll(
       page,
       limit,
-      filterObject,
       minPrice,
       maxPrice,
       sortBy,
       sortOrder,
+      type,
     );
   }
 
