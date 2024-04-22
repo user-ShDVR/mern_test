@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { RouterPath } from "./components/AppRouter/routeConfig";
 import { useAuthControllerGetSesssionInfoQuery } from "./store/api/defaultApi";
 import { Page } from "./components/Page/Page";
-import { NavigationBreadCrumb } from "./NavigationBreadCrumb/NavigationBreadCrumb";
+import { DynamicBreadCrumb } from "./DynamicBreadCrumb/DynamicBreadCrumb";
 
 export const App = () => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ export const App = () => {
     <>
       <Navbar />
       <Page>
-        <NavigationBreadCrumb />
+        <DynamicBreadCrumb />
         <AppRouter />
       </Page>
     </>

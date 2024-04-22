@@ -2,7 +2,6 @@ import { Button, Form, Typography, message } from "antd";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 import { ProfileFields } from "./ProfileFields";
 import { SignInDto } from "../../store/api/types";
-import { useNavigate } from "react-router-dom";
 import {
   AND_VALIDATE_MESSAGE,
   DEFAULT_VALIDATE_MESSAGE,
@@ -21,8 +20,6 @@ export const LoginForm = (props: LoginFormProps) => {
   const [login, { isSuccess, isLoading, isError }] =
     useAuthControllerSignInMutation();
 
-  const navigate = useNavigate();
-
   const onFinishCreateQuestionnaire = (formValues: SignInDto) => {
     login({ signInDto: formValues });
   };
@@ -36,7 +33,8 @@ export const LoginForm = (props: LoginFormProps) => {
     if (isError) {
       message.error("Неверный логин или пароль!");
     }
-  }, [isError, isLoading, isSuccess, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isError, isLoading, isSuccess]);
 
   const onFailedCreateQuestionnaire = (formValues: ValidateErrorEntity) => {
     const notFilledFields = formValues.errorFields

@@ -21,7 +21,7 @@ export const Catalog = () => {
           }`;
 
           return (
-            <Link to={catalogElement.url}>
+            <Link className={styles.link} to={catalogElement.url}>
               <Card
                 className={styles.card}
                 hoverable

@@ -5,6 +5,7 @@ export interface IProduct {
   image_id: number;
   type_id: number;
   deleted: boolean;
+  description: string;
   image: {
     id: number;
     filename: string;
@@ -18,6 +19,12 @@ export interface IProduct {
     url: string;
     image_id: number;
   };
+  characteristics: {
+    id: number;
+    key: string;
+    product_id: number;
+    value: string;
+  }[];
 }
 
 export interface IProductsResponse {

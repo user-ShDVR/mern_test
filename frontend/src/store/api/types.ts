@@ -1,5 +1,5 @@
 import { ICatalogElement } from "../../types/ICatalogElement";
-import { IProductsResponse } from "../../types/IProduct";
+import { IProduct, IProductsResponse } from "../../types/IProduct";
 
 export interface IUser {
   name: string;
@@ -57,7 +57,7 @@ export type ProductsControllerFindAllApiArg = {
   type?: string;
 };
 
-export type ProductsControllerFindOneApiResponse = unknown;
+export type ProductsControllerFindOneApiResponse = IProduct;
 export type ProductsControllerFindOneApiArg = {
   id: string;
 };
