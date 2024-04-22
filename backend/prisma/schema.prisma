@@ -33,16 +33,26 @@ model users {
 }
 
 model products {
-  id             Int      @default(autoincrement()) @id
+  id             Int             @default(autoincrement()) @id
   name           String
-  price          Int   
-  image          images   @relation(fields: [image_id], references: [id])
+  price          Int
+  description    String          
+  image          images          @relation(fields: [image_id], references: [id])
   image_id       Int
-  type           types    @relation(fields: [type_id], references: [id])
+  type           types           @relation(fields: [type_id], references: [id])
   type_id        Int
   orders         orders[]
   carts_products carts_products[]
-  deleted        Boolean  @default(false)
+  deleted        Boolean         @default(false)
+  characteristics characteristics[]
+}
+
+model characteristics {
+  id          Int      @default(autoincrement()) @id
+  product     products @relation(fields: [product_id], references: [id])
+  product_id  Int
+  key         String
+  value       String
 }
 
 model types {

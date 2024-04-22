@@ -21,8 +21,23 @@ export class ProductsService {
     if (!type) {
       throw new NotFoundException('Такого типа не существует.');
     }
-    await this.db.products.create({ data: { ...createProductDto } });
-    return 'Продукт создан.';
+
+    const { characteristics, ...productData } = createProductDto;
+
+    // Создаем продукт с привязанными характеристиками
+    const product = await this.db.products.create({
+      data: {
+        ...productData,
+        characteristics: {
+          create: characteristics.map((char) => ({
+            key: char.key,
+            value: char.value,
+          })),
+        },
+      },
+    });
+
+    return product;
   }
 
   async findAll(
@@ -72,6 +87,7 @@ export class ProductsService {
       include: {
         image: true,
         type: true,
+        characteristics: true,
       },
     });
 
@@ -79,7 +95,14 @@ export class ProductsService {
   }
 
   async findOne(id: number) {
-    const product = await this.db.products.findFirst({ where: { id } });
+    const product = await this.db.products.findFirst({
+      where: { id },
+      include: {
+        characteristics: true,
+        image: true,
+        type: true,
+      },
+    });
     if (!product) {
       throw new NotFoundException('id указан неверно.');
     }
@@ -95,10 +118,26 @@ export class ProductsService {
     if (!image) {
       throw new NotFoundException('image указан неправильно.');
     }
+
+    const { characteristics, ...productData } = updateProductDto;
+
     const updatedProduct = await this.db.products.update({
       where: { id },
-      data: { ...updateProductDto },
+      data: {
+        ...productData,
+        characteristics: {
+          upsert: characteristics.map((char) => ({
+            where: { id: char.id || 0 },
+            update: { key: char.key, value: char.value },
+            create: { key: char.key, value: char.value },
+          })),
+        },
+      },
+      include: {
+        characteristics: true, // Позволяет возвращать характеристики после обновления
+      },
     });
+
     return updatedProduct;
   }
 

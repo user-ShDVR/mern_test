@@ -1,11 +1,35 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateProductDto {
   @ApiProperty({ example: 'Santo Stefano Vacanze romane' })
   @IsNotEmpty()
   @IsString()
   name: string;
+
+  @ApiProperty({
+    example:
+      'Это вино было создано богами в древнем риме когда фронтенд писали на razor asp.net',
+  })
+  @IsNotEmpty()
+  @IsString()
+  description: string;
+
+  @ApiProperty({
+    example: [
+      { key: 'Страна', value: 'Италия' },
+      { key: 'Артикул', value: 'Santo Stefano' },
+    ],
+  })
+  @IsNotEmpty()
+  @IsArray()
+  characteristics: CharacteristicDto[];
 
   @ApiProperty({ example: 499 })
   @IsNotEmpty()
@@ -21,4 +45,10 @@ export class CreateProductDto {
   @IsNotEmpty()
   @IsNumber()
   type_id: number;
+}
+
+class CharacteristicDto {
+  id?: number;
+  key: string;
+  value: string;
 }
