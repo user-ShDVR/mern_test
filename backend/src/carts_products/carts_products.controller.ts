@@ -48,11 +48,8 @@ export class CartsProductsController {
     return this.cartsProductsService.update(+id, updateCartsProductDto);
   }
 
-  @Delete(':id')
-  remove(
-    @Query('product_id') id: number = 1,
-    @Query('user_id') cart_id: number = 16,
-  ) {
+  @Delete()
+  remove(@Query('product_id') id: number, @Query('user_id') cart_id: number) {
     return this.cartsProductsService.remove(+id, +cart_id);
   }
 }
