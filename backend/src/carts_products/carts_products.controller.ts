@@ -49,7 +49,10 @@ export class CartsProductsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.cartsProductsService.remove(+id);
+  remove(
+    @Query('product_id') id: number = 1,
+    @Query('user_id') cart_id: number = 16,
+  ) {
+    return this.cartsProductsService.remove(+id, +cart_id);
   }
 }

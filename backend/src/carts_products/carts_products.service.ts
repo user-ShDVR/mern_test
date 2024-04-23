@@ -21,6 +21,16 @@ export class CartsProductsService {
     return { totalCount, carts_products };
   }
 
+  async findAllByCart(page: number = 1, limit: number = 16) {
+    const offset = (page - 1) * limit;
+    const totalCount = await this.db.carts_products.count();
+    const carts_products = await this.db.carts_products.findMany({
+      take: limit,
+      skip: offset,
+    });
+    return { totalCount, carts_products };
+  }
+
   async findOne(id: number) {
     const cart_product = await this.db.carts_products.findFirst({
       where: { id },
@@ -43,12 +53,16 @@ export class CartsProductsService {
     return 'Продукт в корзине обновлен.';
   }
 
-  async remove(id: number) {
-    const cart_product = await this.findOne(id);
+  async remove(id: number, cartId: number) {
+    const cart_product = await this.db.carts_products.findFirst({
+      where: { product_id: id, cart_id: cartId },
+    });
     if (!cart_product) {
       throw new NotFoundException('id уазан неверно.');
     }
-    await this.db.carts_products.delete({ where: { id } });
+    await this.db.carts_products.deleteMany({
+      where: { cart_id: cartId, product_id: id },
+    });
     return 'Продукт в корзине удалён.';
   }
 }
