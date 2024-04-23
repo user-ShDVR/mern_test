@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { RouterPath } from "./components/AppRouter/routeConfig";
 import { useAuthControllerGetSesssionInfoQuery } from "./store/api/defaultApi";
 import { Page } from "./components/Page/Page";
-import { DynamicBreadCrumb } from "./DynamicBreadCrumb/DynamicBreadCrumb";
+import { DynamicBreadCrumb } from "./components/DynamicBreadCrumb/DynamicBreadCrumb";
 
 export const App = () => {
   const navigate = useNavigate();
