@@ -38,9 +38,9 @@ export class CartsProductsService {
     }
     await this.db.carts_products.update({
       where: { id },
-      data: { ...cart_product },
+      data: { ...updateCartsProductDto },
     });
-    return 'Продукт в корзине удалён.';
+    return 'Продукт в корзине обновлен.';
   }
 
   async remove(id: number) {
