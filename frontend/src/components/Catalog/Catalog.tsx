@@ -3,6 +3,7 @@ import styles from "./Catalog.module.scss";
 import { Link } from "react-router-dom";
 import { useTypesControllerFindAllQuery } from "../../store/api/defaultApi";
 import { IType } from "../../types/ICatalogElement";
+import { ShadowCard } from "../ShadowCard/ShadowCard";
 
 export const Catalog = () => {
   const { data: typesData } = useTypesControllerFindAllQuery({
@@ -21,14 +22,17 @@ export const Catalog = () => {
           }`;
 
           return (
-            <Link className={styles.link} to={catalogElement.url}>
-              <Card
+            <Link
+              className={styles.link}
+              to={catalogElement.url}
+              key={catalogElement.id}
+            >
+              <ShadowCard
                 className={styles.card}
-                hoverable
                 cover={<img src={imageUrl} alt={catalogElement.name} />}
               >
                 <Card.Meta title={catalogElement.name} />
-              </Card>
+              </ShadowCard>
             </Link>
           );
         })}

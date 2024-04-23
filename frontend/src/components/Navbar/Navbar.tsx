@@ -22,15 +22,15 @@ export const Navbar = () => {
       <Input.Search className={styles.searchInput} placeholder="Найти товар" />
 
       <div className={styles.icons}>
-        <div className={styles.iconWrapper}>
+        <Link className={styles.iconWrapper} to="">
           <ShoppingCartOutlined className={styles.icon} />
           <Typography.Text>Заказы</Typography.Text>
-        </div>
+        </Link>
 
-        <div className={styles.iconWrapper}>
+        <Link className={styles.iconWrapper} to={RouterPath.cart}>
           <InboxOutlined className={styles.icon} />
           <Typography.Text>Корзина</Typography.Text>
-        </div>
+        </Link>
       </div>
 
       <DropdownUser />

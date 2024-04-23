@@ -1,7 +1,8 @@
-import { Button, Card, Image, Table, Typography } from "antd";
+import { Button, Image, Table, Typography } from "antd";
 import styles from "./ProductItem.module.scss";
 import { useProductsControllerFindOneQuery } from "../../store/api/defaultApi";
 import { ShareAltOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { ShadowCard } from "../ShadowCard/ShadowCard";
 
 export const ProductItem = () => {
   const productItemId = window.location.pathname.split("/")[3];
@@ -33,7 +34,7 @@ export const ProductItem = () => {
     <>
       <Typography.Title>{productData?.name}</Typography.Title>
 
-      <Card className={styles.productItemCard}>
+      <ShadowCard>
         <div className={styles.productItemWrapper}>
           <Image src={imageUrl} preview={false} />
 
@@ -66,7 +67,7 @@ export const ProductItem = () => {
             </Button>
           </div>
         </div>
-      </Card>
+      </ShadowCard>
     </>
   );
 };

@@ -4,6 +4,7 @@ import { AccountPage } from "../../pages/AccountPage";
 import { CatalogPage } from "../../pages/CatalogPage";
 import { CatalogItemPage } from "../../pages/CatalogItemPage";
 import { ProductsItemPage } from "../../pages/ProductsItemPage";
+import { CartPage } from "../../pages/CartPage";
 
 export type AppRouteProps = RouteProps & {
   authOnly?: boolean;
@@ -16,6 +17,7 @@ export enum AppRoutes {
   CATALOG = "catalog",
   CATALOG_ITEM = "catalog_item",
   PRODUCT_ITEM = "product_item",
+  CART = "cart",
 }
 
 export const RouterPath: Record<AppRoutes, string> = {
@@ -24,6 +26,7 @@ export const RouterPath: Record<AppRoutes, string> = {
   [AppRoutes.CATALOG]: "/catalog",
   [AppRoutes.CATALOG_ITEM]: "/catalog/:url",
   [AppRoutes.PRODUCT_ITEM]: "/catalog/:url/:id",
+  [AppRoutes.CART]: "/cart",
 };
 
 export const routeConfig: Record<AppRoutes, AppRouteProps> = {
@@ -47,5 +50,9 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
   [AppRoutes.PRODUCT_ITEM]: {
     path: RouterPath.product_item,
     element: <ProductsItemPage />,
+  },
+  [AppRoutes.CART]: {
+    path: RouterPath.cart,
+    element: <CartPage />,
   },
 };

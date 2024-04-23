@@ -1,12 +1,17 @@
-import { Button, Card, Empty, Pagination, Typography } from "antd";
+import { Button, Card, Pagination, Typography } from "antd";
 import styles from "./CatalogItem.module.scss";
 import { Filters } from "./Filters";
 import { useProductsControllerFindAllQuery } from "../../store/api/defaultApi";
 import { IProduct } from "../../types/IProduct";
 import React from "react";
 import { Link } from "react-router-dom";
+import { EmptyMessage } from "../EmptyMessage/EmptyMessage";
+import { ShadowCard } from "../ShadowCard/ShadowCard";
+import { CartActions, useCartActions } from "../../utils/cart-actionts";
 
 export const CatalogItem = () => {
+  const { handleActionCart } = useCartActions();
+
   const [currentPage, setCurrentPage] = React.useState(1);
   const [minValue, setMinValue] = React.useState(1);
   const [maxValue, setMaxValue] = React.useState(100000);
@@ -30,12 +35,14 @@ export const CatalogItem = () => {
     setCurrentPage(page);
   };
 
+  const isProductInCart = true;
+
   return (
     <>
       <Typography.Title>Вино</Typography.Title>
 
       <div className={styles.wrapper}>
-        <Card className={styles.filtersWrapper}>
+        <ShadowCard className={styles.filtersWrapper}>
           <Typography.Title level={4}>Фильтры</Typography.Title>
 
           <Filters
@@ -46,28 +53,24 @@ export const CatalogItem = () => {
             setSortOrder={setSortOrder}
             setSortBy={setSortBy}
           />
-        </Card>
+        </ShadowCard>
 
         <div className={styles.productsWrapper}>
           {productsData?.products.length === 0 && (
-            <Empty
-              className={styles.emptyMessage}
-              description="Товары не найдены"
-            />
+            <EmptyMessage description="Товары не найдены" />
           )}
 
           {productsData?.products.map((product: IProduct) => {
             const imageUrl = `${import.meta.env.VITE_BASE_URL}/uploads/${
               product.image.filename
             }`;
-
             return (
               <Link
                 className={styles.link}
                 to={`${product.id}`}
                 key={product.id}
               >
-                <Card
+                <ShadowCard
                   className={styles.cardWrapper}
                   key={product.id}
                   cover={<img src={imageUrl} alt={product.name} />}
@@ -80,12 +83,37 @@ export const CatalogItem = () => {
                       </>
                     }
                     description={
-                      <Button className={styles.cardButton} type="primary">
-                        В корзину
-                      </Button>
+                      isProductInCart ? (
+                        <Button
+                          className={styles.cardButton}
+                          type="primary"
+                          onClick={(e) =>
+                            handleActionCart({
+                              productId: product.id,
+                              action: CartActions.ADD,
+                              eventButton: e,
+                            })
+                          }
+                        >
+                          В корзину
+                        </Button>
+                      ) : (
+                        <Button
+                          className={styles.cardButton}
+                          onClick={(e) =>
+                            handleActionCart({
+                              productId: product.id,
+                              action: CartActions.DELETE,
+                              eventButton: e,
+                            })
+                          }
+                        >
+                          В корзине
+                        </Button>
+                      )
                     }
                   />
-                </Card>
+                </ShadowCard>
               </Link>
             );
           })}

@@ -4,6 +4,7 @@ import styles from "./DynamicBreadCrumb.module.scss";
 
 const pathTranslations = {
   catalog: "Каталог",
+  cart: "Корзина",
   vines: "Вина",
 };
 
