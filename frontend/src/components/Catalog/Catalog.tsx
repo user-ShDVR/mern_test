@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useTypesControllerFindAllQuery } from "../../store/api/defaultApi";
 import { IType } from "../../types/ICatalogElement";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 export const Catalog = () => {
   const { data: typesData } = useTypesControllerFindAllQuery({
@@ -17,10 +18,6 @@ export const Catalog = () => {
 
       <div className={styles.wrapper}>
         {typesData?.types.map((catalogElement: IType) => {
-          const imageUrl = `${import.meta.env.VITE_BASE_URL}/uploads/${
-            catalogElement.image.filename
-          }`;
-
           return (
             <Link
               className={styles.link}
@@ -29,7 +26,12 @@ export const Catalog = () => {
             >
               <ShadowCard
                 className={styles.card}
-                cover={<img src={imageUrl} alt={catalogElement.name} />}
+                cover={
+                  <img
+                    src={getImageUrl(catalogElement.image.filename)}
+                    alt={catalogElement.name}
+                  />
+                }
               >
                 <Card.Meta title={catalogElement.name} />
               </ShadowCard>

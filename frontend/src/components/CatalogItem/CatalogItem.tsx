@@ -1,4 +1,4 @@
-import { Button, Card, Pagination, Typography } from "antd";
+import { Card, Pagination, Typography } from "antd";
 import styles from "./CatalogItem.module.scss";
 import { Filters } from "./Filters";
 import { useProductsControllerFindAllQuery } from "../../store/api/defaultApi";
@@ -7,11 +7,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { EmptyMessage } from "../EmptyMessage/EmptyMessage";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
-import { CartActions, useCartActions } from "../../utils/cart-actionts";
+import { CartButtons } from "../CartButtons/CartButtons";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 export const CatalogItem = () => {
-  const { handleActionCart } = useCartActions();
-
   const [currentPage, setCurrentPage] = React.useState(1);
   const [minValue, setMinValue] = React.useState(1);
   const [maxValue, setMaxValue] = React.useState(100000);
@@ -34,8 +33,6 @@ export const CatalogItem = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
-
-  const isProductInCart = true;
 
   return (
     <>
@@ -61,9 +58,6 @@ export const CatalogItem = () => {
           )}
 
           {productsData?.products.map((product: IProduct) => {
-            const imageUrl = `${import.meta.env.VITE_BASE_URL}/uploads/${
-              product.image.filename
-            }`;
             return (
               <Link
                 className={styles.link}
@@ -73,7 +67,12 @@ export const CatalogItem = () => {
                 <ShadowCard
                   className={styles.cardWrapper}
                   key={product.id}
-                  cover={<img src={imageUrl} alt={product.name} />}
+                  cover={
+                    <img
+                      src={getImageUrl(product.image.filename)}
+                      alt={product.name}
+                    />
+                  }
                 >
                   <Card.Meta
                     title={
@@ -82,36 +81,7 @@ export const CatalogItem = () => {
                         <p className={styles.cardText}>{product.name}</p>
                       </>
                     }
-                    description={
-                      isProductInCart ? (
-                        <Button
-                          className={styles.cardButton}
-                          type="primary"
-                          onClick={(e) =>
-                            handleActionCart({
-                              productId: product.id,
-                              action: CartActions.ADD,
-                              eventButton: e,
-                            })
-                          }
-                        >
-                          В корзину
-                        </Button>
-                      ) : (
-                        <Button
-                          className={styles.cardButton}
-                          onClick={(e) =>
-                            handleActionCart({
-                              productId: product.id,
-                              action: CartActions.DELETE,
-                              eventButton: e,
-                            })
-                          }
-                        >
-                          В корзине
-                        </Button>
-                      )
-                    }
+                    description={<CartButtons productId={product.id} />}
                   />
                 </ShadowCard>
               </Link>

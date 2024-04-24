@@ -1,8 +1,10 @@
 import { Button, Image, Table, Typography } from "antd";
 import styles from "./ProductItem.module.scss";
 import { useProductsControllerFindOneQuery } from "../../store/api/defaultApi";
-import { ShareAltOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { ShareAltOutlined } from "@ant-design/icons";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
+import { CartButtons } from "../CartButtons/CartButtons";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 export const ProductItem = () => {
   const productItemId = window.location.pathname.split("/")[3];
@@ -26,26 +28,24 @@ export const ProductItem = () => {
     navigator.clipboard.writeText(window.location.href);
   };
 
-  const imageUrl = `${import.meta.env.VITE_BASE_URL}/uploads/${
-    productData?.image.filename
-  }`;
-
   return (
     <>
       <Typography.Title>{productData?.name}</Typography.Title>
 
       <ShadowCard>
         <div className={styles.productItemWrapper}>
-          <Image src={imageUrl} preview={false} />
+          <Image
+            src={getImageUrl(productData?.image.filename)}
+            preview={false}
+          />
 
           <div className={styles.productItemInfo}>
             <Typography.Title>{productData?.price} ₽</Typography.Title>
+            <CartButtons productId={Number(productItemId)} />
 
-            <Button className={styles.button} type="primary" size="large">
-              <ShoppingCartOutlined className={styles.buttonIcon} />В корзину
-            </Button>
-
-            <Typography.Title level={3}>Характеристики</Typography.Title>
+            <Typography.Title className={styles.characteristicsTitle} level={3}>
+              Характеристики
+            </Typography.Title>
 
             <Table
               className={styles.characteristics}
@@ -58,6 +58,7 @@ export const ProductItem = () => {
 
           <div className={styles.productItemInfo}>
             <Typography.Title level={3}>Описание</Typography.Title>
+
             <Typography.Text className={styles.description}>
               {productData?.description}
             </Typography.Text>

@@ -1,13 +1,12 @@
 import { Button, Form, Typography, message } from "antd";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 import { ProfileFields } from "./ProfileFields";
-import { SignInDto } from "../../store/api/types";
 import {
   AND_VALIDATE_MESSAGE,
   DEFAULT_VALIDATE_MESSAGE,
 } from "../../constants/profileConstants";
 import React from "react";
-import { useAuthControllerSignInMutation } from "../../store/api/defaultApi";
+import { SignInDto, useAuthControllerSignInMutation } from "../../store/api/defaultApi";
 
 interface LoginFormProps {
   handleCloseModal: () => void;

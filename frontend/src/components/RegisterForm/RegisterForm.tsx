@@ -4,10 +4,9 @@ import {
   AND_VALIDATE_MESSAGE,
   DEFAULT_VALIDATE_MESSAGE,
 } from "../../constants/profileConstants";
-import { SignUpDto } from "../../store/api/types";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import { useAuthControllerSignUpMutation } from "../../store/api/defaultApi";
+import { SignUpDto, useAuthControllerSignUpMutation } from "../../store/api/defaultApi";
 import { ProfileFields } from "./profileFields";
 
 interface RegisterFormProps {
@@ -36,6 +35,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
     if (isError) {
       message.error("Произошла ошибка при создании профиля");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, isLoading, isSuccess, navigate]);
 
   const onFailedCreateQuestionnaire = (formValues: ValidateErrorEntity) => {
