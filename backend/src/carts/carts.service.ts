@@ -53,11 +53,12 @@ export class CartsService {
   }
 
   async clear(id: number) {
-    const cart = await this.db.carts.findFirst({ where: { id: id } });
+    const cart = await this.db.carts.findFirst({ where: { user_id: id } });
     if (!cart) {
       throw new NotFoundException('id указан неправильно.');
     }
-    this.db.carts_products.deleteMany({ where: { cart_id: cart.id } });
-    return 'Корзина очищена.';
+    return await this.db.carts_products.deleteMany({
+      where: { cart_id: cart.id },
+    });
   }
 }
