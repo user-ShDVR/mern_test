@@ -54,8 +54,8 @@ export class CartsProductsService {
       });
       return 'Продукт в корзине удалён.';
     }
-    await this.db.carts_products.update({
-      where: { id },
+    await this.db.carts_products.updateMany({
+      where: { cart_id: id, product_id: updateCartsProductDto.product_id },
       data: { ...updateCartsProductDto },
     });
     return 'Продукт в корзине обновлен.';
