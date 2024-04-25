@@ -53,7 +53,7 @@ export class CartsService {
   }
 
   async clear(id: number) {
-    const cart = await this.findOne(id);
+    const cart = await this.db.carts.findFirst({ where: { id: id } });
     if (!cart) {
       throw new NotFoundException('id указан неправильно.');
     }
