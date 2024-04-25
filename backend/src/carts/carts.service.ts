@@ -57,7 +57,7 @@ export class CartsService {
     if (!cart) {
       throw new NotFoundException('id указан неправильно.');
     }
-    this.db.carts_products.deleteMany({ where: { id: cart.id } });
+    this.db.carts_products.deleteMany({ where: { cart_id: cart.id } });
     return 'Корзина очищена.';
   }
 }

@@ -42,9 +42,17 @@ export class CartsProductsService {
   }
 
   async update(id: number, updateCartsProductDto: UpdateCartsProductDto) {
-    const cart_product = await this.findOne(id);
+    const cart_product = await this.db.carts_products.findFirst({
+      where: { cart_id: id, product_id: updateCartsProductDto.product_id },
+    });
     if (!cart_product) {
       throw new NotFoundException('id уазан неверно.');
+    }
+    if (updateCartsProductDto.quantity === 0) {
+      await this.db.carts_products.deleteMany({
+        where: { cart_id: id, product_id: updateCartsProductDto.product_id },
+      });
+      return 'Продукт в корзине удалён.';
     }
     await this.db.carts_products.update({
       where: { id },
