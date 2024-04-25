@@ -1,13 +1,13 @@
 import { Card, Typography } from "antd";
 import styles from "./Catalog.module.scss";
 import { Link } from "react-router-dom";
-import { useTypesControllerFindAllQuery } from "../../store/api/defaultApi";
 import { IType } from "../../types/ICatalogElement";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
 import { getImageUrl } from "../../utils/getImageUrl";
+import { useGetTypesQuery } from "../../store/api/types/types-api";
 
 export const Catalog = () => {
-  const { data: typesData } = useTypesControllerFindAllQuery({
+  const { data: typesData } = useGetTypesQuery({
     page: 1,
     limit: 100,
   });

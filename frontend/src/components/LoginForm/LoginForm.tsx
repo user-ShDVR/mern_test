@@ -6,7 +6,7 @@ import {
   DEFAULT_VALIDATE_MESSAGE,
 } from "../../constants/profileConstants";
 import React from "react";
-import { SignInDto, useAuthControllerSignInMutation } from "../../store/api/defaultApi";
+import { useSignInMutation } from "../../store/api/auth/auth-api";
 
 interface LoginFormProps {
   handleCloseModal: () => void;
@@ -16,11 +16,10 @@ interface LoginFormProps {
 export const LoginForm = (props: LoginFormProps) => {
   const { handleCloseModal, setIsHaveAccount } = props;
 
-  const [login, { isSuccess, isLoading, isError }] =
-    useAuthControllerSignInMutation();
+  const [login, { isSuccess, isLoading, isError }] = useSignInMutation();
 
-  const onFinishCreateQuestionnaire = (formValues: SignInDto) => {
-    login({ signInDto: formValues });
+  const onFinishCreateQuestionnaire = (formValues) => {
+    login({ ...formValues });
   };
 
   React.useEffect(() => {

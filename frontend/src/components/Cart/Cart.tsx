@@ -4,6 +4,7 @@ import { EmptyMessage } from "../EmptyMessage/EmptyMessage";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { useCartActions } from "../../hooks/use-cart-actionts";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 export const Cart = () => {
   const { cartProductsData } = useCartActions();
@@ -23,7 +24,7 @@ export const Cart = () => {
                   <div className={styles.productImageWrapper}>
                     <img
                       className={styles.productImage}
-                      src={product.product.image}
+                      src={getImageUrl(product.product.image.filename)}
                       alt={product.product.name}
                     />
 

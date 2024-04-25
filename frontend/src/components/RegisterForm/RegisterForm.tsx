@@ -6,8 +6,8 @@ import {
 } from "../../constants/profileConstants";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import { SignUpDto, useAuthControllerSignUpMutation } from "../../store/api/defaultApi";
 import { ProfileFields } from "./profileFields";
+import { useSignUpMutation } from "../../store/api/auth/auth-api";
 
 interface RegisterFormProps {
   handleCloseModal: () => void;
@@ -17,13 +17,12 @@ interface RegisterFormProps {
 export const RegisterForm = (props: RegisterFormProps) => {
   const { handleCloseModal, setIsHaveAccount } = props;
 
-  const [register, { isSuccess, isLoading, isError }] =
-    useAuthControllerSignUpMutation();
+  const [register, { isSuccess, isLoading, isError }] = useSignUpMutation();
 
   const navigate = useNavigate();
 
-  const onFinishCreateQuestionnaire = (formValues: SignUpDto) => {
-    register({ signUpDto: formValues });
+  const onFinishCreateQuestionnaire = (formValues) => {
+    register({ ...formValues });
   };
 
   React.useEffect(() => {

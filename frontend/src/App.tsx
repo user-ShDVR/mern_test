@@ -1,25 +1,18 @@
-import React from "react";
 import { AppRouter } from "./components/AppRouter/AppRouter";
-import { useSelector } from "react-redux";
-import { selectUser } from "./store/features/userSlice";
 import { Navbar } from "./components/Navbar/Navbar";
-import { useNavigate } from "react-router-dom";
-import { RouterPath } from "./components/AppRouter/routeConfig";
-import { useAuthControllerGetSesssionInfoQuery } from "./store/api/defaultApi";
 import { Page } from "./components/Page/Page";
 import { DynamicBreadCrumb } from "./components/DynamicBreadCrumb/DynamicBreadCrumb";
+import React from "react";
+import { useActions } from "./hooks/use-actionts";
+import { useGetAuthUserQuery } from "./store/api/auth/auth-api";
 
 export const App = () => {
-  const navigate = useNavigate();
-  const { isLoading, isError } = useAuthControllerGetSesssionInfoQuery();
-  const { user } = useSelector(selectUser);
+  const { data: userData } = useGetAuthUserQuery();
+  const { setUser } = useActions();
 
   React.useEffect(() => {
-    if ((!isLoading && !user) || isError) {
-      navigate(RouterPath.main);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setUser(userData);
+  }, [setUser, userData]);
 
   return (
     <>

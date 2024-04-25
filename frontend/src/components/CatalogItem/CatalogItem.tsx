@@ -1,7 +1,6 @@
 import { Card, Pagination, Typography } from "antd";
 import styles from "./CatalogItem.module.scss";
 import { Filters } from "./Filters";
-import { useProductsControllerFindAllQuery } from "../../store/api/defaultApi";
 import { IProduct } from "../../types/IProduct";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -9,6 +8,7 @@ import { EmptyMessage } from "../EmptyMessage/EmptyMessage";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
 import { CartButtons } from "../CartButtons/CartButtons";
 import { getImageUrl } from "../../utils/getImageUrl";
+import { useGetProductsQuery } from "../../store/api/products/products-api";
 
 export const CatalogItem = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -20,7 +20,7 @@ export const CatalogItem = () => {
 
   const categoryType = window.location.pathname.split("/")[2];
 
-  const { data: productsData } = useProductsControllerFindAllQuery({
+  const { data: productsData } = useGetProductsQuery({
     page: currentPage,
     limit: 4,
     minPrice: minValue,

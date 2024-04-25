@@ -1,15 +1,15 @@
 import { Button, Image, Table, Typography } from "antd";
 import styles from "./ProductItem.module.scss";
-import { useProductsControllerFindOneQuery } from "../../store/api/defaultApi";
 import { ShareAltOutlined } from "@ant-design/icons";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
 import { CartButtons } from "../CartButtons/CartButtons";
 import { getImageUrl } from "../../utils/getImageUrl";
+import { useGetCertainProductsQuery } from "../../store/api/products/products-api";
 
 export const ProductItem = () => {
   const productItemId = window.location.pathname.split("/")[3];
 
-  const { data: productData } = useProductsControllerFindOneQuery({
+  const { data: productData } = useGetCertainProductsQuery({
     id: productItemId,
   });
 

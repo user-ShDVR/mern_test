@@ -24,7 +24,9 @@ export class CartsService {
   async findOne(id: number) {
     const cart = await this.db.carts.findFirst({
       where: { user_id: id },
-      include: { carts_products: { include: { product: true } } },
+      include: {
+        carts_products: { include: { product: { include: { image: true } } } },
+      },
     });
     if (!cart) {
       throw new NotFoundException('id указан неверно.');

@@ -5,15 +5,15 @@ import React from "react";
 import { AuthModal } from "../AuthModal/AuthModal";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/features/userSlice";
-import { useAuthControllerSignOutMutation } from "../../store/api/defaultApi";
+import { useSignOutMutation } from "../../store/api/auth/auth-api";
 
 const DropdownUser = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
   const { user } = useSelector(selectUser);
-  const [logout] = useAuthControllerSignOutMutation();
+  const [signOut] = useSignOutMutation();
 
   const handleLogout = () => {
-    logout();
+    signOut();
   };
 
   const items = [

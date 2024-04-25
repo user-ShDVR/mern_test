@@ -1,10 +1,11 @@
-import {
-  useAuthControllerGetSesssionInfoQuery,
-  useCartsControllerFindOneQuery,
-  useCartsProductsControllerCreateMutation,
-  useCartsProductsControllerRemoveMutation,
-} from "../store/api/defaultApi";
+import { useSelector } from "react-redux";
 import { message } from "antd";
+import { selectUser } from "../store/features/userSlice";
+import {
+  useAddCartsProductsMutation,
+  useDeleteCartsProductsMutation,
+} from "../store/api/cartsProducts/carts-products-api";
+import { useGetCertainCartsQuery } from "../store/api/carts/carts-api";
 
 export enum CartActions {
   ADD = "add",
@@ -18,18 +19,18 @@ interface CartAction {
 }
 
 export const useCartActions = () => {
-  const { data: userData } = useAuthControllerGetSesssionInfoQuery();
+  const { user } = useSelector(selectUser);
 
   const { data: cartProductsData, refetch: cartProductsDataRefetch } =
-    useCartsControllerFindOneQuery(
+    useGetCertainCartsQuery(
       {
-        id: userData?.id,
+        id: user?.id,
       },
-      { skip: !userData }
+      { skip: !user }
     );
 
-  const [addToCart] = useCartsProductsControllerCreateMutation();
-  const [deleteFromCart] = useCartsProductsControllerRemoveMutation();
+  const [addToCart] = useAddCartsProductsMutation();
+  const [deleteFromCart] = useDeleteCartsProductsMutation();
 
   const getIsProductInCart = (productId: number) =>
     cartProductsData?.carts_products.some(
@@ -43,11 +44,9 @@ export const useCartActions = () => {
     if (action === CartActions.ADD) {
       if (!getIsProductInCart(productId)) {
         await addToCart({
-          createCartsProductDto: {
-            cart_id: userData?.id,
-            product_id: productId,
-            quantity: 1,
-          },
+          cart_id: user?.id,
+          product_id: productId,
+          quantity: 1,
         });
 
         message.success("Товар добавлен в корзину");
@@ -59,7 +58,7 @@ export const useCartActions = () => {
     if (action === CartActions.DELETE) {
       if (getIsProductInCart(productId)) {
         await deleteFromCart({
-          user_id: userData?.id,
+          user_id: user?.id,
           product_id: productId,
         });
 
