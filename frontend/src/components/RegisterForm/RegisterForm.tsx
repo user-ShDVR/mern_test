@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import { ProfileFields } from "./profileFields";
 import { useSignUpMutation } from "../../store/api/auth/auth-api";
+import { ISignInFields } from "../../store/api/auth/types";
 
 interface RegisterFormProps {
   handleCloseModal: () => void;
@@ -21,7 +22,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
 
   const navigate = useNavigate();
 
-  const onFinishCreateQuestionnaire = (formValues) => {
+  const onFinishCreateQuestionnaire = (formValues: ISignInFields) => {
     register({ ...formValues });
   };
 

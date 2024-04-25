@@ -27,7 +27,14 @@ export interface IProduct {
   }[];
 }
 
-export interface IProductsResponse {
-  totalCount: number;
-  products: IProduct[];
+export interface IProductFields {
+  product_id: number;
+  quantity: number;
+  product: IProduct;
+}
+
+export interface IGetCertainCartsResponse {
+  id: number;
+  user_id: number;
+  carts_products: IProduct[];
 }

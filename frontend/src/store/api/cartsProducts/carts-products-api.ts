@@ -41,7 +41,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: (body) => ({
         url: `/carts-products/${body.id}`,
         method: "PATCH",
-        body: { ...body },
+        body: { product_id: body.product_id, quantity: body.quantity },
       }),
     }),
   }),

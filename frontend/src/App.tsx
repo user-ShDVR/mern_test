@@ -11,7 +11,9 @@ export const App = () => {
   const { setUser } = useActions();
 
   React.useEffect(() => {
-    setUser(userData);
+    if (userData) {
+      setUser(userData);
+    }
   }, [setUser, userData]);
 
   return (

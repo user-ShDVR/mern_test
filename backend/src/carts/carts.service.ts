@@ -25,7 +25,10 @@ export class CartsService {
     const cart = await this.db.carts.findFirst({
       where: { user_id: id },
       include: {
-        carts_products: { include: { product: { include: { image: true } } } },
+        carts_products: {
+          include: { product: { include: { image: true } } },
+          orderBy: { id: 'asc' },
+        },
       },
     });
     if (!cart) {

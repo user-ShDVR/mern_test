@@ -7,6 +7,7 @@ import {
 } from "../../constants/profileConstants";
 import React from "react";
 import { useSignInMutation } from "../../store/api/auth/auth-api";
+import { ISignInFields } from "../../store/api/auth/types";
 
 interface LoginFormProps {
   handleCloseModal: () => void;
@@ -18,7 +19,7 @@ export const LoginForm = (props: LoginFormProps) => {
 
   const [login, { isSuccess, isLoading, isError }] = useSignInMutation();
 
-  const onFinishCreateQuestionnaire = (formValues) => {
+  const onFinishCreateQuestionnaire = (formValues: ISignInFields) => {
     login({ ...formValues });
   };
 

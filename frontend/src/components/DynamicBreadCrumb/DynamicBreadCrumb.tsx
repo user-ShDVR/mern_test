@@ -2,7 +2,7 @@ import { Breadcrumb } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./DynamicBreadCrumb.module.scss";
 
-const pathTranslations = {
+const pathTranslations: Record<string, string> = {
   catalog: "Каталог",
   cart: "Корзина",
   vines: "Вина",
