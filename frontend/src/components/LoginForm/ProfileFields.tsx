@@ -3,7 +3,7 @@ import {
   DEFAULT_VALIDATE_MESSAGE,
   profileFieldsDataIndexes,
   profileFieldsTitles,
-} from "../../constants/profileConstants";
+} from "../../constants/profile-constants";
 
 export const ProfileFields = () => {
   const profileFields = [

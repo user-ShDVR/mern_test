@@ -1,0 +1,73 @@
+// AdminProductsTab
+.countTitle {
+  font-size: 18px;
+}
+
+.createButton {
+  margin-top: 15px;
+}
+
+.productsWrapperCards {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.productCard {
+  width: 20vw;
+  max-height: 35vh;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+
+    &-thumb {
+      background-color: #1677FF;
+      border-radius: 20px;
+    }
+  }
+}
+
+.editButton {
+  position: sticky;
+  top: 10px;
+  z-index: 1;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.productField {
+  margin-top: 20px;
+}
+
+.productDescription {
+  white-space: normal;
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+}
+
+// EditProductModal
+.editForm {
+  height: 70vh;
+  overflow-y: scroll;
+  margin-top: 20px;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+    
+    &-thumb {
+      background-color: #1677FF;
+      border-radius: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .productCard {
+    width: 100%;
+  }
+}

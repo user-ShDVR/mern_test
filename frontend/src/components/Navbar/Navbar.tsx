@@ -1,15 +1,18 @@
-import { Button, Input, Typography } from "antd";
+import { Badge, Button, Input, Typography } from "antd";
 import styles from "./Navbar.module.scss";
 import { Link } from "react-router-dom";
-import { RouterPath } from "../AppRouter/routeConfig";
+import { RouterPath } from "../../configs/route-сonfig";
 import {
   InboxOutlined,
   MenuOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import DropdownUser from "./DropdownUser";
+import { DropdownUser } from "./DropdownUser";
+import { useCartActions } from "../../hooks/use-cart-actionts";
 
 export const Navbar = () => {
+  const { cartProductsData } = useCartActions();
+
   return (
     <div className={styles.wrapper}>
       <Link to={RouterPath.catalog}>
@@ -28,7 +31,14 @@ export const Navbar = () => {
         </Link>
 
         <Link className={styles.iconWrapper} to={RouterPath.cart}>
-          <InboxOutlined className={styles.icon} />
+          <Badge
+            count={cartProductsData?.carts_products?.length}
+            showZero
+            size="small"
+          >
+            <InboxOutlined className={styles.icon} />
+          </Badge>
+
           <Typography.Text>Корзина</Typography.Text>
         </Link>
       </div>

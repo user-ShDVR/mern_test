@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RouterPath } from "./routeConfig";
+import { RouterPath } from "../../configs/route-сonfig";
 import { Navigate } from "react-router-dom";
 import { selectUser } from "../../store/features/userSlice";
 
@@ -12,9 +12,16 @@ export function RequireAuth(props: RequireAuthProps) {
 
   const { user } = useSelector(selectUser);
 
-  if (!user) {
-    return <Navigate to={RouterPath.main} />;
-  }
+  const isUserAdmin = user?.role === "admin";
+  const isAdminPanelPage = window.location.pathname === RouterPath.admin_panel;
+
+  // if (!user) {
+  //   return <Navigate to={RouterPath.main} />;
+  // }
+
+  // if (!isUserAdmin && isAdminPanelPage) {
+  //   return <Navigate to={RouterPath.forbidden} />;
+  // }
 
   return children;
 }

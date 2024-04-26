@@ -1,10 +1,12 @@
 import { RouteProps } from "react-router-dom";
-import { MainPage } from "../../pages/MainPage";
-import { AccountPage } from "../../pages/AccountPage";
-import { CatalogPage } from "../../pages/CatalogPage";
-import { CatalogItemPage } from "../../pages/CatalogItemPage";
-import { ProductsItemPage } from "../../pages/ProductsItemPage";
-import { CartPage } from "../../pages/CartPage";
+import { MainPage } from "../pages/MainPage";
+import { AccountPage } from "../pages/AccountPage";
+import { CatalogPage } from "../pages/CatalogPage";
+import { CatalogItemPage } from "../pages/CatalogItemPage";
+import { ProductsItemPage } from "../pages/ProductsItemPage";
+import { CartPage } from "../pages/CartPage";
+import { AdminPanelPage } from "../pages/AdminPanelPage";
+import { ForbiddenPage } from "../pages/ForbiddenPage";
 
 export type AppRouteProps = RouteProps & {
   authOnly?: boolean;
@@ -18,6 +20,8 @@ export enum AppRoutes {
   CATALOG_ITEM = "catalog_item",
   PRODUCT_ITEM = "product_item",
   CART = "cart",
+  ADMIN_PANEL = "admin_panel",
+  FORBIDDEN = "forbidden",
 }
 
 export const RouterPath: Record<AppRoutes, string> = {
@@ -27,6 +31,8 @@ export const RouterPath: Record<AppRoutes, string> = {
   [AppRoutes.CATALOG_ITEM]: "/catalog/:url",
   [AppRoutes.PRODUCT_ITEM]: "/catalog/:url/:id",
   [AppRoutes.CART]: "/cart",
+  [AppRoutes.ADMIN_PANEL]: "/admin_panel",
+  [AppRoutes.FORBIDDEN]: "/forbidden",
 };
 
 export const routeConfig: Record<AppRoutes, AppRouteProps> = {
@@ -54,5 +60,14 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
   [AppRoutes.CART]: {
     path: RouterPath.cart,
     element: <CartPage />,
+  },
+  [AppRoutes.ADMIN_PANEL]: {
+    path: RouterPath.admin_panel,
+    element: <AdminPanelPage />,
+    authOnly: true,
+  },
+  [AppRoutes.FORBIDDEN]: {
+    path: RouterPath.forbidden,
+    element: <ForbiddenPage />,
   },
 };

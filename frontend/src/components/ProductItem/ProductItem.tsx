@@ -1,10 +1,11 @@
-import { Button, Image, Table, Typography } from "antd";
+import { Button, Image, Table, Typography, message } from "antd";
 import styles from "./ProductItem.module.scss";
 import { ShareAltOutlined } from "@ant-design/icons";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
 import { CartButtons } from "../CartButtons/CartButtons";
-import { getImageUrl } from "../../utils/getImageUrl";
+import { getImageUrl } from "../../utils/get-image-url";
 import { useGetCertainProductsQuery } from "../../store/api/products/products-api";
+import { characteristicsListColumns } from "../../constants/products-constants";
 
 export const ProductItem = () => {
   const productItemId = window.location.pathname.split("/")[3];
@@ -13,19 +14,9 @@ export const ProductItem = () => {
     id: productItemId,
   });
 
-  const columns = [
-    {
-      title: "Name",
-      dataIndex: "key",
-    },
-    {
-      title: "Age",
-      dataIndex: "value",
-    },
-  ];
-
   const handleShared = () => {
     navigator.clipboard.writeText(window.location.href);
+    message.success("Ссылка скопирована в буфер обмена");
   };
 
   return (
@@ -49,7 +40,7 @@ export const ProductItem = () => {
 
             <Table
               className={styles.characteristics}
-              columns={columns}
+              columns={characteristicsListColumns}
               dataSource={productData?.characteristics}
               pagination={false}
               showHeader={false}

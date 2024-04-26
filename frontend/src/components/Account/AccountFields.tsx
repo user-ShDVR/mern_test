@@ -3,7 +3,7 @@ import { IUser } from "../../store/api/types";
 import {
   profileFieldsDataIndexes,
   profileFieldsTitles,
-} from "../../constants/profileConstants";
+} from "../../constants/profile-constants";
 
 interface IAccountFieldsProps {
   userData: IUser;

@@ -3,7 +3,7 @@ import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 import {
   AND_VALIDATE_MESSAGE,
   DEFAULT_VALIDATE_MESSAGE,
-} from "../../constants/profileConstants";
+} from "../../constants/profile-constants";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import { ProfileFields } from "./profileFields";

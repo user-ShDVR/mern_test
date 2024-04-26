@@ -3,13 +3,13 @@ import styles from "./Catalog.module.scss";
 import { Link } from "react-router-dom";
 import { IType } from "../../types/ICatalogElement";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
-import { getImageUrl } from "../../utils/getImageUrl";
+import { getImageUrl } from "../../utils/get-image-url";
 import { useGetTypesQuery } from "../../store/api/types/types-api";
 
 export const Catalog = () => {
   const { data: typesData } = useGetTypesQuery({
     page: 1,
-    limit: 100,
+    limit: 100000,
   });
 
   return (

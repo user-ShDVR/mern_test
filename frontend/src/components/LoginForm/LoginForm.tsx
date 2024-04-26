@@ -4,7 +4,7 @@ import { ProfileFields } from "./ProfileFields";
 import {
   AND_VALIDATE_MESSAGE,
   DEFAULT_VALIDATE_MESSAGE,
-} from "../../constants/profileConstants";
+} from "../../constants/profile-constants";
 import React from "react";
 import { useSignInMutation } from "../../store/api/auth/auth-api";
 import { ISignInFields } from "../../store/api/auth/types";

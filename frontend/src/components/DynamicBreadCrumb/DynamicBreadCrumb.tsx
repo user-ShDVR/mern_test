@@ -5,13 +5,15 @@ import styles from "./DynamicBreadCrumb.module.scss";
 const pathTranslations: Record<string, string> = {
   catalog: "Каталог",
   cart: "Корзина",
+  admin_panel: "Админ-панель",
+  forbidden: "Нет доступа к странице",
   vines: "Вина",
 };
 
 export const DynamicBreadCrumb = () => {
   const location = useLocation();
-  const { pathname } = location;
-  const segments = pathname.split("/").filter(Boolean);
+
+  const segments = location.pathname.split("/").filter(Boolean);
 
   const breadcrumbItems = [
     <Breadcrumb.Item key="/">

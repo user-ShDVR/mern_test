@@ -6,8 +6,15 @@ import { AuthModal } from "../AuthModal/AuthModal";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/features/userSlice";
 import { useSignOutMutation } from "../../store/api/auth/auth-api";
+import { Link } from "react-router-dom";
+import { RouterPath } from "../../configs/route-сonfig";
 
-const DropdownUser = () => {
+type ItemType = {
+  label: React.ReactNode;
+  key: string;
+};
+
+export const DropdownUser = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
   const { user } = useSelector(selectUser);
   const [signOut] = useSignOutMutation();
@@ -17,11 +24,13 @@ const DropdownUser = () => {
   };
 
   const items = [
-    {
+    user?.role === "admin" && {
       label: (
-        <Button type="link">
-          <Typography.Text onClick={() => {}}>Настройки</Typography.Text>
-        </Button>
+        <Link to={RouterPath.admin_panel}>
+          <Button type="link">
+            <Typography.Text>Админ-панель</Typography.Text>
+          </Button>
+        </Link>
       ),
       key: "0",
     },
@@ -33,7 +42,7 @@ const DropdownUser = () => {
       ),
       key: "1",
     },
-  ];
+  ] as ItemType[];
 
   const handleOpenModal = () => {
     setIsAuthModalOpen(true);
@@ -60,5 +69,3 @@ const DropdownUser = () => {
     </>
   );
 };
-
-export default DropdownUser;

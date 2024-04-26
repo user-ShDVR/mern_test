@@ -1,6 +1,10 @@
 import { Button, Form, InputNumber, Select, Typography } from "antd";
 import styles from "./CatalogItem.module.scss";
 import { useForm } from "antd/es/form/Form";
+import {
+  DEFAULT_MAX_PRICE_VALUE,
+  DEFAULT_MIN_PRICE_VALUE,
+} from "../../constants/products-constants";
 
 interface FilterSliderProps {
   minValue: number;
@@ -23,18 +27,15 @@ export const Filters = (props: FilterSliderProps) => {
 
   const [form] = useForm();
 
-  const defaultMinValue = 1;
-  const defaultMaxValue = 10000;
-
   const handleFilter = (values: FilterSliderProps) => {
-    setMinValue(values.minValue || defaultMinValue);
-    setMaxValue(values.maxValue || defaultMaxValue);
+    setMinValue(values.minValue || DEFAULT_MIN_PRICE_VALUE);
+    setMaxValue(values.maxValue || DEFAULT_MAX_PRICE_VALUE);
   };
 
   const handleReset = () => {
     form.resetFields();
-    setMinValue(defaultMinValue);
-    setMaxValue(defaultMaxValue);
+    setMinValue(DEFAULT_MIN_PRICE_VALUE);
+    setMaxValue(DEFAULT_MAX_PRICE_VALUE);
   };
 
   const handleSort = (value: string) => {
@@ -71,7 +72,7 @@ export const Filters = (props: FilterSliderProps) => {
           <InputNumber
             className={styles.input}
             value={minValue}
-            defaultValue={defaultMinValue}
+            defaultValue={DEFAULT_MIN_PRICE_VALUE}
           />
         </Form.Item>
 
@@ -79,7 +80,7 @@ export const Filters = (props: FilterSliderProps) => {
           <InputNumber
             className={styles.input}
             value={maxValue}
-            defaultValue={defaultMaxValue}
+            defaultValue={DEFAULT_MAX_PRICE_VALUE}
           />
         </Form.Item>
 

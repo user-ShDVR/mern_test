@@ -4,7 +4,7 @@ import { EmptyMessage } from "../EmptyMessage/EmptyMessage";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
 import { ClearOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { CartActions, useCartActions } from "../../hooks/use-cart-actionts";
-import { getImageUrl } from "../../utils/getImageUrl";
+import { getImageUrl } from "../../utils/get-image-url";
 import { IProductFields } from "../../types/IProduct";
 
 export const Cart = () => {

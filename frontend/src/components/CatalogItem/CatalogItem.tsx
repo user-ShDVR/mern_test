@@ -1,4 +1,4 @@
-import { Card, Pagination, Typography } from "antd";
+import { Card, Typography } from "antd";
 import styles from "./CatalogItem.module.scss";
 import { Filters } from "./Filters";
 import { IProduct } from "../../types/IProduct";
@@ -7,13 +7,19 @@ import { Link } from "react-router-dom";
 import { EmptyMessage } from "../EmptyMessage/EmptyMessage";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
 import { CartButtons } from "../CartButtons/CartButtons";
-import { getImageUrl } from "../../utils/getImageUrl";
+import { getImageUrl } from "../../utils/get-image-url";
 import { useGetProductsQuery } from "../../store/api/products/products-api";
+import { useGetPaginationBlock } from "../../hooks/use-get-pagination-block";
+import {
+  DEFAULT_MAX_PRICE_VALUE,
+  DEFAULT_MIN_PRICE_VALUE,
+  PRODUCTS_COUNT_IN_CATALOG_ITEM_PAGE,
+} from "../../constants/products-constants";
 
 export const CatalogItem = () => {
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const [minValue, setMinValue] = React.useState(1);
-  const [maxValue, setMaxValue] = React.useState(100000);
+  const { currentPage, PaginationBlock } = useGetPaginationBlock();
+  const [minValue, setMinValue] = React.useState(DEFAULT_MIN_PRICE_VALUE);
+  const [maxValue, setMaxValue] = React.useState(DEFAULT_MAX_PRICE_VALUE);
 
   const [sortOrder, setSortOrder] = React.useState("asc");
   const [sortBy, setSortBy] = React.useState("price");
@@ -22,17 +28,13 @@ export const CatalogItem = () => {
 
   const { data: productsData } = useGetProductsQuery({
     page: currentPage,
-    limit: 4,
+    limit: PRODUCTS_COUNT_IN_CATALOG_ITEM_PAGE,
     minPrice: minValue,
     maxPrice: maxValue,
     type: categoryType,
     sortBy,
     sortOrder,
   });
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
 
   return (
     <>
@@ -90,14 +92,9 @@ export const CatalogItem = () => {
         </div>
       </div>
 
-      <Pagination
-        className={styles.paginationWrapper}
-        defaultCurrent={1}
-        defaultPageSize={4}
-        total={productsData?.totalCount}
-        showSizeChanger={false}
-        onChange={handlePageChange}
-        current={currentPage}
+      <PaginationBlock
+        countElementsOnPage={PRODUCTS_COUNT_IN_CATALOG_ITEM_PAGE}
+        totalDataCount={productsData?.totalCount}
       />
     </>
   );
