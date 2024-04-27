@@ -1,18 +1,22 @@
 import { useGetUsersQuery } from "../../store/api/users/users-api";
 import { Tag, Typography } from "antd";
 import { getDeclination } from "../../utils/get-declination";
-import styles from "./AdminClientsTab.module.scss";
+import styles from "./AdminUsersTab.module.scss";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
 import { Spinner } from "../Spinner/Spinner";
 import { IUser } from "../../types/IUserState";
+import {
+  DEFAULT_USERS_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
+  DEFAULT_USERS_LIMIT_IN_ADMIN_PANEL_PAGE,
+} from "../../constants/users-constants";
 
-export const AdminClientsTab = () => {
+export const AdminUsersTab = () => {
   const { data: usersData, isLoading: isUsersLoading } = useGetUsersQuery({
-    page: 1,
-    limit: 1000,
+    page: DEFAULT_USERS_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
+    limit: DEFAULT_USERS_LIMIT_IN_ADMIN_PANEL_PAGE,
   });
 
-  const declinationClients = getDeclination({
+  const declinationUsers = getDeclination({
     one: "клиент",
     few: "клиента",
     many: "клиентов",
@@ -26,10 +30,10 @@ export const AdminClientsTab = () => {
   return (
     <>
       <Typography.Text className={styles.countTitle}>
-        В системе - <b>{declinationClients}</b>
+        В системе - <b>{declinationUsers}</b>
       </Typography.Text>
 
-      <div className={styles.wrapperClientsCards}>
+      <div className={styles.wrapperUsersCards}>
         {usersData?.users.map((user: IUser) => (
           <ShadowCard key={user.id}>
             <p>

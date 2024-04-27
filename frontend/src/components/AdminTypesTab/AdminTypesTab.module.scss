@@ -1,4 +1,4 @@
-// AdminProductsTab
+// AdminTypesTab
 .countTitle {
   font-size: 18px;
 }
@@ -7,14 +7,14 @@
   margin-top: 15px;
 }
 
-.productsWrapperCards {
+.typesWrapperCards {
   margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
 }
 
-.productCard {
+.typeCard {
   width: 20vw;
   max-height: 35vh;
   overflow-y: auto;
@@ -29,8 +29,8 @@
   }
 }
 
-.productCardEditButton, 
-.productCardDeleteButton {
+.typeCardEditButton, 
+.typeCardDeleteButton {
   position: sticky;
   top: 10px;
   z-index: 1;
@@ -38,20 +38,20 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-.productField {
+.typeField {
   margin-top: 20px;
 }
 
-.productDescription {
+.typeDescription {
   white-space: normal;
 }
 
-.productImage {
+.typeImage {
   width: 100%;
   height: 100%;
 }
 
-// EditProductsModal
+// EditTypesModal
 .editForm {
   height: 70vh;
   overflow-y: scroll;
@@ -68,17 +68,17 @@
 }
 
 @media screen and (max-width: 1515px) {
-  .productCardDeleteButton {
+  .typeCardDeleteButton {
     top: 60px;
   }
 }
 
 @media screen and (max-width: 1080px) {
-  .productCard {
+  .typeCard {
     width: 100%;
   }
 
-  .productCardDeleteButton {
+  .typeCardDeleteButton {
     top: 10px;
   }
 }

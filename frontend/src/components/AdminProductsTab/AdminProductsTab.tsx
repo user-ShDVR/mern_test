@@ -1,6 +1,9 @@
-import { useGetProductsQuery } from "../../store/api/products/products-api";
+import {
+  useDeleteProductsMutation,
+  useGetProductsQuery,
+} from "../../store/api/products/products-api";
 import { Spinner } from "../Spinner/Spinner";
-import { Button, Table, Tag, Typography } from "antd";
+import { Button, Table, Tag, Typography, message } from "antd";
 import styles from "./AdminProductsTab.module.scss";
 import { IProduct } from "../../types/IProduct";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
@@ -35,6 +38,8 @@ export const AdminProductsTab = () => {
       sortOrder: "asc",
     });
 
+  const [deleteProduct] = useDeleteProductsMutation();
+
   const declinationProducts = getDeclination({
     one: "товар",
     few: "товара",
@@ -49,6 +54,11 @@ export const AdminProductsTab = () => {
 
   const handleCloseEditModal = () => {
     setIsOpenEditModal(false);
+  };
+
+  const handleDeleteProduct = (product: IProduct) => {
+    deleteProduct({ id: String(product.id) });
+    message.success("Продукт успешно удален");
   };
 
   if (isProductsLoading) {
@@ -69,11 +79,18 @@ export const AdminProductsTab = () => {
         {productsData?.products.map((product: IProduct) => (
           <ShadowCard className={styles.productCard} key={product.id}>
             <Button
-              className={styles.editButton}
-              block
+              className={styles.productCardEditButton}
+              type="primary"
               onClick={() => handleOpenEditModal(product)}
             >
               Редактировать
+            </Button>
+
+            <Button
+              className={styles.productCardDeleteButton}
+              onClick={() => handleDeleteProduct(product)}
+            >
+              Удалить
             </Button>
 
             <p>

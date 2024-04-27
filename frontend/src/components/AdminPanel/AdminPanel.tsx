@@ -1,13 +1,14 @@
 import { Tabs, TabsProps, Typography } from "antd";
-import { AdminClientsTab } from "../AdminClientsTab/AdminClientsTab";
+import { AdminUsersTab } from "../AdminUsersTab/AdminUsersTab";
 import { AdminProductsTab } from "../AdminProductsTab/AdminProductsTab";
+import { AdminTypesTab } from "../AdminTypesTab/AdminTypesTab";
 
 export const AdminPanel = () => {
   const items: TabsProps["items"] = [
     {
       key: "1",
       label: "Клиенты",
-      children: <AdminClientsTab />,
+      children: <AdminUsersTab />,
     },
     {
       key: "2",
@@ -17,7 +18,12 @@ export const AdminPanel = () => {
     {
       key: "3",
       label: "Каталоги товаров",
-      children: "Content of Tab Pane 3",
+      children: <AdminTypesTab />,
+    },
+    {
+      key: "4",
+      label: "Загрузить изображение",
+      children: "Content of Tab Pane 4",
     },
   ];
 

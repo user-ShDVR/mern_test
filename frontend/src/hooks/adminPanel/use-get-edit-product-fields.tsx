@@ -3,16 +3,21 @@ import {
   characteristicsListColumns,
   productItemDataIndexes,
   productItemLabels,
-} from "../constants/products-constants";
-import { IProduct } from "../types/IProduct";
-import { useGetTypesQuery } from "../store/api/types/types-api";
-import { IType } from "../types/ICatalogElement";
-import { getImageUrl } from "../utils/get-image-url";
+} from "../../constants/products-constants";
+import { IProduct } from "../../types/IProduct";
+import { useGetTypesQuery } from "../../store/api/types/types-api";
+import { IType } from "../../types/ICatalogElement";
+import { getImageUrl } from "../../utils/get-image-url";
+import {
+  DEFAULT_TYPES_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
+  DEFAULT_TYPES_LIMIT_IN_ADMIN_PANEL_PAGE,
+} from "../../constants/types-constants";
 
 export const useGetEditProductFields = (product: IProduct) => {
-  const { data: typesData } = useGetTypesQuery({ page: 1, limit: 100000 });
-
-  console.log(product);
+  const { data: typesData } = useGetTypesQuery({
+    page: DEFAULT_TYPES_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
+    limit: DEFAULT_TYPES_LIMIT_IN_ADMIN_PANEL_PAGE,
+  });
 
   const searchedOptions = (enteredValue: string, option) => {
     return option.label.toLowerCase().includes(enteredValue.toLowerCase());

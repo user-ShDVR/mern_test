@@ -1,6 +1,6 @@
 import { Modal, Form, Button } from "antd";
 import { IProduct } from "../../types/IProduct";
-import { useGetEditProductFields } from "../../hooks/use-get-edit-product-fields";
+import { useGetEditProductFields } from "../../hooks/adminPanel/use-get-edit-product-fields";
 import styles from "./AdminProductsTab.module.scss";
 import { useEditProductsMutation } from "../../store/api/products/products-api";
 import { IEditProductsRequest } from "../../store/api/products/types";
@@ -14,15 +14,12 @@ interface IEditProductModalProps {
 export const EditProductModal = (props: IEditProductModalProps) => {
   const { isOpenEditModal, onCloseEditModal, certainProductInModal } = props;
 
-  const [editProduct] = useEditProductsMutation({
-    id: certainProductInModal.id,
-  });
+  const [editProduct] = useEditProductsMutation();
 
   const formItems = useGetEditProductFields(certainProductInModal);
 
   const onFinishEditProduct = (formValues: IEditProductsRequest) => {
-    console.log(formValues);
-    // editProduct(formValues);
+    editProduct({ id: certainProductInModal.id, ...formValues });
   };
 
   return (

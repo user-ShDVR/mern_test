@@ -23,6 +23,7 @@ export const productItemLabels = {
 };
 
 export const productItemDataIndexes = {
+  image_id: "image_id",
   name: "name",
   description: "description",
   price: "price",

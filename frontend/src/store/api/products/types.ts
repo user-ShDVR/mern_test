@@ -22,7 +22,7 @@ export interface IGetCertainProductsRequest {
 }
 
 export type IEditProductsRequest = {
-  id?: string;
+  id?: number;
   name?: string;
   description?: string;
   characteristics?: string[];

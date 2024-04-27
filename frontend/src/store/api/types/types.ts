@@ -14,7 +14,7 @@ export interface IGetCertainTypesRequest {
 }
 
 export interface IEditTypesRequest {
-  id?: string;
+  id?: number;
   name?: string;
   image_id?: number;
   url?: string;

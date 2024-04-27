@@ -5,11 +5,18 @@ import { IType } from "../../types/ICatalogElement";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
 import { getImageUrl } from "../../utils/get-image-url";
 import { useGetTypesQuery } from "../../store/api/types/types-api";
+import { useGetPaginationBlock } from "../../hooks/use-get-pagination-block";
+import {
+  DEFAULT_TYPES_LIMIT_IN_CATALOG_PAGE,
+  TYPES_COUNT_IN_CATALOG_PAGE,
+} from "../../constants/types-constants";
 
 export const Catalog = () => {
+  const { currentPage, PaginationBlock } = useGetPaginationBlock();
+
   const { data: typesData } = useGetTypesQuery({
-    page: 1,
-    limit: 100000,
+    page: currentPage,
+    limit: DEFAULT_TYPES_LIMIT_IN_CATALOG_PAGE,
   });
 
   return (
@@ -39,6 +46,11 @@ export const Catalog = () => {
           );
         })}
       </div>
+
+      <PaginationBlock
+        totalDataCount={typesData?.totalCount}
+        countElementsOnPage={TYPES_COUNT_IN_CATALOG_PAGE}
+      />
     </>
   );
 };
