@@ -2,6 +2,7 @@ import { Tabs, TabsProps, Typography } from "antd";
 import { AdminUsersTab } from "../AdminUsersTab/AdminUsersTab";
 import { AdminProductsTab } from "../AdminProductsTab/AdminProductsTab";
 import { AdminTypesTab } from "../AdminTypesTab/AdminTypesTab";
+import { AdminImagesTab } from "../AdminImagesTab/AdminImagesTab";
 
 export const AdminPanel = () => {
   const items: TabsProps["items"] = [
@@ -23,7 +24,7 @@ export const AdminPanel = () => {
     {
       key: "4",
       label: "Загрузить изображение",
-      children: "Content of Tab Pane 4",
+      children: <AdminImagesTab />,
     },
   ];
 

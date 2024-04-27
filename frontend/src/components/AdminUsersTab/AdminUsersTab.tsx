@@ -1,7 +1,7 @@
 import { useGetUsersQuery } from "../../store/api/users/users-api";
 import { Tag, Typography } from "antd";
 import { getDeclination } from "../../utils/get-declination";
-import styles from "./AdminUsersTab.module.scss";
+import styles from "../AdminPanel/AdminPanelTab.module.scss";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
 import { Spinner } from "../Spinner/Spinner";
 import { IUser } from "../../types/IUserState";
@@ -33,30 +33,30 @@ export const AdminUsersTab = () => {
         В системе - <b>{declinationUsers}</b>
       </Typography.Text>
 
-      <div className={styles.wrapperUsersCards}>
+      <div className={styles.entityWrapperCards}>
         {usersData?.users.map((user: IUser) => (
           <ShadowCard key={user.id}>
             <p>
               Идентификатор: <Tag>{user.id}</Tag>
             </p>
 
-            <p className={styles.clientField}>
+            <p className={styles.entityField}>
               Имя: <Tag>{user.name}</Tag>
             </p>
 
-            <p className={styles.clientField}>
+            <p className={styles.entityField}>
               Фамилия: <Tag>{user.surname}</Tag>
             </p>
 
-            <p className={styles.clientField}>
+            <p className={styles.entityField}>
               Отчество: <Tag>{user.lastname}</Tag>
             </p>
 
-            <p className={styles.clientField}>
+            <p className={styles.entityField}>
               E-mail: <Tag>{user.email}</Tag>
             </p>
 
-            <p className={styles.clientField}>
+            <p className={styles.entityField}>
               Роль: <Tag>{user.role}</Tag>
             </p>
           </ShadowCard>

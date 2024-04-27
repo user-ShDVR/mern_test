@@ -1,5 +1,5 @@
 import { Button, Tag, Typography, message } from "antd";
-import styles from "./AdminTypesTab.module.scss";
+import styles from "../AdminPanel/AdminPanelTab.module.scss";
 import { ShadowCard } from "../ShadowCard/ShadowCard";
 import { getDeclination } from "../../utils/get-declination";
 import {
@@ -72,11 +72,11 @@ export const AdminTypesTab = () => {
         <Button type="primary">Создать новую категорию</Button>
       </p>
 
-      <div className={styles.typesWrapperCards}>
+      <div className={styles.entityWrapperCards}>
         {typesData?.types.map((type: IType) => (
-          <ShadowCard className={styles.typeCard} key={type.id}>
+          <ShadowCard className={styles.entityCard} key={type.id}>
             <Button
-              className={styles.typeCardEditButton}
+              className={styles.entityCardEditButton}
               type="primary"
               onClick={() => handleOpenEditModal(type)}
             >
@@ -84,7 +84,7 @@ export const AdminTypesTab = () => {
             </Button>
 
             <Button
-              className={styles.typeCardDeleteButton}
+              className={styles.entityCardDeleteButton}
               onClick={() => handleDeleteType(type)}
             >
               Удалить
@@ -94,24 +94,24 @@ export const AdminTypesTab = () => {
               Идентификатор: <Tag>{type.id}</Tag>
             </p>
 
-            <p className={styles.typeField}>
+            <p className={styles.entityField}>
               Изображение:
               <img
-                className={styles.typeImage}
+                className={styles.entityImage}
                 src={getImageUrl(type.image.filename)}
                 alt=""
               />
             </p>
 
-            <p className={styles.typeField}>
+            <p className={styles.entityField}>
               Идентификатор изображения: <Tag>{type.image_id}</Tag>
             </p>
 
-            <p className={styles.typeField}>
+            <p className={styles.entityField}>
               Название: <Tag>{type.name}</Tag>
             </p>
 
-            <p className={styles.typeField}>
+            <p className={styles.entityField}>
               Доступ по URL: <Tag>{type.url}</Tag>
             </p>
           </ShadowCard>

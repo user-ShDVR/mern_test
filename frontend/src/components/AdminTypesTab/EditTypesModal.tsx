@@ -1,6 +1,6 @@
 import { Modal, Form, Button, message } from "antd";
 import { useGetEditTypeFields } from "../../hooks/adminPanel/use-get-edit-type-fields";
-import styles from "./AdminTypesTab.module.scss";
+import styles from "../AdminPanel/AdminPanelTab.module.scss";
 import { useEditTypesMutation } from "../../store/api/types/types-api";
 import { IEditTypesRequest } from "../../store/api/types/types";
 import { IType } from "../../types/ICatalogElement";

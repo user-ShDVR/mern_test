@@ -1,7 +1,7 @@
 import { Modal, Form, Button } from "antd";
 import { IProduct } from "../../types/IProduct";
 import { useGetEditProductFields } from "../../hooks/adminPanel/use-get-edit-product-fields";
-import styles from "./AdminProductsTab.module.scss";
+import styles from "../AdminPanel/AdminPanelTab.module.scss";
 import { useEditProductsMutation } from "../../store/api/products/products-api";
 import { IEditProductsRequest } from "../../store/api/products/types";
 
