@@ -147,7 +147,10 @@ export class ProductsService {
       throw new NotFoundException('id указан неправильно.');
     }
 
-    product.deleted = await true;
+    await this.db.products.update({
+      where: { id },
+      data: { deleted: true },
+    });
 
     return 'Продукт удалён.';
   }

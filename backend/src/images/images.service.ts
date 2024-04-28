@@ -24,4 +24,13 @@ export class ImagesService {
     }
     return image;
   }
+
+  async findAll() {
+    const images = await this.db.images.findMany();
+
+    if (!images) {
+      throw new NotFoundException('No images found');
+    }
+    return images;
+  }
 }

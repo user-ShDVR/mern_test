@@ -6,6 +6,7 @@ import {
   ParseFilePipe,
   MaxFileSizeValidator,
   UseGuards,
+  Get,
 } from '@nestjs/common';
 import { ImagesService } from './images.service';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -45,5 +46,10 @@ export class ImagesController {
     file: Express.Multer.File,
   ) {
     return this.imagesService.create(file);
+  }
+
+  @Get()
+  findAll() {
+    return this.imagesService.findAll();
   }
 }

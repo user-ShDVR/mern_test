@@ -36,7 +36,6 @@ export class CartsController {
   }
 
   @Get(':id')
-  @UseGuards(AdminGuard)
   findOne(@Param('id') id: string) {
     return this.cartsService.findOne(+id);
   }
