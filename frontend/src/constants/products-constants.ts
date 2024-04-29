@@ -13,6 +13,16 @@ export const characteristicsListColumns = [
   },
 ];
 
+export const characteristicsInitialValues = {
+  key: "",
+  value: "",
+};
+
+export const characteristicsDataIndexes = {
+  key: "key",
+  value: "value",
+}
+
 export const productItemLabels = {
   image: "Изображение продукта",
   name: "Название продукта",

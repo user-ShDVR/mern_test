@@ -1,13 +1,18 @@
 import { createRtkApi as api } from "../createRtkApi";
-import { IAddImagesRequest } from "./types";
+import { IAddImagesRequest, IGetImagesRequest } from "./types";
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
+    getImages: build.query<IGetImagesRequest[], null>({
+      query: () => ({ url: `/images` }),
+    }),
+
     addImages: build.mutation<unknown, IAddImagesRequest>({
       query: (body) => ({
         url: `/images`,
         method: "POST",
         body: { ...body },
+        formData: true,
       }),
     }),
   }),
@@ -17,4 +22,4 @@ const injectedRtkApi = api.injectEndpoints({
 
 export { injectedRtkApi as imagesApi };
 
-export const { useAddImagesMutation } = injectedRtkApi;
+export const { useGetImagesQuery, useAddImagesMutation } = injectedRtkApi;

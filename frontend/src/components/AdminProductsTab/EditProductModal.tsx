@@ -1,6 +1,6 @@
 import { Modal, Form, Button } from "antd";
 import { IProduct } from "../../types/IProduct";
-import { useGetEditProductFields } from "../../hooks/adminPanel/use-get-edit-product-fields";
+import { useGetAddOrEditProductFields } from "../../hooks/adminPanel/use-get-add-or-edit-product-fields";
 import styles from "../AdminPanel/AdminPanelTab.module.scss";
 import { useEditProductsMutation } from "../../store/api/products/products-api";
 import { IEditProductsRequest } from "../../store/api/products/types";
@@ -16,7 +16,7 @@ export const EditProductModal = (props: IEditProductModalProps) => {
 
   const [editProduct] = useEditProductsMutation();
 
-  const formItems = useGetEditProductFields(certainProductInModal);
+  const formItems = useGetAddOrEditProductFields(certainProductInModal);
 
   const onFinishEditProduct = (formValues: IEditProductsRequest) => {
     editProduct({ id: certainProductInModal.id, ...formValues });
@@ -28,8 +28,6 @@ export const EditProductModal = (props: IEditProductModalProps) => {
       onCancel={onCloseEditModal}
       footer={null}
       title="Редактировать продукт"
-      // если нужно, чтобы defaulValue в инпутах менялся
-      // при открытии модалки редактиврония конкретного продукта
       key={certainProductInModal.id}
     >
       <Form

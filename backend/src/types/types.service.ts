@@ -25,8 +25,9 @@ export class TypesService {
 
   async findAll(page: number = 1, limit: number = 16) {
     const offset = (page - 1) * limit;
-    const totalCount = await this.db.types.count();
+    const totalCount = await this.db.types.count({ where: { deleted: false } });
     const types = await this.db.types.findMany({
+      where: { deleted: false },
       take: limit,
       skip: offset,
       include: {
@@ -68,10 +69,26 @@ export class TypesService {
 
   async remove(id: number) {
     const type = await this.findOne(id);
+
     if (!type) {
       throw new NotFoundException('id указан неверно.');
     }
-    await this.db.types.delete({ where: { id } });
-    return 'Пользователь удалён.';
+
+    const hasProducts = await this.db.products.count({
+      where: { type_id: id, deleted: false },
+    });
+
+    if (hasProducts) {
+      throw new NotFoundException(
+        'Тип используется в товарах и не может быть удалён.',
+      );
+    }
+
+    await this.db.types.update({
+      where: { id },
+      data: { deleted: true },
+    });
+
+    return 'Тип деактивирован.';
   }
 }

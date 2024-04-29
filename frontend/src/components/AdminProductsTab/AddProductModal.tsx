@@ -1,5 +1,5 @@
-import { Modal, Form, Button } from "antd";
-import { useGetEditProductFields } from "../../hooks/adminPanel/use-get-edit-product-fields";
+import { Modal, Form, Button, message } from "antd";
+import { useGetAddOrEditProductFields } from "../../hooks/adminPanel/use-get-add-or-edit-product-fields";
 import styles from "../AdminPanel/AdminPanelTab.module.scss";
 import { useAddProductsMutation } from "../../store/api/products/products-api";
 import { IAddProductsRequest } from "../../store/api/products/types";
@@ -13,13 +13,24 @@ interface IAddProductModalProps {
 export const AddProductModal = (props: IAddProductModalProps) => {
   const { isOpenAddModal, onCloseAddModal } = props;
 
-  const [addProduct] = useAddProductsMutation();
+  const [addProduct, { isSuccess: isAddProductSuccess }] =
+    useAddProductsMutation();
 
-  const formItems = useGetEditProductFields({} as IProduct);
+  const { FormItems, characteristics } = useGetAddOrEditProductFields(
+    {} as IProduct
+  );
 
-  const onFinishEditProduct = (formValues: IAddProductsRequest) => {
+  const onFinishAddProduct = (formValues: IAddProductsRequest) => {
     console.log(formValues);
-    // addProduct(formValues);
+    addProduct({ characteristics, ...formValues });
+
+    if (isAddProductSuccess) {
+      message.success("Продукт успешно добавлен");
+      setTimeout(() => onCloseAddModal(), 1000);
+    } else {
+      message.error("Произошла ошибка при добавлении продукта");
+      return;
+    }
   };
 
   return (
@@ -32,9 +43,9 @@ export const AddProductModal = (props: IAddProductModalProps) => {
       <Form
         className={styles.editForm}
         layout="vertical"
-        onFinish={onFinishEditProduct}
+        onFinish={onFinishAddProduct}
       >
-        {formItems}
+        {FormItems}
 
         <Button type="primary" htmlType="submit" block>
           Добавить продукт

@@ -24,12 +24,11 @@ export class ProductsService {
 
     const { characteristics, ...productData } = createProductDto;
 
-    // Создаем продукт с привязанными характеристиками
     const product = await this.db.products.create({
       data: {
         ...productData,
         characteristics: {
-          create: characteristics.map((char) => ({
+          create: characteristics?.map((char) => ({
             key: char.key,
             value: char.value,
           })),
@@ -52,14 +51,12 @@ export class ProductsService {
     const offset = (page - 1) * limit;
     const whereClause: any = { deleted: false };
 
-    // Include type filter if provided
     if (type) {
       whereClause.type = {
         url: type,
       };
     }
 
-    // Price range filter
     if (minPrice !== undefined && maxPrice !== undefined) {
       whereClause.price = {
         gte: minPrice,
@@ -67,18 +64,15 @@ export class ProductsService {
       };
     }
 
-    // Sorting logic
     const orderBy = {};
     if (sortBy && sortOrder) {
       orderBy[sortBy] = sortOrder;
     }
 
-    // Fetching total count of products based on filters
     const totalCount = await this.db.products.count({
       where: whereClause,
     });
 
-    // Fetching products with all applied filters and pagination
     const products = await this.db.products.findMany({
       where: whereClause,
       take: limit,
@@ -126,7 +120,7 @@ export class ProductsService {
       data: {
         ...productData,
         characteristics: {
-          upsert: characteristics.map((char) => ({
+          upsert: characteristics?.map((char) => ({
             where: { id: char.id || 0 },
             update: { key: char.key, value: char.value },
             create: { key: char.key, value: char.value },
@@ -134,7 +128,7 @@ export class ProductsService {
         },
       },
       include: {
-        characteristics: true, // Позволяет возвращать характеристики после обновления
+        characteristics: true,
       },
     });
 

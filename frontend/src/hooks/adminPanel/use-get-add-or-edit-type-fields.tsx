@@ -3,24 +3,19 @@ import {
   typeItemDataIndexes,
   typeItemLabels,
 } from "../../constants/types-constants";
-import { useGetTypesQuery } from "../../store/api/types/types-api";
 import { IType } from "../../types/ICatalogElement";
 import { getImageUrl } from "../../utils/get-image-url";
-import {
-  DEFAULT_TYPES_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
-  DEFAULT_TYPES_LIMIT_IN_ADMIN_PANEL_PAGE,
-} from "../../constants/types-constants";
 
-export const useGetEditTypeFields = (type: IType) => {
-  // const { data: typesData } = useGetTypesQuery({
-  //   page: DEFAULT_TYPES_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
-  //   limit: DEFAULT_TYPES_LIMIT_IN_ADMIN_PANEL_PAGE,
-  // });
+interface UseGetAddOrEditTypeFieldsProps {
+  typeFields: IType;
+  isAddMode?: boolean;
+  isEditMode?: boolean;
+}
 
-  // const imagesOptions = typesData?.types.map((type: IType) => ({
-  //   label: type.name,
-  //   value: type.id,
-  // }));
+export const useGetAddOrEditTypeFields = (
+  props: UseGetAddOrEditTypeFieldsProps
+) => {
+  const { typeFields, isAddMode, isEditMode } = props;
 
   const imageStyles = {
     width: "100%",
@@ -32,7 +27,7 @@ export const useGetEditTypeFields = (type: IType) => {
       label: typeItemLabels.image,
       node: (
         <img
-          src={getImageUrl(type?.image?.filename)}
+          src={getImageUrl(typeFields?.image?.filename)}
           alt=""
           style={imageStyles}
         />
@@ -41,12 +36,12 @@ export const useGetEditTypeFields = (type: IType) => {
     {
       name: typeItemDataIndexes.name,
       label: typeItemLabels.name,
-      node: <Input defaultValue={type.name} />,
+      node: <Input defaultValue={typeFields.name} />,
     },
     {
       name: typeItemDataIndexes.url,
       label: typeItemLabels.url,
-      node: <Input defaultValue={type.url} />,
+      node: <Input defaultValue={typeFields.url} />,
     },
   ];
 

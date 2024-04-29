@@ -16,9 +16,12 @@ import { useGetPaginationBlock } from "../../hooks/use-get-pagination-block";
 import { EditTypesModal } from "./EditTypesModal";
 import React from "react";
 import { Spinner } from "../Spinner/Spinner";
+import { AddTypeModal } from "./AddTypeModal";
 
 export const AdminTypesTab = () => {
+  const [isOpenAddModal, setIsOpenAddModal] = React.useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = React.useState(false);
+
   const [certainTypeInModal, setCertainTypeInModal] = React.useState(
     {} as IType
   );
@@ -42,6 +45,15 @@ export const AdminTypesTab = () => {
     many: "каталогов",
     value: typesData?.totalCount,
   });
+
+  const handleOpenAddModal = () => {
+    setIsOpenAddModal(true);
+  };
+
+  const handleCloseAddModal = () => {
+    setIsOpenAddModal(false);
+    typesDataRefetch();
+  };
 
   const handleOpenEditModal = (type: IType) => {
     setIsOpenEditModal(true);
@@ -69,7 +81,9 @@ export const AdminTypesTab = () => {
       </Typography.Text>
 
       <p className={styles.createButton}>
-        <Button type="primary">Создать новую категорию</Button>
+        <Button type="primary" onClick={handleOpenAddModal}>
+          Создать новую категорию
+        </Button>
       </p>
 
       <div className={styles.entityWrapperCards}>
@@ -128,6 +142,11 @@ export const AdminTypesTab = () => {
         onCloseEditModal={handleCloseEditModal}
         certainTypeInModal={certainTypeInModal}
         typesDataRefetch={typesDataRefetch}
+      />
+
+      <AddTypeModal
+        isOpenAddModal={isOpenAddModal}
+        onCloseAddModal={handleCloseAddModal}
       />
     </>
   );

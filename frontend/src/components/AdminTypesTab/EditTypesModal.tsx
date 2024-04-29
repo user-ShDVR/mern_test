@@ -1,5 +1,5 @@
 import { Modal, Form, Button, message } from "antd";
-import { useGetEditTypeFields } from "../../hooks/adminPanel/use-get-edit-type-fields";
+import { useGetAddOrEditTypeFields } from "../../hooks/adminPanel/use-get-add-or-edit-type-fields";
 import styles from "../AdminPanel/AdminPanelTab.module.scss";
 import { useEditTypesMutation } from "../../store/api/types/types-api";
 import { IEditTypesRequest } from "../../store/api/types/types";
@@ -22,11 +22,16 @@ export const EditTypesModal = (props: IEditTypesModalProps) => {
 
   const [editType] = useEditTypesMutation();
 
-  const formItems = useGetEditTypeFields(certainTypeInModal);
+  const formItems = useGetAddOrEditTypeFields({
+    typeFields: certainTypeInModal,
+    isAddMode: true,
+    isEditMode: false,
+  });
 
   const onFinishEditType = (formValues: IEditTypesRequest) => {
     editType({ id: certainTypeInModal.id, ...formValues });
     typesDataRefetch();
+
     message.success("Категория успешно обновлена");
     setTimeout(() => onCloseEditModal(), 1000);
   };
@@ -37,8 +42,6 @@ export const EditTypesModal = (props: IEditTypesModalProps) => {
       onCancel={onCloseEditModal}
       footer={null}
       title="Редактировать категорию"
-      // если нужно, чтобы defaulValue в инпутах менялся
-      // при открытии модалки редактиврония конкретного продукта
       key={certainTypeInModal.id}
     >
       <Form

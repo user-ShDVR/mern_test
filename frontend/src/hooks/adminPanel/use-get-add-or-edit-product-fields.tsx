@@ -6,20 +6,28 @@ import {
 } from "../../constants/products-constants";
 import { IProduct } from "../../types/IProduct";
 import { useGetTypesQuery } from "../../store/api/types/types-api";
-import { IType } from "../../types/ICatalogElement";
+import { IImage, IType } from "../../types/ICatalogElement";
 import { getImageUrl } from "../../utils/get-image-url";
 import {
   DEFAULT_TYPES_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
   DEFAULT_TYPES_LIMIT_IN_ADMIN_PANEL_PAGE,
 } from "../../constants/types-constants";
+import { useGetImagesQuery } from "../../store/api/images/images-api";
+import styles from "../../components/AdminPanel/AdminPanelTab.module.scss";
+import { AddCharacteristicsInfo } from "../../components/AddCharacteristicsInfo/AddCharacteristicsInfo";
+import React from "react";
 
-export const useGetEditProductFields = (product: IProduct) => {
+export const useGetAddOrEditProductFields = (product: IProduct) => {
+  const [characteristics, setCharacteristics] = React.useState([]);
+
   const { data: typesData } = useGetTypesQuery({
     page: DEFAULT_TYPES_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
     limit: DEFAULT_TYPES_LIMIT_IN_ADMIN_PANEL_PAGE,
   });
 
-  const searchedOptions = (enteredValue: string, option) => {
+  const { data: imagesData } = useGetImagesQuery(null);
+
+  const searchedTypesOptions = (enteredValue: string, option) => {
     return option.label.toLowerCase().includes(enteredValue.toLowerCase());
   };
 
@@ -28,19 +36,36 @@ export const useGetEditProductFields = (product: IProduct) => {
     value: type.id,
   }));
 
-  const imageStyles = {
-    width: "100%",
-    height: "100%",
-  };
+  const imageOptions = imagesData?.map((image: IImage) => ({
+    label: image.filename,
+    value: image.id,
+  }));
+
+  const renderImageOption = (image) => (
+    <div className={styles.imageOptionWrapper} key={image.value}>
+      <img
+        className={styles.imageInOption}
+        src={getImageUrl(image.label)}
+        alt=""
+      />
+      {image.label}
+    </div>
+  );
 
   const productsFields = [
     {
       label: productItemLabels.image,
+      name: productItemDataIndexes.image_id,
       node: (
-        <img
-          src={getImageUrl(product?.image?.filename)}
-          alt=""
-          style={imageStyles}
+        // <img
+        //   src={getImageUrl(product?.image?.filename)}
+        //   alt=""
+        //   style={imageStyles}
+        // />
+        <Select
+          defaultValue={product.image?.id}
+          options={imageOptions}
+          optionRender={renderImageOption}
         />
       ),
     },
@@ -67,30 +92,34 @@ export const useGetEditProductFields = (product: IProduct) => {
           defaultValue={product.type?.name}
           options={typesOptions}
           showSearch
-          filterOption={searchedOptions}
+          filterOption={searchedTypesOptions}
         />
       ),
     },
     {
       label: productItemLabels.characteristics,
       node: (
-        <Table
-          columns={characteristicsListColumns}
-          dataSource={product.characteristics}
-          pagination={false}
-          showHeader={false}
-          size="small"
-          bordered
+        // <Table
+        //   columns={characteristicsListColumns}
+        //   dataSource={characteristics}
+        //   pagination={false}
+        //   showHeader={false}
+        //   size="small"
+        //   bordered
+        // />
+        <AddCharacteristicsInfo
+          characteristics={characteristics}
+          setCharacteristics={setCharacteristics}
         />
       ),
     },
   ];
 
-  const formItems = productsFields.map((field) => (
+  const FormItems = productsFields.map((field) => (
     <Form.Item key={field.name} {...field}>
       {field.node}
     </Form.Item>
   ));
 
-  return formItems;
+  return { FormItems, characteristics };
 };
