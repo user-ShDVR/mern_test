@@ -45,6 +45,7 @@ model products {
   carts_products  carts_products[]
   deleted         Boolean           @default(false)
   characteristics characteristics[]
+  order_products  order_products[]
 }
 
 model characteristics {
@@ -83,13 +84,22 @@ model carts {
 }
 
 model orders {
-  id          Int      @id @default(autoincrement())
-  user_id     Int
-  user        users    @relation(fields: [user_id], references: [id])
-  products_id Int
-  products    products @relation(fields: [products_id], references: [id])
-  quantity    Int
-  summary     Int
+  id             Int              @id @default(autoincrement())
+  user_id        Int
+  user           users            @relation(fields: [user_id], references: [id])
+  order_products order_products[]
+  summary        Int
+  products       products?        @relation(fields: [productsId], references: [id])
+  productsId     Int?
+}
+
+model order_products {
+  id         Int      @id @default(autoincrement())
+  order_id   Int
+  order      orders   @relation(fields: [order_id], references: [id])
+  product_id Int
+  product    products @relation(fields: [product_id], references: [id])
+  quantity   Int
 }
 
 model carts_products {

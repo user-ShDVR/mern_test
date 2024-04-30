@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseGuards,
@@ -12,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { AdminGuard } from 'src/utils/guards/admin.guard';
 
@@ -29,22 +27,16 @@ export class OrdersController {
   @Get()
   @UseGuards(AdminGuard)
   async findAll(
+    @Query('id') id: number = 1,
     @Query('page') page: number = 1,
     @Query('limit', ParseIntPipe) limit: number = 16,
   ) {
-    return this.ordersService.findAll(page, limit);
+    return this.ordersService.findAllByUser(id, page, limit);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.ordersService.findOne(+id);
-  }
-
-  @Patch(':id')
-  @UseGuards(AdminGuard)
-  @UseGuards(AdminGuard)
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
   }
 
   @Delete(':id')

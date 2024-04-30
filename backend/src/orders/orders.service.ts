@@ -1,43 +1,59 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 import { PrismaService } from 'src/utils/db/prisma.service';
+import { CreateOrderDto } from './dto/create-order.dto';
 
 @Injectable()
 export class OrdersService {
   constructor(private db: PrismaService) {}
+
   async create(createOrderDto: CreateOrderDto) {
-    await this.db.orders.create({ data: { ...createOrderDto } });
-    return 'Покупка записана.';
+    const { products, ...orderDetails } = createOrderDto;
+    const order = await this.db.orders.create({
+      data: {
+        ...orderDetails,
+        order_products: {
+          create: products.map((product) => ({
+            product_id: product.productId,
+            quantity: product.quantity,
+          })),
+        },
+      },
+    });
+    return order;
   }
 
-  async findAll(page: number = 1, limit: number = 16) {
+  async findAllByUser(userId: number, page: number = 1, limit: number = 16) {
     const offset = (page - 1) * limit;
     const totalCount = await this.db.orders.count();
     const orders = await this.db.orders.findMany({
+      where: { user_id: userId },
       take: limit,
       skip: offset,
+      include: {
+        order_products: {
+          include: {
+            product: true,
+          },
+        },
+      },
     });
     return { totalCount, orders };
   }
 
   async findOne(id: number) {
-    const order = await this.db.orders.findFirst({ where: { id } });
-    if (!order) {
-      throw new NotFoundException('id указан неверно');
-    }
-    return order;
-  }
-
-  async update(id: number, updateOrderDto: UpdateOrderDto) {
-    const order = await this.findOne(id);
-    if (!order) {
-      throw new NotFoundException('id указан неверно');
-    }
-    const updatedUser = await this.db.orders.update({
+    const order = await this.db.orders.findUnique({
       where: { id },
-      data: { ...updateOrderDto },
+      include: {
+        order_products: {
+          include: {
+            product: true,
+          },
+        },
+      },
     });
+    if (!order) {
+      throw new NotFoundException('id указан неверно');
+    }
     return order;
   }
 

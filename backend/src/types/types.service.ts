@@ -85,10 +85,12 @@ export class TypesService {
         'Тип используется в товарах и не может быть удалён.',
       );
     }
-
+    // generate random integer between 0 and 9999
+    const randomInt = Math.floor(Math.random() * 9999);
+    const url = `${type.url}-${randomInt}-deleted`;
     await this.db.types.update({
       where: { id },
-      data: { deleted: true, url: `${type.url}-deleted` },
+      data: { deleted: true, url: url },
     });
 
     return 'Тип деактивирован.';
