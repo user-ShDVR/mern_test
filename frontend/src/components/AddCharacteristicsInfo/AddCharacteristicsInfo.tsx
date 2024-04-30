@@ -10,12 +10,12 @@ import {
 
 import styles from "./AddCharacteristicsInfo.module.scss";
 
-interface AddCharacteristicsInfoProps {
+interface IAddCharacteristicsInfoProps {
   characteristics: Record<string, string>[];
   setCharacteristics: (characteristics: Record<string, string>[]) => void;
 }
 
-export const AddCharacteristicsInfo = (props: AddCharacteristicsInfoProps) => {
+export const AddCharacteristicsInfo = (props: IAddCharacteristicsInfoProps) => {
   const { characteristics, setCharacteristics } = props;
 
   const handleAddCharacteristic = () => {

@@ -26,12 +26,15 @@ import { IType } from "types/IType";
 
 interface IAddOrEditProductFieldsProps {
   productFields: IProduct;
+  isEdit: boolean;
 }
 
 export const useGetAddOrEditProductFields = (
   props: IAddOrEditProductFieldsProps
 ) => {
-  const { productFields } = props;
+  const { productFields, isEdit } = props;
+
+  const isRequired = isEdit ? false : true;
 
   const [characteristics, setCharacteristics] = React.useState(
     productFields.characteristics ?? []
@@ -80,11 +83,13 @@ export const useGetAddOrEditProductFields = (
           optionRender={renderImageOption}
         />
       ),
+      required: isRequired,
     },
     {
       name: productItemDataIndexes.name,
       label: productItemLabels.name,
       node: <Input defaultValue={productFields?.name} />,
+      required: isRequired,
     },
     {
       name: productItemDataIndexes.description,
@@ -92,11 +97,13 @@ export const useGetAddOrEditProductFields = (
       node: (
         <Input.TextArea defaultValue={productFields?.description} rows={4} />
       ),
+      required: isRequired,
     },
     {
       name: productItemDataIndexes.price,
       label: productItemLabels.price,
       node: <InputNumber defaultValue={productFields?.price} />,
+      required: isRequired,
     },
     {
       name: productItemDataIndexes.type_id,
@@ -109,6 +116,7 @@ export const useGetAddOrEditProductFields = (
           filterOption={searchedTypesOptions}
         />
       ),
+      required: isRequired,
     },
     {
       label: productItemLabels.characteristics,
@@ -118,11 +126,12 @@ export const useGetAddOrEditProductFields = (
           setCharacteristics={setCharacteristics}
         />
       ),
+      required: isRequired,
     },
   ];
 
-  const FormItems = productsFields.map((field) => (
-    <Form.Item key={field.name} {...field}>
+  const FormItems = productsFields.map((field, index) => (
+    <Form.Item key={index} {...field}>
       {field.node}
     </Form.Item>
   ));

@@ -36,7 +36,7 @@ export const Cart = () => {
 
   const reducedProducts = products?.reduce((acc: number, product) => {
     return acc + product.product.price * product.quantity;
-  });
+  }, 0);
 
   const resultPriceCount = products ? reducedProducts : 0;
 

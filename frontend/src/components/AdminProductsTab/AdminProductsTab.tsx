@@ -29,23 +29,31 @@ import { AddProductModal } from "./AddProductModal";
 import { EditProductModal } from "./EditProductModal";
 
 export const AdminProductsTab = () => {
+  const [certainProductInModal, setCertainProductInModal] = React.useState(
+    {} as IProduct
+  );
+
   const [isOpenAddModal, setIsOpenAddModal] = React.useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = React.useState(false);
 
   const { currentPage, PaginationBlock } = useGetPaginationBlock();
 
-  const { data: productsData, isLoading: isProductsLoading } =
-    useGetProductsQuery({
-      page: currentPage,
-      limit: PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE,
-      minPrice: DEFAULT_MIN_PRICE_VALUE,
-      maxPrice: DEFAULT_MAX_PRICE_VALUE,
-      type: "",
-      sortBy: "name",
-      sortOrder: "asc",
-    });
+  const {
+    data: productsData,
+    isLoading: isProductsLoading,
+    refetch: refetchProductsData,
+  } = useGetProductsQuery({
+    page: currentPage,
+    limit: PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE,
+    minPrice: DEFAULT_MIN_PRICE_VALUE,
+    maxPrice: DEFAULT_MAX_PRICE_VALUE,
+    type: "",
+    sortBy: "name",
+    sortOrder: "asc",
+  });
 
-  const [deleteProduct] = useDeleteProductsMutation();
+  const [deleteProduct, { isError: isDeleteProductError }] =
+    useDeleteProductsMutation();
 
   const declinationProducts = getDeclination({
     one: "товар",
@@ -62,8 +70,9 @@ export const AdminProductsTab = () => {
     setIsOpenAddModal(false);
   };
 
-  const handleOpenEditModal = () => {
+  const handleOpenEditModal = (product: IProduct) => {
     setIsOpenEditModal(true);
+    setCertainProductInModal(product);
   };
 
   const handleCloseEditModal = () => {
@@ -72,7 +81,15 @@ export const AdminProductsTab = () => {
 
   const handleDeleteProduct = (product: IProduct) => {
     deleteProduct({ id: String(product.id) });
-    message.success("Продукт успешно удален");
+
+    if (!isDeleteProductError) {
+      message.success("Продукт успешно удален");
+    } else {
+      message.error("Произошла ошибка при удалении продукта");
+      return;
+    }
+
+    refetchProductsData();
   };
 
   if (isProductsLoading) {
@@ -87,7 +104,7 @@ export const AdminProductsTab = () => {
 
       <p className={styles.createButton}>
         <Button type="primary" onClick={handleOpenAddModal}>
-          Создать новый продукт
+          Создать новый товар
         </Button>
       </p>
 
@@ -97,7 +114,7 @@ export const AdminProductsTab = () => {
             <Button
               className={styles.entityCardEditButton}
               type="primary"
-              onClick={() => handleOpenEditModal()}
+              onClick={() => handleOpenEditModal(product)}
             >
               Редактировать
             </Button>
@@ -152,12 +169,6 @@ export const AdminProductsTab = () => {
                 bordered
               />
             </p>
-
-            <EditProductModal
-              isOpenEditModal={isOpenEditModal}
-              onCloseEditModal={handleCloseEditModal}
-              certainProductInModal={product}
-            />
           </ShadowCard>
         ))}
       </div>
@@ -170,6 +181,14 @@ export const AdminProductsTab = () => {
       <AddProductModal
         isOpenAddModal={isOpenAddModal}
         onCloseAddModal={handleCloseAddModal}
+        refetchProductsData={refetchProductsData}
+      />
+
+      <EditProductModal
+        isOpenEditModal={isOpenEditModal}
+        onCloseEditModal={handleCloseEditModal}
+        certainProductInModal={certainProductInModal}
+        refetchProductsData={refetchProductsData}
       />
     </>
   );

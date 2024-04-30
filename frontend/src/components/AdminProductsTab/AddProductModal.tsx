@@ -12,28 +12,33 @@ import { IProduct } from "types/IProduct";
 interface IAddProductModalProps {
   isOpenAddModal: boolean;
   onCloseAddModal: () => void;
+  refetchProductsData: () => void;
 }
 
 export const AddProductModal = (props: IAddProductModalProps) => {
-  const { isOpenAddModal, onCloseAddModal } = props;
+  const { isOpenAddModal, onCloseAddModal, refetchProductsData } = props;
 
-  const [addProduct, { isSuccess: isAddProductSuccess }] =
-    useAddProductsMutation();
+  const [addProduct, { isError: isAddProductError, isSuccess }] = useAddProductsMutation();
 
   const { FormItems, characteristics } = useGetAddOrEditProductFields({
     productFields: {} as IProduct,
+    isEdit: false,
   });
 
   const onFinishAddProduct = (formValues: IAddProductsRequest) => {
     addProduct({ ...formValues, characteristics });
 
-    if (isAddProductSuccess) {
+    console.log(isSuccess)
+
+    if (!isAddProductError) {
       message.success("Продукт успешно добавлен");
       setTimeout(() => onCloseAddModal(), 1000);
     } else {
       message.error("Произошла ошибка при добавлении продукта");
       return;
     }
+
+    refetchProductsData();
   };
 
   return (

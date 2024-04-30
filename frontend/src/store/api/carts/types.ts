@@ -1,4 +1,4 @@
-import { IProduct } from "types/IProduct";
+import { IProductsInCart } from "types/IProduct";
 
 export interface IAddCartsRequest {
   user_id: number;
@@ -12,7 +12,7 @@ export interface IGetCartsRequest {
 export interface IGetCartsResponse {
   id: number;
   user_id: number;
-  carts_products: IProduct[];
+  carts_products: IProductsInCart[];
 }
 
 export interface IGetCertainCartsRequest {

@@ -13,16 +13,23 @@ interface IEditProductModalProps {
   isOpenEditModal: boolean;
   onCloseEditModal: () => void;
   certainProductInModal: IProduct;
+  refetchProductsData: () => void;
 }
 
 export const EditProductModal = (props: IEditProductModalProps) => {
-  const { isOpenEditModal, onCloseEditModal, certainProductInModal } = props;
+  const {
+    isOpenEditModal,
+    onCloseEditModal,
+    certainProductInModal,
+    refetchProductsData,
+  } = props;
 
-  const [editProduct, { isSuccess: isEditProductSuccess }] =
+  const [editProduct, { isError: isEditProductError }] =
     useEditProductsMutation();
 
   const { FormItems, characteristics } = useGetAddOrEditProductFields({
     productFields: certainProductInModal,
+    isEdit: true,
   });
 
   const onFinishEditProduct = (formValues: IEditProductsRequest) => {
@@ -32,13 +39,15 @@ export const EditProductModal = (props: IEditProductModalProps) => {
       characteristics,
     });
 
-    if (isEditProductSuccess) {
+    if (!isEditProductError) {
       message.success("Продукт успешно обновлен");
       setTimeout(() => onCloseEditModal(), 1000);
     } else {
       message.error("Произошла ошибка при обновлении продукта");
       return;
     }
+
+    refetchProductsData();
   };
 
   return (
