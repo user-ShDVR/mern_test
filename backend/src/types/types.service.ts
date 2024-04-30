@@ -53,14 +53,16 @@ export class TypesService {
       throw new NotFoundException('id указан неверно.');
     }
 
+    if (updateTypeDto.url && updateTypeDto.url !== type.url) {
+      const urlType = await this.findOneByUrl(updateTypeDto.url);
+      if (urlType && urlType.id !== type.id) {
+        throw new NotFoundException('Тип с таким url уже существует.');
+      }
+    }
+
     const image = await this.imagesService.findOne(updateTypeDto.image_id);
     if (!image) {
       throw new NotFoundException('Такого изображения не существует.');
-    }
-
-    const urlType = await this.findOneByUrl(updateTypeDto.url);
-    if (urlType && urlType.id !== id) {
-      throw new NotFoundException('Тип с таким url уже существует.');
     }
 
     await this.db.types.update({ where: { id }, data: { ...updateTypeDto } });
@@ -86,7 +88,7 @@ export class TypesService {
 
     await this.db.types.update({
       where: { id },
-      data: { deleted: true },
+      data: { deleted: true, url: `${type.url}-deleted` },
     });
 
     return 'Тип деактивирован.';
