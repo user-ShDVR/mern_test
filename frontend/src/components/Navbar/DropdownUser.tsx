@@ -14,8 +14,6 @@ import { useGetUser } from "hooks/user/use-get-user";
 
 import styles from "./Navbar.module.scss";
 
-
-
 type ItemType = {
   label: React.ReactNode;
   key: string;

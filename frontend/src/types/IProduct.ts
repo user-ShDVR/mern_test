@@ -1,3 +1,5 @@
+import { MouseEvent } from "react";
+
 export interface IProduct {
   id: number;
   name: string;
@@ -27,14 +29,18 @@ export interface IProduct {
   }[];
 }
 
-export interface IProductFields {
+export type TButtonEvent = MouseEvent<HTMLButtonElement, MouseEvent>;
+
+export interface IProductChangeQuantity {
   product_id: number;
   quantity: number;
   product: IProduct;
 }
 
-export interface IGetCertainCartsResponse {
+export interface IProductsInCart {
+  cart_id: number;
   id: number;
-  user_id: number;
-  carts_products: IProduct[];
+  product: IProduct;
+  product_id: number;
+  quantity: number;
 }

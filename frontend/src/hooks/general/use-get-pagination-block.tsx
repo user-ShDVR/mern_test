@@ -2,9 +2,9 @@ import React from "react";
 
 import { Pagination } from "antd";
 
-interface PaginationBlockArgs {
-  totalDataCount: number;
+interface IPaginationBlockArgs {
   countElementsOnPage: number;
+  totalCount?: number;
 }
 
 export const useGetPaginationBlock = () => {
@@ -20,15 +20,15 @@ export const useGetPaginationBlock = () => {
     justifyContent: "center",
   };
 
-  const PaginationBlock = (args: PaginationBlockArgs) => {
-    const { totalDataCount, countElementsOnPage } = args;
+  const PaginationBlock = (args: IPaginationBlockArgs) => {
+    const { totalCount, countElementsOnPage } = args;
 
     return (
       <Pagination
         style={styles}
         defaultCurrent={1}
         defaultPageSize={countElementsOnPage}
-        total={totalDataCount}
+        total={totalCount}
         showSizeChanger={false}
         onChange={handlePageChange}
         current={currentPage}

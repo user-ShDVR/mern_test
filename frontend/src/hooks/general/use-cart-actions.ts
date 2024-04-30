@@ -1,5 +1,3 @@
-import React from "react";
-
 import { message } from "antd";
 import { useSelector } from "react-redux";
 
@@ -14,24 +12,25 @@ import {
 } from "store/api/cartsProducts/carts-products-api";
 import { selectUser } from "store/features/userSlice";
 
-import { IProductFields } from "types/IProduct";
+import { TButtonEvent } from "types/IProduct";
 
-export enum CartActions {
+export enum ECartActions {
   ADD = "add",
   DELETE = "delete",
   PLUS = "plus",
   MINUS = "minus",
 }
 
-interface CartAction {
+interface ICartActionArgs {
   productId: number;
   quantity?: number;
-  action: CartActions;
-  eventButton?: React.MouseEvent<HTMLButtonElement, MouseEvent>;
+  action: ECartActions;
+  eventButton?: TButtonEvent;
 }
 
 export const useCartActions = () => {
   const { user } = useSelector(selectUser);
+
   const stringUserId = String(user?.id);
   const numberUserId = Number(user?.id);
 
@@ -44,16 +43,17 @@ export const useCartActions = () => {
   const [changeProductQuantity] = useEditCartsProductsMutation();
   const [clearCart] = useClearCartsMutation();
 
-  const getIsProductInCart = (productId: number) =>
-    cartProductsData?.carts_products.some(
-      (product: IProductFields) => product.product.id === productId
+  const getIsProductInCart = (productId: number) => {
+    return cartProductsData?.carts_products.some(
+      (product) => product.product.id === productId
     );
+  };
 
-  const handleActionCart = async (args: CartAction) => {
+  const handleActionCart = async (args: ICartActionArgs) => {
     const { productId, action, eventButton } = args;
 
     eventButton?.preventDefault();
-    if (action === CartActions.ADD) {
+    if (action === ECartActions.ADD) {
       if (!getIsProductInCart(productId)) {
         await addToCart({
           cart_id: numberUserId,
@@ -67,7 +67,7 @@ export const useCartActions = () => {
       }
     }
 
-    if (action === CartActions.DELETE) {
+    if (action === ECartActions.DELETE) {
       if (getIsProductInCart(productId)) {
         await deleteFromCart({
           user_id: numberUserId,
@@ -83,10 +83,10 @@ export const useCartActions = () => {
     cartProductsDataRefetch();
   };
 
-  const handleChangeProductQuantity = async (args: CartAction) => {
+  const handleChangeProductQuantity = async (args: ICartActionArgs) => {
     const { productId, quantity, action } = args;
 
-    if (action === CartActions.PLUS) {
+    if (action === ECartActions.PLUS) {
       await changeProductQuantity({
         id: stringUserId,
         product_id: productId,
@@ -94,7 +94,7 @@ export const useCartActions = () => {
       });
     }
 
-    if (action === CartActions.MINUS) {
+    if (action === ECartActions.MINUS) {
       await changeProductQuantity({
         id: stringUserId,
         product_id: productId,

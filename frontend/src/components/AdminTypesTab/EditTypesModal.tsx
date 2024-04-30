@@ -7,7 +7,7 @@ import { useEditTypesMutation } from "store/api/types/types-api";
 
 import { useGetAddOrEditTypeFields } from "hooks/adminPanel/use-get-add-or-edit-type-fields";
 
-import { IType } from "types/ICatalogElement";
+import { IType } from "types/IType";
 
 interface IEditTypesModalProps {
   isOpenEditModal: boolean;

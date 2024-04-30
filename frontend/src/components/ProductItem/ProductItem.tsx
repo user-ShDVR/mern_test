@@ -31,7 +31,7 @@ export const ProductItem = () => {
       <ShadowCard>
         <div className={styles.productItemWrapper}>
           <Image
-            src={getImageUrl(productData?.image.filename)}
+            src={getImageUrl(productData?.image.filename ?? "")}
             preview={false}
           />
 

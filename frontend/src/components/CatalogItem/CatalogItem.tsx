@@ -102,7 +102,7 @@ export const CatalogItem = () => {
 
       <PaginationBlock
         countElementsOnPage={PRODUCTS_COUNT_IN_CATALOG_ITEM_PAGE}
-        totalDataCount={productsData?.totalCount}
+        totalCount={productsData?.totalCount}
       />
     </>
   );

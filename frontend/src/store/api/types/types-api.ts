@@ -6,6 +6,7 @@ import {
   IEditTypesRequest,
   IGetCertainTypesRequest,
   IGetTypesRequest,
+  IGetTypesResponse,
 } from "./types";
 
 const injectedRtkApi = api.injectEndpoints({
@@ -18,7 +19,7 @@ const injectedRtkApi = api.injectEndpoints({
       }),
     }),
 
-    getTypes: build.query<unknown, IGetTypesRequest>({
+    getTypes: build.query<IGetTypesResponse, IGetTypesRequest>({
       query: (body) => ({
         url: `/types`,
         params: { page: body.page, limit: body.limit },

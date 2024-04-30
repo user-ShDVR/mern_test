@@ -2,7 +2,7 @@ import { createRtkApi as api } from "store/api/createRtkApi";
 
 import {
   EditCartsProductsRequest,
-  ICartsProductsResponse,
+  IAddCartsProductsResponse,
   IDeleteCartsProductsRequest,
   IGetCartsProductsRequest,
   IGetCertainCartsProductsRequest,
@@ -10,7 +10,7 @@ import {
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    addCartsProducts: build.mutation<unknown, ICartsProductsResponse>({
+    addCartsProducts: build.mutation<unknown, IAddCartsProductsResponse>({
       query: (body) => ({
         url: `/carts-products`,
         method: "POST",

@@ -7,7 +7,7 @@ import { useAddTypesMutation } from "store/api/types/types-api";
 
 import { useGetAddOrEditTypeFields } from "hooks/adminPanel/use-get-add-or-edit-type-fields";
 
-import { IType } from "types/ICatalogElement";
+import { IType } from "types/IType";
 
 interface IAddTypeModalProps {
   isOpenAddModal: boolean;
@@ -22,7 +22,6 @@ export const AddTypeModal = (props: IAddTypeModalProps) => {
   const { FormItems } = useGetAddOrEditTypeFields({ typeFields: {} as IType });
 
   const onFinishAddType = (formValues: IAddTypesRequest) => {
-    console.log(formValues);
     addType(formValues);
 
     if (isAddTypeSuccess) {

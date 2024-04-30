@@ -4,11 +4,11 @@ import { Button, Typography } from "antd";
 import { EmptyMessage } from "components/EmptyMessage/EmptyMessage";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
 
-import { CartActions, useCartActions } from "hooks/general/use-cart-actions";
+import { ECartActions, useCartActions } from "hooks/general/use-cart-actions";
 
 import { getImageUrl } from "utils/get-image-url";
 
-import { IProductFields } from "types/IProduct";
+import { IProductChangeQuantity } from "types/IProduct";
 
 import styles from "./Cart.module.scss";
 
@@ -18,28 +18,25 @@ export const Cart = () => {
 
   const products = cartProductsData?.carts_products;
 
-  const handlePlus = (product: IProductFields) => {
+  const handlePlus = (product: IProductChangeQuantity) => {
     handleChangeProductQuantity({
       productId: product.product_id,
       quantity: product.quantity,
-      action: CartActions.PLUS,
+      action: ECartActions.PLUS,
     });
   };
 
-  const handleMinus = (product: IProductFields) => {
+  const handleMinus = (product: IProductChangeQuantity) => {
     handleChangeProductQuantity({
       productId: product.product_id,
       quantity: product.quantity,
-      action: CartActions.MINUS,
+      action: ECartActions.MINUS,
     });
   };
 
-  const reducedProducts = products?.reduce(
-    (acc: number, product: IProductFields) => {
-      return acc + product.product.price * product.quantity;
-    },
-    0
-  );
+  const reducedProducts = products?.reduce((acc: number, product) => {
+    return acc + product.product.price * product.quantity;
+  });
 
   const resultPriceCount = products ? reducedProducts : 0;
 
@@ -56,7 +53,7 @@ export const Cart = () => {
 
           <div className={styles.cartWrapper}>
             <div className={styles.cardWithProductWrapper}>
-              {products.map((product: IProductFields) => (
+              {products.map((product) => (
                 <ShadowCard className={styles.card} key={product.product.id}>
                   <div className={styles.productWrapper}>
                     <div className={styles.productImageWrapper}>
@@ -106,7 +103,8 @@ export const Cart = () => {
             <div className={styles.resultWrapper}>
               <div className={styles.result}>
                 <Typography.Text className={styles.resultName}>
-                  {products.length} товара
+                  {/* TODO: колво товаров общее */}
+                  Сумма товаров {products.length}
                 </Typography.Text>
 
                 <Typography.Text className={styles.resultPrice}>

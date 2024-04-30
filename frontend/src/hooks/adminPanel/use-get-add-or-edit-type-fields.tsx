@@ -13,14 +13,14 @@ import {
 
 import { getImageUrl } from "utils/get-image-url";
 
-import { IType } from "types/ICatalogElement";
+import { IType } from "types/IType";
 
-interface UseGetAddOrEditTypeFieldsProps {
+interface IUseGetAddOrEditTypeFieldsProps {
   typeFields: IType;
 }
 
 export const useGetAddOrEditTypeFields = (
-  props: UseGetAddOrEditTypeFieldsProps
+  props: IUseGetAddOrEditTypeFieldsProps
 ) => {
   const { typeFields } = props;
 

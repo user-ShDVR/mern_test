@@ -5,40 +5,51 @@ import {
 } from "@ant-design/icons";
 import { Button } from "antd";
 
-import { CartActions, useCartActions } from "hooks/general/use-cart-actions";
+import { ECartActions, useCartActions } from "hooks/general/use-cart-actions";
 
-interface CartButtonsProps {
+import { TButtonEvent } from "types/IProduct";
+
+interface ICartButtonsProps {
   productId: number;
 }
 
-export const CartButtons = (props: CartButtonsProps) => {
+export const CartButtons = (props: ICartButtonsProps) => {
   const { productId } = props;
 
   const { handleActionCart, getIsProductInCart } = useCartActions();
 
-  const handleAddToCart = (e) => {
+  const handleAddToCart = (event: TButtonEvent) => {
     handleActionCart({
       productId: productId,
-      action: CartActions.ADD,
-      eventButton: e,
+      action: ECartActions.ADD,
+      eventButton: event,
     });
   };
 
-  const handleDeleteFromCart = (e) => {
+  const handleDeleteFromCart = (event: TButtonEvent) => {
     handleActionCart({
       productId: productId,
-      action: CartActions.DELETE,
-      eventButton: e,
+      action: ECartActions.DELETE,
+      eventButton: event,
     });
   };
 
   return !getIsProductInCart(productId) ? (
-    <Button type="primary" onClick={(e) => handleAddToCart(e)} block>
+    <Button
+      type="primary"
+      onClick={(event) => handleAddToCart(event as unknown as TButtonEvent)}
+      block
+    >
       <ArrowDownOutlined />
       <ShoppingCartOutlined /> В корзину
     </Button>
   ) : (
-    <Button onClick={(e) => handleDeleteFromCart(e)} block>
+    <Button
+      onClick={(event) =>
+        handleDeleteFromCart(event as unknown as TButtonEvent)
+      }
+      block
+    >
       <ArrowUpOutlined />
       <ShoppingCartOutlined /> В корзине
     </Button>

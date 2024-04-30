@@ -2,7 +2,7 @@ import React from "react";
 
 import { Button, Table, Tag, Typography, message } from "antd";
 
-import styles from "components/AdminPanelTab.module.scss";
+import styles from "components/AdminPanel/AdminPanelTab.module.scss";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
 import { Spinner } from "components/Spinner/Spinner";
 
@@ -164,7 +164,7 @@ export const AdminProductsTab = () => {
 
       <PaginationBlock
         countElementsOnPage={PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE}
-        totalDataCount={productsData?.totalCount}
+        totalCount={productsData?.totalCount}
       />
 
       <AddProductModal

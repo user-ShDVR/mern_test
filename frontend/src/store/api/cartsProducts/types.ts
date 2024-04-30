@@ -1,8 +1,9 @@
-export type ICartsProductsResponse = {
+export type IAddCartsProductsResponse = {
   cart_id: number;
   product_id: number;
   quantity: number;
 };
+
 export type EditCartsProductsRequest = {
   id?: string;
   cart_id?: number;

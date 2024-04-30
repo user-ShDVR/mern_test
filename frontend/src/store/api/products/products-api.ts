@@ -5,7 +5,9 @@ import {
   IDeleteProductsRequest,
   IEditProductsRequest,
   IGetCertainProductsRequest,
+  IGetCertainProductsResponse,
   IGetProductsRequest,
+  IGetProductsResponse,
 } from "./types";
 
 const injectedRtkApi = api.injectEndpoints({
@@ -18,13 +20,16 @@ const injectedRtkApi = api.injectEndpoints({
       }),
     }),
 
-    getProducts: build.query<unknown, IGetProductsRequest>({
+    getProducts: build.query<IGetProductsResponse, IGetProductsRequest>({
       query: (body) => ({
         url: `/products?page=${body.page}&limit=${body.limit}&minPrice=${body.minPrice}&maxPrice=${body.maxPrice}&sortBy=${body.sortBy}&sortOrder=${body.sortOrder}&type=${body["type"]}`,
       }),
     }),
 
-    getCertainProducts: build.query<unknown, IGetCertainProductsRequest>({
+    getCertainProducts: build.query<
+      IGetCertainProductsResponse,
+      IGetCertainProductsRequest
+    >({
       query: (body) => ({ url: `/products/${body.id}` }),
     }),
 

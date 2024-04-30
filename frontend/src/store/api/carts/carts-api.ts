@@ -6,6 +6,7 @@ import {
   IDeleteCartsRequest,
   IEditCartsRequest,
   IGetCartsRequest,
+  IGetCartsResponse,
   IGetCertainCartsRequest,
 } from "./types";
 
@@ -25,7 +26,7 @@ const injectedRtkApi = api.injectEndpoints({
       }),
     }),
 
-    getCertainCarts: build.query<unknown, IGetCertainCartsRequest>({
+    getCertainCarts: build.query<IGetCartsResponse, IGetCertainCartsRequest>({
       query: (body) => ({ url: `/carts/${body.id}` }),
     }),
 

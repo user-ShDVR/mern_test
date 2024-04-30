@@ -6,6 +6,7 @@ import {
   IEditUsersRequest,
   IGetCertainUsersRequest,
   IGetUsersRequest,
+  IUserResponse,
 } from "./types";
 
 const injectedRtkApi = api.injectEndpoints({
@@ -18,7 +19,7 @@ const injectedRtkApi = api.injectEndpoints({
       }),
     }),
 
-    getUsers: build.query<unknown, IGetUsersRequest>({
+    getUsers: build.query<IUserResponse, IGetUsersRequest>({
       query: (body) => ({
         url: `/users`,
         params: { page: body.page, limit: body.limit },

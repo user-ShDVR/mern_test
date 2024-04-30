@@ -1,3 +1,5 @@
+import { IType } from "types/IType";
+
 export interface IAddTypesRequest {
   name: string;
   image_id: number;
@@ -7,6 +9,11 @@ export interface IAddTypesRequest {
 export interface IGetTypesRequest {
   page: number;
   limit: number;
+}
+
+export interface IGetTypesResponse {
+  types: IType[];
+  totalCount: number;
 }
 
 export interface IGetCertainTypesRequest {

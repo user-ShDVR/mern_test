@@ -21,8 +21,8 @@ import {
 
 import { getImageUrl } from "utils/get-image-url";
 
-import { IType } from "types/ICatalogElement";
 import { IProduct } from "types/IProduct";
+import { IType } from "types/IType";
 
 interface IAddOrEditProductFieldsProps {
   productFields: IProduct;
@@ -34,7 +34,7 @@ export const useGetAddOrEditProductFields = (
   const { productFields } = props;
 
   const [characteristics, setCharacteristics] = React.useState(
-    productFields.characteristics
+    productFields.characteristics ?? []
   );
 
   const { data: typesData } = useGetTypesQuery({

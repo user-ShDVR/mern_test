@@ -1,3 +1,5 @@
+import { IUser } from "types/IUser";
+
 export interface IAddUserRequest {
   email: string;
   hash: string;
@@ -15,6 +17,11 @@ export interface IEditUsersRequest {
   surname?: string;
   name?: string;
   lastname?: string;
+}
+
+export interface IUserResponse {
+  users: IUser[];
+  totalCount: number;
 }
 
 export interface IGetUsersRequest {

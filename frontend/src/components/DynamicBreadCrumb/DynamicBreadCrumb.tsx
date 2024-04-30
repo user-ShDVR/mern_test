@@ -8,7 +8,6 @@ const pathTranslations: Record<string, string> = {
   cart: "Корзина",
   admin_panel: "Админ-панель",
   forbidden: "Нет доступа к странице",
-  vines: "Вина",
 };
 
 export const DynamicBreadCrumb = () => {

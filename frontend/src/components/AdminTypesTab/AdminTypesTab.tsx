@@ -21,7 +21,7 @@ import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
 import { getDeclination } from "utils/get-declination";
 import { getImageUrl } from "utils/get-image-url";
 
-import { IType } from "types/ICatalogElement";
+import { IType } from "types/IType";
 
 import { AddTypeModal } from "./AddTypeModal";
 import { EditTypesModal } from "./EditTypesModal";
@@ -142,7 +142,7 @@ export const AdminTypesTab = () => {
 
       <PaginationBlock
         countElementsOnPage={TYPES_COUNT_IN_ADMIN_PANEL_PAGE}
-        totalDataCount={typesData?.totalCount}
+        totalCount={typesData?.totalCount}
       />
 
       <EditTypesModal

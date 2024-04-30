@@ -1,4 +1,4 @@
-import { Tabs, TabsProps, Typography } from "antd";
+import { Tabs, Typography } from "antd";
 
 import { AdminImagesTab } from "components/AdminImagesTab/AdminImagesTab";
 import { AdminProductsTab } from "components/AdminProductsTab/AdminProductsTab";
@@ -6,7 +6,7 @@ import { AdminTypesTab } from "components/AdminTypesTab/AdminTypesTab";
 import { AdminUsersTab } from "components/AdminUsersTab/AdminUsersTab";
 
 export const AdminPanel = () => {
-  const items: TabsProps["items"] = [
+  const items = [
     {
       key: "1",
       label: "Клиенты",

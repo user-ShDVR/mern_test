@@ -13,8 +13,7 @@ import {
 
 import { getDeclination } from "utils/get-declination";
 
-import { IUser } from "types/IUserState";
-
+import { IUser } from "types/IUser";
 
 export const AdminUsersTab = () => {
   const { data: usersData, isLoading: isUsersLoading } = useGetUsersQuery({

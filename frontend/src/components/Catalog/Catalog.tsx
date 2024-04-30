@@ -14,7 +14,7 @@ import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
 
 import { getImageUrl } from "utils/get-image-url";
 
-import { IType } from "types/ICatalogElement";
+import { IType } from "types/IType";
 
 import styles from "./Catalog.module.scss";
 
@@ -59,7 +59,7 @@ export const Catalog = () => {
       </div>
 
       <PaginationBlock
-        totalDataCount={typesData?.totalCount}
+        totalCount={typesData?.totalCount}
         countElementsOnPage={TYPES_COUNT_IN_CATALOG_PAGE}
       />
     </>

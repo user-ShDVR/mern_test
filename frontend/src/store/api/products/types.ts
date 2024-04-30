@@ -1,3 +1,5 @@
+import { IProduct } from "types/IProduct";
+
 export type IAddProductsRequest = {
   name: string;
   description: string;
@@ -17,9 +19,16 @@ export interface IGetProductsRequest {
   type: string;
 }
 
+export interface IGetProductsResponse {
+  products: IProduct[];
+  totalCount: number;
+}
+
 export interface IGetCertainProductsRequest {
   id: string;
 }
+
+export interface IGetCertainProductsResponse extends IProduct {}
 
 export type IEditProductsRequest = {
   id?: number;
