@@ -1,10 +1,13 @@
 import { Button, Form, InputNumber, Select, Typography } from "antd";
-import styles from "./CatalogItem.module.scss";
+
 import { useForm } from "antd/es/form/Form";
+
 import {
   DEFAULT_MAX_PRICE_VALUE,
   DEFAULT_MIN_PRICE_VALUE,
-} from "../../constants/products-constants";
+} from "constants/products-constants";
+
+import styles from "./CatalogItem.module.scss";
 
 interface FilterSliderProps {
   minValue: number;

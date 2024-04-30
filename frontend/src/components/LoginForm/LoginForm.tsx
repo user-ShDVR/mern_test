@@ -1,13 +1,17 @@
+import React from "react";
+
 import { Button, Form, Typography, message } from "antd";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
-import { ProfileFields } from "./ProfileFields";
+
+import { useSignInMutation } from "store/api/auth/auth-api";
+import { ISignInFields } from "store/api/auth/types";
+
 import {
   AND_VALIDATE_MESSAGE,
   DEFAULT_VALIDATE_MESSAGE,
-} from "../../constants/profile-constants";
-import React from "react";
-import { useSignInMutation } from "../../store/api/auth/auth-api";
-import { ISignInFields } from "../../store/api/auth/types";
+} from "constants/profile-constants";
+
+import { ProfileFields } from "./ProfileFields";
 
 interface LoginFormProps {
   handleCloseModal: () => void;

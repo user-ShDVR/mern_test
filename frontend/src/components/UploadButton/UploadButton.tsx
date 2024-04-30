@@ -1,7 +1,10 @@
 import React from "react";
-import { Upload, message } from "antd";
+
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { Upload, message } from "antd";
+
 import { UploadListType, UploadProps } from "antd/es/upload/interface";
+
 import styles from "./UploadButton.module.scss";
 
 export const UploadButton = () => {

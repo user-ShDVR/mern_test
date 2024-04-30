@@ -1,5 +1,6 @@
 import { Breadcrumb } from "antd";
 import { Link, useLocation } from "react-router-dom";
+
 import styles from "./DynamicBreadCrumb.module.scss";
 
 const pathTranslations: Record<string, string> = {

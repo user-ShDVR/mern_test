@@ -1,9 +1,13 @@
 import { Modal, Form, Button, message } from "antd";
-import { useGetAddOrEditTypeFields } from "../../hooks/adminPanel/use-get-add-or-edit-type-fields";
-import styles from "../AdminPanel/AdminPanelTab.module.scss";
-import { useEditTypesMutation } from "../../store/api/types/types-api";
-import { IEditTypesRequest } from "../../store/api/types/types";
-import { IType } from "../../types/ICatalogElement";
+
+import styles from "components/AdminPanel/AdminPanelTab.module.scss";
+
+import { IEditTypesRequest } from "store/api/types/types";
+import { useEditTypesMutation } from "store/api/types/types-api";
+
+import { useGetAddOrEditTypeFields } from "hooks/adminPanel/use-get-add-or-edit-type-fields";
+
+import { IType } from "types/ICatalogElement";
 
 interface IEditTypesModalProps {
   isOpenEditModal: boolean;
@@ -20,20 +24,23 @@ export const EditTypesModal = (props: IEditTypesModalProps) => {
     typesDataRefetch,
   } = props;
 
-  const [editType] = useEditTypesMutation();
+  const [editType, { isSuccess: isEditTypeSuccess }] = useEditTypesMutation();
 
-  const formItems = useGetAddOrEditTypeFields({
+  const { FormItems } = useGetAddOrEditTypeFields({
     typeFields: certainTypeInModal,
-    isAddMode: true,
-    isEditMode: false,
   });
 
   const onFinishEditType = (formValues: IEditTypesRequest) => {
     editType({ id: certainTypeInModal.id, ...formValues });
     typesDataRefetch();
 
-    message.success("Категория успешно обновлена");
-    setTimeout(() => onCloseEditModal(), 1000);
+    if (isEditTypeSuccess) {
+      message.success("Категория успешно обновлена");
+      setTimeout(() => onCloseEditModal(), 1000);
+    } else {
+      message.error("Произошла ошибка при обновлении категории");
+      return;
+    }
   };
 
   return (
@@ -49,7 +56,7 @@ export const EditTypesModal = (props: IEditTypesModalProps) => {
         layout="vertical"
         onFinish={onFinishEditType}
       >
-        {formItems}
+        {FormItems}
 
         <Button type="primary" htmlType="submit" block>
           Редактировать

@@ -1,7 +1,9 @@
 import { Button, Typography } from "antd";
-import styles from "./Forbidden.module.scss";
 import { Link } from "react-router-dom";
-import { RouterPath } from "../../configs/route-сonfig";
+
+import { RouterPath } from "configs/route-config";
+
+import styles from "./Forbidden.module.scss";
 
 export const Forbidden = () => {
   return (

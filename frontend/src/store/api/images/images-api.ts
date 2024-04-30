@@ -1,4 +1,5 @@
-import { createRtkApi as api } from "../createRtkApi";
+import { createRtkApi as api } from "store/api/createRtkApi";
+
 import { IAddImagesRequest, IGetImagesRequest } from "./types";
 
 const injectedRtkApi = api.injectEndpoints({

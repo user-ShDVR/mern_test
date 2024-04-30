@@ -1,11 +1,16 @@
-import { Button, Image, Table, Typography, message } from "antd";
-import styles from "./ProductItem.module.scss";
 import { ShareAltOutlined } from "@ant-design/icons";
-import { ShadowCard } from "../ShadowCard/ShadowCard";
-import { CartButtons } from "../CartButtons/CartButtons";
-import { getImageUrl } from "../../utils/get-image-url";
-import { useGetCertainProductsQuery } from "../../store/api/products/products-api";
-import { characteristicsListColumns } from "../../constants/products-constants";
+import { Button, Image, Table, Typography, message } from "antd";
+
+import { CartButtons } from "components/CartButtons/CartButtons";
+import { ShadowCard } from "components/ShadowCard/ShadowCard";
+
+import { useGetCertainProductsQuery } from "store/api/products/products-api";
+
+import { characteristicsListColumns } from "constants/products-constants";
+
+import { getImageUrl } from "utils/get-image-url";
+
+import styles from "./ProductItem.module.scss";
 
 export const ProductItem = () => {
   const productItemId = window.location.pathname.split("/")[3];

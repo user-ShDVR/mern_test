@@ -1,9 +1,13 @@
 import { Modal, Form, Button, message } from "antd";
-import { useGetAddOrEditProductFields } from "../../hooks/adminPanel/use-get-add-or-edit-product-fields";
-import styles from "../AdminPanel/AdminPanelTab.module.scss";
-import { useAddProductsMutation } from "../../store/api/products/products-api";
-import { IAddProductsRequest } from "../../store/api/products/types";
-import { IProduct } from "../../types/IProduct";
+
+import styles from "components/AdminPanel/AdminPanelTab.module.scss";
+
+import { useAddProductsMutation } from "store/api/products/products-api";
+import { IAddProductsRequest } from "store/api/products/types";
+
+import { useGetAddOrEditProductFields } from "hooks/adminPanel/use-get-add-or-edit-product-fields";
+
+import { IProduct } from "types/IProduct";
 
 interface IAddProductModalProps {
   isOpenAddModal: boolean;
@@ -16,13 +20,12 @@ export const AddProductModal = (props: IAddProductModalProps) => {
   const [addProduct, { isSuccess: isAddProductSuccess }] =
     useAddProductsMutation();
 
-  const { FormItems, characteristics } = useGetAddOrEditProductFields(
-    {} as IProduct
-  );
+  const { FormItems, characteristics } = useGetAddOrEditProductFields({
+    productFields: {} as IProduct,
+  });
 
   const onFinishAddProduct = (formValues: IAddProductsRequest) => {
-    console.log(formValues);
-    addProduct({ characteristics, ...formValues });
+    addProduct({ ...formValues, characteristics });
 
     if (isAddProductSuccess) {
       message.success("Продукт успешно добавлен");

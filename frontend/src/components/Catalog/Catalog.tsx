@@ -1,15 +1,22 @@
 import { Card, Typography } from "antd";
-import styles from "./Catalog.module.scss";
 import { Link } from "react-router-dom";
-import { IType } from "../../types/ICatalogElement";
-import { ShadowCard } from "../ShadowCard/ShadowCard";
-import { getImageUrl } from "../../utils/get-image-url";
-import { useGetTypesQuery } from "../../store/api/types/types-api";
-import { useGetPaginationBlock } from "../../hooks/use-get-pagination-block";
+
+import { ShadowCard } from "components/ShadowCard/ShadowCard";
+
+import { useGetTypesQuery } from "store/api/types/types-api";
+
 import {
   DEFAULT_TYPES_LIMIT_IN_CATALOG_PAGE,
   TYPES_COUNT_IN_CATALOG_PAGE,
-} from "../../constants/types-constants";
+} from "constants/types-constants";
+
+import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
+
+import { getImageUrl } from "utils/get-image-url";
+
+import { IType } from "types/ICatalogElement";
+
+import styles from "./Catalog.module.scss";
 
 export const Catalog = () => {
   const { currentPage, PaginationBlock } = useGetPaginationBlock();
@@ -30,6 +37,10 @@ export const Catalog = () => {
               className={styles.link}
               to={catalogElement.url}
               key={catalogElement.id}
+              state={{
+                categoryTypeName: catalogElement.name,
+                categoryTypeUrl: catalogElement.url,
+              }}
             >
               <ShadowCard
                 className={styles.card}

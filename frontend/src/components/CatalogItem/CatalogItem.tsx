@@ -1,20 +1,28 @@
-import { Card, Typography } from "antd";
-import styles from "./CatalogItem.module.scss";
-import { Filters } from "./Filters";
-import { IProduct } from "../../types/IProduct";
 import React from "react";
-import { Link } from "react-router-dom";
-import { EmptyMessage } from "../EmptyMessage/EmptyMessage";
-import { ShadowCard } from "../ShadowCard/ShadowCard";
-import { CartButtons } from "../CartButtons/CartButtons";
-import { getImageUrl } from "../../utils/get-image-url";
-import { useGetProductsQuery } from "../../store/api/products/products-api";
-import { useGetPaginationBlock } from "../../hooks/use-get-pagination-block";
+
+import { Card, Typography } from "antd";
+import { Link, useLocation } from "react-router-dom";
+
+import { CartButtons } from "components/CartButtons/CartButtons";
+import { EmptyMessage } from "components/EmptyMessage/EmptyMessage";
+import { ShadowCard } from "components/ShadowCard/ShadowCard";
+
+import { useGetProductsQuery } from "store/api/products/products-api";
+
 import {
   DEFAULT_MAX_PRICE_VALUE,
   DEFAULT_MIN_PRICE_VALUE,
   PRODUCTS_COUNT_IN_CATALOG_ITEM_PAGE,
-} from "../../constants/products-constants";
+} from "constants/products-constants";
+
+import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
+
+import { getImageUrl } from "utils/get-image-url";
+
+import { IProduct } from "types/IProduct";
+
+import styles from "./CatalogItem.module.scss";
+import { Filters } from "./Filters";
 
 export const CatalogItem = () => {
   const { currentPage, PaginationBlock } = useGetPaginationBlock();
@@ -24,21 +32,21 @@ export const CatalogItem = () => {
   const [sortOrder, setSortOrder] = React.useState("asc");
   const [sortBy, setSortBy] = React.useState("price");
 
-  const categoryType = window.location.pathname.split("/")[2];
+  const location = useLocation();
 
   const { data: productsData } = useGetProductsQuery({
     page: currentPage,
     limit: PRODUCTS_COUNT_IN_CATALOG_ITEM_PAGE,
     minPrice: minValue,
     maxPrice: maxValue,
-    type: categoryType,
+    type: location.state?.categoryTypeUrl,
     sortBy,
     sortOrder,
   });
 
   return (
     <>
-      <Typography.Title>Вино</Typography.Title>
+      <Typography.Title>{location.state?.categoryTypeName}</Typography.Title>
 
       <div className={styles.wrapper}>
         <ShadowCard className={styles.filtersWrapper}>

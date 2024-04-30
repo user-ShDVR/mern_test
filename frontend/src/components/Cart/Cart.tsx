@@ -1,11 +1,16 @@
-import { Button, Typography } from "antd";
-import styles from "./Cart.module.scss";
-import { EmptyMessage } from "../EmptyMessage/EmptyMessage";
-import { ShadowCard } from "../ShadowCard/ShadowCard";
 import { ClearOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
-import { CartActions, useCartActions } from "../../hooks/use-cart-actionts";
-import { getImageUrl } from "../../utils/get-image-url";
-import { IProductFields } from "../../types/IProduct";
+import { Button, Typography } from "antd";
+
+import { EmptyMessage } from "components/EmptyMessage/EmptyMessage";
+import { ShadowCard } from "components/ShadowCard/ShadowCard";
+
+import { CartActions, useCartActions } from "hooks/general/use-cart-actions";
+
+import { getImageUrl } from "utils/get-image-url";
+
+import { IProductFields } from "types/IProduct";
+
+import styles from "./Cart.module.scss";
 
 export const Cart = () => {
   const { cartProductsData, handleChangeProductQuantity, handleClearCart } =

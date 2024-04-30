@@ -1,7 +1,8 @@
-import { useSelector } from "react-redux";
-import { RouterPath } from "../../configs/route-сonfig";
 import { Navigate } from "react-router-dom";
-import { selectUser } from "../../store/features/userSlice";
+
+import { RouterPath } from "configs/route-config";
+
+import { useGetUser } from "hooks/user/use-get-user";
 
 interface RequireAuthProps {
   children: JSX.Element;
@@ -10,9 +11,8 @@ interface RequireAuthProps {
 export function RequireAuth(props: RequireAuthProps) {
   const { children } = props;
 
-  const { user } = useSelector(selectUser);
+  const { isUserAdmin } = useGetUser();
 
-  const isUserAdmin = user?.role === "admin";
   const isAdminPanelPage = window.location.pathname === RouterPath.admin_panel;
 
   // if (!user) {

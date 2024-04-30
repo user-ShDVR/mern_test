@@ -1,22 +1,30 @@
+import React from "react";
+
 import { Button, Tag, Typography, message } from "antd";
-import styles from "../AdminPanel/AdminPanelTab.module.scss";
-import { ShadowCard } from "../ShadowCard/ShadowCard";
-import { getDeclination } from "../../utils/get-declination";
+
+import styles from "components/AdminPanel/AdminPanelTab.module.scss";
+import { ShadowCard } from "components/ShadowCard/ShadowCard";
+import { Spinner } from "components/Spinner/Spinner";
+
 import {
   useDeleteTypesMutation,
   useGetTypesQuery,
-} from "../../store/api/types/types-api";
+} from "store/api/types/types-api";
+
 import {
   DEFAULT_TYPES_LIMIT_IN_ADMIN_PANEL_PAGE,
   TYPES_COUNT_IN_ADMIN_PANEL_PAGE,
-} from "../../constants/types-constants";
-import { getImageUrl } from "../../utils/get-image-url";
-import { IType } from "../../types/ICatalogElement";
-import { useGetPaginationBlock } from "../../hooks/use-get-pagination-block";
-import { EditTypesModal } from "./EditTypesModal";
-import React from "react";
-import { Spinner } from "../Spinner/Spinner";
+} from "constants/types-constants";
+
+import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
+
+import { getDeclination } from "utils/get-declination";
+import { getImageUrl } from "utils/get-image-url";
+
+import { IType } from "types/ICatalogElement";
+
 import { AddTypeModal } from "./AddTypeModal";
+import { EditTypesModal } from "./EditTypesModal";
 
 export const AdminTypesTab = () => {
   const [isOpenAddModal, setIsOpenAddModal] = React.useState(false);

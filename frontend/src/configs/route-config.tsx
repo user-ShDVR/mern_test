@@ -1,12 +1,13 @@
 import { RouteProps } from "react-router-dom";
-import { MainPage } from "../pages/MainPage";
-import { AccountPage } from "../pages/AccountPage";
-import { CatalogPage } from "../pages/CatalogPage";
-import { CatalogItemPage } from "../pages/CatalogItemPage";
-import { ProductsItemPage } from "../pages/ProductsItemPage";
-import { CartPage } from "../pages/CartPage";
-import { AdminPanelPage } from "../pages/AdminPanelPage";
-import { ForbiddenPage } from "../pages/ForbiddenPage";
+
+import { AccountPage } from "pages/AccountPage";
+import { AdminPanelPage } from "pages/AdminPanelPage";
+import { CartPage } from "pages/CartPage";
+import { CatalogItemPage } from "pages/CatalogItemPage";
+import { CatalogPage } from "pages/CatalogPage";
+import { ForbiddenPage } from "pages/ForbiddenPage";
+import { MainPage } from "pages/MainPage";
+import { ProductsItemPage } from "pages/ProductsItemPage";
 
 export type AppRouteProps = RouteProps & {
   authOnly?: boolean;

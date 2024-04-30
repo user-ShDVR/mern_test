@@ -1,9 +1,10 @@
 import { Form, Input } from "antd";
+
 import {
   DEFAULT_VALIDATE_MESSAGE,
   profileFieldsDataIndexes,
   profileFieldsTitles,
-} from "../../constants/profile-constants";
+} from "constants/profile-constants";
 
 export const ProfileFields = () => {
   const profileFields = [

@@ -1,7 +1,9 @@
-import { Modal } from "antd";
-import { RegisterForm } from "../RegisterForm/RegisterForm";
-import { LoginForm } from "../LoginForm/LoginForm";
 import React from "react";
+
+import { Modal } from "antd";
+
+import { LoginForm } from "components/LoginForm/LoginForm";
+import { RegisterForm } from "components/RegisterForm/RegisterForm";
 
 interface IAuthModalProps {
   isAuthModalOpen: boolean;

@@ -1,9 +1,13 @@
-import { Modal, Form, Button } from "antd";
-import { IProduct } from "../../types/IProduct";
-import { useGetAddOrEditProductFields } from "../../hooks/adminPanel/use-get-add-or-edit-product-fields";
-import styles from "../AdminPanel/AdminPanelTab.module.scss";
-import { useEditProductsMutation } from "../../store/api/products/products-api";
-import { IEditProductsRequest } from "../../store/api/products/types";
+import { Modal, Form, Button, message } from "antd";
+
+import styles from "components/AdminPanel/AdminPanelTab.module.scss";
+
+import { useEditProductsMutation } from "store/api/products/products-api";
+import { IEditProductsRequest } from "store/api/products/types";
+
+import { useGetAddOrEditProductFields } from "hooks/adminPanel/use-get-add-or-edit-product-fields";
+
+import { IProduct } from "types/IProduct";
 
 interface IEditProductModalProps {
   isOpenEditModal: boolean;
@@ -14,12 +18,27 @@ interface IEditProductModalProps {
 export const EditProductModal = (props: IEditProductModalProps) => {
   const { isOpenEditModal, onCloseEditModal, certainProductInModal } = props;
 
-  const [editProduct] = useEditProductsMutation();
+  const [editProduct, { isSuccess: isEditProductSuccess }] =
+    useEditProductsMutation();
 
-  const formItems = useGetAddOrEditProductFields(certainProductInModal);
+  const { FormItems, characteristics } = useGetAddOrEditProductFields({
+    productFields: certainProductInModal,
+  });
 
   const onFinishEditProduct = (formValues: IEditProductsRequest) => {
-    editProduct({ id: certainProductInModal.id, ...formValues });
+    editProduct({
+      ...formValues,
+      id: certainProductInModal.id,
+      characteristics,
+    });
+
+    if (isEditProductSuccess) {
+      message.success("Продукт успешно обновлен");
+      setTimeout(() => onCloseEditModal(), 1000);
+    } else {
+      message.error("Произошла ошибка при обновлении продукта");
+      return;
+    }
   };
 
   return (
@@ -35,7 +54,7 @@ export const EditProductModal = (props: IEditProductModalProps) => {
         layout="vertical"
         onFinish={onFinishEditProduct}
       >
-        {formItems}
+        {FormItems}
 
         <Button type="primary" htmlType="submit" block>
           Редактировать

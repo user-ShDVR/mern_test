@@ -1,14 +1,20 @@
-import { useGetUsersQuery } from "../../store/api/users/users-api";
 import { Tag, Typography } from "antd";
-import { getDeclination } from "../../utils/get-declination";
-import styles from "../AdminPanel/AdminPanelTab.module.scss";
-import { ShadowCard } from "../ShadowCard/ShadowCard";
-import { Spinner } from "../Spinner/Spinner";
-import { IUser } from "../../types/IUserState";
+
+import styles from "components/AdminPanel/AdminPanelTab.module.scss";
+import { ShadowCard } from "components/ShadowCard/ShadowCard";
+import { Spinner } from "components/Spinner/Spinner";
+
+import { useGetUsersQuery } from "store/api/users/users-api";
+
 import {
   DEFAULT_USERS_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
   DEFAULT_USERS_LIMIT_IN_ADMIN_PANEL_PAGE,
-} from "../../constants/users-constants";
+} from "constants/users-constants";
+
+import { getDeclination } from "utils/get-declination";
+
+import { IUser } from "types/IUserState";
+
 
 export const AdminUsersTab = () => {
   const { data: usersData, isLoading: isUsersLoading } = useGetUsersQuery({

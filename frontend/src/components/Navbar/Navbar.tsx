@@ -1,14 +1,17 @@
-import { Badge, Button, Input, Typography } from "antd";
-import styles from "./Navbar.module.scss";
-import { Link } from "react-router-dom";
-import { RouterPath } from "../../configs/route-сonfig";
 import {
   InboxOutlined,
   MenuOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
+import { Badge, Button, Input, Typography } from "antd";
+import { Link } from "react-router-dom";
+
+import { RouterPath } from "configs/route-config";
+
+import { useCartActions } from "hooks/general/use-cart-actions";
+
 import { DropdownUser } from "./DropdownUser";
-import { useCartActions } from "../../hooks/use-cart-actionts";
+import styles from "./Navbar.module.scss";
 
 export const Navbar = () => {
   const { cartProductsData } = useCartActions();

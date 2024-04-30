@@ -1,6 +1,7 @@
-import { UploadButton } from "../UploadButton/UploadButton";
-import styles from "../AdminPanel/AdminPanelTab.module.scss";
 import { Typography } from "antd";
+
+import styles from "components/AdminPanel/AdminPanelTab.module.scss";
+import { UploadButton } from "components/UploadButton/UploadButton";
 
 export const AdminImagesTab = () => {
   return (

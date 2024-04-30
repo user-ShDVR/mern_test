@@ -1,11 +1,11 @@
-interface IDeclination {
+interface IDeclinationArgs {
   one: string;
   few: string;
   many: string;
   value: number;
 }
 
-export const getDeclination = (args: IDeclination) => {
+export const getDeclination = (args: IDeclinationArgs) => {
   const { one, few, many, value } = args;
 
   if (value % 10 === 1 && value % 100 !== 11) {

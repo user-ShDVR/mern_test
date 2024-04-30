@@ -1,13 +1,20 @@
+import React from "react";
+
 import { DownOutlined } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, Typography } from "antd";
-import styles from "./Navbar.module.scss";
-import React from "react";
-import { AuthModal } from "../AuthModal/AuthModal";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../store/features/userSlice";
-import { useSignOutMutation } from "../../store/api/auth/auth-api";
 import { Link } from "react-router-dom";
-import { RouterPath } from "../../configs/route-сonfig";
+
+import { AuthModal } from "components/AuthModal/AuthModal";
+
+import { useSignOutMutation } from "store/api/auth/auth-api";
+
+import { RouterPath } from "configs/route-config";
+
+import { useGetUser } from "hooks/user/use-get-user";
+
+import styles from "./Navbar.module.scss";
+
+
 
 type ItemType = {
   label: React.ReactNode;
@@ -16,7 +23,9 @@ type ItemType = {
 
 export const DropdownUser = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
-  const { user } = useSelector(selectUser);
+
+  const { userData, isUserAdmin } = useGetUser();
+
   const [signOut] = useSignOutMutation();
 
   const handleLogout = () => {
@@ -24,7 +33,7 @@ export const DropdownUser = () => {
   };
 
   const items = [
-    user?.role === "admin" && {
+    isUserAdmin && {
       label: (
         <Link to={RouterPath.admin_panel}>
           <Button type="link">
@@ -50,11 +59,11 @@ export const DropdownUser = () => {
 
   return (
     <>
-      {user ? (
+      {userData ? (
         <Dropdown menu={{ items }} placement="bottom">
           <div className={styles.dropdownWrapper}>
-            <Avatar>{user.name.slice(0, 2)}</Avatar>
-            <Typography.Text>{user.name}</Typography.Text>
+            <Avatar>{userData.name.slice(0, 2)}</Avatar>
+            <Typography.Text>{userData.name}</Typography.Text>
             <DownOutlined className={styles.dropdownIcon} />
           </div>
         </Dropdown>

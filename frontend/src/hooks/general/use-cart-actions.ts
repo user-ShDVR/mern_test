@@ -1,16 +1,20 @@
-import { useSelector } from "react-redux";
+import React from "react";
+
 import { message } from "antd";
-import { selectUser } from "../store/features/userSlice";
+import { useSelector } from "react-redux";
+
+import {
+  useClearCartsMutation,
+  useGetCertainCartsQuery,
+} from "store/api/carts/carts-api";
 import {
   useAddCartsProductsMutation,
   useDeleteCartsProductsMutation,
   useEditCartsProductsMutation,
-} from "../store/api/cartsProducts/carts-products-api";
-import {
-  useClearCartsMutation,
-  useGetCertainCartsQuery,
-} from "../store/api/carts/carts-api";
-import { IProductFields } from "../types/IProduct";
+} from "store/api/cartsProducts/carts-products-api";
+import { selectUser } from "store/features/userSlice";
+
+import { IProductFields } from "types/IProduct";
 
 export enum CartActions {
   ADD = "add",

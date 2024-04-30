@@ -1,5 +1,6 @@
-import { Pagination } from "antd";
 import React from "react";
+
+import { Pagination } from "antd";
 
 interface PaginationBlockArgs {
   totalDataCount: number;

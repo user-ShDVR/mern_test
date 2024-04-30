@@ -1,31 +1,46 @@
-import { Form, Input, InputNumber, Select, Table } from "antd";
+import React from "react";
+
+import { Form, Input, InputNumber, Select } from "antd";
+
+import { DefaultOptionType } from "antd/es/select";
+
+import { AddCharacteristicsInfo } from "components/AddCharacteristicsInfo/AddCharacteristicsInfo";
+import styles from "components/AdminPanel/AdminPanelTab.module.scss";
+
+import { useGetImagesQuery } from "store/api/images/images-api";
+import { useGetTypesQuery } from "store/api/types/types-api";
+
 import {
-  characteristicsListColumns,
   productItemDataIndexes,
   productItemLabels,
-} from "../../constants/products-constants";
-import { IProduct } from "../../types/IProduct";
-import { useGetTypesQuery } from "../../store/api/types/types-api";
-import { IImage, IType } from "../../types/ICatalogElement";
-import { getImageUrl } from "../../utils/get-image-url";
+} from "constants/products-constants";
 import {
   DEFAULT_TYPES_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
   DEFAULT_TYPES_LIMIT_IN_ADMIN_PANEL_PAGE,
-} from "../../constants/types-constants";
-import { useGetImagesQuery } from "../../store/api/images/images-api";
-import styles from "../../components/AdminPanel/AdminPanelTab.module.scss";
-import { AddCharacteristicsInfo } from "../../components/AddCharacteristicsInfo/AddCharacteristicsInfo";
-import React from "react";
+} from "constants/types-constants";
 
-export const useGetAddOrEditProductFields = (product: IProduct) => {
-  const [characteristics, setCharacteristics] = React.useState([]);
+import { getImageUrl } from "utils/get-image-url";
+
+import { IType } from "types/ICatalogElement";
+import { IProduct } from "types/IProduct";
+
+interface IAddOrEditProductFieldsProps {
+  productFields: IProduct;
+}
+
+export const useGetAddOrEditProductFields = (
+  props: IAddOrEditProductFieldsProps
+) => {
+  const { productFields } = props;
+
+  const [characteristics, setCharacteristics] = React.useState(
+    productFields.characteristics
+  );
 
   const { data: typesData } = useGetTypesQuery({
     page: DEFAULT_TYPES_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
     limit: DEFAULT_TYPES_LIMIT_IN_ADMIN_PANEL_PAGE,
   });
-
-  const { data: imagesData } = useGetImagesQuery(null);
 
   const searchedTypesOptions = (enteredValue: string, option) => {
     return option.label.toLowerCase().includes(enteredValue.toLowerCase());
@@ -36,19 +51,21 @@ export const useGetAddOrEditProductFields = (product: IProduct) => {
     value: type.id,
   }));
 
-  const imageOptions = imagesData?.map((image: IImage) => ({
+  const { data: imagesData } = useGetImagesQuery(null);
+
+  const imageOptions = imagesData?.map((image) => ({
     label: image.filename,
     value: image.id,
   }));
 
-  const renderImageOption = (image) => (
-    <div className={styles.imageOptionWrapper} key={image.value}>
+  const renderImageOption = (imageOption: DefaultOptionType) => (
+    <div className={styles.imageOptionWrapper} key={imageOption.value}>
       <img
         className={styles.imageInOption}
-        src={getImageUrl(image.label)}
+        src={getImageUrl(imageOption.data.label)}
         alt=""
       />
-      {image.label}
+      {imageOption.label}
     </div>
   );
 
@@ -57,13 +74,8 @@ export const useGetAddOrEditProductFields = (product: IProduct) => {
       label: productItemLabels.image,
       name: productItemDataIndexes.image_id,
       node: (
-        // <img
-        //   src={getImageUrl(product?.image?.filename)}
-        //   alt=""
-        //   style={imageStyles}
-        // />
         <Select
-          defaultValue={product.image?.id}
+          defaultValue={productFields?.image?.id}
           options={imageOptions}
           optionRender={renderImageOption}
         />
@@ -72,24 +84,26 @@ export const useGetAddOrEditProductFields = (product: IProduct) => {
     {
       name: productItemDataIndexes.name,
       label: productItemLabels.name,
-      node: <Input defaultValue={product.name} />,
+      node: <Input defaultValue={productFields?.name} />,
     },
     {
       name: productItemDataIndexes.description,
       label: productItemLabels.description,
-      node: <Input.TextArea defaultValue={product.description} rows={4} />,
+      node: (
+        <Input.TextArea defaultValue={productFields?.description} rows={4} />
+      ),
     },
     {
       name: productItemDataIndexes.price,
       label: productItemLabels.price,
-      node: <InputNumber defaultValue={product.price} />,
+      node: <InputNumber defaultValue={productFields?.price} />,
     },
     {
-      name: productItemDataIndexes.category,
-      label: productItemLabels.category,
+      name: productItemDataIndexes.type_id,
+      label: productItemLabels.type,
       node: (
         <Select
-          defaultValue={product.type?.name}
+          defaultValue={productFields?.type?.name}
           options={typesOptions}
           showSearch
           filterOption={searchedTypesOptions}
@@ -99,14 +113,6 @@ export const useGetAddOrEditProductFields = (product: IProduct) => {
     {
       label: productItemLabels.characteristics,
       node: (
-        // <Table
-        //   columns={characteristicsListColumns}
-        //   dataSource={characteristics}
-        //   pagination={false}
-        //   showHeader={false}
-        //   size="small"
-        //   bordered
-        // />
         <AddCharacteristicsInfo
           characteristics={characteristics}
           setCharacteristics={setCharacteristics}

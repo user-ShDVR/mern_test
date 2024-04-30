@@ -1,9 +1,13 @@
 import { Modal, Form, Button, message } from "antd";
-import styles from "../AdminPanel/AdminPanelTab.module.scss";
-import { useAddTypesMutation } from "../../store/api/types/types-api";
-import { useGetAddOrEditTypeFields } from "../../hooks/adminPanel/use-get-add-or-edit-type-fields";
-import { IType } from "../../types/ICatalogElement";
-import { IAddTypesRequest } from "../../store/api/types/types";
+
+import styles from "components/AdminPanel/AdminPanelTab.module.scss";
+
+import { IAddTypesRequest } from "store/api/types/types";
+import { useAddTypesMutation } from "store/api/types/types-api";
+
+import { useGetAddOrEditTypeFields } from "hooks/adminPanel/use-get-add-or-edit-type-fields";
+
+import { IType } from "types/ICatalogElement";
 
 interface IAddTypeModalProps {
   isOpenAddModal: boolean;
@@ -13,20 +17,21 @@ interface IAddTypeModalProps {
 export const AddTypeModal = (props: IAddTypeModalProps) => {
   const { isOpenAddModal, onCloseAddModal } = props;
 
-  const [addType] = useAddTypesMutation();
+  const [addType, { isSuccess: isAddTypeSuccess }] = useAddTypesMutation();
 
-  const formItems = useGetAddOrEditTypeFields({
-    typeFields: {} as IType,
-    isAddMode: true,
-    isEditMode: false,
-  });
+  const { FormItems } = useGetAddOrEditTypeFields({ typeFields: {} as IType });
 
   const onFinishAddType = (formValues: IAddTypesRequest) => {
     console.log(formValues);
     addType(formValues);
 
-    message.success("Категория успешно добавлена");
-    setTimeout(() => onCloseAddModal(), 1000);
+    if (isAddTypeSuccess) {
+      message.success("Категория успешно добавлена");
+      setTimeout(() => onCloseAddModal(), 1000);
+    } else {
+      message.error("Произошла ошибка при добавлении категории");
+      return;
+    }
   };
 
   return (
@@ -41,7 +46,7 @@ export const AddTypeModal = (props: IAddTypeModalProps) => {
         layout="vertical"
         onFinish={onFinishAddType}
       >
-        {formItems}
+        {FormItems}
 
         <Button type="primary" htmlType="submit" block>
           Добавить категорию

@@ -1,8 +1,9 @@
 import { Tabs, TabsProps, Typography } from "antd";
-import { AdminUsersTab } from "../AdminUsersTab/AdminUsersTab";
-import { AdminProductsTab } from "../AdminProductsTab/AdminProductsTab";
-import { AdminTypesTab } from "../AdminTypesTab/AdminTypesTab";
-import { AdminImagesTab } from "../AdminImagesTab/AdminImagesTab";
+
+import { AdminImagesTab } from "components/AdminImagesTab/AdminImagesTab";
+import { AdminProductsTab } from "components/AdminProductsTab/AdminProductsTab";
+import { AdminTypesTab } from "components/AdminTypesTab/AdminTypesTab";
+import { AdminUsersTab } from "components/AdminUsersTab/AdminUsersTab";
 
 export const AdminPanel = () => {
   const items: TabsProps["items"] = [

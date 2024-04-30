@@ -23,12 +23,17 @@ export const characteristicsDataIndexes = {
   value: "value",
 }
 
+export const characteristicsPlaceholders = {
+  key: "Введите поле",
+  value: "Введите значение",
+}
+
 export const productItemLabels = {
   image: "Изображение продукта",
   name: "Название продукта",
   description: "Описание продукта",
   price: "Цена продукта в ₽",
-  category: "Категория продукта",
+  type: "Категория продукта",
   characteristics: "Характеристики",
 };
 
@@ -37,5 +42,5 @@ export const productItemDataIndexes = {
   name: "name",
   description: "description",
   price: "price",
-  category: "category",
+  type_id: "type_id",
 };

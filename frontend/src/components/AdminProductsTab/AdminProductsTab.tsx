@@ -1,32 +1,36 @@
+import React from "react";
+
+import { Button, Table, Tag, Typography, message } from "antd";
+
+import styles from "components/AdminPanelTab.module.scss";
+import { ShadowCard } from "components/ShadowCard/ShadowCard";
+import { Spinner } from "components/Spinner/Spinner";
+
 import {
   useDeleteProductsMutation,
   useGetProductsQuery,
-} from "../../store/api/products/products-api";
-import { Spinner } from "../Spinner/Spinner";
-import { Button, Table, Tag, Typography, message } from "antd";
-import styles from "../AdminPanel/AdminPanelTab.module.scss";
-import { IProduct } from "../../types/IProduct";
-import { ShadowCard } from "../ShadowCard/ShadowCard";
-import { getDeclination } from "../../utils/get-declination";
-import { useGetPaginationBlock } from "../../hooks/use-get-pagination-block";
+} from "store/api/products/products-api";
+
 import {
   DEFAULT_MAX_PRICE_VALUE,
   DEFAULT_MIN_PRICE_VALUE,
   PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE,
   characteristicsListColumns,
-} from "../../constants/products-constants";
-import { getImageUrl } from "../../utils/get-image-url";
-import React from "react";
-import { EditProductModal } from "./EditProductModal";
+} from "constants/products-constants";
+
+import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
+
+import { getDeclination } from "utils/get-declination";
+import { getImageUrl } from "utils/get-image-url";
+
+import { IProduct } from "types/IProduct";
+
 import { AddProductModal } from "./AddProductModal";
+import { EditProductModal } from "./EditProductModal";
 
 export const AdminProductsTab = () => {
   const [isOpenAddModal, setIsOpenAddModal] = React.useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = React.useState(false);
-
-  const [certainProductInModal, setCertainProductInModal] = React.useState(
-    {} as IProduct
-  );
 
   const { currentPage, PaginationBlock } = useGetPaginationBlock();
 
@@ -58,9 +62,8 @@ export const AdminProductsTab = () => {
     setIsOpenAddModal(false);
   };
 
-  const handleOpenEditModal = (product: IProduct) => {
+  const handleOpenEditModal = () => {
     setIsOpenEditModal(true);
-    setCertainProductInModal(product);
   };
 
   const handleCloseEditModal = () => {
@@ -94,7 +97,7 @@ export const AdminProductsTab = () => {
             <Button
               className={styles.entityCardEditButton}
               type="primary"
-              onClick={() => handleOpenEditModal(product)}
+              onClick={() => handleOpenEditModal()}
             >
               Редактировать
             </Button>
@@ -149,6 +152,12 @@ export const AdminProductsTab = () => {
                 bordered
               />
             </p>
+
+            <EditProductModal
+              isOpenEditModal={isOpenEditModal}
+              onCloseEditModal={handleCloseEditModal}
+              certainProductInModal={product}
+            />
           </ShadowCard>
         ))}
       </div>
@@ -156,12 +165,6 @@ export const AdminProductsTab = () => {
       <PaginationBlock
         countElementsOnPage={PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE}
         totalDataCount={productsData?.totalCount}
-      />
-
-      <EditProductModal
-        isOpenEditModal={isOpenEditModal}
-        onCloseEditModal={handleCloseEditModal}
-        certainProductInModal={certainProductInModal}
       />
 
       <AddProductModal

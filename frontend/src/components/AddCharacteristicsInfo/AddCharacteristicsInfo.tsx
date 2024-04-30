@@ -1,9 +1,13 @@
+import React from "react";
+
 import { Input, Button } from "antd";
-import { ChangeEvent } from "react";
+
 import {
   characteristicsDataIndexes,
   characteristicsInitialValues,
-} from "../../constants/products-constants";
+  characteristicsPlaceholders,
+} from "constants/products-constants";
+
 import styles from "./AddCharacteristicsInfo.module.scss";
 
 interface AddCharacteristicsInfoProps {
@@ -20,7 +24,7 @@ export const AddCharacteristicsInfo = (props: AddCharacteristicsInfoProps) => {
 
   const handleCharacteristicChange = (
     index: number,
-    event: ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const updatedCharacteristics = [...characteristics];
     updatedCharacteristics[index][event.target.name] = event.target.value;
@@ -39,19 +43,19 @@ export const AddCharacteristicsInfo = (props: AddCharacteristicsInfoProps) => {
         Добавить
       </Button>
 
-      {characteristics.map((characteristic, index) => (
+      {characteristics?.map((characteristic, index) => (
         <div className={styles.characteristicFields} key={index}>
           <Input
-            value={characteristic.key}
+            defaultValue={characteristic.key}
             name={characteristicsDataIndexes.key}
-            placeholder="Key"
+            placeholder={characteristicsPlaceholders.key}
             onChange={(event) => handleCharacteristicChange(index, event)}
           />
 
           <Input
-            value={characteristic.value}
+            defaultValue={characteristic.value}
             name={characteristicsDataIndexes.value}
-            placeholder="Value"
+            placeholder={characteristicsPlaceholders.value}
             onChange={(event) => handleCharacteristicChange(index, event)}
           />
 

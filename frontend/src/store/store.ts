@@ -1,13 +1,14 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import userReducer from "./features/userSlice";
-import { authApi } from "./api/auth/auth-api";
-import { cartsProductsApi } from "./api/cartsProducts/carts-products-api";
-import { ordersApi } from "./api/orders/orders-api";
-import { cartsApi } from "./api/carts/carts-api";
-import { imagesApi } from "./api/images/images-api";
-import { typesApi } from "./api/types/types-api";
-import { productsApi } from "./api/products/products-api";
-import { usersApi } from "./api/users/users-api";
+
+import { authApi } from "store/api/auth/auth-api";
+import { cartsApi } from "store/api/carts/carts-api";
+import { cartsProductsApi } from "store/api/cartsProducts/carts-products-api";
+import { imagesApi } from "store/api/images/images-api";
+import { ordersApi } from "store/api/orders/orders-api";
+import { productsApi } from "store/api/products/products-api";
+import { typesApi } from "store/api/types/types-api";
+import { usersApi } from "store/api/users/users-api";
+import userReducer from "store/features/userSlice";
 
 export const store = configureStore({
   reducer: {

@@ -1,10 +1,11 @@
-import { Button } from "antd";
-import { CartActions, useCartActions } from "../../hooks/use-cart-actionts";
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
+import { Button } from "antd";
+
+import { CartActions, useCartActions } from "hooks/general/use-cart-actions";
 
 interface CartButtonsProps {
   productId: number;

@@ -1,14 +1,18 @@
+import React from "react";
+
 import { Button, Form, Typography, message } from "antd";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
+import { useNavigate } from "react-router-dom";
+
+import { useSignUpMutation } from "store/api/auth/auth-api";
+import { ISignInFields } from "store/api/auth/types";
+
 import {
   AND_VALIDATE_MESSAGE,
   DEFAULT_VALIDATE_MESSAGE,
-} from "../../constants/profile-constants";
-import { useNavigate } from "react-router-dom";
-import React from "react";
+} from "constants/profile-constants";
+
 import { ProfileFields } from "./profileFields";
-import { useSignUpMutation } from "../../store/api/auth/auth-api";
-import { ISignInFields } from "../../store/api/auth/types";
 
 interface RegisterFormProps {
   handleCloseModal: () => void;

@@ -1,6 +1,7 @@
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import { userActions } from "../store/features/userSlice";
+
+import { userActions } from "store/features/userSlice";
 
 const allActions = {
   ...userActions,

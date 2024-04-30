@@ -1,4 +1,5 @@
 import { Empty } from "antd";
+
 import styles from "./EmptyMessage.module.scss";
 
 interface EmptyMessageProps {

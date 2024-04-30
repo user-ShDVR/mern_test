@@ -1,35 +1,56 @@
-import { Form, Input } from "antd";
+import { Form, Input, Select } from "antd";
+
+import { DefaultOptionType } from "antd/es/select";
+
+import styles from "components/AdminPanel/AdminPanelTab.module.scss";
+
+import { useGetImagesQuery } from "store/api/images/images-api";
+
 import {
   typeItemDataIndexes,
   typeItemLabels,
-} from "../../constants/types-constants";
-import { IType } from "../../types/ICatalogElement";
-import { getImageUrl } from "../../utils/get-image-url";
+} from "constants/types-constants";
+
+import { getImageUrl } from "utils/get-image-url";
+
+import { IType } from "types/ICatalogElement";
 
 interface UseGetAddOrEditTypeFieldsProps {
   typeFields: IType;
-  isAddMode?: boolean;
-  isEditMode?: boolean;
 }
 
 export const useGetAddOrEditTypeFields = (
   props: UseGetAddOrEditTypeFieldsProps
 ) => {
-  const { typeFields, isAddMode, isEditMode } = props;
+  const { typeFields } = props;
 
-  const imageStyles = {
-    width: "100%",
-    height: "100%",
-  };
+  const { data: imagesData } = useGetImagesQuery(null);
+
+  const imageOptions = imagesData?.map((image) => ({
+    label: image.filename,
+    value: image.id,
+  }));
+
+  const renderImageOption = (imageOption: DefaultOptionType) => (
+    <div className={styles.imageOptionWrapper} key={imageOption.value}>
+      <img
+        className={styles.imageInOption}
+        src={getImageUrl(imageOption.data.label)}
+        alt=""
+      />
+      {imageOption.label}
+    </div>
+  );
 
   const typesFields = [
     {
+      name: typeItemDataIndexes.image_id,
       label: typeItemLabels.image,
       node: (
-        <img
-          src={getImageUrl(typeFields?.image?.filename)}
-          alt=""
-          style={imageStyles}
+        <Select
+          defaultValue={typeFields?.image?.id}
+          options={imageOptions}
+          optionRender={renderImageOption}
         />
       ),
     },
@@ -45,11 +66,11 @@ export const useGetAddOrEditTypeFields = (
     },
   ];
 
-  const formItems = typesFields.map((field) => (
+  const FormItems = typesFields.map((field) => (
     <Form.Item key={field.name} {...field}>
       {field.node}
     </Form.Item>
   ));
 
-  return formItems;
+  return { FormItems };
 };
