@@ -74,8 +74,17 @@ export const AdminTypesTab = () => {
   };
 
   const handleDeleteType = (type: IType) => {
-    deleteType({ id: String(type.id) });
-    message.success("Каталог успешно удален");
+    deleteType({ id: String(type.id) }).then((response) => {
+      if (response.error.originalStatus) {
+        message.success(response.error.data);
+      } else if (response.error.status === 404) {
+        message.error(response.error.data.message);
+      } else {
+        message.error("Произошла ошибка при удалении каталога");
+      }
+    });
+
+    typesDataRefetch();
   };
 
   if (isTypesLoading) {
@@ -145,16 +154,16 @@ export const AdminTypesTab = () => {
         totalCount={typesData?.totalCount}
       />
 
+      <AddTypeModal
+        isOpenAddModal={isOpenAddModal}
+        onCloseAddModal={handleCloseAddModal}
+      />
+
       <EditTypesModal
         isOpenEditModal={isOpenEditModal}
         onCloseEditModal={handleCloseEditModal}
         certainTypeInModal={certainTypeInModal}
         typesDataRefetch={typesDataRefetch}
-      />
-
-      <AddTypeModal
-        isOpenAddModal={isOpenAddModal}
-        onCloseAddModal={handleCloseAddModal}
       />
     </>
   );

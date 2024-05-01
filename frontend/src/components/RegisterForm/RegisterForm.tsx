@@ -14,12 +14,12 @@ import {
 
 import { ProfileFields } from "./profileFields";
 
-interface RegisterFormProps {
+interface IRegisterFormProps {
   handleCloseModal: () => void;
   setIsHaveAccount: (isHaveAccount: boolean) => void;
 }
 
-export const RegisterForm = (props: RegisterFormProps) => {
+export const RegisterForm = (props: IRegisterFormProps) => {
   const { handleCloseModal, setIsHaveAccount } = props;
 
   const [register, { isSuccess, isLoading, isError }] = useSignUpMutation();

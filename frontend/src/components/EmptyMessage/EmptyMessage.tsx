@@ -2,11 +2,11 @@ import { Empty } from "antd";
 
 import styles from "./EmptyMessage.module.scss";
 
-interface EmptyMessageProps {
+interface IEmptyMessageProps {
   description: string;
 }
 
-export const EmptyMessage = (props: EmptyMessageProps) => {
+export const EmptyMessage = (props: IEmptyMessageProps) => {
   const { description } = props;
 
   return (

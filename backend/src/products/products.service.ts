@@ -19,7 +19,7 @@ export class ProductsService {
     }
     const type = await this.typesService.findOne(createProductDto.type_id);
     if (!type) {
-      throw new NotFoundException('Такого типа не существует.');
+      throw new NotFoundException('Такой категории не существует.');
     }
 
     const { characteristics, ...productData } = createProductDto;

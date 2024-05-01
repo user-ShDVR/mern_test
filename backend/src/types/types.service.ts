@@ -17,10 +17,10 @@ export class TypesService {
       throw new NotFoundException('Такого изображения не существует.');
     }
     if (type) {
-      throw new NotFoundException('Тип с таким url уже существует.');
+      throw new NotFoundException('Категория с таким url уже существует.');
     }
     await this.db.types.create({ data: { ...createTypeDto } });
-    return 'Тип создан.';
+    return 'Категория создана.';
   }
 
   async findAll(page: number = 1, limit: number = 16) {
@@ -56,7 +56,7 @@ export class TypesService {
     if (updateTypeDto.url && updateTypeDto.url !== type.url) {
       const urlType = await this.findOneByUrl(updateTypeDto.url);
       if (urlType && urlType.id !== type.id) {
-        throw new NotFoundException('Тип с таким url уже существует.');
+        throw new NotFoundException('Категория с таким url уже существует.');
       }
     }
 
@@ -66,7 +66,7 @@ export class TypesService {
     }
 
     await this.db.types.update({ where: { id }, data: { ...updateTypeDto } });
-    return 'Тип обновлён.';
+    return 'Категория обновлена.';
   }
 
   async remove(id: number) {
@@ -82,7 +82,7 @@ export class TypesService {
 
     if (hasProducts) {
       throw new NotFoundException(
-        'Тип используется в товарах и не может быть удалён.',
+        'Категория используется в товарах и не может быть удалён.',
       );
     }
     // generate random integer between 0 and 9999
@@ -93,6 +93,6 @@ export class TypesService {
       data: { deleted: true, url: url },
     });
 
-    return 'Тип деактивирован.';
+    return 'Категория деактивирована.';
   }
 }

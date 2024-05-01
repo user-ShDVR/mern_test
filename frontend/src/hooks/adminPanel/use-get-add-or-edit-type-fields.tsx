@@ -6,10 +6,7 @@ import styles from "components/AdminPanel/AdminPanelTab.module.scss";
 
 import { useGetImagesQuery } from "store/api/images/images-api";
 
-import {
-  typeItemDataIndexes,
-  typeItemLabels,
-} from "constants/types-constants";
+import { typeItemDataIndexes, typeItemLabels } from "constants/types-constants";
 
 import { getImageUrl } from "utils/get-image-url";
 
@@ -17,12 +14,15 @@ import { IType } from "types/IType";
 
 interface IUseGetAddOrEditTypeFieldsProps {
   typeFields: IType;
+  isEdit: boolean;
 }
 
 export const useGetAddOrEditTypeFields = (
   props: IUseGetAddOrEditTypeFieldsProps
 ) => {
-  const { typeFields } = props;
+  const { typeFields, isEdit } = props;
+
+  const isRequired = isEdit ? false : true;
 
   const { data: imagesData } = useGetImagesQuery(null);
 
@@ -53,16 +53,19 @@ export const useGetAddOrEditTypeFields = (
           optionRender={renderImageOption}
         />
       ),
+      required: isRequired,
     },
     {
       name: typeItemDataIndexes.name,
       label: typeItemLabels.name,
       node: <Input defaultValue={typeFields.name} />,
+      required: isRequired,
     },
     {
       name: typeItemDataIndexes.url,
       label: typeItemLabels.url,
       node: <Input defaultValue={typeFields.url} />,
+      required: isRequired,
     },
   ];
 

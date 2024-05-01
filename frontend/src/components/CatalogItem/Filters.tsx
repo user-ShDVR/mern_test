@@ -9,7 +9,7 @@ import {
 
 import styles from "./CatalogItem.module.scss";
 
-interface FilterSliderProps {
+interface IFilterSliderProps {
   minValue: number;
   maxValue: number;
   setMinValue: (value: number) => void;
@@ -18,7 +18,7 @@ interface FilterSliderProps {
   setSortBy: (value: string) => void;
 }
 
-export const Filters = (props: FilterSliderProps) => {
+export const Filters = (props: IFilterSliderProps) => {
   const {
     minValue,
     maxValue,
@@ -30,7 +30,7 @@ export const Filters = (props: FilterSliderProps) => {
 
   const [form] = useForm();
 
-  const handleFilter = (values: FilterSliderProps) => {
+  const handleFilter = (values: IFilterSliderProps) => {
     setMinValue(values.minValue || DEFAULT_MIN_PRICE_VALUE);
     setMaxValue(values.maxValue || DEFAULT_MAX_PRICE_VALUE);
   };

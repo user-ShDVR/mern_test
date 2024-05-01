@@ -52,8 +52,7 @@ export const AdminProductsTab = () => {
     sortOrder: "asc",
   });
 
-  const [deleteProduct, { isError: isDeleteProductError }] =
-    useDeleteProductsMutation();
+  const [deleteProduct] = useDeleteProductsMutation();
 
   const declinationProducts = getDeclination({
     one: "товар",
@@ -80,14 +79,14 @@ export const AdminProductsTab = () => {
   };
 
   const handleDeleteProduct = (product: IProduct) => {
-    deleteProduct({ id: String(product.id) });
-
-    if (!isDeleteProductError) {
-      message.success("Продукт успешно удален");
-    } else {
-      message.error("Произошла ошибка при удалении продукта");
-      return;
-    }
+    deleteProduct({ id: String(product.id) }).then((response) => {
+      console.log(response);
+      if (response.error.originalStatus) {
+        message.success(response.error.data);
+      } else {
+        message.error("Произошла ошибка при удалении продукта");
+      }
+    });
 
     refetchProductsData();
   };

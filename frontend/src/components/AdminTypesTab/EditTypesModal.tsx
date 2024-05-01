@@ -24,23 +24,24 @@ export const EditTypesModal = (props: IEditTypesModalProps) => {
     typesDataRefetch,
   } = props;
 
-  const [editType, { isSuccess: isEditTypeSuccess }] = useEditTypesMutation();
+  const [editType] = useEditTypesMutation();
 
   const { FormItems } = useGetAddOrEditTypeFields({
     typeFields: certainTypeInModal,
+    isEdit: true,
   });
 
   const onFinishEditType = (formValues: IEditTypesRequest) => {
-    editType({ id: certainTypeInModal.id, ...formValues });
-    typesDataRefetch();
+    editType({ id: certainTypeInModal.id, ...formValues }).then((response) => {
+      if (response.error.originalStatus) {
+        message.success(response.error.data);
+        setTimeout(() => onCloseEditModal(), 500);
+      } else {
+        message.error("Произошла ошибка при обновлении категории");
+      }
+    });
 
-    if (isEditTypeSuccess) {
-      message.success("Категория успешно обновлена");
-      setTimeout(() => onCloseEditModal(), 1000);
-    } else {
-      message.error("Произошла ошибка при обновлении категории");
-      return;
-    }
+    typesDataRefetch();
   };
 
   return (

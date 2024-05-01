@@ -14,7 +14,7 @@ import { useGetUser } from "hooks/user/use-get-user";
 
 import styles from "./Navbar.module.scss";
 
-type ItemType = {
+type TItems = {
   label: React.ReactNode;
   key: string;
 };
@@ -49,7 +49,7 @@ export const DropdownUser = () => {
       ),
       key: "1",
     },
-  ] as ItemType[];
+  ] as TItems[];
 
   const handleOpenModal = () => {
     setIsAuthModalOpen(true);

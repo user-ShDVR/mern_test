@@ -18,7 +18,7 @@ interface IAddProductModalProps {
 export const AddProductModal = (props: IAddProductModalProps) => {
   const { isOpenAddModal, onCloseAddModal, refetchProductsData } = props;
 
-  const [addProduct, { isError: isAddProductError, isSuccess }] = useAddProductsMutation();
+  const [addProduct] = useAddProductsMutation();
 
   const { FormItems, characteristics } = useGetAddOrEditProductFields({
     productFields: {} as IProduct,
@@ -26,17 +26,16 @@ export const AddProductModal = (props: IAddProductModalProps) => {
   });
 
   const onFinishAddProduct = (formValues: IAddProductsRequest) => {
-    addProduct({ ...formValues, characteristics });
-
-    console.log(isSuccess)
-
-    if (!isAddProductError) {
-      message.success("Продукт успешно добавлен");
-      setTimeout(() => onCloseAddModal(), 1000);
-    } else {
-      message.error("Произошла ошибка при добавлении продукта");
-      return;
-    }
+    addProduct({ ...formValues, characteristics }).then((response) => {
+      if (response.data) {
+        message.success("Продукт успешно добавлен");
+        setTimeout(() => onCloseAddModal(), 500);
+      } else if (response.error.status === 400) {
+        message.error("Заполните обязательные поля");
+      } else {
+        message.error("Произошла ошибка при добавлении продукта");
+      }
+    });
 
     refetchProductsData();
   };

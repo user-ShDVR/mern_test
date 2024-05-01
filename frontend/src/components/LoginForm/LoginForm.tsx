@@ -13,12 +13,12 @@ import {
 
 import { ProfileFields } from "./ProfileFields";
 
-interface LoginFormProps {
+interface ILoginFormProps {
   handleCloseModal: () => void;
   setIsHaveAccount: (isHaveAccount: boolean) => void;
 }
 
-export const LoginForm = (props: LoginFormProps) => {
+export const LoginForm = (props: ILoginFormProps) => {
   const { handleCloseModal, setIsHaveAccount } = props;
 
   const [login, { isSuccess, isLoading, isError }] = useSignInMutation();

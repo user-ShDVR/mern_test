@@ -24,8 +24,7 @@ export const EditProductModal = (props: IEditProductModalProps) => {
     refetchProductsData,
   } = props;
 
-  const [editProduct, { isError: isEditProductError }] =
-    useEditProductsMutation();
+  const [editProduct] = useEditProductsMutation();
 
   const { FormItems, characteristics } = useGetAddOrEditProductFields({
     productFields: certainProductInModal,
@@ -37,15 +36,15 @@ export const EditProductModal = (props: IEditProductModalProps) => {
       ...formValues,
       id: certainProductInModal.id,
       characteristics,
+    }).then((response) => {
+      console.log(response);
+      if (response.data) {
+        message.success("Продукт успешно обновлен");
+        setTimeout(() => onCloseEditModal(), 500);
+      } else {
+        message.error("Произошла ошибка при обновлении продукта");
+      }
     });
-
-    if (!isEditProductError) {
-      message.success("Продукт успешно обновлен");
-      setTimeout(() => onCloseEditModal(), 1000);
-    } else {
-      message.error("Произошла ошибка при обновлении продукта");
-      return;
-    }
 
     refetchProductsData();
   };

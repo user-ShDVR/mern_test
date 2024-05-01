@@ -9,7 +9,7 @@ import { ForbiddenPage } from "pages/ForbiddenPage";
 import { MainPage } from "pages/MainPage";
 import { ProductsItemPage } from "pages/ProductsItemPage";
 
-export type AppRouteProps = RouteProps & {
+export type TAppRouteProps = RouteProps & {
   authOnly?: boolean;
   element: JSX.Element;
 };
@@ -36,7 +36,7 @@ export const RouterPath: Record<AppRoutes, string> = {
   [AppRoutes.FORBIDDEN]: "/forbidden",
 };
 
-export const routeConfig: Record<AppRoutes, AppRouteProps> = {
+export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
   [AppRoutes.MAIN]: {
     path: RouterPath.main,
     element: <MainPage />,

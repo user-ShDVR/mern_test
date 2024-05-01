@@ -4,13 +4,13 @@ import { Card } from "antd";
 
 import styles from "./ShadowCard.module.scss";
 
-interface ShadowCardProps {
+interface IShadowCardProps {
   children: React.ReactNode;
   className?: string;
   cover?: React.ReactNode;
 }
 
-export const ShadowCard = (props: ShadowCardProps) => {
+export const ShadowCard = (props: IShadowCardProps) => {
   const { children, className, cover } = props;
 
   return (

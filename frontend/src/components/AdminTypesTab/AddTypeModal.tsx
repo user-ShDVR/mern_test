@@ -17,20 +17,23 @@ interface IAddTypeModalProps {
 export const AddTypeModal = (props: IAddTypeModalProps) => {
   const { isOpenAddModal, onCloseAddModal } = props;
 
-  const [addType, { isSuccess: isAddTypeSuccess }] = useAddTypesMutation();
+  const [addType] = useAddTypesMutation();
 
-  const { FormItems } = useGetAddOrEditTypeFields({ typeFields: {} as IType });
+  const { FormItems } = useGetAddOrEditTypeFields({
+    typeFields: {} as IType,
+    isEdit: false,
+  });
 
   const onFinishAddType = (formValues: IAddTypesRequest) => {
-    addType(formValues);
-
-    if (isAddTypeSuccess) {
-      message.success("Категория успешно добавлена");
-      setTimeout(() => onCloseAddModal(), 1000);
-    } else {
-      message.error("Произошла ошибка при добавлении категории");
-      return;
-    }
+    addType(formValues).then((response) => {
+      console.log(response);
+      if (response.error.originalStatus) {
+        message.success(response.error.data);
+        setTimeout(() => onCloseAddModal(), 500);
+      } else {
+        message.error("Произошла ошибка валидации при добавлении категории");
+      }
+    });
   };
 
   return (
