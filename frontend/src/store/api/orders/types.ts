@@ -1,24 +1,17 @@
-export interface IAddOrder {
+export interface IAddOrderRequest {
   user_id: number;
   products_id: number;
   quantity: number;
   summary: number;
+  products: Record<string, number>[];
 }
 
-export interface IEditOrder {
-  id?: string;
-  user_id?: number;
-  products_id?: number;
-  quantity?: number;
-  summary?: number;
-}
-
-export interface IGetOrders {
+export interface IGetOrdersRequest {
   page: number;
   limit: number;
 }
 
-export interface IGetCertainOrder {
+export interface IGetCertainOrderRequest {
   id: string;
 }
 

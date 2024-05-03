@@ -4,8 +4,12 @@ import { Button, Typography } from "antd";
 import { EmptyMessage } from "components/EmptyMessage/EmptyMessage";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
 
-import { ECartActions, useCartActions } from "hooks/general/use-cart-actions";
+import { useAddOrderMutation } from "store/api/orders/orders-api";
 
+import { ECartActions, useCartActions } from "hooks/general/use-cart-actions";
+import { useGetUser } from "hooks/user/use-get-user";
+
+import { getDeclination } from "utils/get-declination";
 import { getImageUrl } from "utils/get-image-url";
 
 import { IProductChangeQuantity } from "types/IProduct";
@@ -16,7 +20,14 @@ export const Cart = () => {
   const { cartProductsData, handleChangeProductQuantity, handleClearCart } =
     useCartActions();
 
+  console.log(cartProductsData);
+
   const products = cartProductsData?.carts_products;
+  const productsCount = products?.length;
+
+  const { userData } = useGetUser();
+
+  const [addOrder] = useAddOrderMutation();
 
   const handlePlus = (product: IProductChangeQuantity) => {
     handleChangeProductQuantity({
@@ -40,11 +51,41 @@ export const Cart = () => {
 
   const resultPriceCount = products ? reducedProducts : 0;
 
+  const handleAddOrder = () => {
+    const orderProducts = products?.map((product) => ({
+      productId: product.product_id,
+      quantity: product.quantity,
+    }));
+
+    const data = {
+      user_id: userData?.id,
+      quantity: productsCount,
+      summary: resultPriceCount,
+      products: orderProducts,
+    };
+
+    addOrder(data).then((response) => {
+      console.log(response);
+      // if (response.error.originalStatus) {
+      //   message.success(response.error.data);
+      // } else {
+      //   message.error("Произошла ошибка при добавлении заказа");
+      // }
+    });
+  };
+
+  const declinationProducts = getDeclination({
+    one: "товар",
+    few: "товара",
+    many: "товаров",
+    value: productsCount,
+  });
+
   return (
     <>
       <Typography.Title>Корзина</Typography.Title>
 
-      {products?.length ? (
+      {productsCount ? (
         <>
           <Button className={styles.clearButton} onClick={handleClearCart}>
             <ClearOutlined />
@@ -103,8 +144,7 @@ export const Cart = () => {
             <div className={styles.resultWrapper}>
               <div className={styles.result}>
                 <Typography.Text className={styles.resultName}>
-                  {/* TODO: колво товаров общее */}
-                  Сумма товаров {products.length}
+                  {declinationProducts} на
                 </Typography.Text>
 
                 <Typography.Text className={styles.resultPrice}>
@@ -122,7 +162,7 @@ export const Cart = () => {
                 </Typography.Text>
               </div>
 
-              <Button type="primary" block>
+              <Button type="primary" onClick={handleAddOrder} block>
                 Оформить заказ
               </Button>
             </div>

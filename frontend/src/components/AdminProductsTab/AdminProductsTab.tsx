@@ -80,7 +80,6 @@ export const AdminProductsTab = () => {
 
   const handleDeleteProduct = (product: IProduct) => {
     deleteProduct({ id: String(product.id) }).then((response) => {
-      console.log(response);
       if (response.error.originalStatus) {
         message.success(response.error.data);
       } else {

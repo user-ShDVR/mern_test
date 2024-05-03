@@ -12,10 +12,11 @@ import { IType } from "types/IType";
 interface IAddTypeModalProps {
   isOpenAddModal: boolean;
   onCloseAddModal: () => void;
+  typesDataRefetch: () => void;
 }
 
 export const AddTypeModal = (props: IAddTypeModalProps) => {
-  const { isOpenAddModal, onCloseAddModal } = props;
+  const { isOpenAddModal, onCloseAddModal, typesDataRefetch } = props;
 
   const [addType] = useAddTypesMutation();
 
@@ -26,7 +27,6 @@ export const AddTypeModal = (props: IAddTypeModalProps) => {
 
   const onFinishAddType = (formValues: IAddTypesRequest) => {
     addType(formValues).then((response) => {
-      console.log(response);
       if (response.error.originalStatus) {
         message.success(response.error.data);
         setTimeout(() => onCloseAddModal(), 500);
@@ -34,6 +34,8 @@ export const AddTypeModal = (props: IAddTypeModalProps) => {
         message.error("Произошла ошибка валидации при добавлении категории");
       }
     });
+
+    typesDataRefetch();
   };
 
   return (

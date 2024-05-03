@@ -14,10 +14,6 @@ export class CreateOrderDto {
   @ApiProperty({ example: 1 })
   @IsNotEmpty()
   @IsNumber()
-  products_id: number;
-  @ApiProperty({ example: 1 })
-  @IsNotEmpty()
-  @IsNumber()
   quantity: number;
   @ApiProperty({ example: 1 })
   @IsNotEmpty()

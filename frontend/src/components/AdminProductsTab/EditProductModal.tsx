@@ -37,7 +37,6 @@ export const EditProductModal = (props: IEditProductModalProps) => {
       id: certainProductInModal.id,
       characteristics,
     }).then((response) => {
-      console.log(response);
       if (response.data) {
         message.success("Продукт успешно обновлен");
         setTimeout(() => onCloseEditModal(), 500);

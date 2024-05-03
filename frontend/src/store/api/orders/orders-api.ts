@@ -1,16 +1,15 @@
 import { createRtkApi as api } from "store/api/createRtkApi";
 
 import {
-  IAddOrder,
+  IAddOrderRequest,
   IDeleteOrderRequest,
-  IEditOrder,
-  IGetCertainOrder,
-  IGetOrders,
+  IGetCertainOrderRequest,
+  IGetOrdersRequest,
 } from "./types";
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    addOrder: build.mutation<unknown, IAddOrder>({
+    addOrder: build.mutation<unknown, IAddOrderRequest>({
       query: (body) => ({
         url: `/orders`,
         method: "POST",
@@ -18,22 +17,14 @@ const injectedRtkApi = api.injectEndpoints({
       }),
     }),
 
-    getOrders: build.query<unknown, IGetOrders>({
+    getOrders: build.query<unknown, IGetOrdersRequest>({
       query: (body) => ({
         url: `/orders?page=${body.page}&limit=${body.limit}`,
       }),
     }),
 
-    getCertainOrder: build.query<unknown, IGetCertainOrder>({
+    getCertainOrder: build.query<unknown, IGetCertainOrderRequest>({
       query: (body) => ({ url: `/orders/${body.id}` }),
-    }),
-
-    editOrder: build.mutation<unknown, IEditOrder>({
-      query: (body) => ({
-        url: `/orders/${body.id}`,
-        method: "PATCH",
-        body: { ...body },
-      }),
     }),
 
     ordersControllerRemove: build.mutation<unknown, IDeleteOrderRequest>({
@@ -53,6 +44,5 @@ export const {
   useAddOrderMutation,
   useGetOrdersQuery,
   useGetCertainOrderQuery,
-  useEditOrderMutation,
   useOrdersControllerRemoveMutation,
 } = injectedRtkApi;

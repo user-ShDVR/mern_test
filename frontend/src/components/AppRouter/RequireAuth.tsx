@@ -11,17 +11,17 @@ interface RequireAuthProps {
 export function RequireAuth(props: RequireAuthProps) {
   const { children } = props;
 
-  const { isUserAdmin } = useGetUser();
+  const { userData, isUserAdmin } = useGetUser();
 
   const isAdminPanelPage = window.location.pathname === RouterPath.admin_panel;
 
-  // if (!user) {
-  //   return <Navigate to={RouterPath.main} />;
-  // }
+  if (!userData) {
+    return <Navigate to={RouterPath.main} />;
+  }
 
-  // if (!isUserAdmin && isAdminPanelPage) {
-  //   return <Navigate to={RouterPath.forbidden} />;
-  // }
+  if (!isUserAdmin && isAdminPanelPage) {
+    return <Navigate to={RouterPath.forbidden} />;
+  }
 
   return children;
 }

@@ -1,7 +1,7 @@
 export interface IUserResponse {
   id?: number;
   email: string;
-  password: string
+  password: string;
   surname: string;
   name: string;
   lastname: string;
@@ -9,6 +9,7 @@ export interface IUserResponse {
 }
 
 export type ISignUpFields = {
+  id?: number;
   email: string;
   password: string;
   surname: string;
@@ -18,6 +19,7 @@ export type ISignUpFields = {
 };
 
 export type ISignInFields = {
+  id?: number;
   email: string;
   password: string;
   surname: string;

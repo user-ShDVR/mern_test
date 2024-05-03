@@ -157,6 +157,7 @@ export const AdminTypesTab = () => {
       <AddTypeModal
         isOpenAddModal={isOpenAddModal}
         onCloseAddModal={handleCloseAddModal}
+        typesDataRefetch={typesDataRefetch}
       />
 
       <EditTypesModal
