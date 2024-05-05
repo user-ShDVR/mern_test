@@ -1,6 +1,5 @@
 export interface IAddOrderRequest {
   user_id: number;
-  products_id: number;
   quantity: number;
   summary: number;
   products: Record<string, number>[];

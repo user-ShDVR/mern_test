@@ -41,7 +41,6 @@ model products {
   image_id        Int
   type            types             @relation(fields: [type_id], references: [id])
   type_id         Int
-  orders          orders[]
   carts_products  carts_products[]
   deleted         Boolean           @default(false)
   characteristics characteristics[]
@@ -89,8 +88,7 @@ model orders {
   user           users            @relation(fields: [user_id], references: [id])
   order_products order_products[]
   summary        Int
-  products       products?        @relation(fields: [productsId], references: [id])
-  productsId     Int?
+  quantity       Int
 }
 
 model order_products {
