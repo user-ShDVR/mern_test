@@ -5,7 +5,7 @@ import {
 } from "@ant-design/icons";
 import { Button } from "antd";
 
-import { ECartActions, useCartActions } from "hooks/general/use-cart-actions";
+import { ECartActions, useCartActions } from "hooks/cart/use-cart-actions";
 
 import { TButtonEvent } from "types/IProduct";
 

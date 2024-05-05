@@ -2,7 +2,7 @@ import React from "react";
 
 import { useGetAuthUserQuery } from "store/api/auth/auth-api";
 
-import { useActions } from "hooks/general/use-actionts";
+import { useActions } from "hooks/general/use-actions";
 
 export const useGetUser = () => {
   const { setUser } = useActions();
@@ -18,4 +18,4 @@ export const useGetUser = () => {
   }, [setUser, userData]);
 
   return { userData, isUserAdmin };
-}
+};

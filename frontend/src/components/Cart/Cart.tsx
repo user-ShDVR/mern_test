@@ -1,33 +1,34 @@
+import React from "react";
+
 import { ClearOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Typography } from "antd";
 
 import { EmptyMessage } from "components/EmptyMessage/EmptyMessage";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
 
-import { useAddOrderMutation } from "store/api/orders/orders-api";
-
-import { ECartActions, useCartActions } from "hooks/general/use-cart-actions";
-import { useGetUser } from "hooks/user/use-get-user";
+import { ECartActions, useCartActions } from "hooks/cart/use-cart-actions";
 
 import { getDeclination } from "utils/get-declination";
 import { getImageUrl } from "utils/get-image-url";
 
 import { IProductChangeQuantity } from "types/IProduct";
 
+import { ArrangeOrderModal } from "./ArrangeOrderModal";
 import styles from "./Cart.module.scss";
 
 export const Cart = () => {
-  const { cartProductsData, handleChangeProductQuantity, handleClearCart } =
-    useCartActions();
+  const [isOpenArrangeOrderModal, setIsOpenArrangeOrderModal] =
+    React.useState(false);
 
-  console.log(cartProductsData);
+  const {
+    cartProductsData,
+    cartProductsDataRefetch,
+    handleChangeProductQuantity,
+    handleClearCart,
+  } = useCartActions();
 
   const products = cartProductsData?.carts_products;
   const productsCount = products?.length;
-
-  const { userData } = useGetUser();
-
-  const [addOrder] = useAddOrderMutation();
 
   const handlePlus = (product: IProductChangeQuantity) => {
     handleChangeProductQuantity({
@@ -49,30 +50,15 @@ export const Cart = () => {
     return acc + product.product.price * product.quantity;
   }, 0);
 
-  const resultPriceCount = products ? reducedProducts : 0;
-
-  const handleAddOrder = () => {
-    const orderProducts = products?.map((product) => ({
-      productId: product.product_id,
-      quantity: product.quantity,
-    }));
-
-    const data = {
-      user_id: userData?.id,
-      quantity: productsCount,
-      summary: resultPriceCount,
-      products: orderProducts,
-    };
-
-    addOrder(data).then((response) => {
-      console.log(response);
-      // if (response.error.originalStatus) {
-      //   message.success(response.error.data);
-      // } else {
-      //   message.error("Произошла ошибка при добавлении заказа");
-      // }
-    });
+  const handleOpenArrangeOrderModal = () => {
+    setIsOpenArrangeOrderModal(true);
   };
+
+  const handleCloseArrangeOrderModal = () => {
+    setIsOpenArrangeOrderModal(false);
+  };
+
+  const resultPriceCount = products ? reducedProducts : 0;
 
   const declinationProducts = getDeclination({
     one: "товар",
@@ -162,7 +148,11 @@ export const Cart = () => {
                 </Typography.Text>
               </div>
 
-              <Button type="primary" onClick={handleAddOrder} block>
+              <Button
+                type="primary"
+                onClick={handleOpenArrangeOrderModal}
+                block
+              >
                 Оформить заказ
               </Button>
             </div>
@@ -171,6 +161,15 @@ export const Cart = () => {
       ) : (
         <EmptyMessage description="Корзина пуста" />
       )}
+
+      <ArrangeOrderModal
+        isOpenArrangeOrderModal={isOpenArrangeOrderModal}
+        onCloseArrangeOrderModal={handleCloseArrangeOrderModal}
+        products={products}
+        cartProductsDataRefetch={cartProductsDataRefetch}
+        productsCount={productsCount}
+        resultPriceCount={resultPriceCount}
+      />
     </>
   );
 };

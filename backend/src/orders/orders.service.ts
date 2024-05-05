@@ -24,7 +24,7 @@ export class OrdersService {
       },
     });
     await this.cartsService.clear(order.user_id);
-    return order;
+    return { order, message: 'Заказ оформлен' };
   }
 
   async findAllByUser(userId: number, page: number = 1, limit: number = 16) {

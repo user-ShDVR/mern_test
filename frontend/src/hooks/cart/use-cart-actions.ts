@@ -117,6 +117,7 @@ export const useCartActions = () => {
 
   return {
     cartProductsData,
+    cartProductsDataRefetch,
     handleActionCart,
     getIsProductInCart,
     handleChangeProductQuantity,
