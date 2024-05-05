@@ -1,10 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/utils/db/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { CartsService } from 'src/carts/carts.service';
 
 @Injectable()
 export class OrdersService {
-  constructor(private db: PrismaService) {}
+  constructor(
+    private db: PrismaService,
+    private cartsService: CartsService,
+  ) {}
 
   async create(createOrderDto: CreateOrderDto) {
     const { products, ...orderDetails } = createOrderDto;
@@ -19,6 +23,7 @@ export class OrdersService {
         },
       },
     });
+    await this.cartsService.clear(order.user_id);
     return order;
   }
 
