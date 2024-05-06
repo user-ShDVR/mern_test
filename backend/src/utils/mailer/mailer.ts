@@ -5,12 +5,12 @@ import * as nodemailer from 'nodemailer';
 @Injectable()
 export class MailService {
   private transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
+    host: 'mail.smtp2go.com',
+    port: 2525,
     secure: false,
     auth: {
-      user: 'noreply.market.test.1337@gmail.com',
-      pass: 'WT6-TER-8c8-i9a',
+      user: 'hugerain.space',
+      pass: 'OTKiJmG2C4yVOSbK',
     },
   });
 
@@ -28,9 +28,9 @@ export class MailService {
       .join('');
 
     const mailOptions = {
-      from: '"Market Test" <noreply.market.test.1337@gmail.com>',
+      from: 'noreply@hugerain.space',
       to: user.email,
-      subject: 'Order Confirmation',
+      subject: 'Подтверждения заказа',
       html: `
         <!DOCTYPE html>
         <html lang="en">

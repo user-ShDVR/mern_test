@@ -15,40 +15,44 @@ export class OrdersService {
   async create(createOrderDto: CreateOrderDto) {
     const { products, ...orderDetails } = createOrderDto;
 
-    const result = await this.db.$transaction(async (prisma) => {
-      const order = await prisma.orders.create({
-        data: {
-          ...orderDetails,
-          order_products: {
-            create: products.map((product) => ({
-              product_id: product.productId,
-              quantity: product.quantity,
-            })),
-          },
-        },
-        include: {
-          order_products: {
-            include: {
-              product: true,
+    let order;
+    try {
+      order = await this.db.$transaction(async (prisma) => {
+        const createdOrder = await prisma.orders.create({
+          data: {
+            ...orderDetails,
+            order_products: {
+              create: products.map((product) => ({
+                product_id: product.productId,
+                quantity: product.quantity,
+              })),
             },
           },
-        },
+          include: {
+            order_products: {
+              include: {
+                product: true,
+              },
+            },
+          },
+        });
+
+        await this.cartsService.clear(orderDetails.user_id);
+        return createdOrder;
       });
+    } catch (error) {
+      throw new Error('Failed to create order: ' + error.message);
+    }
 
-      await this.cartsService.clear(order.user_id);
-
-      const user = await prisma.users.findUnique({
-        where: { id: order.user_id },
-      });
-
-      if (!user) throw new Error('User not found.');
-
-      await this.mailService.sendOrderConfirmation(user, order);
-
-      return order;
+    const user = await this.db.users.findUnique({
+      where: { id: order.user_id },
     });
 
-    return { order: result, message: 'Заказ оформлен' };
+    if (!user) throw new Error('User not found.');
+
+    await this.mailService.sendOrderConfirmation(user, order);
+
+    return { order, message: 'Заказ оформлен' };
   }
 
   async findAllByUser(userId: number, page: number = 1, limit: number = 16) {

@@ -30,7 +30,7 @@ export class OrdersController {
     @Query('page') page: number = 1,
     @Query('limit', ParseIntPipe) limit: number = 16,
   ) {
-    return this.ordersService.findAllByUser(id, page, limit);
+    return this.ordersService.findAllByUser(+id, page, limit);
   }
 
   @Get(':id')
