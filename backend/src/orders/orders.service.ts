@@ -2,12 +2,14 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/utils/db/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { CartsService } from 'src/carts/carts.service';
+import { MailService } from 'src/utils/mailer/mailer';
 
 @Injectable()
 export class OrdersService {
   constructor(
     private db: PrismaService,
     private cartsService: CartsService,
+    private mailService: MailService,
   ) {}
 
   async create(createOrderDto: CreateOrderDto) {
@@ -24,7 +26,13 @@ export class OrdersService {
       },
     });
     await this.cartsService.clear(order.user_id);
-    return order;
+
+    const user = await this.db.users.findUnique({
+      where: { id: order.user_id },
+    });
+    await this.mailService.sendOrderConfirmation(user.email, order);
+
+    return { order, message: 'Заказ оформлен' };
   }
 
   async findAllByUser(userId: number, page: number = 1, limit: number = 16) {

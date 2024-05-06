@@ -12,6 +12,7 @@ import { PasswordService } from './utils/password/password.service';
 import { CookieService } from './utils/cookie/cookie.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
+import { MailService } from './utils/mailer/mailer';
 
 @Module({
   imports: [
@@ -26,6 +27,12 @@ import { ConfigModule } from '@nestjs/config';
     AuthModule,
   ],
   controllers: [],
-  providers: [PrismaService, PasswordService, CookieService, JwtService],
+  providers: [
+    PrismaService,
+    MailService,
+    PasswordService,
+    CookieService,
+    JwtService,
+  ],
 })
 export class AppModule {}

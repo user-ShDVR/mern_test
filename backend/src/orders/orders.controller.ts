@@ -25,7 +25,6 @@ export class OrdersController {
   }
 
   @Get()
-  @UseGuards(AdminGuard)
   async findAll(
     @Query('id') id: number = 1,
     @Query('page') page: number = 1,
