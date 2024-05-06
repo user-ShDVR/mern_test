@@ -1,0 +1,58 @@
+import React from "react";
+
+import { Filters } from "components/Filters/Filters";
+
+import {
+  DEFAULT_MAX_PRICE_VALUE,
+  DEFAULT_MIN_PRICE_VALUE,
+  DEFAULT_PRODUCTS_FILED_SORT_BY,
+  DEFAULT_PRODUCTS_SORT_ORDER,
+} from "constants/filters-constants";
+
+export const useGetProductsFilters = () => {
+  const [minValue, setMinValue] = React.useState(DEFAULT_MIN_PRICE_VALUE);
+  const [maxValue, setMaxValue] = React.useState(DEFAULT_MAX_PRICE_VALUE);
+
+  const [sortOrder, setSortOrder] = React.useState(DEFAULT_PRODUCTS_SORT_ORDER);
+  const [sortBy, setSortBy] = React.useState(DEFAULT_PRODUCTS_FILED_SORT_BY);
+
+  const handleFilter = (values: Record<string, number>) => {
+    setMinValue(values.minValue || DEFAULT_MIN_PRICE_VALUE);
+    setMaxValue(values.maxValue || DEFAULT_MAX_PRICE_VALUE);
+  };
+
+  const handleSort = (value: string) => {
+    if (value === "name asc") {
+      setSortOrder("asc");
+      setSortBy("name");
+    }
+
+    if (value === "name desc") {
+      setSortOrder("desc");
+      setSortBy("name");
+    }
+
+    if (value === "price asc") {
+      setSortOrder("asc");
+      setSortBy("price");
+    }
+
+    if (value === "price desc") {
+      setSortOrder("desc");
+      setSortBy("price");
+    }
+  };
+
+  const FiltersAside = (
+    <Filters
+      minValue={minValue}
+      maxValue={maxValue}
+      setMinValue={setMinValue}
+      setMaxValue={setMaxValue}
+      handleFilter={handleFilter}
+      handleSort={handleSort}
+    />
+  );
+
+  return { FiltersAside, minValue, maxValue, sortOrder, sortBy };
+};

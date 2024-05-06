@@ -1,0 +1,15 @@
+.link {
+  text-decoration: none;
+}
+
+.cardWrapper {
+  width: 18vw;
+  max-height: 40vh;
+}
+
+.cardText {
+  margin-bottom: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

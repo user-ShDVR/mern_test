@@ -1,9 +1,5 @@
-import { Typography } from "antd";
+import { Main } from "components/Main/Main";
 
 export const MainPage = () => {
-  return (
-    <>
-      <Typography.Title>Наши товары</Typography.Title>
-    </>
-  );
+  return <Main />;
 };

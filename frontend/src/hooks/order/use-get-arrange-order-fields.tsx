@@ -12,11 +12,9 @@ import {
   yearsOptions,
 } from "constants/order-constants";
 
-export const useGetArrangeOrderFields = () => {
-  const searchedOptions = (enteredValue: string, option) => {
-    return option.label.toLowerCase().includes(enteredValue.toLowerCase());
-  };
+import { searchedOptions } from "utils/searched-option";
 
+export const useGetArrangeOrderFields = () => {
   const deliveryFields = [
     {
       label: deliveryLabels.locality,

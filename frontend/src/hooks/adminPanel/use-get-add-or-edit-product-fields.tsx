@@ -20,6 +20,7 @@ import {
 } from "constants/types-constants";
 
 import { getImageUrl } from "utils/get-image-url";
+import { searchedOptions } from "utils/searched-option";
 
 import { IProduct } from "types/IProduct";
 import { IType } from "types/IType";
@@ -44,10 +45,6 @@ export const useGetAddOrEditProductFields = (
     page: DEFAULT_TYPES_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
     limit: DEFAULT_TYPES_LIMIT_IN_ADMIN_PANEL_PAGE,
   });
-
-  const searchedTypesOptions = (enteredValue: string, option) => {
-    return option.label.toLowerCase().includes(enteredValue.toLowerCase());
-  };
 
   const typesOptions = typesData?.types.map((type: IType) => ({
     label: type.name,
@@ -113,7 +110,7 @@ export const useGetAddOrEditProductFields = (
           defaultValue={productFields?.type?.name}
           options={typesOptions}
           showSearch
-          filterOption={searchedTypesOptions}
+          filterOption={searchedOptions}
         />
       ),
       required: isRequired,

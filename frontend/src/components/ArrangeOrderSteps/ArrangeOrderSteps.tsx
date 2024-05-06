@@ -56,14 +56,14 @@ export const ArrangeOrderSteps = (props: IArrangeOrderStepsProps) => {
       />
 
       <Form
-        onFinish={onFinishArrangeOrder}
         layout="vertical"
+        onFinish={onFinishArrangeOrder}
         onValuesChange={handleSaveStepValues}
       >
         {steps[currentStep].content}
 
         {currentStep < steps.length - 1 && (
-          <Button type="primary" onClick={() => handleNextStep()}>
+          <Button type="primary" onClick={handleNextStep}>
             Следующий шаг
           </Button>
         )}
@@ -79,7 +79,7 @@ export const ArrangeOrderSteps = (props: IArrangeOrderStepsProps) => {
         )}
 
         {currentStep > 0 && (
-          <Button onClick={() => handlePrevStep()}>Предыдущий шаг</Button>
+          <Button onClick={handlePrevStep}>Предыдущий шаг</Button>
         )}
       </Form>
     </>

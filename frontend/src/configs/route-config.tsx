@@ -5,9 +5,9 @@ import { AdminPanelPage } from "pages/AdminPanelPage";
 import { CartPage } from "pages/CartPage";
 import { CatalogItemPage } from "pages/CatalogItemPage";
 import { CatalogPage } from "pages/CatalogPage";
+import { CertainProductByIdPage } from "pages/CertainProductByIdPage";
 import { ForbiddenPage } from "pages/ForbiddenPage";
 import { MainPage } from "pages/MainPage";
-import { ProductsItemPage } from "pages/ProductsItemPage";
 
 export type TAppRouteProps = RouteProps & {
   authOnly?: boolean;
@@ -16,10 +16,11 @@ export type TAppRouteProps = RouteProps & {
 
 export enum AppRoutes {
   MAIN = "main",
+  CERTAIN_PRODUCT_BY_ID_IN_MAIN = "certain_product_by_id_in_main",
   ACCOUNT = "account",
   CATALOG = "catalog",
   CATALOG_ITEM = "catalog_item",
-  PRODUCT_ITEM = "product_item",
+  CERTAIN_PRODUCT_BY_ID_IN_CATALOG_ITEM = "certain_product_by_id_in_catalog_item",
   CART = "cart",
   ADMIN_PANEL = "admin_panel",
   FORBIDDEN = "forbidden",
@@ -27,10 +28,11 @@ export enum AppRoutes {
 
 export const RouterPath: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: "/",
+  [AppRoutes.CERTAIN_PRODUCT_BY_ID_IN_MAIN]: "/:id",
   [AppRoutes.ACCOUNT]: "/account",
   [AppRoutes.CATALOG]: "/catalog",
   [AppRoutes.CATALOG_ITEM]: "/catalog/:url",
-  [AppRoutes.PRODUCT_ITEM]: "/catalog/:url/:id",
+  [AppRoutes.CERTAIN_PRODUCT_BY_ID_IN_CATALOG_ITEM]: "/catalog/:url/:id",
   [AppRoutes.CART]: "/cart",
   [AppRoutes.ADMIN_PANEL]: "/admin_panel",
   [AppRoutes.FORBIDDEN]: "/forbidden",
@@ -40,6 +42,10 @@ export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
   [AppRoutes.MAIN]: {
     path: RouterPath.main,
     element: <MainPage />,
+  },
+  [AppRoutes.CERTAIN_PRODUCT_BY_ID_IN_MAIN]: {
+    path: RouterPath.certain_product_by_id_in_main,
+    element: <CertainProductByIdPage />,
   },
   [AppRoutes.ACCOUNT]: {
     path: RouterPath.account,
@@ -54,9 +60,9 @@ export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
     path: RouterPath.catalog_item,
     element: <CatalogItemPage />,
   },
-  [AppRoutes.PRODUCT_ITEM]: {
-    path: RouterPath.product_item,
-    element: <ProductsItemPage />,
+  [AppRoutes.CERTAIN_PRODUCT_BY_ID_IN_CATALOG_ITEM]: {
+    path: RouterPath.certain_product_by_id_in_catalog_item,
+    element: <CertainProductByIdPage />,
   },
   [AppRoutes.CART]: {
     path: RouterPath.cart,
