@@ -1,8 +1,6 @@
+export const PRODUCTS_COUNT_IN_MAIN_PAGE = 8;
 export const PRODUCTS_COUNT_IN_CATALOG_ITEM_PAGE = 4;
 export const PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE = 4;
-
-export const DEFAULT_MIN_PRICE_VALUE = 1;
-export const DEFAULT_MAX_PRICE_VALUE = 100000;
 
 export const characteristicsListColumns = [
   {
@@ -21,12 +19,12 @@ export const characteristicsInitialValues = {
 export const characteristicsDataIndexes = {
   key: "key",
   value: "value",
-}
+};
 
 export const characteristicsPlaceholders = {
   key: "Введите поле",
   value: "Введите значение",
-}
+};
 
 export const productItemLabels = {
   image: "Изображение продукта",

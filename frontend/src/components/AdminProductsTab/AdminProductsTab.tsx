@@ -14,6 +14,8 @@ import {
 import {
   DEFAULT_MAX_PRICE_VALUE,
   DEFAULT_MIN_PRICE_VALUE,
+} from "constants/filters-constants";
+import {
   PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE,
   characteristicsListColumns,
 } from "constants/products-constants";

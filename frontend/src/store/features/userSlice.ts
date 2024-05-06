@@ -2,13 +2,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { RootState } from "store/store";
 
-import { IUser, IUserState } from "types/IUserState";
+import { IUser } from "types/IUser";
+import { IUserState } from "types/IUserState";
 
 const initialState: IUserState = {
   user: null,
 };
 
-export const userSlice = createSlice({
+const userSlice = createSlice({
   initialState,
   name: "user",
   reducers: {

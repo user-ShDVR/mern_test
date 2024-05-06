@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 import { RouterPath } from "configs/route-config";
 
-import { useCartActions } from "hooks/general/use-cart-actions";
+import { useCartActions } from "hooks/cart/use-cart-actions";
 
 import { DropdownUser } from "./DropdownUser";
 import styles from "./Navbar.module.scss";

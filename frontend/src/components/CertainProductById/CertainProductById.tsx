@@ -1,5 +1,6 @@
 import { ShareAltOutlined } from "@ant-design/icons";
 import { Button, Image, Table, Typography, message } from "antd";
+import { useParams } from "react-router-dom";
 
 import { CartButtons } from "components/CartButtons/CartButtons";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
@@ -10,10 +11,11 @@ import { characteristicsListColumns } from "constants/products-constants";
 
 import { getImageUrl } from "utils/get-image-url";
 
-import styles from "./ProductItem.module.scss";
+import styles from "./CertainProductById.module.scss";
 
-export const ProductItem = () => {
-  const productItemId = window.location.pathname.split("/")[3];
+export const CertainProductById = () => {
+  const { id } = useParams();
+  const productItemId = String(id);
 
   const { data: productData } = useGetCertainProductsQuery({
     id: productItemId,
