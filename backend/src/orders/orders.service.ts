@@ -14,25 +14,41 @@ export class OrdersService {
 
   async create(createOrderDto: CreateOrderDto) {
     const { products, ...orderDetails } = createOrderDto;
-    const order = await this.db.orders.create({
-      data: {
-        ...orderDetails,
-        order_products: {
-          create: products.map((product) => ({
-            product_id: product.productId,
-            quantity: product.quantity,
-          })),
+
+    const result = await this.db.$transaction(async (prisma) => {
+      const order = await prisma.orders.create({
+        data: {
+          ...orderDetails,
+          order_products: {
+            create: products.map((product) => ({
+              product_id: product.productId,
+              quantity: product.quantity,
+            })),
+          },
         },
-      },
-    });
-    await this.cartsService.clear(order.user_id);
+        include: {
+          order_products: {
+            include: {
+              product: true,
+            },
+          },
+        },
+      });
 
-    const user = await this.db.users.findUnique({
-      where: { id: order.user_id },
-    });
-    await this.mailService.sendOrderConfirmation(user.email, order);
+      await this.cartsService.clear(order.user_id);
 
-    return { order, message: 'Заказ оформлен' };
+      const user = await prisma.users.findUnique({
+        where: { id: order.user_id },
+      });
+
+      if (!user) throw new Error('User not found.');
+
+      await this.mailService.sendOrderConfirmation(user, order);
+
+      return order;
+    });
+
+    return { order: result, message: 'Заказ оформлен' };
   }
 
   async findAllByUser(userId: number, page: number = 1, limit: number = 16) {
