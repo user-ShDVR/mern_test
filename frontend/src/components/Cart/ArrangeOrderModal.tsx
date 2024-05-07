@@ -1,10 +1,12 @@
-import { Modal, message } from "antd";
-
-import { ArrangeOrderSteps } from "components/ArrangeOrderSteps/ArrangeOrderSteps";
+import { Button, Form, Modal, message } from "antd";
+import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 
 import { useAddOrderMutation } from "store/api/orders/orders-api";
 
+import { useGetArrangeOrderFields } from "hooks/order/use-get-arrange-order-fields";
 import { useGetUser } from "hooks/user/use-get-user";
+
+import { getValidateErrorMessage } from "utils/get-validate-error-message";
 
 import { IProductsInCart } from "types/IProduct";
 
@@ -28,10 +30,11 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
   } = props;
 
   const { userData } = useGetUser();
+  const { FormItems } = useGetArrangeOrderFields();
 
   const [addOrder] = useAddOrderMutation();
 
-  const handleAddOrder = () => {
+  const onFinishAddOrder = () => {
     const orderProducts = products?.map((product) => ({
       productId: product.product_id,
       quantity: product.quantity,
@@ -56,6 +59,10 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
     cartProductsDataRefetch();
   };
 
+  const onFinishAddOrderFailed = (formValues: ValidateErrorEntity) => {
+    getValidateErrorMessage(formValues);
+  };
+
   return (
     <Modal
       open={isOpenArrangeOrderModal}
@@ -63,7 +70,17 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
       footer={null}
       title="Оформление заказа"
     >
-      <ArrangeOrderSteps onAddOrder={handleAddOrder} />
+      <Form
+        layout="vertical"
+        onFinish={onFinishAddOrder}
+        onFinishFailed={onFinishAddOrderFailed}
+      >
+        {FormItems}
+
+        <Button type="primary" htmlType="submit">
+          Оформить заказ
+        </Button>
+      </Form>
     </Modal>
   );
 };

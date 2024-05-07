@@ -1,12 +1,5 @@
 export const DEFAULT_ORDER_LIMIT_IN_ORDERS_PAGE = 3;
 
-export const DEFAULT_VALIDATE_MESSAGE = "Пожалуйста, введите";
-
-export const stepsLabels = {
-  delivery: "Доставка",
-  payment: "Оплата",
-};
-
 export const deliveryLabels = {
   locality: "Населенный пункт",
   street: "Улица",
@@ -21,22 +14,6 @@ export const deliveryDataIndexes = {
   house: "house",
   flat: "flat",
   comment: "comment",
-};
-
-export const paymentLabels = {
-  cardNumber: "Номер карты",
-  nameAndSurname: "Имя и фамилия",
-  month: "Месяц",
-  year: "Год",
-  cvc: "CVV/CVC",
-};
-
-export const paymentDataIndexes = {
-  cardNumber: "cardNumber",
-  nameAndSurname: "nameAndSurname",
-  month: "month",
-  year: "year",
-  cvc: "cvc",
 };
 
 export const citiesOptions = [
@@ -86,25 +63,3 @@ export const citiesOptions = [
   { label: "Грозный", value: "Grozny" },
   { label: "Севастополь", value: "Sevastopol" },
 ];
-
-export const monthsOptions = [
-  { label: "Январь", value: "january" },
-  { label: "Февраль", value: "february" },
-  { label: "Март", value: "march" },
-  { label: "Апрель", value: "april" },
-  { label: "Май", value: "may" },
-  { label: "Июнь", value: "june" },
-  { label: "Июль", value: "july" },
-  { label: "Август", value: "august" },
-  { label: "Сентябрь", value: "september" },
-  { label: "Октябрь", value: "october" },
-  { label: "Ноябрь", value: "november" },
-  { label: "Декабрь", value: "december" },
-];
-
-const currentYear = new Date().getFullYear();
-export const yearsOptions: Record<string, string>[] = [];
-for (let year = 1900; year <= currentYear; year++) {
-  yearsOptions.push({ label: year.toString(), value: year.toString() });
-}
-yearsOptions.reverse();

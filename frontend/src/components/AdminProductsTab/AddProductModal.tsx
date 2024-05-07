@@ -1,4 +1,5 @@
 import { Modal, Form, Button, message } from "antd";
+import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 
 import styles from "components/AdminPanel/AdminPanelTab.module.scss";
 
@@ -6,6 +7,8 @@ import { useAddProductsMutation } from "store/api/products/products-api";
 import { IAddProductsRequest } from "store/api/products/types";
 
 import { useGetAddOrEditProductFields } from "hooks/adminPanel/use-get-add-or-edit-product-fields";
+
+import { getValidateErrorMessage } from "utils/get-validate-error-message";
 
 import { IProduct } from "types/IProduct";
 
@@ -30,14 +33,16 @@ export const AddProductModal = (props: IAddProductModalProps) => {
       if (response.data) {
         message.success("Продукт успешно добавлен");
         setTimeout(() => onCloseAddModal(), 500);
-      } else if (response.error.status === 400) {
-        message.error("Заполните обязательные поля");
       } else {
         message.error("Произошла ошибка при добавлении продукта");
       }
     });
 
     refetchProductsData();
+  };
+
+  const onFinishFailedAddProduct = (formValues: ValidateErrorEntity) => {
+    getValidateErrorMessage(formValues);
   };
 
   return (
@@ -51,6 +56,7 @@ export const AddProductModal = (props: IAddProductModalProps) => {
         className={styles.editForm}
         layout="vertical"
         onFinish={onFinishAddProduct}
+        onFinishFailed={onFinishFailedAddProduct}
       >
         {FormItems}
 

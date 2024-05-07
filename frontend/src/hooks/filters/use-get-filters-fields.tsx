@@ -1,4 +1,4 @@
-import { Form, InputNumber, Select } from "antd";
+import { Form, Input, Select } from "antd";
 
 import {
   DEFAULT_MAX_PRICE_VALUE,
@@ -18,32 +18,16 @@ interface IFiltersFieldsArgs {
 export const useGetFiltersFields = (args: IFiltersFieldsArgs) => {
   const { minValue, maxValue, handleSort } = args;
 
-  const inputNumberStyles = {
-    width: "100%",
-  };
-
   const filtersFields = [
     {
       name: filtersDataIndexes.from,
       label: filtersLabels.from,
-      node: (
-        <InputNumber
-          value={minValue}
-          defaultValue={DEFAULT_MIN_PRICE_VALUE}
-          style={inputNumberStyles}
-        />
-      ),
+      node: <Input value={minValue} defaultValue={DEFAULT_MIN_PRICE_VALUE} />,
     },
     {
       name: filtersDataIndexes.to,
       label: filtersLabels.to,
-      node: (
-        <InputNumber
-          value={maxValue}
-          defaultValue={DEFAULT_MAX_PRICE_VALUE}
-          style={inputNumberStyles}
-        />
-      ),
+      node: <Input value={maxValue} defaultValue={DEFAULT_MAX_PRICE_VALUE} />,
     },
     {
       label: filtersLabels.sort,

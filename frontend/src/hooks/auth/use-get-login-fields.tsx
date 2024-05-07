@@ -1,13 +1,13 @@
 import { Form, Input } from "antd";
 
+import { DEFAULT_VALIDATE_MESSAGE } from "constants/general-constants";
 import {
-  DEFAULT_VALIDATE_MESSAGE,
   profileFieldsDataIndexes,
   profileFieldsTitles,
 } from "constants/profile-constants";
 
-export const ProfileFields = () => {
-  const profileFields = [
+export const useGetLoginFields = () => {
+  const loginFields = [
     {
       label: profileFieldsTitles.email,
       name: profileFieldsDataIndexes.email,
@@ -32,9 +32,11 @@ export const ProfileFields = () => {
     },
   ];
 
-  return profileFields.map((field) => (
+  const FormItems = loginFields.map((field) => (
     <Form.Item {...field} key={field.name}>
       {field.node}
     </Form.Item>
   ));
+
+  return { FormItems };
 };

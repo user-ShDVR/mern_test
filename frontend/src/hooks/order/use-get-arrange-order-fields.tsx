@@ -1,15 +1,10 @@
 import { Form, Input, Select } from "antd";
 
+import { DEFAULT_VALIDATE_MESSAGE } from "constants/general-constants";
 import {
-  DEFAULT_VALIDATE_MESSAGE,
   citiesOptions,
   deliveryDataIndexes,
   deliveryLabels,
-  monthsOptions,
-  paymentDataIndexes,
-  paymentLabels,
-  stepsLabels,
-  yearsOptions,
 } from "constants/order-constants";
 
 import { searchedOptions } from "utils/searched-option";
@@ -62,7 +57,7 @@ export const useGetArrangeOrderFields = () => {
       rules: [
         {
           required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} квартира`,
+          message: `${DEFAULT_VALIDATE_MESSAGE} номер квартиры`,
         },
       ],
     },
@@ -73,98 +68,11 @@ export const useGetArrangeOrderFields = () => {
     },
   ];
 
-  const FieldsDelivery = deliveryFields.map((field) => (
+  const FormItems = deliveryFields.map((field) => (
     <Form.Item {...field} key={field.name}>
       {field.node}
     </Form.Item>
   ));
 
-  const paymentFields = [
-    {
-      label: paymentLabels.cardNumber,
-      name: paymentDataIndexes.cardNumber,
-      node: <Input />,
-      rules: [
-        {
-          required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} номер карты`,
-        },
-      ],
-    },
-    {
-      label: paymentLabels.nameAndSurname,
-      name: paymentDataIndexes.nameAndSurname,
-      node: <Input />,
-      rules: [
-        {
-          required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} имя и фамилию`,
-        },
-      ],
-    },
-    {
-      label: paymentLabels.month,
-      name: paymentDataIndexes.month,
-      node: (
-        <Select
-          options={monthsOptions}
-          filterOption={searchedOptions}
-          showSearch
-        />
-      ),
-      rules: [
-        {
-          required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} месяц`,
-        },
-      ],
-    },
-    {
-      label: paymentLabels.year,
-      name: paymentDataIndexes.year,
-      node: (
-        <Select
-          options={yearsOptions}
-          filterOption={searchedOptions}
-          showSearch
-        />
-      ),
-      rules: [
-        {
-          required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} год`,
-        },
-      ],
-    },
-    {
-      label: paymentLabels.cvc,
-      name: paymentDataIndexes.cvc,
-      node: <Input />,
-      rules: [
-        {
-          required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} cvv`,
-        },
-      ],
-    },
-  ];
-
-  const FieldsPayment = paymentFields.map((field) => (
-    <Form.Item {...field} key={field.name}>
-      {field.node}
-    </Form.Item>
-  ));
-
-  const steps = [
-    {
-      title: stepsLabels.delivery,
-      content: FieldsDelivery,
-    },
-    {
-      title: stepsLabels.payment,
-      content: FieldsPayment,
-    },
-  ];
-
-  return steps;
+  return { FormItems };
 };

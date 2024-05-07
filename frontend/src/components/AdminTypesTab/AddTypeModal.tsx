@@ -1,4 +1,5 @@
 import { Modal, Form, Button, message } from "antd";
+import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 
 import styles from "components/AdminPanel/AdminPanelTab.module.scss";
 
@@ -6,6 +7,8 @@ import { IAddTypesRequest } from "store/api/types/types";
 import { useAddTypesMutation } from "store/api/types/types-api";
 
 import { useGetAddOrEditTypeFields } from "hooks/adminPanel/use-get-add-or-edit-type-fields";
+
+import { getValidateErrorMessage } from "utils/get-validate-error-message";
 
 import { IType } from "types/IType";
 
@@ -38,6 +41,10 @@ export const AddTypeModal = (props: IAddTypeModalProps) => {
     typesDataRefetch();
   };
 
+  const onFinishFailedAddType = (formValues: ValidateErrorEntity) => {
+    getValidateErrorMessage(formValues);
+  };
+
   return (
     <Modal
       open={isOpenAddModal}
@@ -49,6 +56,7 @@ export const AddTypeModal = (props: IAddTypeModalProps) => {
         className={styles.editForm}
         layout="vertical"
         onFinish={onFinishAddType}
+        onFinishFailed={onFinishFailedAddType}
       >
         {FormItems}
 

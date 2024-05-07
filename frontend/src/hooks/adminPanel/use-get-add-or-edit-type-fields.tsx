@@ -6,6 +6,7 @@ import styles from "components/AdminPanel/AdminPanelTab.module.scss";
 
 import { useGetImagesQuery } from "store/api/images/images-api";
 
+import { DEFAULT_VALIDATE_MESSAGE } from "constants/general-constants";
 import { typeItemDataIndexes, typeItemLabels } from "constants/types-constants";
 
 import { getImageUrl } from "utils/get-image-url";
@@ -53,19 +54,35 @@ export const useGetAddOrEditTypeFields = (
           optionRender={renderImageOption}
         />
       ),
-      required: isRequired,
+      rules: [
+        {
+          required: isRequired,
+          message: `${DEFAULT_VALIDATE_MESSAGE} ссылку на картинку`,
+        },
+      ],
     },
     {
       name: typeItemDataIndexes.name,
       label: typeItemLabels.name,
       node: <Input defaultValue={typeFields.name} />,
-      required: isRequired,
+      rules: [
+        {
+          required: isRequired,
+          message: `${DEFAULT_VALIDATE_MESSAGE} название`,
+        },
+      ],
     },
     {
       name: typeItemDataIndexes.url,
       label: typeItemLabels.url,
       node: <Input defaultValue={typeFields.url} />,
-      required: isRequired,
+      rules: [
+        {
+          required: isRequired,
+          message: `${DEFAULT_VALIDATE_MESSAGE} ссылку латинскими буквами и без специальных знаков`,
+          pattern: /^[a-zA-Z]+$/,
+        },
+      ],
     },
   ];
 

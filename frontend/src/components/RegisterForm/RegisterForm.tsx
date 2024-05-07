@@ -7,12 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { useSignUpMutation } from "store/api/auth/auth-api";
 import { ISignInFields } from "store/api/auth/types";
 
-import {
-  AND_VALIDATE_MESSAGE,
-  DEFAULT_VALIDATE_MESSAGE,
-} from "constants/profile-constants";
+import { useGetRegisterFields } from "hooks/auth/use-get-register-fields";
 
-import { ProfileFields } from "./profileFields";
+import { getValidateErrorMessage } from "utils/get-validate-error-message";
 
 interface IRegisterFormProps {
   handleCloseModal: () => void;
@@ -22,9 +19,10 @@ interface IRegisterFormProps {
 export const RegisterForm = (props: IRegisterFormProps) => {
   const { handleCloseModal, setIsHaveAccount } = props;
 
-  const [register, { isSuccess, isLoading, isError }] = useSignUpMutation();
-
+  const { FormItems } = useGetRegisterFields();
   const navigate = useNavigate();
+
+  const [register, { isSuccess, isLoading, isError }] = useSignUpMutation();
 
   const onFinishCreateQuestionnaire = (formValues: ISignInFields) => {
     register({ ...formValues });
@@ -43,20 +41,7 @@ export const RegisterForm = (props: IRegisterFormProps) => {
   }, [isError, isLoading, isSuccess, navigate]);
 
   const onFailedCreateQuestionnaire = (formValues: ValidateErrorEntity) => {
-    const notFilledFields = formValues.errorFields
-      .map((errorField) => errorField.errors)
-      .join(", ")
-      .replace(new RegExp(DEFAULT_VALIDATE_MESSAGE, "g"), "")
-      .replace(/,([^,]*)$/, ` ${AND_VALIDATE_MESSAGE}$1`);
-
-    message.error(
-      <>
-        Заполните обязательные поля!
-        <p>
-          Осталось заполнить - <b>{notFilledFields}</b>
-        </p>
-      </>
-    );
+    getValidateErrorMessage(formValues);
   };
 
   return (
@@ -68,7 +53,7 @@ export const RegisterForm = (props: IRegisterFormProps) => {
         onFinish={onFinishCreateQuestionnaire}
         onFinishFailed={onFailedCreateQuestionnaire}
       >
-        <ProfileFields />
+        {FormItems}
 
         <Button type="primary" htmlType="submit">
           Зарегестрироваться

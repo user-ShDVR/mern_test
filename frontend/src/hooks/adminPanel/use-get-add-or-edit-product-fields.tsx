@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Form, Input, InputNumber, Select } from "antd";
+import { Form, Input, Select } from "antd";
 
 import { DefaultOptionType } from "antd/es/select";
 
@@ -10,6 +10,7 @@ import styles from "components/AdminPanel/AdminPanelTab.module.scss";
 import { useGetImagesQuery } from "store/api/images/images-api";
 import { useGetTypesQuery } from "store/api/types/types-api";
 
+import { DEFAULT_VALIDATE_MESSAGE } from "constants/general-constants";
 import {
   productItemDataIndexes,
   productItemLabels,
@@ -80,13 +81,23 @@ export const useGetAddOrEditProductFields = (
           optionRender={renderImageOption}
         />
       ),
-      required: isRequired,
+      rules: [
+        {
+          required: isRequired,
+          message: `${DEFAULT_VALIDATE_MESSAGE} ссылку на картинку`,
+        },
+      ],
     },
     {
       name: productItemDataIndexes.name,
       label: productItemLabels.name,
       node: <Input defaultValue={productFields?.name} />,
-      required: isRequired,
+      rules: [
+        {
+          required: isRequired,
+          message: `${DEFAULT_VALIDATE_MESSAGE} название`,
+        },
+      ],
     },
     {
       name: productItemDataIndexes.description,
@@ -94,13 +105,23 @@ export const useGetAddOrEditProductFields = (
       node: (
         <Input.TextArea defaultValue={productFields?.description} rows={4} />
       ),
-      required: isRequired,
+      rules: [
+        {
+          required: isRequired,
+          message: `${DEFAULT_VALIDATE_MESSAGE} описание`,
+        },
+      ],
     },
     {
       name: productItemDataIndexes.price,
       label: productItemLabels.price,
-      node: <InputNumber defaultValue={productFields?.price} />,
-      required: isRequired,
+      node: <Input defaultValue={productFields?.price} />,
+      rules: [
+        {
+          required: isRequired,
+          message: `${DEFAULT_VALIDATE_MESSAGE} цену`,
+        },
+      ],
     },
     {
       name: productItemDataIndexes.type_id,
@@ -113,7 +134,12 @@ export const useGetAddOrEditProductFields = (
           filterOption={searchedOptions}
         />
       ),
-      required: isRequired,
+      rules: [
+        {
+          required: isRequired,
+          message: `${DEFAULT_VALIDATE_MESSAGE} категорию`,
+        },
+      ],
     },
     {
       label: productItemLabels.characteristics,
@@ -123,7 +149,6 @@ export const useGetAddOrEditProductFields = (
           setCharacteristics={setCharacteristics}
         />
       ),
-      required: isRequired,
     },
   ];
 

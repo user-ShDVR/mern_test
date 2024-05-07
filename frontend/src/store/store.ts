@@ -8,7 +8,6 @@ import { ordersApi } from "store/api/orders/orders-api";
 import { productsApi } from "store/api/products/products-api";
 import { typesApi } from "store/api/types/types-api";
 import { usersApi } from "store/api/users/users-api";
-import orderReducer from "store/features/orderSlice";
 import userReducer from "store/features/userSlice";
 
 export const store = configureStore({
@@ -22,7 +21,6 @@ export const store = configureStore({
     [productsApi.reducerPath]: productsApi.reducer,
     [usersApi.reducerPath]: usersApi.reducer,
     userState: userReducer,
-    orderState: orderReducer,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>

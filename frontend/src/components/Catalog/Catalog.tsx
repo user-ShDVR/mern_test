@@ -1,6 +1,7 @@
 import { Card, Typography } from "antd";
 import { Link } from "react-router-dom";
 
+import { EmptyMessage } from "components/EmptyMessage/EmptyMessage";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
 
 import { useGetTypesQuery } from "store/api/types/types-api";
@@ -25,6 +26,8 @@ export const Catalog = () => {
     page: currentPage,
     limit: DEFAULT_TYPES_LIMIT_IN_CATALOG_PAGE,
   });
+
+  const emptyTypesData = typesData?.types?.length === 0;
 
   return (
     <>
@@ -58,10 +61,14 @@ export const Catalog = () => {
         })}
       </div>
 
-      <PaginationBlock
-        totalCount={typesData?.totalCount}
-        countElementsOnPage={TYPES_COUNT_IN_CATALOG_PAGE}
-      />
+      {emptyTypesData && <EmptyMessage description="Категории не найдены" />}
+
+      {!emptyTypesData && (
+        <PaginationBlock
+          totalCount={typesData?.totalCount}
+          countElementsOnPage={TYPES_COUNT_IN_CATALOG_PAGE}
+        />
+      )}
     </>
   );
 };

@@ -6,12 +6,9 @@ import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 import { useSignInMutation } from "store/api/auth/auth-api";
 import { ISignInFields } from "store/api/auth/types";
 
-import {
-  AND_VALIDATE_MESSAGE,
-  DEFAULT_VALIDATE_MESSAGE,
-} from "constants/profile-constants";
+import { useGetLoginFields } from "hooks/auth/use-get-login-fields";
 
-import { ProfileFields } from "./ProfileFields";
+import { getValidateErrorMessage } from "utils/get-validate-error-message";
 
 interface ILoginFormProps {
   handleCloseModal: () => void;
@@ -20,6 +17,8 @@ interface ILoginFormProps {
 
 export const LoginForm = (props: ILoginFormProps) => {
   const { handleCloseModal, setIsHaveAccount } = props;
+
+  const { FormItems } = useGetLoginFields();
 
   const [login, { isSuccess, isLoading, isError }] = useSignInMutation();
 
@@ -40,20 +39,7 @@ export const LoginForm = (props: ILoginFormProps) => {
   }, [isError, isLoading, isSuccess]);
 
   const onFailedCreateQuestionnaire = (formValues: ValidateErrorEntity) => {
-    const notFilledFields = formValues.errorFields
-      .map((errorField) => errorField.errors)
-      .join(", ")
-      .replace(new RegExp(DEFAULT_VALIDATE_MESSAGE, "g"), "")
-      .replace(/,([^,]*)$/, ` ${AND_VALIDATE_MESSAGE}$1`);
-
-    message.error(
-      <>
-        Заполните обязательные поля!
-        <p>
-          Осталось заполнить - <b>{notFilledFields}</b>
-        </p>
-      </>
-    );
+    getValidateErrorMessage(formValues);
   };
 
   return (
@@ -65,7 +51,7 @@ export const LoginForm = (props: ILoginFormProps) => {
         onFinish={onFinishCreateQuestionnaire}
         onFinishFailed={onFailedCreateQuestionnaire}
       >
-        <ProfileFields />
+        {FormItems}
 
         <Button type="primary" htmlType="submit">
           Авторизоваться
