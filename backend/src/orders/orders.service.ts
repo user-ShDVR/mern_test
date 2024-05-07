@@ -3,6 +3,7 @@ import { PrismaService } from 'src/utils/db/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { CartsService } from 'src/carts/carts.service';
 import { MailService } from 'src/utils/mailer/mailer';
+import { UpdateOrderDto } from './dto/update-order.dto';
 
 @Injectable()
 export class OrdersService {
@@ -59,7 +60,25 @@ export class OrdersService {
     const offset = (page - 1) * limit;
     const totalCount = await this.db.orders.count();
     const orders = await this.db.orders.findMany({
-      where: { user_id: userId },
+      where: { user_id: userId, deleted: false },
+      take: limit,
+      skip: offset,
+      include: {
+        order_products: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+    return { totalCount, orders };
+  }
+
+  async findAll(page: number = 1, limit: number = 16) {
+    const offset = (page - 1) * limit;
+    const totalCount = await this.db.orders.count();
+    const orders = await this.db.orders.findMany({
+      where: { deleted: false },
       take: limit,
       skip: offset,
       include: {
@@ -79,7 +98,9 @@ export class OrdersService {
       include: {
         order_products: {
           include: {
-            product: true,
+            product: {
+              include: { image: true },
+            },
           },
         },
       },
@@ -90,12 +111,53 @@ export class OrdersService {
     return order;
   }
 
+  async update(id: number, updateOrderDto: UpdateOrderDto) {
+    const { products, ...orderDetails } = updateOrderDto;
+
+    let order;
+    try {
+      order = await this.db.$transaction(async (prisma) => {
+        const createdOrder = await prisma.orders.update({
+          where: { id },
+          data: {
+            ...orderDetails,
+            order_products: {
+              create: products.map((product) => ({
+                product_id: product.productId,
+                quantity: product.quantity,
+              })),
+            },
+          },
+          include: {
+            order_products: {
+              include: {
+                product: {
+                  include: { image: true },
+                },
+              },
+            },
+          },
+        });
+        return createdOrder;
+      });
+    } catch (error) {
+      throw new Error('Failed to update order: ' + error.message);
+    }
+
+    return { order, message: 'Заказ обновлен' };
+  }
+
   async remove(id: number) {
     const order = await this.findOne(id);
     if (!order) {
       throw new NotFoundException('id указан неверно');
     }
-    await this.db.orders.delete({ where: { id } });
+
+    await this.db.orders.update({
+      where: { id },
+      data: { deleted: true },
+    });
+
     return 'Покупка удалена.';
   }
 }
