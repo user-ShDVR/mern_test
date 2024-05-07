@@ -168,6 +168,6 @@ export class OrdersService {
       data: { deleted: true },
     });
 
-    return 'Покупка удалена.';
+    return { message: 'Заказ удален.' };
   }
 }

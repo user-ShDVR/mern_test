@@ -2,7 +2,6 @@ import { createRtkApi as api } from "store/api/createRtkApi";
 import { userActions } from "store/features/userSlice";
 
 import { ISignInFields, ISignUpFields, IUserResponse } from "./types";
-
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     signUp: build.mutation<IUserResponse, ISignUpFields>({
@@ -11,7 +10,7 @@ const injectedRtkApi = api.injectEndpoints({
         method: "POST",
         body: { ...body },
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           dispatch(userActions.setUser(data));
@@ -27,7 +26,7 @@ const injectedRtkApi = api.injectEndpoints({
         method: "POST",
         body: { ...body },
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           dispatch(userActions.setUser(data));
@@ -39,9 +38,12 @@ const injectedRtkApi = api.injectEndpoints({
 
     signOut: build.mutation<unknown, void>({
       query: () => ({ url: `/auth/sign-out`, method: "POST" }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
-          await queryFulfilled;
+          const { data } = await queryFulfilled;
+
+          console.log("Вы вышли из системы", data);
+          
           dispatch(userActions.setUser(null));
         } catch (error) {
           console.log(error);
@@ -51,7 +53,7 @@ const injectedRtkApi = api.injectEndpoints({
 
     getAuthUser: build.query<ISignUpFields, void>({
       query: () => ({ url: `/auth/session` }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           dispatch(userActions.setUser(data));
@@ -61,8 +63,6 @@ const injectedRtkApi = api.injectEndpoints({
       },
     }),
   }),
-
-  overrideExisting: false,
 });
 
 export { injectedRtkApi as authApi };

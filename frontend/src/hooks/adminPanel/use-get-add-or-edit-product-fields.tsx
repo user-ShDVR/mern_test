@@ -38,7 +38,7 @@ export const useGetAddOrEditProductFields = (
 
   const isRequired = isEdit ? false : true;
 
-  const [characteristics, setCharacteristics] = React.useState(
+  const [characteristics, setCharacteristics] = React.useState<any[]>(
     productFields.characteristics ?? []
   );
 
@@ -49,14 +49,14 @@ export const useGetAddOrEditProductFields = (
 
   const typesOptions = typesData?.types.map((type: IType) => ({
     label: type.name,
-    value: type.id,
+    value: type.id.toString(),
   }));
 
   const { data: imagesData } = useGetImagesQuery(null);
 
   const imageOptions = imagesData?.map((image) => ({
     label: image.filename,
-    value: image.id,
+    value: image.id.toString(),
   }));
 
   const renderImageOption = (imageOption: DefaultOptionType) => (

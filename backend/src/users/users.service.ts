@@ -68,7 +68,7 @@ export class UsersService {
       throw new NotFoundException('id указан неправильно.');
     }
     await this.db.users.update({ where: { id }, data: { ...updateUserDto } });
-    return 'Пользователь обновлён.';
+    return { message: 'Пользователь обновлен.' };
   }
 
   async remove(id: number) {
@@ -90,6 +90,6 @@ export class UsersService {
       },
     });
 
-    return 'Пользователь удалён.';
+    return { message: 'Пользователь удален.' };
   }
 }

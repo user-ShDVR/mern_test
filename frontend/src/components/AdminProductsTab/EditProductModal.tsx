@@ -8,6 +8,7 @@ import { IEditProductsRequest } from "store/api/products/types";
 import { useGetAddOrEditProductFields } from "hooks/adminPanel/use-get-add-or-edit-product-fields";
 
 import { IProduct } from "types/IProduct";
+import { useEffect } from "react";
 
 interface IEditProductModalProps {
   isOpenEditModal: boolean;
@@ -24,7 +25,8 @@ export const EditProductModal = (props: IEditProductModalProps) => {
     refetchProductsData,
   } = props;
 
-  const [editProduct] = useEditProductsMutation();
+  const [editProduct, { isSuccess: isProductSucces, isError, isLoading }] =
+    useEditProductsMutation();
 
   const { FormItems, characteristics } = useGetAddOrEditProductFields({
     productFields: certainProductInModal,
@@ -32,21 +34,39 @@ export const EditProductModal = (props: IEditProductModalProps) => {
   });
 
   const onFinishEditProduct = (formValues: IEditProductsRequest) => {
-    editProduct({
+    
+    const imageId = formValues.image_id ?? null;
+    const price = formValues.price ?? null;
+    const typeId = formValues.type_id ?? null;
+  
+    // Преобразуйте к числу только если значения не null и не undefined
+    const formattedFormValues = {
       ...formValues,
-      id: certainProductInModal.id,
-      characteristics,
-    }).then((response) => {
-      if (response.data) {
-        message.success("Продукт успешно обновлен");
-        setTimeout(() => onCloseEditModal(), 500);
-      } else {
-        message.error("Произошла ошибка при обновлении продукта");
-      }
+      image_id: imageId !== null ? +imageId : undefined,
+      price: price !== null ? +price : undefined,
+      type_id: typeId !== null ? +typeId : undefined,
+      characteristics
+    };
+  
+    // Выполнение запроса на редактирование продукта
+    editProduct({
+      ...formattedFormValues,
+      id: certainProductInModal.id
     });
-
+  
+    // Вызов функции обновления списка продуктов
     refetchProductsData();
   };
+  
+
+  useEffect(() => {
+    if (!isLoading && isProductSucces) {
+      message.success("Продукт успешно обновлен");
+      setTimeout(() => onCloseEditModal(), 500);
+    } else if (!isLoading && isError) {
+      message.error("Произошла ошибка при обновлении продукта");
+    }
+  }, [isProductSucces, isError, isLoading]);
 
   return (
     <Modal

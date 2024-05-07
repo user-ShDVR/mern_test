@@ -11,6 +11,7 @@ import { useGetAddOrEditTypeFields } from "hooks/adminPanel/use-get-add-or-edit-
 import { getValidateErrorMessage } from "utils/get-validate-error-message";
 
 import { IType } from "types/IType";
+import { useEffect } from "react";
 
 interface IAddTypeModalProps {
   isOpenAddModal: boolean;
@@ -21,29 +22,32 @@ interface IAddTypeModalProps {
 export const AddTypeModal = (props: IAddTypeModalProps) => {
   const { isOpenAddModal, onCloseAddModal, typesDataRefetch } = props;
 
-  const [addType] = useAddTypesMutation();
+  const [addType, { isSuccess: isAddTypeSuccess, isError: isAddTypeError, isLoading }] = useAddTypesMutation();
 
   const { FormItems } = useGetAddOrEditTypeFields({
     typeFields: {} as IType,
     isEdit: false,
   });
 
-  const onFinishAddType = (formValues: IAddTypesRequest) => {
-    addType(formValues).then((response) => {
-      if (response.error.originalStatus) {
-        message.success(response.error.data);
-        setTimeout(() => onCloseAddModal(), 500);
-      } else {
-        message.error("Произошла ошибка валидации при добавлении категории");
-      }
-    });
-
+  const onFinishAddType = async (formValues: IAddTypesRequest) => {
+    await addType(formValues);
     typesDataRefetch();
   };
 
   const onFinishFailedAddType = (formValues: ValidateErrorEntity) => {
     getValidateErrorMessage(formValues);
   };
+
+  useEffect(() => {
+    if (!isLoading && isAddTypeSuccess) {
+      message.success("Категория успешно добавлена");
+      setTimeout(() => onCloseAddModal(), 500);
+    } else if (!isLoading && isAddTypeError) {
+      message.error("Произошла ошибка валидации при добавлении категории");
+    } else {
+      setTimeout(() => onCloseAddModal(), 500);
+    }
+  }, [isAddTypeSuccess, isAddTypeError, isLoading]);
 
   return (
     <Modal

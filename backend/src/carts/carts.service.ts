@@ -8,7 +8,7 @@ export class CartsService {
   constructor(private db: PrismaService) {}
   async create(createCartDto: CreateCartDto) {
     await this.db.carts.create({ data: { ...createCartDto } });
-    return 'Корзина создана.';
+    return { message: 'Корзина создана.' };
   }
 
   async findAll(page: number = 1, limit: number = 16) {
@@ -43,7 +43,7 @@ export class CartsService {
       throw new NotFoundException('id указан неверно.');
     }
     await this.db.carts.update({ where: { id }, data: { ...updateCartDto } });
-    return 'Корзина обновлена.';
+    return { message: 'Корзина обновлена.' };
   }
 
   async remove(id: number) {
@@ -52,7 +52,7 @@ export class CartsService {
       throw new NotFoundException('id указан неправильно.');
     }
     await this.db.carts.delete({ where: { id } });
-    return 'Корзина удалена.';
+    return { message: 'Корзина удалена.' };
   }
 
   async clear(id: number) {

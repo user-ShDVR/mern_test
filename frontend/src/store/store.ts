@@ -1,4 +1,5 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import { createRtkApi as api } from "store/api/createRtkApi";
 
 import { authApi } from "store/api/auth/auth-api";
 import { cartsApi } from "store/api/carts/carts-api";
@@ -12,14 +13,8 @@ import userReducer from "store/features/userSlice";
 
 export const store = configureStore({
   reducer: {
-    [authApi.reducerPath]: authApi.reducer,
-    [cartsProductsApi.reducerPath]: cartsProductsApi.reducer,
-    [ordersApi.reducerPath]: ordersApi.reducer,
-    [cartsApi.reducerPath]: cartsApi.reducer,
-    [imagesApi.reducerPath]: imagesApi.reducer,
-    [typesApi.reducerPath]: typesApi.reducer,
-    [productsApi.reducerPath]: productsApi.reducer,
-    [usersApi.reducerPath]: usersApi.reducer,
+    [api.reducerPath]: api.reducer,
+    
     userState: userReducer,
   },
   devTools: true,

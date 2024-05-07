@@ -1,9 +1,9 @@
 import { Form, Input } from "antd";
-import { IUser } from "../../store/api/types";
 import {
   profileFieldsDataIndexes,
   profileFieldsTitles,
 } from "../../constants/profile-constants";
+import { IUser } from "types/IUser";
 
 interface IAccountFieldsProps {
   userData: IUser;
