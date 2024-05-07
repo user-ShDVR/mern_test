@@ -20,7 +20,7 @@ export const CartButtons = (props: ICartButtonsProps) => {
 
   const handleAddToCart = (event: TButtonEvent) => {
     handleActionCart({
-      productId: productId,
+      productId,
       action: ECartActions.ADD,
       eventButton: event,
     });
@@ -28,7 +28,7 @@ export const CartButtons = (props: ICartButtonsProps) => {
 
   const handleDeleteFromCart = (event: TButtonEvent) => {
     handleActionCart({
-      productId: productId,
+      productId,
       action: ECartActions.DELETE,
       eventButton: event,
     });

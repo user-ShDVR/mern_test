@@ -1,3 +1,5 @@
+export const DEFAULT_ORDER_LIMIT_IN_ORDERS_PAGE = 3;
+
 export const DEFAULT_VALIDATE_MESSAGE = "Пожалуйста, введите";
 
 export const stepsLabels = {

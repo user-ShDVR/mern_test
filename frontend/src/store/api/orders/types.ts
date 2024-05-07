@@ -1,3 +1,5 @@
+import { IOrder } from "types/IOrder";
+
 export interface IAddOrderRequest {
   user_id: number;
   quantity: number;
@@ -6,12 +8,18 @@ export interface IAddOrderRequest {
 }
 
 export interface IGetOrdersRequest {
+  id: number | undefined;
   page: number;
   limit: number;
 }
 
-export interface IGetCertainOrderRequest {
-  id: string;
+export interface IGetOrdersResponse {
+  totalCount: number;
+  orders: IOrder[];
+}
+
+export interface IGetCertainOrdersRequest {
+  id: number | undefined;
 }
 
 export interface IDeleteOrderRequest {

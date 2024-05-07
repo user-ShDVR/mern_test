@@ -3,8 +3,9 @@ import { createRtkApi as api } from "store/api/createRtkApi";
 import {
   IAddOrderRequest,
   IDeleteOrderRequest,
-  IGetCertainOrderRequest,
+  IGetCertainOrdersRequest,
   IGetOrdersRequest,
+  IGetOrdersResponse,
 } from "./types";
 
 const injectedRtkApi = api.injectEndpoints({
@@ -17,13 +18,13 @@ const injectedRtkApi = api.injectEndpoints({
       }),
     }),
 
-    getOrders: build.query<unknown, IGetOrdersRequest>({
+    getOrders: build.query<IGetOrdersResponse, IGetOrdersRequest>({
       query: (body) => ({
-        url: `/orders?page=${body.page}&limit=${body.limit}`,
+        url: `/orders?id=${body.id}&page=${body.page}&limit=${body.limit}`,
       }),
     }),
 
-    getCertainOrder: build.query<unknown, IGetCertainOrderRequest>({
+    getCertainOrders: build.query<unknown, IGetCertainOrdersRequest>({
       query: (body) => ({ url: `/orders/${body.id}` }),
     }),
 
@@ -43,6 +44,6 @@ export { injectedRtkApi as ordersApi };
 export const {
   useAddOrderMutation,
   useGetOrdersQuery,
-  useGetCertainOrderQuery,
+  useGetCertainOrdersQuery,
   useOrdersControllerRemoveMutation,
 } = injectedRtkApi;

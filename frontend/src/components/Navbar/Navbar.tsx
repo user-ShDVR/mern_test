@@ -28,7 +28,7 @@ export const Navbar = () => {
       <Input.Search className={styles.searchInput} placeholder="Найти товар" />
 
       <div className={styles.icons}>
-        <Link className={styles.iconWrapper} to="">
+        <Link className={styles.iconWrapper} to={RouterPath.orders}>
           <ShoppingCartOutlined className={styles.icon} />
           <Typography.Text>Заказы</Typography.Text>
         </Link>

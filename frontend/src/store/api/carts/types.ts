@@ -16,7 +16,7 @@ export interface IGetCartsResponse {
 }
 
 export interface IGetCertainCartsRequest {
-  id: string;
+  id: number | undefined;
 }
 
 export interface IEditCartsRequest {
@@ -29,5 +29,5 @@ export interface IDeleteCartsRequest {
 }
 
 export interface IClearCartsRequest {
-  id: string;
+  id: number | undefined;
 }

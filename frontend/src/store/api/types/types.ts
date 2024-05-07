@@ -28,5 +28,5 @@ export interface IEditTypesRequest {
 }
 
 export interface IDeleteTypesRequest {
-  id: string;
+  id: number;
 }

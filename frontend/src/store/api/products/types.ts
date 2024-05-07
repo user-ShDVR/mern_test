@@ -25,7 +25,7 @@ export interface IGetProductsResponse {
 }
 
 export interface IGetCertainProductsRequest {
-  id: string;
+  id: string | undefined;
 }
 
 export interface IGetCertainProductsResponse extends IProduct {}
@@ -41,5 +41,5 @@ export type IEditProductsRequest = {
 };
 
 export interface IDeleteProductsRequest {
-  id: string;
+  id: number;
 }

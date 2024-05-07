@@ -15,10 +15,9 @@ import styles from "./CertainProductById.module.scss";
 
 export const CertainProductById = () => {
   const { id } = useParams();
-  const productItemId = String(id);
 
   const { data: productData } = useGetCertainProductsQuery({
-    id: productItemId,
+    id,
   });
 
   const handleShared = () => {
@@ -39,7 +38,7 @@ export const CertainProductById = () => {
 
           <div className={styles.productItemInfo}>
             <Typography.Title>{productData?.price} ₽</Typography.Title>
-            <CartButtons productId={Number(productItemId)} />
+            <CartButtons productId={Number(id)} />
 
             <Typography.Title className={styles.characteristicsTitle} level={3}>
               Характеристики

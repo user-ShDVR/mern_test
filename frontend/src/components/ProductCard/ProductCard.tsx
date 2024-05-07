@@ -18,7 +18,7 @@ export const ProductCard = (props: IProductCardProps) => {
   const { product } = props;
 
   return (
-    <Link className={styles.link} to={String(product.id)} key={product.id}>
+    <Link className={styles.link} to={`${product.id}`} key={product.id}>
       <ShadowCard
         className={styles.cardWrapper}
         key={product.id}

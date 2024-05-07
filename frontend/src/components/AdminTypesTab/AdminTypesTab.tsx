@@ -74,7 +74,7 @@ export const AdminTypesTab = () => {
   };
 
   const handleDeleteType = (type: IType) => {
-    deleteType({ id: String(type.id) }).then((response) => {
+    deleteType({ id: type.id }).then((response) => {
       if (response.error.originalStatus) {
         message.success(response.error.data);
       } else if (response.error.status === 404) {

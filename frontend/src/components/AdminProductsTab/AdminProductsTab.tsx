@@ -81,7 +81,7 @@ export const AdminProductsTab = () => {
   };
 
   const handleDeleteProduct = (product: IProduct) => {
-    deleteProduct({ id: String(product.id) }).then((response) => {
+    deleteProduct({ id: product.id }).then((response) => {
       if (response.error.originalStatus) {
         message.success(response.error.data);
       } else {

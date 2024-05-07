@@ -8,6 +8,7 @@ import { CatalogPage } from "pages/CatalogPage";
 import { CertainProductByIdPage } from "pages/CertainProductByIdPage";
 import { ForbiddenPage } from "pages/ForbiddenPage";
 import { MainPage } from "pages/MainPage";
+import { OrdersPage } from "pages/OrdersPage";
 
 export type TAppRouteProps = RouteProps & {
   authOnly?: boolean;
@@ -22,6 +23,7 @@ export enum AppRoutes {
   CATALOG_ITEM = "catalog_item",
   CERTAIN_PRODUCT_BY_ID_IN_CATALOG_ITEM = "certain_product_by_id_in_catalog_item",
   CART = "cart",
+  ORDERS = "orders",
   ADMIN_PANEL = "admin_panel",
   FORBIDDEN = "forbidden",
 }
@@ -34,6 +36,7 @@ export const RouterPath: Record<AppRoutes, string> = {
   [AppRoutes.CATALOG_ITEM]: "/catalog/:url",
   [AppRoutes.CERTAIN_PRODUCT_BY_ID_IN_CATALOG_ITEM]: "/catalog/:url/:id",
   [AppRoutes.CART]: "/cart",
+  [AppRoutes.ORDERS]: "/orders",
   [AppRoutes.ADMIN_PANEL]: "/admin_panel",
   [AppRoutes.FORBIDDEN]: "/forbidden",
 };
@@ -67,6 +70,11 @@ export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
   [AppRoutes.CART]: {
     path: RouterPath.cart,
     element: <CartPage />,
+  },
+  [AppRoutes.ORDERS]: {
+    path: RouterPath.orders,
+    element: <OrdersPage />,
+    authOnly: true,
   },
   [AppRoutes.ADMIN_PANEL]: {
     path: RouterPath.admin_panel,

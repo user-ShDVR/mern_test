@@ -5,6 +5,7 @@ import { Pagination } from "antd";
 interface IPaginationBlockArgs {
   countElementsOnPage: number;
   totalCount?: number;
+  marginTop?: string;
 }
 
 export const useGetPaginationBlock = () => {
@@ -14,18 +15,18 @@ export const useGetPaginationBlock = () => {
     setCurrentPage(page);
   };
 
-  const styles = {
-    marginTop: "14vh",
-    display: "flex",
-    justifyContent: "center",
-  };
-
   const PaginationBlock = (args: IPaginationBlockArgs) => {
-    const { totalCount, countElementsOnPage } = args;
+    const { totalCount, countElementsOnPage, marginTop } = args;
+
+    const paginationBlockStyles = {
+      marginTop: marginTop ?? "14vh",
+      display: "flex",
+      justifyContent: "center",
+    };
 
     return (
       <Pagination
-        style={styles}
+        style={paginationBlockStyles}
         defaultCurrent={1}
         defaultPageSize={countElementsOnPage}
         total={totalCount}

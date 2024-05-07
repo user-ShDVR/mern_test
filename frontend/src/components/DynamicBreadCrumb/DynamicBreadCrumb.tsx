@@ -6,6 +6,7 @@ import styles from "./DynamicBreadCrumb.module.scss";
 const pathTranslations: Record<string, string> = {
   catalog: "Каталог",
   cart: "Корзина",
+  orders: "Заказы",
   admin_panel: "Админ-панель",
   forbidden: "Нет доступа к странице",
 };

@@ -31,11 +31,8 @@ interface ICartActionArgs {
 export const useCartActions = () => {
   const { user } = useSelector(selectUser);
 
-  const stringUserId = String(user?.id);
-  const numberUserId = Number(user?.id);
-
   const { data: cartProductsData, refetch: cartProductsDataRefetch } =
-    useGetCertainCartsQuery({ id: stringUserId }, { skip: !user });
+    useGetCertainCartsQuery({ id: user?.id }, { skip: !user });
 
   const [addToCart] = useAddCartsProductsMutation();
   const [deleteFromCart] = useDeleteCartsProductsMutation();
@@ -56,7 +53,7 @@ export const useCartActions = () => {
     if (action === ECartActions.ADD) {
       if (!getIsProductInCart(productId)) {
         await addToCart({
-          cart_id: numberUserId,
+          cart_id: user?.id,
           product_id: productId,
           quantity: 1,
         });
@@ -70,7 +67,7 @@ export const useCartActions = () => {
     if (action === ECartActions.DELETE) {
       if (getIsProductInCart(productId)) {
         await deleteFromCart({
-          user_id: numberUserId,
+          user_id: user?.id,
           product_id: productId,
         });
 
@@ -88,7 +85,7 @@ export const useCartActions = () => {
 
     if (action === ECartActions.PLUS) {
       await changeProductQuantity({
-        id: stringUserId,
+        id: user?.id,
         product_id: productId,
         quantity: quantity && quantity + 1,
       });
@@ -96,7 +93,7 @@ export const useCartActions = () => {
 
     if (action === ECartActions.MINUS) {
       await changeProductQuantity({
-        id: stringUserId,
+        id: user?.id,
         product_id: productId,
         quantity: quantity && quantity - 1,
       });
@@ -110,7 +107,7 @@ export const useCartActions = () => {
   };
 
   const handleClearCart = async () => {
-    await clearCart({ id: stringUserId });
+    await clearCart({ id: user?.id });
     cartProductsDataRefetch();
     message.success("Корзина очищена");
   };
