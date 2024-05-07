@@ -1,14 +1,24 @@
 import { RouteProps } from "react-router-dom";
 
-import { AccountPage } from "pages/AccountPage";
-import { AdminPanelPage } from "pages/AdminPanelPage";
-import { CartPage } from "pages/CartPage";
-import { CatalogItemPage } from "pages/CatalogItemPage";
-import { CatalogPage } from "pages/CatalogPage";
-import { CertainProductByIdPage } from "pages/CertainProductByIdPage";
-import { ForbiddenPage } from "pages/ForbiddenPage";
-import { MainPage } from "pages/MainPage";
-import { OrdersPage } from "pages/OrdersPage";
+const AccountPage = React.lazy(() => import('pages/AccountPage'));
+
+const AdminPanelPage = React.lazy(() => import('pages/AdminPanelPage'));
+
+const CartPage = React.lazy(() => import('pages/CartPage'));
+
+const CatalogItemPage = React.lazy(() => import('pages/CatalogItemPage'));
+
+const CatalogPage = React.lazy(() => import('pages/CatalogPage'));
+
+const CertainProductByIdPage = React.lazy(() => import('pages/CertainProductByIdPage'));
+
+const ForbiddenPage = React.lazy(() => import('pages/ForbiddenPage'));
+
+const MainPage = React.lazy(() => import('pages/MainPage'));
+
+const OrdersPage = React.lazy(() => import('pages/OrdersPage'));
+import React, { Suspense } from "react";
+import { Spinner } from "components/Spinner/Spinner";
 
 export type TAppRouteProps = RouteProps & {
   authOnly?: boolean;
@@ -44,45 +54,45 @@ export const RouterPath: Record<AppRoutes, string> = {
 export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
   [AppRoutes.MAIN]: {
     path: RouterPath.main,
-    element: <MainPage />,
+    element: <Suspense fallback={<Spinner />}><MainPage /></Suspense>,
   },
   [AppRoutes.CERTAIN_PRODUCT_BY_ID_IN_MAIN]: {
     path: RouterPath.certain_product_by_id_in_main,
-    element: <CertainProductByIdPage />,
+    element: <Suspense fallback={<Spinner />}><CertainProductByIdPage /></Suspense>,
   },
   [AppRoutes.ACCOUNT]: {
     path: RouterPath.account,
-    element: <AccountPage />,
+    element: <Suspense fallback={<Spinner />}> <AccountPage /> </Suspense>,
     authOnly: true,
   },
   [AppRoutes.CATALOG]: {
     path: RouterPath.catalog,
-    element: <CatalogPage />,
+    element: <Suspense fallback={<Spinner />}> <CatalogPage /> </Suspense>,
   },
   [AppRoutes.CATALOG_ITEM]: {
     path: RouterPath.catalog_item,
-    element: <CatalogItemPage />,
+    element: <Suspense fallback={<Spinner />}> <CatalogItemPage /> </Suspense>,
   },
   [AppRoutes.CERTAIN_PRODUCT_BY_ID_IN_CATALOG_ITEM]: {
     path: RouterPath.certain_product_by_id_in_catalog_item,
-    element: <CertainProductByIdPage />,
+    element: <Suspense fallback={<Spinner />}> <CertainProductByIdPage /> </Suspense>,
   },
   [AppRoutes.CART]: {
     path: RouterPath.cart,
-    element: <CartPage />,
+    element: <Suspense fallback={<Spinner />}> <CartPage /> </Suspense>,
   },
   [AppRoutes.ORDERS]: {
     path: RouterPath.orders,
-    element: <OrdersPage />,
+    element: <Suspense fallback={<Spinner />}> <OrdersPage /> </Suspense>,
     authOnly: true,
   },
   [AppRoutes.ADMIN_PANEL]: {
     path: RouterPath.admin_panel,
-    element: <AdminPanelPage />,
+    element: <Suspense fallback={<Spinner />}> <AdminPanelPage /> </Suspense>,
     authOnly: true,
   },
   [AppRoutes.FORBIDDEN]: {
     path: RouterPath.forbidden,
-    element: <ForbiddenPage />,
+    element: <Suspense fallback={<Spinner />}> <ForbiddenPage /> </Suspense>,
   },
 };

@@ -1,5 +1,7 @@
 import { CertainProductById } from "components/CertainProductById/CertainProductById";
 
-export const CertainProductByIdPage = () => {
+const CertainProductByIdPage = () => {
   return <CertainProductById />;
 };
+
+export default CertainProductByIdPage;
