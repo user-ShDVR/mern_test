@@ -58,15 +58,20 @@ export class OrdersService {
 
   async findAllByUser(userId: number, page: number = 1, limit: number = 16) {
     const offset = (page - 1) * limit;
-    const totalCount = await this.db.orders.count();
+    const totalCount = await this.db.orders.count({
+      where: { user_id: userId, deleted: false },
+    });
     const orders = await this.db.orders.findMany({
       where: { user_id: userId, deleted: false },
       take: limit,
       skip: offset,
+      orderBy: { created: 'desc' },
       include: {
         order_products: {
           include: {
-            product: true,
+            product: {
+              include: { image: true },
+            },
           },
         },
       },
@@ -76,7 +81,9 @@ export class OrdersService {
 
   async findAll(page: number = 1, limit: number = 16) {
     const offset = (page - 1) * limit;
-    const totalCount = await this.db.orders.count();
+    const totalCount = await this.db.orders.count({
+      where: { deleted: false },
+    });
     const orders = await this.db.orders.findMany({
       where: { deleted: false },
       take: limit,
@@ -84,7 +91,9 @@ export class OrdersService {
       include: {
         order_products: {
           include: {
-            product: true,
+            product: {
+              include: { image: true },
+            },
           },
         },
       },
@@ -94,7 +103,7 @@ export class OrdersService {
 
   async findOne(id: number) {
     const order = await this.db.orders.findUnique({
-      where: { id },
+      where: { id: id, deleted: false },
       include: {
         order_products: {
           include: {
@@ -118,7 +127,7 @@ export class OrdersService {
     try {
       order = await this.db.$transaction(async (prisma) => {
         const createdOrder = await prisma.orders.update({
-          where: { id },
+          where: { id, deleted: false },
           data: {
             ...orderDetails,
             order_products: {
