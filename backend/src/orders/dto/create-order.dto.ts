@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 interface OrderProductItem {
   productId: number;
@@ -19,6 +19,10 @@ export class CreateOrderDto {
   @IsNotEmpty()
   @IsNumber()
   summary: number;
+  @ApiProperty({ example: 'address' })
+  @IsNotEmpty()
+  @IsString()
+  address: string;
   @ApiProperty({ example: [{ productId: 1, quantity: 1 }] })
   @IsNotEmpty()
   products: OrderProductItem[];

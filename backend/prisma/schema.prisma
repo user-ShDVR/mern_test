@@ -91,6 +91,7 @@ model orders {
   quantity       Int
   deleted  Boolean    @default(false)
   status   String     @default("Ожидается оплата")
+  address  String
   created  DateTime   @default(now())
 }
 
