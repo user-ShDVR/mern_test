@@ -88,6 +88,7 @@ export class OrdersService {
       where: { deleted: false },
       take: limit,
       skip: offset,
+      orderBy: { created: 'desc' },
       include: {
         order_products: {
           include: {
