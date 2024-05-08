@@ -27,7 +27,7 @@ export const Catalog = () => {
     limit: DEFAULT_TYPES_LIMIT_IN_CATALOG_PAGE,
   });
 
-  const emptyTypesData = typesData?.types?.length === 0;
+  const isEmptyTypesData = typesData?.types?.length === 0;
 
   return (
     <>
@@ -61,9 +61,9 @@ export const Catalog = () => {
         })}
       </div>
 
-      {emptyTypesData && <EmptyMessage description="Категории не найдены" />}
+      {isEmptyTypesData && <EmptyMessage description="Категории не найдены" />}
 
-      {!emptyTypesData && (
+      {!isEmptyTypesData && (
         <PaginationBlock
           totalCount={typesData?.totalCount}
           countElementsOnPage={TYPES_COUNT_IN_CATALOG_PAGE}

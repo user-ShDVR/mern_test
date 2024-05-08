@@ -7,7 +7,7 @@ import styles from "components/AdminPanel/AdminPanelTab.module.scss";
 import { useGetImagesQuery } from "store/api/images/images-api";
 
 import { DEFAULT_VALIDATE_MESSAGE } from "constants/general-constants";
-import { typeItemDataIndexes, typeItemLabels } from "constants/types-constants";
+import { adminTypeFieldsDataIndexes, adminTypeFieldsLabels } from "constants/types-constants";
 
 import { getImageUrl } from "utils/get-image-url";
 
@@ -45,8 +45,8 @@ export const useGetAddOrEditTypeFields = (
 
   const typesFields = [
     {
-      name: typeItemDataIndexes.image_id,
-      label: typeItemLabels.image,
+      name: adminTypeFieldsDataIndexes.image_id,
+      label: adminTypeFieldsLabels.image,
       node: (
         <Select
           defaultValue={typeFields?.image?.id}
@@ -62,8 +62,8 @@ export const useGetAddOrEditTypeFields = (
       ],
     },
     {
-      name: typeItemDataIndexes.name,
-      label: typeItemLabels.name,
+      name: adminTypeFieldsDataIndexes.name,
+      label: adminTypeFieldsLabels.name,
       node: <Input defaultValue={typeFields.name} />,
       rules: [
         {
@@ -73,8 +73,8 @@ export const useGetAddOrEditTypeFields = (
       ],
     },
     {
-      name: typeItemDataIndexes.url,
-      label: typeItemLabels.url,
+      name: adminTypeFieldsDataIndexes.url,
+      label: adminTypeFieldsLabels.url,
       node: <Input defaultValue={typeFields.url} />,
       rules: [
         {

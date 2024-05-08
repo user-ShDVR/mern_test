@@ -7,7 +7,7 @@ import { ShadowCard } from "components/ShadowCard/ShadowCard";
 
 import { useGetCertainProductsQuery } from "store/api/products/products-api";
 
-import { characteristicsListColumns } from "constants/products-constants";
+import { adminProductCharacteristicsListColumns } from "constants/products-constants";
 
 import { getImageUrl } from "utils/get-image-url";
 
@@ -46,7 +46,7 @@ export const CertainProductById = () => {
 
             <Table
               className={styles.characteristics}
-              columns={characteristicsListColumns}
+              columns={adminProductCharacteristicsListColumns}
               dataSource={productData?.characteristics}
               pagination={false}
               showHeader={false}

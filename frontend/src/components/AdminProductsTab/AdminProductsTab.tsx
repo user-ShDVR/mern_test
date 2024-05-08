@@ -14,10 +14,12 @@ import {
 import {
   DEFAULT_MAX_PRICE_VALUE,
   DEFAULT_MIN_PRICE_VALUE,
+  DEFAULT_PRODUCTS_FILED_SORT_BY,
+  DEFAULT_PRODUCTS_SORT_ORDER,
 } from "constants/filters-constants";
 import {
   PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE,
-  characteristicsListColumns,
+  adminProductCharacteristicsListColumns,
 } from "constants/products-constants";
 
 import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
@@ -50,9 +52,11 @@ export const AdminProductsTab = () => {
     minPrice: DEFAULT_MIN_PRICE_VALUE,
     maxPrice: DEFAULT_MAX_PRICE_VALUE,
     type: "",
-    sortBy: "name",
-    sortOrder: "asc",
+    sortBy: DEFAULT_PRODUCTS_FILED_SORT_BY,
+    sortOrder: DEFAULT_PRODUCTS_SORT_ORDER,
   });
+
+  const isEmptyProductsData = productsData?.products.length === 0;
 
   const [deleteProduct] = useDeleteProductsMutation();
 
@@ -161,7 +165,7 @@ export const AdminProductsTab = () => {
             <p className={styles.entityField}>
               Характеристики:
               <Table
-                columns={characteristicsListColumns}
+                columns={adminProductCharacteristicsListColumns}
                 dataSource={product.characteristics}
                 pagination={false}
                 showHeader={false}
@@ -173,10 +177,12 @@ export const AdminProductsTab = () => {
         ))}
       </div>
 
-      <PaginationBlock
-        countElementsOnPage={PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE}
-        totalCount={productsData?.totalCount}
-      />
+      {!isEmptyProductsData && (
+        <PaginationBlock
+          countElementsOnPage={PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE}
+          totalCount={productsData?.totalCount}
+        />
+      )}
 
       <AddProductModal
         isOpenAddModal={isOpenAddModal}

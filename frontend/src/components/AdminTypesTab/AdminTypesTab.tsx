@@ -45,6 +45,8 @@ export const AdminTypesTab = () => {
     limit: DEFAULT_TYPES_LIMIT_IN_ADMIN_PANEL_PAGE,
   });
 
+  const isEmptyTypesData = typesData?.types?.length === 0;
+
   const [deleteType] = useDeleteTypesMutation();
 
   const declinationTypes = getDeclination({
@@ -149,10 +151,12 @@ export const AdminTypesTab = () => {
         ))}
       </div>
 
-      <PaginationBlock
-        countElementsOnPage={TYPES_COUNT_IN_ADMIN_PANEL_PAGE}
-        totalCount={typesData?.totalCount}
-      />
+      {!isEmptyTypesData && (
+        <PaginationBlock
+          countElementsOnPage={TYPES_COUNT_IN_ADMIN_PANEL_PAGE}
+          totalCount={typesData?.totalCount}
+        />
+      )}
 
       <AddTypeModal
         isOpenAddModal={isOpenAddModal}

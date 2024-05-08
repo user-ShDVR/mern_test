@@ -132,7 +132,7 @@ export class OrdersService {
           data: {
             ...orderDetails,
             order_products: {
-              create: products.map((product) => ({
+              create: products?.map((product) => ({
                 product_id: product.productId,
                 quantity: product.quantity,
               })),

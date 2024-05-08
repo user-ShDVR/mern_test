@@ -1,6 +1,7 @@
 export const DEFAULT_ORDER_LIMIT_IN_ORDERS_PAGE = 3;
+export const ORDERS_COUNT_IN_ADMIN_PANEL_PAGE = 4;
 
-export const deliveryLabels = {
+export const addOrderDeliveryLabels = {
   locality: "Населенный пункт",
   street: "Улица",
   house: "Дом",
@@ -8,7 +9,7 @@ export const deliveryLabels = {
   comment: "Комментарий",
 };
 
-export const deliveryDataIndexes = {
+export const addOrderDeliveryDataIndexes = {
   locality: "locality",
   street: "street",
   house: "house",
@@ -17,49 +18,51 @@ export const deliveryDataIndexes = {
 };
 
 export const citiesOptions = [
-  { label: "Москва", value: "Moscow" },
-  { label: "Санкт-Петербург", value: "Saint Petersburg" },
-  { label: "Новосибирск", value: "Novosibirsk" },
-  { label: "Екатеринбург", value: "Yekaterinburg" },
-  { label: "Казань", value: "Kazan" },
-  { label: "Нижний Новгород", value: "Nizhny Novgorod" },
-  { label: "Челябинск", value: "Chelyabinsk" },
-  { label: "Самара", value: "Samara" },
-  { label: "Омск", value: "Omsk" },
-  { label: "Ростов-на-Дону", value: "Rostov-on-Don" },
-  { label: "Уфа", value: "Ufa" },
-  { label: "Красноярск", value: "Krasnoyarsk" },
-  { label: "Пермь", value: "Perm" },
-  { label: "Воронеж", value: "Voronezh" },
-  { label: "Волгоград", value: "Volgograd" },
-  { label: "Краснодар", value: "Krasnodar" },
-  { label: "Ульяновск", value: "Ulyanovsk" },
-  { label: "Владивосток", value: "Vladivostok" },
-  { label: "Ярославль", value: "Yaroslavl" },
-  { label: "Ижевск", value: "Izhevsk" },
-  { label: "Тюмень", value: "Tyumen" },
-  { label: "Барнаул", value: "Barnaul" },
-  { label: "Саратов", value: "Saratov" },
-  { label: "Тольятти", value: "Tolyatti" },
-  { label: "Томск", value: "Tomsk" },
-  { label: "Магнитогорск", value: "Magnitogorsk" },
-  { label: "Набережные Челны", value: "Nabereshnye Chelny" },
-  { label: "Иркутск", value: "Irkutsk" },
-  { label: "Оренбург", value: "Orenburg" },
-  { label: "Кемерово", value: "Kemerovo" },
-  { label: "Рязань", value: "Ryazan" },
-  { label: "Нижний Тагил", value: "Nizhny Tagil" },
-  { label: "Астрахань", value: "Astrakhan" },
-  { label: "Пенза", value: "Penza" },
-  { label: "Липецк", value: "Lipetsk" },
-  { label: "Тверь", value: "Tver" },
-  { label: "Чебоксары", value: "Cheboksary" },
-  { label: "Улан-Удэ", value: "Ulan-Ude" },
-  { label: "Сургут", value: "Surgut" },
-  { label: "Иваново", value: "Ivanovo" },
-  { label: "Брянск", value: "Bryansk" },
-  { label: "Махачкала", value: "Makhachkala" },
-  { label: "Якутск", value: "Yakutsk" },
-  { label: "Грозный", value: "Grozny" },
-  { label: "Севастополь", value: "Sevastopol" },
+  { label: "Москва", value: "Москва" },
+  { label: "Санкт-Петербург", value: "Санкт-Петербург" },
+  { label: "Новосибирск", value: "Новосибирск" },
+  { label: "Екатеринбург", value: "Екатеринбург" },
+  { label: "Казань", value: "Казань" },
+  { label: "Нижний Новгород", value: "Нижний Новгород" },
+  { label: "Челябинск", value: "Челябинск" },
+  { label: "Самара", value: "Самара" },
+  { label: "Омск", value: "Омск" },
+  { label: "Ростов-на-Дону", value: "Ростов-на-Дону" },
+  { label: "Уфа", value: "Уфа" },
+  { label: "Красноярск", value: "Красноярск" },
+  { label: "Пермь", value: "Пермь" },
+  { label: "Воронеж", value: "Воронеж" },
+  { label: "Волгоград", value: "Волгоград" },
+  { label: "Краснодар", value: "Краснодар" },
+  { label: "Ульяновск", value: "Ульяновск" },
+  { label: "Владивосток", value: "Владивосток" },
+  { label: "Ярославль", value: "Ярославль" },
+  { label: "Ижевск", value: "Ижевск" },
+  { label: "Тюмень", value: "Тюмень" },
+  { label: "Барнаул", value: "Барнаул" },
+  { label: "Саратов", value: "Саратов" },
 ];
+
+export const adminOrderFieldsLabels = {
+  status: "Статус",
+};
+
+export const adminOrderFieldsDataIndexes = {
+  status: "status",
+};
+
+export const adminOrderStatusOptions = [
+  {
+    label: "Ожидается оплата",
+    value: "Ожидается оплата",
+  },
+  {
+    label: "Оплачен",
+    value: "Оплачен",
+  },
+];
+
+export const adminOrderStatuses = {
+  paymentExpect: "Ожидается оплата",
+  paid: "Оплачен",
+};

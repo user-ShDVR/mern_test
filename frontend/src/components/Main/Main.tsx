@@ -29,6 +29,8 @@ export const Main = () => {
       sortOrder,
     });
 
+  const isEmptyProductsData = productsData?.products.length === 0;
+
   return (
     <>
       <Typography.Title>Наши товары</Typography.Title>
@@ -42,10 +44,12 @@ export const Main = () => {
         </div>
       )}
 
-      <PaginationBlock
-        countElementsOnPage={PRODUCTS_COUNT_IN_MAIN_PAGE}
-        totalCount={productsData?.totalCount}
-      />
+      {!isEmptyProductsData && (
+        <PaginationBlock
+          countElementsOnPage={PRODUCTS_COUNT_IN_MAIN_PAGE}
+          totalCount={productsData?.totalCount}
+        />
+      )}
     </>
   );
 };

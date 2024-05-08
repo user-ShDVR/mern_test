@@ -17,3 +17,11 @@ export interface IOrderProducts {
   quantity: number;
   product: IProduct;
 }
+
+export interface IAdressFields {
+  locality: string;
+  street: string;
+  house: string;
+  flat: string;
+  comment: string;
+}

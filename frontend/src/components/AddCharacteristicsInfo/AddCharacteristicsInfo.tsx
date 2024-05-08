@@ -3,9 +3,9 @@ import React from "react";
 import { Input, Button } from "antd";
 
 import {
-  characteristicsDataIndexes,
-  characteristicsInitialValues,
-  characteristicsPlaceholders,
+  adminProductCharacteristicsDataIndexes,
+  adminProductCharacteristicsInitialValues,
+  adminProductCharacteristicsPlaceholders,
 } from "constants/products-constants";
 
 import styles from "./AddCharacteristicsInfo.module.scss";
@@ -19,7 +19,7 @@ export const AddCharacteristicsInfo = (props: IAddCharacteristicsInfoProps) => {
   const { characteristics, setCharacteristics } = props;
 
   const handleAddCharacteristic = () => {
-    setCharacteristics([...characteristics, characteristicsInitialValues]);
+    setCharacteristics([...characteristics, adminProductCharacteristicsInitialValues]);
   };
 
   const handleCharacteristicChange = (
@@ -47,15 +47,15 @@ export const AddCharacteristicsInfo = (props: IAddCharacteristicsInfoProps) => {
         <div className={styles.characteristicFields} key={index}>
           <Input
             defaultValue={characteristic.key}
-            name={characteristicsDataIndexes.key}
-            placeholder={characteristicsPlaceholders.key}
+            name={adminProductCharacteristicsDataIndexes.key}
+            placeholder={adminProductCharacteristicsPlaceholders.key}
             onChange={(event) => handleCharacteristicChange(index, event)}
           />
 
           <Input
             defaultValue={characteristic.value}
-            name={characteristicsDataIndexes.value}
-            placeholder={characteristicsPlaceholders.value}
+            name={adminProductCharacteristicsDataIndexes.value}
+            placeholder={adminProductCharacteristicsPlaceholders.value}
             onChange={(event) => handleCharacteristicChange(index, event)}
           />
 

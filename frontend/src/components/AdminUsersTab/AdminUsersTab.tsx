@@ -7,19 +7,25 @@ import { Spinner } from "components/Spinner/Spinner";
 import { useGetUsersQuery } from "store/api/users/users-api";
 
 import {
-  DEFAULT_USERS_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
   DEFAULT_USERS_LIMIT_IN_ADMIN_PANEL_PAGE,
+  USERS_COUNT_IN_ADMIN_PANEL_PAGE,
 } from "constants/users-constants";
+
+import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
 
 import { getDeclination } from "utils/get-declination";
 
 import { IUser } from "types/IUser";
 
 export const AdminUsersTab = () => {
+  const { currentPage, PaginationBlock } = useGetPaginationBlock();
+
   const { data: usersData, isLoading: isUsersLoading } = useGetUsersQuery({
-    page: DEFAULT_USERS_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
+    page: currentPage,
     limit: DEFAULT_USERS_LIMIT_IN_ADMIN_PANEL_PAGE,
   });
+
+  const isEmptyUsersData = usersData?.users.length === 0;
 
   const declinationUsers = getDeclination({
     one: "клиент",
@@ -67,6 +73,13 @@ export const AdminUsersTab = () => {
           </ShadowCard>
         ))}
       </div>
+
+      {!isEmptyUsersData && (
+        <PaginationBlock
+          countElementsOnPage={USERS_COUNT_IN_ADMIN_PANEL_PAGE}
+          totalCount={usersData?.totalCount}
+        />
+      )}
     </>
   );
 };

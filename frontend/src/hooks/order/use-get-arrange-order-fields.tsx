@@ -3,8 +3,8 @@ import { Form, Input, Select } from "antd";
 import { DEFAULT_VALIDATE_MESSAGE } from "constants/general-constants";
 import {
   citiesOptions,
-  deliveryDataIndexes,
-  deliveryLabels,
+  addOrderDeliveryDataIndexes,
+  addOrderDeliveryLabels,
 } from "constants/order-constants";
 
 import { searchedOptions } from "utils/searched-option";
@@ -12,8 +12,8 @@ import { searchedOptions } from "utils/searched-option";
 export const useGetArrangeOrderFields = () => {
   const deliveryFields = [
     {
-      label: deliveryLabels.locality,
-      name: deliveryDataIndexes.locality,
+      label: addOrderDeliveryLabels.locality,
+      name: addOrderDeliveryDataIndexes.locality,
       node: (
         <Select
           options={citiesOptions}
@@ -29,8 +29,8 @@ export const useGetArrangeOrderFields = () => {
       ],
     },
     {
-      label: deliveryLabels.street,
-      name: deliveryDataIndexes.street,
+      label: addOrderDeliveryLabels.street,
+      name: addOrderDeliveryDataIndexes.street,
       node: <Input />,
       rules: [
         {
@@ -40,8 +40,8 @@ export const useGetArrangeOrderFields = () => {
       ],
     },
     {
-      label: deliveryLabels.house,
-      name: deliveryDataIndexes.house,
+      label: addOrderDeliveryLabels.house,
+      name: addOrderDeliveryDataIndexes.house,
       node: <Input />,
       rules: [
         {
@@ -51,8 +51,8 @@ export const useGetArrangeOrderFields = () => {
       ],
     },
     {
-      label: deliveryLabels.flat,
-      name: deliveryDataIndexes.flat,
+      label: addOrderDeliveryLabels.flat,
+      name: addOrderDeliveryDataIndexes.flat,
       node: <Input />,
       rules: [
         {
@@ -62,8 +62,8 @@ export const useGetArrangeOrderFields = () => {
       ],
     },
     {
-      label: deliveryLabels.comment,
-      name: deliveryDataIndexes.comment,
+      label: addOrderDeliveryLabels.comment,
+      name: addOrderDeliveryDataIndexes.comment,
       node: <Input.TextArea rows={4} />,
     },
   ];

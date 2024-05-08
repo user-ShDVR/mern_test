@@ -8,6 +8,7 @@ import { useGetUser } from "hooks/user/use-get-user";
 
 import { getValidateErrorMessage } from "utils/get-validate-error-message";
 
+import { IAdressFields } from "types/IOrder";
 import { IProductsInCart } from "types/IProduct";
 
 interface IArrangeOrderModalProps {
@@ -34,17 +35,20 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
 
   const [addOrder] = useAddOrderMutation();
 
-  const onFinishAddOrder = () => {
+  const onFinishAddOrder = (formValues: IAdressFields) => {
     const orderProducts = products?.map((product) => ({
       productId: product.product_id,
       quantity: product.quantity,
     }));
+
+    const address = `${formValues.locality}, ${formValues.street}, ${formValues.house}, ${formValues.flat}`;
 
     const data = {
       user_id: userData?.id,
       quantity: productsCount,
       summary: resultPriceCount,
       products: orderProducts,
+      address,
     };
 
     addOrder(data).then((response) => {

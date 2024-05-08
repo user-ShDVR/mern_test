@@ -30,6 +30,8 @@ export const CatalogItem = () => {
     sortOrder,
   });
 
+  const isEmptyProductsData = productsData?.products.length === 0;
+
   return (
     <>
       <Typography.Title>{location.state?.categoryTypeName}</Typography.Title>
@@ -39,10 +41,12 @@ export const CatalogItem = () => {
         <ProductCardsList productsData={productsData?.products} />
       </div>
 
-      <PaginationBlock
-        countElementsOnPage={PRODUCTS_COUNT_IN_CATALOG_ITEM_PAGE}
-        totalCount={productsData?.totalCount}
-      />
+      {!isEmptyProductsData && (
+        <PaginationBlock
+          countElementsOnPage={PRODUCTS_COUNT_IN_CATALOG_ITEM_PAGE}
+          totalCount={productsData?.totalCount}
+        />
+      )}
     </>
   );
 };

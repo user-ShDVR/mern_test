@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Form, Input, Select } from "antd";
+import { Form, Input, InputNumber, Select } from "antd";
 
 import { DefaultOptionType } from "antd/es/select";
 
@@ -12,8 +12,8 @@ import { useGetTypesQuery } from "store/api/types/types-api";
 
 import { DEFAULT_VALIDATE_MESSAGE } from "constants/general-constants";
 import {
-  productItemDataIndexes,
-  productItemLabels,
+  adminProductFieldsDataIndexes,
+  adminProductFieldsLabels,
 } from "constants/products-constants";
 import {
   DEFAULT_TYPES_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
@@ -70,10 +70,14 @@ export const useGetAddOrEditProductFields = (
     </div>
   );
 
+  const InputNumberStyles = {
+    width: "100%",
+  };
+
   const productsFields = [
     {
-      label: productItemLabels.image,
-      name: productItemDataIndexes.image_id,
+      label: adminProductFieldsLabels.image,
+      name: adminProductFieldsDataIndexes.image_id,
       node: (
         <Select
           defaultValue={productFields?.image?.id}
@@ -89,8 +93,8 @@ export const useGetAddOrEditProductFields = (
       ],
     },
     {
-      name: productItemDataIndexes.name,
-      label: productItemLabels.name,
+      name: adminProductFieldsDataIndexes.name,
+      label: adminProductFieldsLabels.name,
       node: <Input defaultValue={productFields?.name} />,
       rules: [
         {
@@ -100,8 +104,8 @@ export const useGetAddOrEditProductFields = (
       ],
     },
     {
-      name: productItemDataIndexes.description,
-      label: productItemLabels.description,
+      name: adminProductFieldsDataIndexes.description,
+      label: adminProductFieldsLabels.description,
       node: (
         <Input.TextArea defaultValue={productFields?.description} rows={4} />
       ),
@@ -113,9 +117,14 @@ export const useGetAddOrEditProductFields = (
       ],
     },
     {
-      name: productItemDataIndexes.price,
-      label: productItemLabels.price,
-      node: <Input defaultValue={productFields?.price} />,
+      name: adminProductFieldsDataIndexes.price,
+      label: adminProductFieldsLabels.price,
+      node: (
+        <InputNumber
+          defaultValue={productFields?.price}
+          style={InputNumberStyles}
+        />
+      ),
       rules: [
         {
           required: isRequired,
@@ -124,8 +133,8 @@ export const useGetAddOrEditProductFields = (
       ],
     },
     {
-      name: productItemDataIndexes.type_id,
-      label: productItemLabels.type,
+      name: adminProductFieldsDataIndexes.type_id,
+      label: adminProductFieldsLabels.type,
       node: (
         <Select
           defaultValue={productFields?.type?.name}
@@ -142,7 +151,7 @@ export const useGetAddOrEditProductFields = (
       ],
     },
     {
-      label: productItemLabels.characteristics,
+      label: adminProductFieldsLabels.characteristics,
       node: (
         <AddCharacteristicsInfo
           characteristics={characteristics}

@@ -1,6 +1,7 @@
 import { Tabs, Typography } from "antd";
 
 import { AdminImagesTab } from "components/AdminImagesTab/AdminImagesTab";
+import { AdminOrdersTab } from "components/AdminOrdersTab/AdminOrdersTab";
 import { AdminProductsTab } from "components/AdminProductsTab/AdminProductsTab";
 import { AdminTypesTab } from "components/AdminTypesTab/AdminTypesTab";
 import { AdminUsersTab } from "components/AdminUsersTab/AdminUsersTab";
@@ -24,6 +25,11 @@ export const AdminPanel = () => {
     },
     {
       key: "4",
+      label: "Заказы",
+      children: <AdminOrdersTab />,
+    },
+    {
+      key: "5",
       label: "Загрузить изображение",
       children: <AdminImagesTab />,
     },

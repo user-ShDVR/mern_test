@@ -6,13 +6,13 @@ export const DEFAULT_PRODUCTS_SORT_ORDER = "asc";
 
 export const DEFAULT_SELECT_SORT_VALUE = "name asc";
 
-export const filtersLabels = {
+export const productsFiltersLabels = {
   from: "От",
   to: "До",
   sort: "Сортировка",
 };
 
-export const filtersDataIndexes = {
+export const productsFiltersDataIndexes = {
   from: "minValue",
   to: "maxValue",
 };

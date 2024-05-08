@@ -2,7 +2,7 @@ export const PRODUCTS_COUNT_IN_MAIN_PAGE = 8;
 export const PRODUCTS_COUNT_IN_CATALOG_ITEM_PAGE = 4;
 export const PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE = 4;
 
-export const characteristicsListColumns = [
+export const adminProductCharacteristicsListColumns = [
   {
     dataIndex: "key",
   },
@@ -11,22 +11,22 @@ export const characteristicsListColumns = [
   },
 ];
 
-export const characteristicsInitialValues = {
+export const adminProductCharacteristicsInitialValues = {
   key: "",
   value: "",
 };
 
-export const characteristicsDataIndexes = {
+export const adminProductCharacteristicsDataIndexes = {
   key: "key",
   value: "value",
 };
 
-export const characteristicsPlaceholders = {
+export const adminProductCharacteristicsPlaceholders = {
   key: "Введите поле",
   value: "Введите значение",
 };
 
-export const productItemLabels = {
+export const adminProductFieldsLabels = {
   image: "Изображение продукта",
   name: "Название продукта",
   description: "Описание продукта",
@@ -35,7 +35,7 @@ export const productItemLabels = {
   characteristics: "Характеристики",
 };
 
-export const productItemDataIndexes = {
+export const adminProductFieldsDataIndexes = {
   image_id: "image_id",
   name: "name",
   description: "description",

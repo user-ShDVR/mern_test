@@ -4,8 +4,8 @@ import {
   DEFAULT_MAX_PRICE_VALUE,
   DEFAULT_MIN_PRICE_VALUE,
   DEFAULT_SELECT_SORT_VALUE,
-  filtersDataIndexes,
-  filtersLabels,
+  productsFiltersDataIndexes,
+  productsFiltersLabels,
   sortOptions,
 } from "constants/filters-constants";
 
@@ -20,17 +20,17 @@ export const useGetFiltersFields = (args: IFiltersFieldsArgs) => {
 
   const filtersFields = [
     {
-      name: filtersDataIndexes.from,
-      label: filtersLabels.from,
+      name: productsFiltersDataIndexes.from,
+      label: productsFiltersLabels.from,
       node: <Input value={minValue} defaultValue={DEFAULT_MIN_PRICE_VALUE} />,
     },
     {
-      name: filtersDataIndexes.to,
-      label: filtersLabels.to,
+      name: productsFiltersDataIndexes.to,
+      label: productsFiltersLabels.to,
       node: <Input value={maxValue} defaultValue={DEFAULT_MAX_PRICE_VALUE} />,
     },
     {
-      label: filtersLabels.sort,
+      label: productsFiltersLabels.sort,
       node: (
         <Select
           defaultValue={DEFAULT_SELECT_SORT_VALUE}
