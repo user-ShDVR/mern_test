@@ -35,7 +35,7 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
 
   const [addOrder] = useAddOrderMutation();
 
-  const onFinishAddOrder = (formValues: IAdressFields) => {
+  const onFinishAddOrder = async (formValues: IAdressFields) => {
     const orderProducts = products?.map((product) => ({
       productId: product.product_id,
       quantity: product.quantity,
@@ -43,7 +43,7 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
 
     const address = `${formValues.locality}, ${formValues.street}, ${formValues.house}, ${formValues.flat}`;
 
-    const data = {
+    const orderData = {
       user_id: userData?.id,
       quantity: productsCount,
       summary: resultPriceCount,
@@ -51,13 +51,25 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
       address,
     };
 
-    addOrder(data).then((response) => {
-      if (response.data) {
-        message.success(response.data.message);
-      } else {
-        message.error("Произошла ошибка при добавлении заказа");
+    try {
+      const response = await addOrder(orderData);
+      if ("data" in response && response.data) {
+        message.success("Заказ успешно добавлен");
+      } else if ("error" in response) {
+        if ("status" in response.error) {
+          message.error(
+            "Произошла ошибка при добавлении заказа: " + response.error.status
+          );
+        } else if ("message" in response.error) {
+          message.error("Произошла ошибка: " + response.error.message);
+        } else {
+          message.error("Произошла неизвестная ошибка при добавлении заказа");
+        }
       }
-    });
+    } catch (error) {
+      console.error(error);
+      message.error("Произошла ошибка при обработке запроса");
+    }
 
     setTimeout(() => onCloseArrangeOrderModal(), 500);
     cartProductsDataRefetch();

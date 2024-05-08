@@ -1,5 +1,7 @@
 import { AdminPanel } from "components/AdminPanel/AdminPanel";
 
-export const AdminPanelPage = () => {
+const AdminPanelPage = () => {
   return <AdminPanel />;
 };
+
+export default AdminPanelPage;

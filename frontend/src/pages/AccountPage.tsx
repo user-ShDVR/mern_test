@@ -1,6 +1,7 @@
 import { Account } from "../components/Account/Account";
 
-export const AccountPage = () => {
-  // return <Account />;
-  return <></>;
+const AccountPage = () => {
+  return <Account />;
 };
+
+export default AccountPage;

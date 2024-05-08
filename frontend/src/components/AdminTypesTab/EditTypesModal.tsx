@@ -8,6 +8,7 @@ import { useEditTypesMutation } from "store/api/types/types-api";
 import { useGetAddOrEditTypeFields } from "hooks/adminPanel/use-get-add-or-edit-type-fields";
 
 import { IType } from "types/IType";
+import { useEffect } from "react";
 
 interface IEditTypesModalProps {
   isOpenEditModal: boolean;
@@ -24,25 +25,26 @@ export const EditTypesModal = (props: IEditTypesModalProps) => {
     typesDataRefetch,
   } = props;
 
-  const [editType] = useEditTypesMutation();
+  const [editType, { isSuccess, isError, isLoading}] = useEditTypesMutation();
 
   const { FormItems } = useGetAddOrEditTypeFields({
     typeFields: certainTypeInModal,
     isEdit: true,
   });
 
-  const onFinishEditType = (formValues: IEditTypesRequest) => {
-    editType({ id: certainTypeInModal.id, ...formValues }).then((response) => {
-      if (response.error.originalStatus) {
-        message.success(response.error.data);
-        setTimeout(() => onCloseEditModal(), 500);
-      } else {
-        message.error("Произошла ошибка при обновлении категории");
-      }
-    });
+  const onFinishEditType = async (formValues: IEditTypesRequest) => {
+    await editType({ id: certainTypeInModal.id, ...formValues });
 
     typesDataRefetch();
   };
+  useEffect(() => {
+    if (!isLoading && isSuccess) {
+      message.success("Категория успешно обновлена");
+      setTimeout(() => onCloseEditModal(), 500);
+    } else if (!isLoading && isError) {
+      message.error("Произошла ошибка при обновлении категории");
+    }
+  }, [isSuccess, isError, isLoading]);
 
   return (
     <Modal

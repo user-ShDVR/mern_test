@@ -89,10 +89,10 @@ model orders {
   order_products order_products[]
   summary        Int
   quantity       Int
-  deleted  Boolean    @default(false)
-  status   String     @default("Ожидается оплата")
-  address  String
-  created  DateTime   @default(now())
+  deleted        Boolean          @default(false)
+  status         String           @default("Ожидается оплата")
+  address        String
+  created        DateTime         @default(now())
 }
 
 model order_products {

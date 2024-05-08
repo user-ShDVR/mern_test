@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { DownOutlined } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, Typography } from "antd";
@@ -13,6 +13,8 @@ import { RouterPath } from "configs/route-config";
 import { useGetUser } from "hooks/user/use-get-user";
 
 import styles from "./Navbar.module.scss";
+import { selectUser } from "store/features/userSlice";
+import { useSelector } from "react-redux";
 
 type TItems = {
   label: React.ReactNode;
@@ -21,13 +23,16 @@ type TItems = {
 
 export const DropdownUser = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
-
-  const { userData, isUserAdmin } = useGetUser();
+  const [isLogOut, setLogOut] = React.useState(false);
+  
+  const { user } = useSelector(selectUser);
+  const { isUserAdmin } = useGetUser();
 
   const [signOut] = useSignOutMutation();
 
   const handleLogout = () => {
     signOut();
+    setLogOut(true);
   };
 
   const items = [
@@ -54,14 +59,16 @@ export const DropdownUser = () => {
   const handleOpenModal = () => {
     setIsAuthModalOpen(true);
   };
+  useEffect(() => {
+  }, [user, isLogOut]);
 
   return (
     <>
-      {userData ? (
-        <Dropdown menu={{ items }} placement="bottom">
+      {user && !isLogOut ? (
+        <Dropdown key={user.name} menu={{ items }} placement="bottom">
           <div className={styles.dropdownWrapper}>
-            <Avatar>{userData.name.slice(0, 2)}</Avatar>
-            <Typography.Text>{userData.name}</Typography.Text>
+            <Avatar>{user.name.slice(0, 2)}</Avatar>
+            <Typography.Text>{user.name}</Typography.Text>
             <DownOutlined className={styles.dropdownIcon} />
           </div>
         </Dropdown>

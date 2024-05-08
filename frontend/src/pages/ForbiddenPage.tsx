@@ -1,5 +1,7 @@
 import { Forbidden } from "components/Forbidden/Forbidden";
 
-export const ForbiddenPage = () => {
+const ForbiddenPage = () => {
   return <Forbidden />;
 };
+
+export default ForbiddenPage;

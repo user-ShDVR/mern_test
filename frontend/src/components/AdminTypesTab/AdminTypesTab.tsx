@@ -47,7 +47,25 @@ export const AdminTypesTab = () => {
 
   const isEmptyTypesData = typesData?.types?.length === 0;
 
-  const [deleteType] = useDeleteTypesMutation();
+  const [
+    deleteType,
+    { isSuccess: isDeleteSuccess, isError: isDeleteError, error, isLoading },
+  ] = useDeleteTypesMutation();
+
+  React.useEffect(() => {
+    if (!isLoading && isDeleteSuccess) {
+      message.success("Каталог успешно удален");
+    } else if (
+      !isLoading &&
+      isDeleteError &&
+      "code" in error &&
+      error.code === "404"
+    ) {
+      message.error("Каталог не найден");
+    } else if (isDeleteError) {
+      message.error("Произошла ошибка при удалении каталога");
+    }
+  }, [isDeleteSuccess, isDeleteError]);
 
   const declinationTypes = getDeclination({
     one: "каталог",
@@ -75,17 +93,8 @@ export const AdminTypesTab = () => {
     typesDataRefetch();
   };
 
-  const handleDeleteType = (type: IType) => {
-    deleteType({ id: type.id }).then((response) => {
-      if (response.error.originalStatus) {
-        message.success(response.error.data);
-      } else if (response.error.status === 404) {
-        message.error(response.error.data.message);
-      } else {
-        message.error("Произошла ошибка при удалении каталога");
-      }
-    });
-
+  const handleDeleteType = async (type: IType) => {
+    await deleteType({ id: type.id });
     typesDataRefetch();
   };
 

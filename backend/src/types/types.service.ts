@@ -20,7 +20,7 @@ export class TypesService {
       throw new NotFoundException('Категория с таким url уже существует.');
     }
     await this.db.types.create({ data: { ...createTypeDto } });
-    return 'Категория создана.';
+    return { message: 'Категория создана.' };
   }
 
   async findAll(page: number = 1, limit: number = 16) {
@@ -66,7 +66,7 @@ export class TypesService {
     }
 
     await this.db.types.update({ where: { id }, data: { ...updateTypeDto } });
-    return 'Категория обновлена.';
+    return { message: 'Категория обновлена.' };
   }
 
   async remove(id: number) {
@@ -93,6 +93,6 @@ export class TypesService {
       data: { deleted: true, url: url },
     });
 
-    return 'Категория деактивирована.';
+    return { message: 'Категория удалена.' };
   }
 }

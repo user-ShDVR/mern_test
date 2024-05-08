@@ -1,5 +1,7 @@
 import { Orders } from "components/Orders/Orders";
 
-export const OrdersPage = () => {
+const OrdersPage = () => {
   return <Orders />;
 };
+
+export default OrdersPage;

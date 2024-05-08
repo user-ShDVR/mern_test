@@ -12,7 +12,6 @@ import {
 } from "store/api/products/products-api";
 
 import {
-  DEFAULT_MAX_PRICE_VALUE,
   DEFAULT_MIN_PRICE_VALUE,
   DEFAULT_PRODUCTS_FILED_SORT_BY,
   DEFAULT_PRODUCTS_SORT_ORDER,
@@ -50,7 +49,7 @@ export const AdminProductsTab = () => {
     page: currentPage,
     limit: PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE,
     minPrice: DEFAULT_MIN_PRICE_VALUE,
-    maxPrice: DEFAULT_MAX_PRICE_VALUE,
+    maxPrice: 99999999,
     type: "",
     sortBy: DEFAULT_PRODUCTS_FILED_SORT_BY,
     sortOrder: DEFAULT_PRODUCTS_SORT_ORDER,
@@ -58,7 +57,22 @@ export const AdminProductsTab = () => {
 
   const isEmptyProductsData = productsData?.products.length === 0;
 
-  const [deleteProduct] = useDeleteProductsMutation();
+  const [
+    deleteProduct,
+    {
+      isSuccess: isDeleteSuccess,
+      isError: isDeleteError,
+      isLoading: isDeleteLoading,
+    },
+  ] = useDeleteProductsMutation();
+
+  React.useEffect(() => {
+    if (!isDeleteLoading && isDeleteSuccess) {
+      message.success("Товар успешно удален");
+    } else if (!isDeleteLoading && isDeleteError) {
+      message.error("Произошла ошибка при удалении товара");
+    }
+  }, [isDeleteSuccess, isDeleteError]);
 
   const declinationProducts = getDeclination({
     one: "товар",
@@ -84,15 +98,8 @@ export const AdminProductsTab = () => {
     setIsOpenEditModal(false);
   };
 
-  const handleDeleteProduct = (product: IProduct) => {
-    deleteProduct({ id: product.id }).then((response) => {
-      if (response.error.originalStatus) {
-        message.success(response.error.data);
-      } else {
-        message.error("Произошла ошибка при удалении продукта");
-      }
-    });
-
+  const handleDeleteProduct = async (product: IProduct) => {
+    await deleteProduct({ id: product.id });
     refetchProductsData();
   };
 

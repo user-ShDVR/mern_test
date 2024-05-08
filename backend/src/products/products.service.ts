@@ -146,6 +146,6 @@ export class ProductsService {
       data: { deleted: true },
     });
 
-    return 'Продукт удалён.';
+    return { message: 'Товар удален.' };
   }
 }

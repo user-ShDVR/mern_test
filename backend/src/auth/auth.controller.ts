@@ -67,6 +67,7 @@ export class AuthController {
   @ApiOkResponse()
   async signOut(@Res({ passthrough: true }) res: Response) {
     this.cookieService.removeToken(res);
+    return { message: 'Вы вышли из системы' };
   }
 
   @Get('session')

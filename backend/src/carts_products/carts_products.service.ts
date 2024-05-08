@@ -8,7 +8,7 @@ export class CartsProductsService {
   constructor(private db: PrismaService) {}
   async create(createCartsProductDto: CreateCartsProductDto) {
     await this.db.carts_products.create({ data: { ...createCartsProductDto } });
-    return 'Продукт в корзине созддан.';
+    return { message: 'Товар добавлен в корзину.' };
   }
 
   async findAll(page: number = 1, limit: number = 16) {
@@ -52,13 +52,17 @@ export class CartsProductsService {
       await this.db.carts_products.deleteMany({
         where: { cart_id: id, product_id: updateCartsProductDto.product_id },
       });
-      return 'Продукт в корзине удалён.';
+      return {
+        message: 'Продукт в корзине удалён.',
+      };
     }
     await this.db.carts_products.updateMany({
       where: { cart_id: id, product_id: updateCartsProductDto.product_id },
       data: { ...updateCartsProductDto },
     });
-    return 'Продукт в корзине обновлен.';
+    return {
+      message: 'Продукт в корзине обновлен.',
+    };
   }
 
   async remove(id: number, cartId: number) {
@@ -71,6 +75,8 @@ export class CartsProductsService {
     await this.db.carts_products.deleteMany({
       where: { cart_id: cartId, product_id: id },
     });
-    return 'Продукт в корзине удалён.';
+    return {
+      message: 'Продукт в корзине удалён.',
+    };
   }
 }

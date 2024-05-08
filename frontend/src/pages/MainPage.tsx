@@ -1,5 +1,7 @@
 import { Main } from "components/Main/Main";
 
-export const MainPage = () => {
+const MainPage = () => {
   return <Main />;
 };
+
+export default MainPage;

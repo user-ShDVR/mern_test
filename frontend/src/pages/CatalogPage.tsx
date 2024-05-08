@@ -1,5 +1,7 @@
 import { Catalog } from "components/Catalog/Catalog";
 
-export const CatalogPage = () => {
+const CatalogPage = () => {
   return <Catalog />;
 };
+
+export default CatalogPage;
