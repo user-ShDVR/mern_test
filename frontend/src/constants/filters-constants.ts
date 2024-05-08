@@ -1,5 +1,5 @@
 export const DEFAULT_MIN_PRICE_VALUE = 1;
-export const DEFAULT_MAX_PRICE_VALUE = 100000;
+export const DEFAULT_MAX_PRICE_VALUE = 10000000;
 
 export const DEFAULT_PRODUCTS_FILED_SORT_BY = "price";
 export const DEFAULT_PRODUCTS_SORT_ORDER = "asc";

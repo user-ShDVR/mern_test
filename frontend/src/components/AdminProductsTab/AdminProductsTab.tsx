@@ -12,6 +12,7 @@ import {
 } from "store/api/products/products-api";
 
 import {
+  DEFAULT_MAX_PRICE_VALUE,
   DEFAULT_MIN_PRICE_VALUE,
   DEFAULT_PRODUCTS_FILED_SORT_BY,
   DEFAULT_PRODUCTS_SORT_ORDER,
@@ -49,7 +50,7 @@ export const AdminProductsTab = () => {
     page: currentPage,
     limit: PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE,
     minPrice: DEFAULT_MIN_PRICE_VALUE,
-    maxPrice: 99999999,
+    maxPrice: DEFAULT_MAX_PRICE_VALUE,
     type: "",
     sortBy: DEFAULT_PRODUCTS_FILED_SORT_BY,
     sortOrder: DEFAULT_PRODUCTS_SORT_ORDER,

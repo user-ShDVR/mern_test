@@ -38,7 +38,7 @@ export const useGetAddOrEditProductFields = (
 
   const isRequired = isEdit ? false : true;
 
-  const [characteristics, setCharacteristics] = React.useState<any[]>(
+  const [characteristics, setCharacteristics] = React.useState(
     productFields.characteristics ?? []
   );
 

@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Modal, Form, Button, message } from "antd";
 
 import styles from "components/AdminPanel/AdminPanelTab.module.scss";
@@ -8,7 +10,6 @@ import { IEditProductsRequest } from "store/api/products/types";
 import { useGetAddOrEditProductFields } from "hooks/adminPanel/use-get-add-or-edit-product-fields";
 
 import { IProduct } from "types/IProduct";
-import { useEffect } from "react";
 
 interface IEditProductModalProps {
   isOpenEditModal: boolean;
@@ -25,8 +26,17 @@ export const EditProductModal = (props: IEditProductModalProps) => {
     refetchProductsData,
   } = props;
 
-  const [editProduct, { isSuccess: isProductSucces, isError, isLoading }] =
+  const [editProduct, { isSuccess: isProductSuccess, isError, isLoading }] =
     useEditProductsMutation();
+
+  React.useEffect(() => {
+    if (!isLoading && isProductSuccess) {
+      message.success("Продукт успешно обновлен");
+      setTimeout(() => onCloseEditModal(), 500);
+    } else if (!isLoading && isError) {
+      message.error("Произошла ошибка при обновлении продукта");
+    }
+  }, [isProductSuccess, isError, isLoading]);
 
   const { FormItems, characteristics } = useGetAddOrEditProductFields({
     productFields: certainProductInModal,
@@ -34,39 +44,28 @@ export const EditProductModal = (props: IEditProductModalProps) => {
   });
 
   const onFinishEditProduct = (formValues: IEditProductsRequest) => {
-    
     const imageId = formValues.image_id ?? null;
     const price = formValues.price ?? null;
     const typeId = formValues.type_id ?? null;
-  
+
     // Преобразуйте к числу только если значения не null и не undefined
     const formattedFormValues = {
       ...formValues,
       image_id: imageId !== null ? +imageId : undefined,
       price: price !== null ? +price : undefined,
       type_id: typeId !== null ? +typeId : undefined,
-      characteristics
+      characteristics,
     };
-  
+
     // Выполнение запроса на редактирование продукта
     editProduct({
       ...formattedFormValues,
-      id: certainProductInModal.id
+      id: certainProductInModal.id,
     });
-  
+
     // Вызов функции обновления списка продуктов
     refetchProductsData();
   };
-  
-
-  useEffect(() => {
-    if (!isLoading && isProductSucces) {
-      message.success("Продукт успешно обновлен");
-      setTimeout(() => onCloseEditModal(), 500);
-    } else if (!isLoading && isError) {
-      message.error("Произошла ошибка при обновлении продукта");
-    }
-  }, [isProductSucces, isError, isLoading]);
 
   return (
     <Modal

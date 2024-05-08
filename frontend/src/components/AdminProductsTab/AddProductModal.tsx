@@ -1,10 +1,11 @@
+import React from "react";
+
 import { Modal, Form, Button, message } from "antd";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 
 import styles from "components/AdminPanel/AdminPanelTab.module.scss";
 
 import { useAddProductsMutation } from "store/api/products/products-api";
-
 import { IAddProductsRequest } from "store/api/products/types";
 
 import { useGetAddOrEditProductFields } from "hooks/adminPanel/use-get-add-or-edit-product-fields";
@@ -12,7 +13,6 @@ import { useGetAddOrEditProductFields } from "hooks/adminPanel/use-get-add-or-ed
 import { getValidateErrorMessage } from "utils/get-validate-error-message";
 
 import { IProduct } from "types/IProduct";
-import { useEffect } from "react";
 
 interface IAddProductModalProps {
   isOpenAddModal: boolean;
@@ -23,7 +23,8 @@ interface IAddProductModalProps {
 export const AddProductModal = (props: IAddProductModalProps) => {
   const { isOpenAddModal, onCloseAddModal, refetchProductsData } = props;
 
-  const [addProduct, { isSuccess, isError, isLoading }] = useAddProductsMutation();
+  const [addProduct, { isSuccess, isError, isLoading }] =
+    useAddProductsMutation();
 
   const { FormItems, characteristics } = useGetAddOrEditProductFields({
     productFields: {} as IProduct,
@@ -42,7 +43,8 @@ export const AddProductModal = (props: IAddProductModalProps) => {
   const onFinishFailedAddProduct = (formValues: ValidateErrorEntity) => {
     getValidateErrorMessage(formValues);
   };
-  useEffect(() => {
+
+  React.useEffect(() => {
     if (!isLoading && isSuccess) {
       message.success("Продукт успешно добавлен");
       setTimeout(() => onCloseAddModal(), 500);
