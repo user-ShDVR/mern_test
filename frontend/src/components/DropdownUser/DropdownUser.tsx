@@ -14,7 +14,7 @@ import { RouterPath } from "configs/route-config";
 
 import { useGetUser } from "hooks/user/use-get-user";
 
-import styles from "./Navbar.module.scss";
+import styles from "./DropdownUser.module.scss";
 
 type TDropdownItems = {
   label: React.ReactNode;

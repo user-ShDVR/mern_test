@@ -35,10 +35,11 @@ export const EditProductModal = (props: IEditProductModalProps) => {
     },
   ] = useEditProductsMutation();
 
-  const { FormItems, characteristics } = useGetAddOrEditProductFields({
-    productFields: certainProductInModal,
-    isEdit: true,
-  });
+  const { FormItems, characteristics, isEditingInProgress } =
+    useGetAddOrEditProductFields({
+      productFields: certainProductInModal,
+      isEdit: true,
+    });
 
   const onFinishEditProduct = (formValues: IEditProductsRequest) => {
     const editProductData = {
@@ -78,7 +79,12 @@ export const EditProductModal = (props: IEditProductModalProps) => {
       >
         {FormItems}
 
-        <Button type="primary" htmlType="submit" block>
+        <Button
+          type="primary"
+          htmlType="submit"
+          block
+          disabled={isEditingInProgress}
+        >
           Редактировать
         </Button>
       </Form>

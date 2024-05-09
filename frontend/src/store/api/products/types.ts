@@ -17,6 +17,7 @@ export interface IGetProductsRequest {
   sortBy: string;
   sortOrder: string;
   type: string;
+  searchValue: string;
 }
 
 export interface IGetProductsResponse {

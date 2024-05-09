@@ -40,6 +40,7 @@ export class ProductsController {
     @Query('sortBy') sortBy?: string,
     @Query('sortOrder') sortOrder?: string,
     @Query('type') type?: string,
+    @Query('searchValue') searchValue?: string,
   ) {
     return this.productsService.findAll(
       page,
@@ -49,6 +50,7 @@ export class ProductsController {
       sortBy,
       sortOrder,
       type,
+      searchValue,
     );
   }
 
@@ -59,8 +61,8 @@ export class ProductsController {
 
   @Patch(':id')
   @UseGuards(AdminGuard)
-  update(@Param('id') id: string, @Body() updateProuctDto: UpdateProductDto) {
-    return this.productsService.update(+id, updateProuctDto);
+  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
+    return this.productsService.update(+id, updateProductDto);
   }
 
   @Delete(':id')

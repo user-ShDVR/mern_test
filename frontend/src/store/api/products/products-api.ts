@@ -22,7 +22,7 @@ const injectedRtkApi = api.injectEndpoints({
 
     getProducts: build.query<IGetProductsResponse, IGetProductsRequest>({
       query: (body) => ({
-        url: `/products?page=${body.page}&limit=${body.limit}&minPrice=${body.minPrice}&maxPrice=${body.maxPrice}&sortBy=${body.sortBy}&sortOrder=${body.sortOrder}&type=${body["type"]}`,
+        url: `/products?page=${body.page}&limit=${body.limit}&minPrice=${body.minPrice}&maxPrice=${body.maxPrice}&sortBy=${body.sortBy}&sortOrder=${body.sortOrder}&type=${body["type"]}&searchValue=${body.searchValue}`,
       }),
     }),
 

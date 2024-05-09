@@ -18,13 +18,21 @@ import { EditableCell } from "./EditableCell";
 interface IAddCharacteristicsInfoProps {
   characteristics: ICharacteristicsInfoRow[];
   setCharacteristics: (characteristics: ICharacteristicsInfoRow[]) => void;
+  editingRowKey: string;
+  setEditingRowKey: (rowKey: string) => void;
+  isEditingInProgress: boolean;
 }
 
 export const AddCharacteristicsInfo = (props: IAddCharacteristicsInfoProps) => {
-  const { characteristics, setCharacteristics } = props;
+  const {
+    characteristics,
+    setCharacteristics,
+    editingRowKey,
+    setEditingRowKey,
+    isEditingInProgress,
+  } = props;
 
   const [recordsData, setRecordsData] = React.useState(characteristics);
-  const [editingRowKey, setEditingRowKey] = React.useState("");
 
   const [form] = Form.useForm();
 
@@ -142,7 +150,7 @@ export const AddCharacteristicsInfo = (props: IAddCharacteristicsInfoProps) => {
         ) : (
           <Typography.Link
             onClick={() => handleEditRow(record)}
-            disabled={editingRowKey !== ""}
+            disabled={isEditingInProgress}
           >
             Редактировать
           </Typography.Link>
@@ -172,7 +180,7 @@ export const AddCharacteristicsInfo = (props: IAddCharacteristicsInfoProps) => {
       <Button
         className={styles.addButton}
         onClick={handleAddNewRow}
-        disabled={editingRowKey !== ""}
+        disabled={isEditingInProgress}
         type="primary"
       >
         Добавить характеристику товара

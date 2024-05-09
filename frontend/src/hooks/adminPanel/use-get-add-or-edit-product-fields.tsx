@@ -39,9 +39,12 @@ export const useGetAddOrEditProductFields = (
 
   const isRequired = isEdit ? false : true;
 
+  const [editingRowKey, setEditingRowKey] = React.useState("");
   const [characteristics, setCharacteristics] = React.useState<
     ICharacteristicsInfoRow[]
   >([]);
+
+  const isEditingInProgress = editingRowKey !== "";
 
   const { data: typesData } = useGetTypesQuery({
     page: DEFAULT_TYPES_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
@@ -151,6 +154,9 @@ export const useGetAddOrEditProductFields = (
         <AddCharacteristicsInfo
           characteristics={productFields.characteristics ?? []}
           setCharacteristics={setCharacteristics}
+          editingRowKey={editingRowKey}
+          setEditingRowKey={setEditingRowKey}
+          isEditingInProgress={isEditingInProgress}
         />
       ),
     },
@@ -162,5 +168,5 @@ export const useGetAddOrEditProductFields = (
     </Form.Item>
   ));
 
-  return { FormItems, characteristics };
+  return { FormItems, characteristics, isEditingInProgress };
 };

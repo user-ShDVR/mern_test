@@ -9,11 +9,13 @@ import { PRODUCTS_COUNT_IN_MAIN_PAGE } from "constants/products-constants";
 
 import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
 import { useGetProductsFilters } from "hooks/products/use-get-products-filters";
+import { useSearchProducts } from "hooks/products/use-search-products";
 
 import styles from "./Main.module.scss";
 
 export const Main = () => {
   const { currentPage, PaginationBlock } = useGetPaginationBlock();
+  const { searchValue } = useSearchProducts();
 
   const { FiltersAside, minValue, maxValue, sortOrder, sortBy } =
     useGetProductsFilters();
@@ -27,6 +29,7 @@ export const Main = () => {
       type: "",
       sortBy,
       sortOrder,
+      searchValue,
     });
 
   const isEmptyProductsData = productsData?.products.length === 0;

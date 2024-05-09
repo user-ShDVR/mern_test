@@ -9,12 +9,14 @@ import { ordersApi } from "store/api/orders/orders-api";
 import { productsApi } from "store/api/products/products-api";
 import { typesApi } from "store/api/types/types-api";
 import { usersApi } from "store/api/users/users-api";
+import searchReducer from "store/features/searchSlice";
 import userReducer from "store/features/userSlice";
 
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
     userState: userReducer,
+    searchState: searchReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([

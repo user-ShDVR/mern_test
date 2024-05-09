@@ -23,6 +23,7 @@ import {
 } from "constants/products-constants";
 
 import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
+import { useSearchProducts } from "hooks/products/use-search-products";
 
 import { getDeclination } from "utils/get-declination";
 import { getImageUrl } from "utils/get-image-url";
@@ -41,6 +42,7 @@ export const AdminProductsTab = () => {
   const [isOpenEditModal, setIsOpenEditModal] = React.useState(false);
 
   const { currentPage, PaginationBlock } = useGetPaginationBlock();
+  const { searchValue } = useSearchProducts();
 
   const {
     data: productsData,
@@ -51,9 +53,10 @@ export const AdminProductsTab = () => {
     limit: PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE,
     minPrice: DEFAULT_MIN_PRICE_VALUE,
     maxPrice: DEFAULT_MAX_PRICE_VALUE,
-    type: "",
     sortBy: DEFAULT_PRODUCTS_FILED_SORT_BY,
     sortOrder: DEFAULT_PRODUCTS_SORT_ORDER,
+    type: "",
+    searchValue,
   });
 
   const isEmptyProductsData = productsData?.products.length === 0;

@@ -6,15 +6,18 @@ import {
 import { Badge, Button, Input, Typography } from "antd";
 import { Link } from "react-router-dom";
 
+import { DropdownUser } from "components/DropdownUser/DropdownUser";
+
 import { RouterPath } from "configs/route-config";
 
 import { useCartActions } from "hooks/cart/use-cart-actions";
+import { useSearchProducts } from "hooks/products/use-search-products";
 
-import { DropdownUser } from "./DropdownUser";
 import styles from "./Navbar.module.scss";
 
 export const Navbar = () => {
   const { cartProductsData } = useCartActions();
+  const { handleSearchProducts } = useSearchProducts();
 
   return (
     <div className={styles.wrapper}>
@@ -25,7 +28,11 @@ export const Navbar = () => {
         </Button>
       </Link>
 
-      <Input.Search className={styles.searchInput} placeholder="Найти товар" />
+      <Input.Search
+        className={styles.searchInput}
+        placeholder="Найти товар"
+        onSearch={handleSearchProducts}
+      />
 
       <div className={styles.icons}>
         <Link className={styles.iconWrapper} to={RouterPath.orders}>
