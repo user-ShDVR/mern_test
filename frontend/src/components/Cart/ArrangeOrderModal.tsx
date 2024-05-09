@@ -33,7 +33,7 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
   const { userData } = useGetUser();
   const { FormItems } = useGetArrangeOrderFields();
 
-  const [addOrder] = useAddOrderMutation();
+  const [addOrder, { isLoading: isAddOrderLoading }] = useAddOrderMutation();
 
   const onFinishAddOrder = async (formValues: IAdressFields) => {
     const orderProducts = products?.map((product) => ({
@@ -93,7 +93,12 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
       >
         {FormItems}
 
-        <Button type="primary" htmlType="submit">
+        <Button
+          type="primary"
+          htmlType="submit"
+          loading={isAddOrderLoading}
+          disabled={isAddOrderLoading}
+        >
           Оформить заказ
         </Button>
       </Form>

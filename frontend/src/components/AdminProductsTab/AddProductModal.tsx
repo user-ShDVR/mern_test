@@ -23,8 +23,14 @@ interface IAddProductModalProps {
 export const AddProductModal = (props: IAddProductModalProps) => {
   const { isOpenAddModal, onCloseAddModal, refetchProductsData } = props;
 
-  const [addProduct, { isSuccess, isError, isLoading }] =
-    useAddProductsMutation();
+  const [
+    addProduct,
+    {
+      isSuccess: isAddProductSuccess,
+      isError: isAddProductError,
+      isLoading: isAddProductLoading,
+    },
+  ] = useAddProductsMutation();
 
   const { FormItems, characteristics } = useGetAddOrEditProductFields({
     productFields: {} as IProduct,
@@ -32,12 +38,14 @@ export const AddProductModal = (props: IAddProductModalProps) => {
   });
 
   const onFinishAddProduct = async (formValues: IAddProductsRequest) => {
-    formValues.image_id = +formValues.image_id;
-    formValues.price = +formValues.price;
-    formValues.type_id = +formValues.type_id;
+    const addProductData = {
+      ...formValues,
+      image_id: +formValues.image_id,
+      type_id: +formValues.type_id,
+      characteristics,
+    };
 
-    await addProduct({ ...formValues, characteristics });
-    refetchProductsData();
+    await addProduct(addProductData);
   };
 
   const onFinishFailedAddProduct = (formValues: ValidateErrorEntity) => {
@@ -45,13 +53,16 @@ export const AddProductModal = (props: IAddProductModalProps) => {
   };
 
   React.useEffect(() => {
-    if (!isLoading && isSuccess) {
+    if (!isAddProductLoading && isAddProductSuccess) {
       message.success("Продукт успешно добавлен");
+      refetchProductsData();
+
       setTimeout(() => onCloseAddModal(), 500);
-    } else if (!isLoading && isError) {
+    } else if (!isAddProductLoading && isAddProductError) {
       message.error("Произошла ошибка при добавлении продукта");
     }
-  }, [isSuccess, isError, isLoading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAddProductSuccess, isAddProductError, isAddProductLoading]);
 
   return (
     <Modal

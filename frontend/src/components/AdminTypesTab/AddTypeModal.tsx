@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Modal, Form, Button, message } from "antd";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 
@@ -11,7 +13,6 @@ import { useGetAddOrEditTypeFields } from "hooks/adminPanel/use-get-add-or-edit-
 import { getValidateErrorMessage } from "utils/get-validate-error-message";
 
 import { IType } from "types/IType";
-import { useEffect } from "react";
 
 interface IAddTypeModalProps {
   isOpenAddModal: boolean;
@@ -22,7 +23,14 @@ interface IAddTypeModalProps {
 export const AddTypeModal = (props: IAddTypeModalProps) => {
   const { isOpenAddModal, onCloseAddModal, typesDataRefetch } = props;
 
-  const [addType, { isSuccess: isAddTypeSuccess, isError: isAddTypeError, isLoading }] = useAddTypesMutation();
+  const [
+    addType,
+    {
+      isSuccess: isAddTypeSuccess,
+      isError: isAddTypeError,
+      isLoading: isAddTypeLoading,
+    },
+  ] = useAddTypesMutation();
 
   const { FormItems } = useGetAddOrEditTypeFields({
     typeFields: {} as IType,
@@ -31,23 +39,23 @@ export const AddTypeModal = (props: IAddTypeModalProps) => {
 
   const onFinishAddType = async (formValues: IAddTypesRequest) => {
     await addType(formValues);
-    typesDataRefetch();
   };
 
   const onFinishFailedAddType = (formValues: ValidateErrorEntity) => {
     getValidateErrorMessage(formValues);
   };
 
-  useEffect(() => {
-    if (!isLoading && isAddTypeSuccess) {
+  React.useEffect(() => {
+    if (!isAddTypeLoading && isAddTypeSuccess) {
       message.success("Категория успешно добавлена");
+      typesDataRefetch();
+
       setTimeout(() => onCloseAddModal(), 500);
-    } else if (!isLoading && isAddTypeError) {
+    } else if (!isAddTypeLoading && isAddTypeError) {
       message.error("Произошла ошибка валидации при добавлении категории");
-    } else {
-      setTimeout(() => onCloseAddModal(), 500);
     }
-  }, [isAddTypeSuccess, isAddTypeError, isLoading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAddTypeSuccess, isAddTypeError, isAddTypeLoading]);
 
   return (
     <Modal

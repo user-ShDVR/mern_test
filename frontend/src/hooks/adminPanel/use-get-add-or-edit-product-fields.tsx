@@ -23,6 +23,7 @@ import {
 import { getImageUrl } from "utils/get-image-url";
 import { searchedOptions } from "utils/searched-option";
 
+import { ICharacteristicsInfoRow } from "types/ICharacteristicsInfoRow";
 import { IProduct } from "types/IProduct";
 import { IType } from "types/IType";
 
@@ -38,9 +39,9 @@ export const useGetAddOrEditProductFields = (
 
   const isRequired = isEdit ? false : true;
 
-  const [characteristics, setCharacteristics] = React.useState(
-    productFields.characteristics ?? []
-  );
+  const [characteristics, setCharacteristics] = React.useState<
+    ICharacteristicsInfoRow[]
+  >([]);
 
   const { data: typesData } = useGetTypesQuery({
     page: DEFAULT_TYPES_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL,
@@ -78,13 +79,7 @@ export const useGetAddOrEditProductFields = (
     {
       label: adminProductFieldsLabels.image,
       name: adminProductFieldsDataIndexes.image_id,
-      node: (
-        <Select
-          defaultValue={productFields?.image?.id}
-          options={imageOptions}
-          optionRender={renderImageOption}
-        />
-      ),
+      node: <Select options={imageOptions} optionRender={renderImageOption} />,
       rules: [
         {
           required: isRequired,
@@ -154,7 +149,7 @@ export const useGetAddOrEditProductFields = (
       label: adminProductFieldsLabels.characteristics,
       node: (
         <AddCharacteristicsInfo
-          characteristics={characteristics}
+          characteristics={productFields.characteristics ?? []}
           setCharacteristics={setCharacteristics}
         />
       ),

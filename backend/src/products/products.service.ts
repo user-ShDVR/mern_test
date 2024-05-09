@@ -31,6 +31,7 @@ export class ProductsService {
           create: characteristics?.map((char) => ({
             key: char.key,
             value: char.value,
+            rowKey: char.rowKey,
           })),
         },
       },
@@ -122,8 +123,8 @@ export class ProductsService {
         characteristics: {
           upsert: characteristics?.map((char) => ({
             where: { id: char.id || 0 },
-            update: { key: char.key, value: char.value },
-            create: { key: char.key, value: char.value },
+            update: { key: char.key, value: char.value, rowKey: char.rowKey },
+            create: { key: char.key, value: char.value, rowKey: char.rowKey },
           })),
         },
       },

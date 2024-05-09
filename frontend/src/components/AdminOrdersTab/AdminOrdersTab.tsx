@@ -39,7 +39,14 @@ export const AdminOrdersTab = () => {
       limit: DEFAULT_ORDER_LIMIT_IN_ORDERS_PAGE,
     });
 
-  const [deleteOrder] = useDeleteOrdersMutation();
+  const [
+    deleteOrder,
+    {
+      isSuccess: isDeleteOrderSuccess,
+      isError: isDeleteOrderError,
+      isLoading: isDeleteOrderLoading,
+    },
+  ] = useDeleteOrdersMutation();
 
   const isEmptyOrdersData = ordersData?.orders?.length === 0;
 
@@ -59,17 +66,21 @@ export const AdminOrdersTab = () => {
     setIsOpenEditModal(false);
   };
 
-  const handleDeleteOrder = (product: IOrder) => {
-    deleteOrder({ id: product.id }).then((response) => {
-      if (response.error.originalStatus) {
-        message.success(response.error.data);
-      } else {
-        message.error("Произошла ошибка при удалении заказа");
-      }
-    });
-
-    refetchOrdersData();
+  const handleDeleteOrder = async (product: IOrder) => {
+    await deleteOrder({ id: product.id });
   };
+
+  React.useEffect(() => {
+    if (!isDeleteOrderLoading && isDeleteOrderSuccess) {
+      message.success("Заказ успешно удален");
+      refetchOrdersData();
+
+      setTimeout(() => handleCloseEditModal(), 500);
+    } else if (!isDeleteOrderLoading && isDeleteOrderError) {
+      message.error("Произошла ошибка при удалении заказа");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDeleteOrderSuccess, isDeleteOrderError]);
 
   return (
     <>

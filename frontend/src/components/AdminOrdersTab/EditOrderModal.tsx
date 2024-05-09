@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Modal, Form, Button, message } from "antd";
 
 import styles from "components/AdminPanel/AdminPanelTab.module.scss";
@@ -24,34 +26,46 @@ export const EditOrderModal = (props: IEditOrderModalProps) => {
     refetchOrdersData,
   } = props;
 
-  const [editOrder] = useEditOrdersMutation();
+  const [
+    editOrder,
+    {
+      isSuccess: isEditOrderSuccess,
+      isError: isEditOrderError,
+      isLoading: isEditOrderLoading,
+    },
+  ] = useEditOrdersMutation();
 
   const { FormItems } = useGetEditOrderFields({
     orderFields: certainOrderInModal,
   });
 
   const onFinishEditOrder = (formValues: IEditOrderRequest) => {
-    editOrder({
+    const editOrderData = {
       id: certainOrderInModal.id,
       status: formValues.status,
-    }).then((response) => {
-      if (response.data) {
-        message.success("Статус заказа успешно обновлен");
-        setTimeout(() => onCloseEditModal(), 500);
-      } else {
-        message.error("Произошла ошибка при обновлении статуса заказа");
-      }
-    });
+    };
 
-    refetchOrdersData();
+    editOrder(editOrderData);
   };
+
+  React.useEffect(() => {
+    if (!isEditOrderLoading && isEditOrderSuccess) {
+      message.success("Статус заказа успешно обновлен");
+      refetchOrdersData();
+
+      setTimeout(() => onCloseEditModal(), 500);
+    } else if (!isEditOrderLoading && isEditOrderError) {
+      message.error("Произошла ошибка при обновлении статуса заказа");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEditOrderSuccess, isEditOrderError, isEditOrderLoading]);
 
   return (
     <Modal
       open={isOpenEditModal}
       onCancel={onCloseEditModal}
       footer={null}
-      title="Редактировать продукт"
+      title="Редактировать заказ"
       key={certainOrderInModal.id}
     >
       <Form

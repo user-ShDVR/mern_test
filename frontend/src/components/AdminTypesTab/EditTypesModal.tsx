@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Modal, Form, Button, message } from "antd";
 
 import styles from "components/AdminPanel/AdminPanelTab.module.scss";
@@ -8,7 +10,6 @@ import { useEditTypesMutation } from "store/api/types/types-api";
 import { useGetAddOrEditTypeFields } from "hooks/adminPanel/use-get-add-or-edit-type-fields";
 
 import { IType } from "types/IType";
-import { useEffect } from "react";
 
 interface IEditTypesModalProps {
   isOpenEditModal: boolean;
@@ -25,7 +26,14 @@ export const EditTypesModal = (props: IEditTypesModalProps) => {
     typesDataRefetch,
   } = props;
 
-  const [editType, { isSuccess, isError, isLoading}] = useEditTypesMutation();
+  const [
+    editType,
+    {
+      isSuccess: isEditTypeSuccess,
+      isError: isEditTypeError,
+      isLoading: isEditTypeLoading,
+    },
+  ] = useEditTypesMutation();
 
   const { FormItems } = useGetAddOrEditTypeFields({
     typeFields: certainTypeInModal,
@@ -34,17 +42,19 @@ export const EditTypesModal = (props: IEditTypesModalProps) => {
 
   const onFinishEditType = async (formValues: IEditTypesRequest) => {
     await editType({ id: certainTypeInModal.id, ...formValues });
-
-    typesDataRefetch();
   };
-  useEffect(() => {
-    if (!isLoading && isSuccess) {
+
+  React.useEffect(() => {
+    if (!isEditTypeLoading && isEditTypeSuccess) {
       message.success("Категория успешно обновлена");
+      typesDataRefetch();
+
       setTimeout(() => onCloseEditModal(), 500);
-    } else if (!isLoading && isError) {
+    } else if (!isEditTypeLoading && isEditTypeError) {
       message.error("Произошла ошибка при обновлении категории");
     }
-  }, [isSuccess, isError, isLoading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEditTypeSuccess, isEditTypeError, isEditTypeLoading]);
 
   return (
     <Modal

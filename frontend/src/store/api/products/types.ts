@@ -31,13 +31,13 @@ export interface IGetCertainProductsRequest {
 export interface IGetCertainProductsResponse extends IProduct {}
 
 export type IEditProductsRequest = {
-  id?: number;
-  name?: string;
-  description?: string;
-  characteristics?: string[];
-  price?: number;
-  image_id?: number;
-  type_id?: number;
+  id: number;
+  name: string;
+  description: string;
+  characteristics: string[];
+  price: number;
+  image_id: number;
+  type_id: number;
 };
 
 export interface IDeleteProductsRequest {

@@ -49,23 +49,29 @@ export const AdminTypesTab = () => {
 
   const [
     deleteType,
-    { isSuccess: isDeleteSuccess, isError: isDeleteError, error, isLoading },
+    {
+      isSuccess: isDeleteTypeSuccess,
+      isError: isDeleteTypeError,
+      error: errorDeleteTypeData,
+      isLoading: isDeleteTypeLoading,
+    },
   ] = useDeleteTypesMutation();
 
   React.useEffect(() => {
-    if (!isLoading && isDeleteSuccess) {
+    if (!isDeleteTypeLoading && isDeleteTypeSuccess) {
       message.success("Каталог успешно удален");
     } else if (
-      !isLoading &&
-      isDeleteError &&
-      "code" in error &&
-      error.code === "404"
+      !isDeleteTypeLoading &&
+      isDeleteTypeError &&
+      "code" in errorDeleteTypeData &&
+      errorDeleteTypeData.code === "404"
     ) {
       message.error("Каталог не найден");
-    } else if (isDeleteError) {
+    } else if (isDeleteTypeError) {
       message.error("Произошла ошибка при удалении каталога");
     }
-  }, [isDeleteSuccess, isDeleteError]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDeleteTypeSuccess, isDeleteTypeError]);
 
   const declinationTypes = getDeclination({
     one: "каталог",

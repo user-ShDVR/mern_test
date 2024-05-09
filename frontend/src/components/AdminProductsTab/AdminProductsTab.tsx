@@ -61,19 +61,11 @@ export const AdminProductsTab = () => {
   const [
     deleteProduct,
     {
-      isSuccess: isDeleteSuccess,
-      isError: isDeleteError,
-      isLoading: isDeleteLoading,
+      isSuccess: isDeleteProductSuccess,
+      isError: isDeleteProductError,
+      isLoading: isDeleteProductLoading,
     },
   ] = useDeleteProductsMutation();
-
-  React.useEffect(() => {
-    if (!isDeleteLoading && isDeleteSuccess) {
-      message.success("Товар успешно удален");
-    } else if (!isDeleteLoading && isDeleteError) {
-      message.error("Произошла ошибка при удалении товара");
-    }
-  }, [isDeleteSuccess, isDeleteError]);
 
   const declinationProducts = getDeclination({
     one: "товар",
@@ -101,8 +93,17 @@ export const AdminProductsTab = () => {
 
   const handleDeleteProduct = async (product: IProduct) => {
     await deleteProduct({ id: product.id });
-    refetchProductsData();
   };
+
+  React.useEffect(() => {
+    if (!isDeleteProductLoading && isDeleteProductSuccess) {
+      message.success("Товар успешно удален");
+      refetchProductsData();
+    } else if (!isDeleteProductLoading && isDeleteProductError) {
+      message.error("Произошла ошибка при удалении товара");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDeleteProductSuccess, isDeleteProductError]);
 
   if (isProductsLoading) {
     return <Spinner />;
@@ -145,7 +146,7 @@ export const AdminProductsTab = () => {
             <p className={styles.entityField}>
               Изображение:
               <img
-                className={styles.productImage}
+                className={styles.entityImage}
                 src={getImageUrl(product.image.filename)}
                 alt=""
               />
@@ -156,7 +157,7 @@ export const AdminProductsTab = () => {
             </p>
 
             <p className={styles.entityField}>
-              Описание:
+              Описание:{" "}
               <Tag className={styles.entityDescription}>
                 {product.description}
               </Tag>
@@ -173,6 +174,7 @@ export const AdminProductsTab = () => {
             <p className={styles.entityField}>
               Характеристики:
               <Table
+                className={styles.entityWideBlock}
                 columns={adminProductCharacteristicsListColumns}
                 dataSource={product.characteristics}
                 pagination={false}

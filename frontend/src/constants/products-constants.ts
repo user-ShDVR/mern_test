@@ -11,15 +11,12 @@ export const adminProductCharacteristicsListColumns = [
   },
 ];
 
-export const adminProductCharacteristicsInitialValues = {
-  key: "",
-  value: "",
-};
-
 export const adminProductCharacteristicsDataIndexes = {
   key: "key",
   value: "value",
 };
+
+export const emptyCharacteristicsText = "Нет характеристик товара";
 
 export const adminProductCharacteristicsPlaceholders = {
   key: "Введите поле",

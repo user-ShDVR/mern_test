@@ -23,8 +23,8 @@ export class CreateProductDto {
 
   @ApiProperty({
     example: [
-      { key: 'Страна', value: 'Италия' },
-      { key: 'Артикул', value: 'Santo Stefano' },
+      { key: 'Страна', value: 'Италия', rowKey: '1' },
+      { key: 'Артикул', value: 'Santo Stefano', rowKey: '2' },
     ],
   })
   @IsNotEmpty()
@@ -51,4 +51,5 @@ class CharacteristicDto {
   id?: number;
   key: string;
   value: string;
+  rowKey?: string;
 }
