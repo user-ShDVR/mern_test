@@ -53,6 +53,7 @@ model characteristics {
   product_id Int
   key        String
   value      String
+  rowKey     String
 }
 
 model types {

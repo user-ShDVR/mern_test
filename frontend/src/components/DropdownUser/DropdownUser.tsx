@@ -81,6 +81,7 @@ export const DropdownUser = () => {
       <AuthModal
         isAuthModalOpen={isAuthModalOpen}
         setIsAuthModalOpen={setIsAuthModalOpen}
+        setLogOut={setLogOut}
       />
     </>
   );
