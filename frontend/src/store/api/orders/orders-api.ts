@@ -1,4 +1,4 @@
-import { createRtkApi as api } from "store/api/createRtkApi";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import {
   IAddOrderRequest,
@@ -10,11 +10,16 @@ import {
   IGetOrdersResponse,
 } from "./types";
 
-const injectedRtkApi = api.injectEndpoints({
+export const ordersApi = createApi({
+  reducerPath: "ordersApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_BASE_URL,
+    credentials: "include",
+  }),
   endpoints: (build) => ({
     addOrder: build.mutation<unknown, IAddOrderRequest>({
       query: (body) => ({
-        url: `/orders`,
+        url: "/orders",
         method: "POST",
         body: { ...body },
       }),
@@ -24,6 +29,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: (body) => ({
         url: `/orders?id=${body.id}&page=${body.page}&limit=${body.limit}`,
       }),
+      keepUnusedDataFor: 1,
     }),
 
     getOrdersForAdmin: build.query<
@@ -50,11 +56,7 @@ const injectedRtkApi = api.injectEndpoints({
       }),
     }),
   }),
-
-  overrideExisting: false,
 });
-
-export { injectedRtkApi as ordersApi };
 
 export const {
   useAddOrderMutation,
@@ -62,4 +64,4 @@ export const {
   useGetOrdersForAdminQuery,
   useEditOrdersMutation,
   useDeleteOrdersMutation,
-} = injectedRtkApi;
+} = ordersApi;

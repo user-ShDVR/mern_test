@@ -1,4 +1,4 @@
-import { createRtkApi as api } from "store/api/createRtkApi";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import {
   IAddTypesRequest,
@@ -9,7 +9,12 @@ import {
   IGetTypesResponse,
 } from "./types";
 
-const injectedRtkApi = api.injectEndpoints({
+export const typesApi = createApi({
+  reducerPath: "typesApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_BASE_URL,
+    credentials: "include",
+  }),
   endpoints: (build) => ({
     addTypes: build.mutation<unknown, IAddTypesRequest>({
       query: (body) => ({
@@ -42,11 +47,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: (body) => ({ url: `/types/${body.id}`, method: "DELETE" }),
     }),
   }),
-
-  overrideExisting: false,
 });
-
-export { injectedRtkApi as typesApi };
 
 export const {
   useAddTypesMutation,
@@ -54,4 +55,4 @@ export const {
   useGetCertainTypesQuery,
   useEditTypesMutation,
   useDeleteTypesMutation,
-} = injectedRtkApi;
+} = typesApi;

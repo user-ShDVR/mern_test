@@ -1,4 +1,4 @@
-import { createRtkApi as api } from "store/api/createRtkApi";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import {
   IAddUserRequest,
@@ -9,7 +9,12 @@ import {
   IUserResponse,
 } from "./types";
 
-const injectedRtkApi = api.injectEndpoints({
+export const usersApi = createApi({
+  reducerPath: "usersApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_BASE_URL,
+    credentials: "include",
+  }),
   endpoints: (build) => ({
     addUsers: build.mutation<unknown, IAddUserRequest>({
       query: (body) => ({
@@ -44,12 +49,10 @@ const injectedRtkApi = api.injectEndpoints({
   }),
 });
 
-export { injectedRtkApi as usersApi };
-
 export const {
   useAddUsersMutation,
   useGetUsersQuery,
   useGetCertainUsersQuery,
   useEditUsersMutation,
   useDeleteUsersMutation,
-} = injectedRtkApi;
+} = usersApi;

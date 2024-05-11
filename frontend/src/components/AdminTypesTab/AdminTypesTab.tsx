@@ -39,11 +39,14 @@ export const AdminTypesTab = () => {
   const {
     data: typesData,
     isLoading: isTypesLoading,
-    refetch: typesDataRefetch,
-  } = useGetTypesQuery({
-    page: currentPage,
-    limit: DEFAULT_TYPES_LIMIT_IN_ADMIN_PANEL_PAGE,
-  });
+    refetch: refetchTypesData,
+  } = useGetTypesQuery(
+    {
+      page: currentPage,
+      limit: DEFAULT_TYPES_LIMIT_IN_ADMIN_PANEL_PAGE,
+    },
+    { skip: isOpenAddModal || isOpenEditModal }
+  );
 
   const isEmptyTypesData = typesData?.types?.length === 0;
 
@@ -86,7 +89,7 @@ export const AdminTypesTab = () => {
 
   const handleCloseAddModal = () => {
     setIsOpenAddModal(false);
-    typesDataRefetch();
+    refetchTypesData();
   };
 
   const handleOpenEditModal = (type: IType) => {
@@ -96,12 +99,12 @@ export const AdminTypesTab = () => {
 
   const handleCloseEditModal = () => {
     setIsOpenEditModal(false);
-    typesDataRefetch();
+    refetchTypesData();
   };
 
   const handleDeleteType = async (type: IType) => {
     await deleteType({ id: type.id });
-    typesDataRefetch();
+    refetchTypesData();
   };
 
   if (isTypesLoading) {
@@ -176,14 +179,14 @@ export const AdminTypesTab = () => {
       <AddTypeModal
         isOpenAddModal={isOpenAddModal}
         onCloseAddModal={handleCloseAddModal}
-        typesDataRefetch={typesDataRefetch}
+        refetchTypesData={refetchTypesData}
       />
 
       <EditTypesModal
         isOpenEditModal={isOpenEditModal}
         onCloseEditModal={handleCloseEditModal}
         certainTypeInModal={certainTypeInModal}
-        typesDataRefetch={typesDataRefetch}
+        refetchTypesData={refetchTypesData}
       />
     </>
   );

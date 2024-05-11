@@ -1,4 +1,4 @@
-import { createRtkApi as api } from "store/api/createRtkApi";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import {
   IAddProductsRequest,
@@ -10,7 +10,12 @@ import {
   IGetProductsResponse,
 } from "./types";
 
-const injectedRtkApi = api.injectEndpoints({
+export const productsApi = createApi({
+  reducerPath: "productsApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_BASE_URL,
+    credentials: "include",
+  }),
   endpoints: (build) => ({
     addProducts: build.mutation<unknown, IAddProductsRequest>({
       query: (body) => ({
@@ -48,11 +53,7 @@ const injectedRtkApi = api.injectEndpoints({
       }),
     }),
   }),
-
-  overrideExisting: false,
 });
-
-export { injectedRtkApi as productsApi };
 
 export const {
   useAddProductsMutation,
@@ -60,4 +61,4 @@ export const {
   useGetCertainProductsQuery,
   useEditProductsMutation,
   useDeleteProductsMutation,
-} = injectedRtkApi;
+} = productsApi;

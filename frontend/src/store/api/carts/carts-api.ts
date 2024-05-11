@@ -1,4 +1,4 @@
-import { createRtkApi as api } from "store/api/createRtkApi";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import {
   IAddCartsRequest,
@@ -10,11 +10,16 @@ import {
   IGetCertainCartsRequest,
 } from "./types";
 
-const injectedRtkApi = api.injectEndpoints({
+export const cartsApi = createApi({
+  reducerPath: "cartsApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_BASE_URL,
+    credentials: "include",
+  }),
   endpoints: (build) => ({
     addCart: build.mutation<unknown, IAddCartsRequest>({
       query: (body) => ({
-        url: `/carts`,
+        url: "/carts",
         method: "POST",
         body: { ...body },
       }),
@@ -49,11 +54,7 @@ const injectedRtkApi = api.injectEndpoints({
       }),
     }),
   }),
-
-  overrideExisting: false,
 });
-
-export { injectedRtkApi as cartsApi };
 
 export const {
   useAddCartMutation,
@@ -62,4 +63,4 @@ export const {
   useEditCartsMutation,
   useDeleteCartsMutation,
   useClearCartsMutation,
-} = injectedRtkApi;
+} = cartsApi;

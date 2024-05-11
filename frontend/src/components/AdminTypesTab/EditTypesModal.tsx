@@ -15,7 +15,7 @@ interface IEditTypesModalProps {
   isOpenEditModal: boolean;
   onCloseEditModal: () => void;
   certainTypeInModal: IType;
-  typesDataRefetch: () => void;
+  refetchTypesData: () => void;
 }
 
 export const EditTypesModal = (props: IEditTypesModalProps) => {
@@ -23,7 +23,7 @@ export const EditTypesModal = (props: IEditTypesModalProps) => {
     isOpenEditModal,
     onCloseEditModal,
     certainTypeInModal,
-    typesDataRefetch,
+    refetchTypesData,
   } = props;
 
   const [
@@ -47,7 +47,7 @@ export const EditTypesModal = (props: IEditTypesModalProps) => {
   React.useEffect(() => {
     if (!isEditTypeLoading && isEditTypeSuccess) {
       message.success("Категория успешно обновлена");
-      typesDataRefetch();
+      refetchTypesData();
 
       setTimeout(() => onCloseEditModal(), 500);
     } else if (!isEditTypeLoading && isEditTypeError) {

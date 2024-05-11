@@ -31,7 +31,7 @@ interface ICartActionArgs {
 export const useCartActions = () => {
   const { user } = useSelector(selectUser);
 
-  const { data: cartProductsData, refetch: cartProductsDataRefetch } =
+  const { data: cartProductsData, refetch: refetchCartProductsData } =
     useGetCertainCartsQuery({ id: user?.id }, { skip: !user });
 
   const [addToCart] = useAddCartsProductsMutation();
@@ -77,7 +77,7 @@ export const useCartActions = () => {
       }
     }
 
-    cartProductsDataRefetch();
+    refetchCartProductsData();
   };
 
   const handleChangeProductQuantity = async (args: ICartActionArgs) => {
@@ -103,18 +103,18 @@ export const useCartActions = () => {
       }
     }
 
-    cartProductsDataRefetch();
+    refetchCartProductsData();
   };
 
   const handleClearCart = async () => {
     await clearCart({ id: user?.id });
-    cartProductsDataRefetch();
+    refetchCartProductsData();
     message.success("Корзина очищена");
   };
 
   return {
     cartProductsData,
-    cartProductsDataRefetch,
+    refetchCartProductsData,
     handleActionCart,
     getIsProductInCart,
     handleChangeProductQuantity,

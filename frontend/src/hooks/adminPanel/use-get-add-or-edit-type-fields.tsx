@@ -7,7 +7,10 @@ import styles from "components/AdminPanel/AdminPanelTab.module.scss";
 import { useGetImagesQuery } from "store/api/images/images-api";
 
 import { DEFAULT_VALIDATE_MESSAGE } from "constants/general-constants";
-import { adminTypeFieldsDataIndexes, adminTypeFieldsLabels } from "constants/types-constants";
+import {
+  adminTypeFieldsDataIndexes,
+  adminTypeFieldsLabels,
+} from "constants/types-constants";
 
 import { getImageUrl } from "utils/get-image-url";
 
@@ -32,7 +35,7 @@ export const useGetAddOrEditTypeFields = (
     value: image.id,
   }));
 
-  const renderImageOption = (imageOption: DefaultOptionType) => (
+  const ImageOption = (imageOption: DefaultOptionType) => (
     <div className={styles.imageOptionWrapper} key={imageOption.value}>
       <img
         className={styles.imageInOption}
@@ -51,7 +54,7 @@ export const useGetAddOrEditTypeFields = (
         <Select
           defaultValue={typeFields?.image?.id}
           options={imageOptions}
-          optionRender={renderImageOption}
+          optionRender={ImageOption}
         />
       ),
       rules: [

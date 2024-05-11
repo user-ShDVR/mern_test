@@ -15,7 +15,7 @@ interface IArrangeOrderModalProps {
   isOpenArrangeOrderModal: boolean;
   onCloseArrangeOrderModal: () => void;
   products: IProductsInCart[] | undefined;
-  cartProductsDataRefetch: () => void;
+  refetchCartProductsData: () => void;
   productsCount: number | undefined;
   resultPriceCount: number | undefined;
 }
@@ -25,7 +25,7 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
     isOpenArrangeOrderModal,
     onCloseArrangeOrderModal,
     products,
-    cartProductsDataRefetch,
+    refetchCartProductsData,
     productsCount,
     resultPriceCount,
   } = props;
@@ -72,7 +72,7 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
     }
 
     setTimeout(() => onCloseArrangeOrderModal(), 500);
-    cartProductsDataRefetch();
+    refetchCartProductsData();
   };
 
   const onFinishAddOrderFailed = (formValues: ValidateErrorEntity) => {

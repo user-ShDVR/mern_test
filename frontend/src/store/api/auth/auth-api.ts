@@ -1,12 +1,19 @@
-import { createRtkApi as api } from "store/api/createRtkApi";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
 import { userActions } from "store/features/userSlice";
 
 import { ISignInFields, ISignUpFields, IUserResponse } from "./types";
-const injectedRtkApi = api.injectEndpoints({
+
+export const authApi = createApi({
+  reducerPath: "authApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_BASE_URL,
+    credentials: "include",
+  }),
   endpoints: (build) => ({
     signUp: build.mutation<IUserResponse, ISignUpFields>({
       query: (body) => ({
-        url: `/auth/sign-up`,
+        url: "/auth/sign-up",
         method: "POST",
         body: { ...body },
       }),
@@ -22,7 +29,7 @@ const injectedRtkApi = api.injectEndpoints({
 
     signIn: build.mutation<IUserResponse, ISignInFields>({
       query: (body) => ({
-        url: `/auth/sign-in`,
+        url: "/auth/sign-in",
         method: "POST",
         body: { ...body },
       }),
@@ -37,13 +44,11 @@ const injectedRtkApi = api.injectEndpoints({
     }),
 
     signOut: build.mutation<unknown, void>({
-      query: () => ({ url: `/auth/sign-out`, method: "POST" }),
+      query: () => ({ url: "/auth/sign-out", method: "POST" }),
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-
           console.log("Вы вышли из системы", data);
-          
           dispatch(userActions.setUser(null));
         } catch (error) {
           console.log(error);
@@ -52,7 +57,7 @@ const injectedRtkApi = api.injectEndpoints({
     }),
 
     getAuthUser: build.query<ISignUpFields, void>({
-      query: () => ({ url: `/auth/session` }),
+      query: () => ({ url: "/auth/session" }),
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
@@ -65,11 +70,9 @@ const injectedRtkApi = api.injectEndpoints({
   }),
 });
 
-export { injectedRtkApi as authApi };
-
 export const {
   useSignUpMutation,
   useSignInMutation,
   useSignOutMutation,
   useGetAuthUserQuery,
-} = injectedRtkApi;
+} = authApi;
