@@ -9,6 +9,13 @@ const pathTranslations: Record<string, string> = {
   orders: "Заказы",
   admin_panel: "Админ-панель",
   forbidden: "Нет доступа к странице",
+  wine: "Вино",
+  cognac: "Коньяк",
+  sparkling_wine: "Игристое вино",
+  whisky: "Виски",
+  brandy: "Бренди",
+  beer: "Пиво",
+  liquor: "Ликер",
 };
 
 export const DynamicBreadCrumb = () => {
