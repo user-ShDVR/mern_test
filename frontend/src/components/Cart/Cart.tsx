@@ -20,12 +20,8 @@ export const Cart = () => {
   const [isOpenArrangeOrderModal, setIsOpenArrangeOrderModal] =
     React.useState(false);
 
-  const {
-    cartProductsData,
-    refetchCartProductsData,
-    handleChangeProductQuantity,
-    handleClearCart,
-  } = useCartActions();
+  const { cartProductsData, handleChangeProductQuantity, handleClearCart } =
+    useCartActions();
 
   const products = cartProductsData?.carts_products;
   const productsCount = products?.length;
@@ -166,7 +162,6 @@ export const Cart = () => {
         isOpenArrangeOrderModal={isOpenArrangeOrderModal}
         onCloseArrangeOrderModal={handleCloseArrangeOrderModal}
         products={products}
-        refetchCartProductsData={refetchCartProductsData}
         productsCount={productsCount}
         resultPriceCount={resultPriceCount}
       />

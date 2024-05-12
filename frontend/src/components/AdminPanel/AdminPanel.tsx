@@ -30,7 +30,7 @@ export const AdminPanel = () => {
     },
     {
       key: "5",
-      label: "Загрузить изображение",
+      label: "Изображения",
       children: <AdminImagesTab />,
     },
   ];

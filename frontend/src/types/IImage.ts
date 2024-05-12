@@ -1,4 +1,7 @@
 export interface IImage {
-  id?: number;
+  id: number;
   filename: string;
+  originalname: string;
+  mimetype: string;
+  size: number;
 }

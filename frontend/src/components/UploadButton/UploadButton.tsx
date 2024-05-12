@@ -5,9 +5,19 @@ import { Upload, message } from "antd";
 
 import { UploadListType, UploadProps } from "antd/es/upload/interface";
 
+import { useGetImagesQuery } from "store/api/images/images-api";
+
 import styles from "./UploadButton.module.scss";
 
-export const UploadButton = () => {
+interface IUploadButtonProps {
+  onCloseAddImageModal: () => void;
+}
+
+export const UploadButton = (props: IUploadButtonProps) => {
+  const { onCloseAddImageModal } = props;
+
+  const { refetch: refetchImagesData } = useGetImagesQuery(null);
+
   const [loading, setLoading] = React.useState(false);
   const [imageUrl, setImageUrl] = React.useState<string | null>(null);
 
@@ -44,7 +54,10 @@ export const UploadButton = () => {
       getBase64(info.file.originFileObj, (url) => {
         setLoading(false);
         setImageUrl(url);
-        message.success(`${info.file.name} загружена успешно`);
+
+        message.success(`Изображение ${info.file.name} загружено успешно`);
+        refetchImagesData();
+        setTimeout(() => onCloseAddImageModal(), 500);
       });
     }
   };
@@ -69,7 +82,7 @@ export const UploadButton = () => {
   return (
     <Upload {...uploadProps}>
       {imageUrl ? (
-        <img className={styles.image} src={imageUrl} alt="" />
+        <img className={styles.uploadedImage} src={imageUrl} alt="" />
       ) : (
         uploadButton
       )}

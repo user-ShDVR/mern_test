@@ -72,7 +72,6 @@ export const AdminOrdersTab = () => {
   React.useEffect(() => {
     if (!isDeleteOrderLoading && isDeleteOrderSuccess) {
       message.success("Заказ успешно удален");
-      setTimeout(() => handleCloseEditModal(), 500);
     } else if (!isDeleteOrderLoading && isDeleteOrderError) {
       message.error("Произошла ошибка при удалении заказа");
     }

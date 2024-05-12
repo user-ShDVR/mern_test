@@ -1,6 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { IAddImagesRequest, IGetImagesRequest } from "./types";
+import {
+  IAddImagesRequest,
+  IDeleteImagesRequest,
+  IGetImagesResponse,
+} from "./types";
 
 export const imagesApi = createApi({
   reducerPath: "imagesApi",
@@ -8,9 +12,11 @@ export const imagesApi = createApi({
     baseUrl: import.meta.env.VITE_BASE_URL,
     credentials: "include",
   }),
+  tagTypes: ["Images"],
   endpoints: (build) => ({
-    getImages: build.query<IGetImagesRequest[], null>({
+    getImages: build.query<IGetImagesResponse, unknown>({
       query: () => ({ url: "/images" }),
+      providesTags: ["Images"],
     }),
 
     addImages: build.mutation<unknown, IAddImagesRequest>({
@@ -20,8 +26,21 @@ export const imagesApi = createApi({
         body: { ...body },
         formData: true,
       }),
+      invalidatesTags: ["Images"],
+    }),
+
+    deleteImages: build.mutation<unknown, IDeleteImagesRequest>({
+      query: (body) => ({
+        url: `/images/${body.id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Images"],
     }),
   }),
 });
 
-export const { useGetImagesQuery, useAddImagesMutation } = imagesApi;
+export const {
+  useGetImagesQuery,
+  useAddImagesMutation,
+  useDeleteImagesMutation,
+} = imagesApi;

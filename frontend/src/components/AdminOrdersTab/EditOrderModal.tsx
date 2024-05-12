@@ -49,7 +49,6 @@ export const EditOrderModal = (props: IEditOrderModalProps) => {
     } else if (!isEditOrderLoading && isEditOrderError) {
       message.error("Произошла ошибка при обновлении статуса заказа");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEditOrderSuccess, isEditOrderError, isEditOrderLoading]);
 
   return (

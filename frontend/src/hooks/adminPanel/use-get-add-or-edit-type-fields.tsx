@@ -30,7 +30,7 @@ export const useGetAddOrEditTypeFields = (
 
   const { data: imagesData } = useGetImagesQuery(null);
 
-  const imageOptions = imagesData?.map((image) => ({
+  const imageOptions = imagesData?.images.map((image) => ({
     label: image.filename,
     value: image.id,
   }));

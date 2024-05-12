@@ -1,11 +1,14 @@
-export interface IGetImagesRequest {
-  id: number;
-  filename: string;
-  originalname: string;
-  mimetype: string;
-  size: number;
+import { IImage } from "types/IImage";
+
+export interface IGetImagesResponse {
+  images: IImage[];
+  totalCount: number;
 }
 
 export interface IAddImagesRequest {
   file?: Blob;
+}
+
+export interface IDeleteImagesRequest {
+  id: number;
 }

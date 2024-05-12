@@ -1,0 +1,1 @@
+export const IMAGES_COUNT_IN_ADMIN_PANEL_PAGE = 4;

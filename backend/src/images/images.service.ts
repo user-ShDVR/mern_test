@@ -31,18 +31,10 @@ export class ImagesService {
       where: { deleted: false },
     });
 
-    if (!totalCount) {
-      throw new NotFoundException('No images found');
-    }
-
     const images = await this.db.images.findMany({
       where: { deleted: false },
       orderBy: { id: 'desc' },
     });
-
-    if (!images) {
-      throw new NotFoundException('No images found');
-    }
 
     return { images, totalCount };
   }

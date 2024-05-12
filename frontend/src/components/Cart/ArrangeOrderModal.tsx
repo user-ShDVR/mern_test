@@ -3,6 +3,7 @@ import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 
 import { useAddOrderMutation } from "store/api/orders/orders-api";
 
+import { useCartActions } from "hooks/cart/use-cart-actions";
 import { useGetArrangeOrderFields } from "hooks/order/use-get-arrange-order-fields";
 import { useGetUser } from "hooks/user/use-get-user";
 
@@ -15,7 +16,6 @@ interface IArrangeOrderModalProps {
   isOpenArrangeOrderModal: boolean;
   onCloseArrangeOrderModal: () => void;
   products: IProductsInCart[] | undefined;
-  refetchCartProductsData: () => void;
   productsCount: number | undefined;
   resultPriceCount: number | undefined;
 }
@@ -25,13 +25,15 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
     isOpenArrangeOrderModal,
     onCloseArrangeOrderModal,
     products,
-    refetchCartProductsData,
     productsCount,
     resultPriceCount,
   } = props;
 
   const { userData } = useGetUser();
+
   const { FormItems } = useGetArrangeOrderFields();
+
+  const { refetchCartProductsData } = useCartActions();
 
   const [addOrder, { isLoading: isAddOrderLoading }] = useAddOrderMutation();
 
