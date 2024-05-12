@@ -27,6 +27,14 @@ export class ImagesService {
   }
 
   async findAll() {
+    const totalCount = await this.db.products.count({
+      where: { deleted: false },
+    });
+
+    if (!totalCount) {
+      throw new NotFoundException('No images found');
+    }
+
     const images = await this.db.images.findMany({
       where: { deleted: false },
       orderBy: { id: 'desc' },
@@ -35,7 +43,8 @@ export class ImagesService {
     if (!images) {
       throw new NotFoundException('No images found');
     }
-    return images;
+
+    return { images, totalCount };
   }
 
   async remove(id: number) {
