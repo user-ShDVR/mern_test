@@ -27,7 +27,7 @@ export class ImagesService {
   }
 
   async findAll() {
-    const totalCount = await this.db.products.count({
+    const totalCount = await this.db.images.count({
       where: { deleted: false },
     });
 
