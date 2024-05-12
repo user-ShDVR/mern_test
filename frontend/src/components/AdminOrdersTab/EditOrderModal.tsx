@@ -15,16 +15,10 @@ interface IEditOrderModalProps {
   isOpenEditModal: boolean;
   onCloseEditModal: () => void;
   certainOrderInModal: IOrder;
-  refetchOrdersData: () => void;
 }
 
 export const EditOrderModal = (props: IEditOrderModalProps) => {
-  const {
-    isOpenEditModal,
-    onCloseEditModal,
-    certainOrderInModal,
-    refetchOrdersData,
-  } = props;
+  const { isOpenEditModal, onCloseEditModal, certainOrderInModal } = props;
 
   const [
     editOrder,
@@ -51,8 +45,6 @@ export const EditOrderModal = (props: IEditOrderModalProps) => {
   React.useEffect(() => {
     if (!isEditOrderLoading && isEditOrderSuccess) {
       message.success("Статус заказа успешно обновлен");
-      refetchOrdersData();
-
       setTimeout(() => onCloseEditModal(), 500);
     } else if (!isEditOrderLoading && isEditOrderError) {
       message.error("Произошла ошибка при обновлении статуса заказа");

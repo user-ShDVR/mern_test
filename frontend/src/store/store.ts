@@ -14,10 +14,8 @@ import { productsApi } from "store/api/products/products-api";
 import { typesApi } from "store/api/types/types-api";
 import { usersApi } from "store/api/users/users-api";
 import searchReducer from "store/features/searchSlice";
-import userReducer from "store/features/userSlice";
 
 const rootReducer = combineReducers({
-  userState: userReducer,
   searchState: searchReducer,
   [authApi.reducerPath]: authApi.reducer,
   [cartsApi.reducerPath]: cartsApi.reducer,

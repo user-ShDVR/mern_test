@@ -44,20 +44,17 @@ export const AdminProductsTab = () => {
   const { currentPage, PaginationBlock } = useGetPaginationBlock();
   const { searchValue } = useSearchProducts();
 
-  const {
-    data: productsData,
-    isLoading: isProductsLoading,
-    refetch: refetchProductsData,
-  } = useGetProductsQuery({
-    page: currentPage,
-    limit: PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE,
-    minPrice: DEFAULT_MIN_PRICE_VALUE,
-    maxPrice: DEFAULT_MAX_PRICE_VALUE,
-    sortBy: DEFAULT_PRODUCTS_FILED_SORT_BY,
-    sortOrder: DEFAULT_PRODUCTS_SORT_ORDER,
-    type: "",
-    searchValue,
-  });
+  const { data: productsData, isLoading: isProductsLoading } =
+    useGetProductsQuery({
+      page: currentPage,
+      limit: PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE,
+      minPrice: DEFAULT_MIN_PRICE_VALUE,
+      maxPrice: DEFAULT_MAX_PRICE_VALUE,
+      sortBy: DEFAULT_PRODUCTS_FILED_SORT_BY,
+      sortOrder: DEFAULT_PRODUCTS_SORT_ORDER,
+      type: "",
+      searchValue,
+    });
 
   const isEmptyProductsData = productsData?.products.length === 0;
 
@@ -101,7 +98,6 @@ export const AdminProductsTab = () => {
   React.useEffect(() => {
     if (!isDeleteProductLoading && isDeleteProductSuccess) {
       message.success("Товар успешно удален");
-      refetchProductsData();
     } else if (!isDeleteProductLoading && isDeleteProductError) {
       message.error("Произошла ошибка при удалении товара");
     }
@@ -200,14 +196,12 @@ export const AdminProductsTab = () => {
       <AddProductModal
         isOpenAddModal={isOpenAddModal}
         onCloseAddModal={handleCloseAddModal}
-        refetchProductsData={refetchProductsData}
       />
 
       <EditProductModal
         isOpenEditModal={isOpenEditModal}
         onCloseEditModal={handleCloseEditModal}
         certainProductInModal={certainProductInModal}
-        refetchProductsData={refetchProductsData}
       />
     </>
   );

@@ -22,7 +22,7 @@ export const Cart = () => {
 
   const {
     cartProductsData,
-    cartProductsDataRefetch,
+    refetchCartProductsData,
     handleChangeProductQuantity,
     handleClearCart,
   } = useCartActions();
@@ -166,7 +166,7 @@ export const Cart = () => {
         isOpenArrangeOrderModal={isOpenArrangeOrderModal}
         onCloseArrangeOrderModal={handleCloseArrangeOrderModal}
         products={products}
-        cartProductsDataRefetch={cartProductsDataRefetch}
+        refetchCartProductsData={refetchCartProductsData}
         productsCount={productsCount}
         resultPriceCount={resultPriceCount}
       />

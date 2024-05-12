@@ -117,7 +117,7 @@ export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
         <AdminPanelPage />
       </LazyLoadChunk>
     ),
-    // authOnly: true,
+    authOnly: true,
   },
   [AppRoutes.FORBIDDEN]: {
     path: RouterPath.forbidden,

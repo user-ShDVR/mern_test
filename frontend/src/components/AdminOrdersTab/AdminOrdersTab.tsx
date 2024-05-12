@@ -33,11 +33,10 @@ export const AdminOrdersTab = () => {
 
   const { currentPage, PaginationBlock } = useGetPaginationBlock();
 
-  const { data: ordersData, refetch: refetchOrdersData } =
-    useGetOrdersForAdminQuery({
-      page: currentPage,
-      limit: DEFAULT_ORDER_LIMIT_IN_ORDERS_PAGE,
-    });
+  const { data: ordersData } = useGetOrdersForAdminQuery({
+    page: currentPage,
+    limit: DEFAULT_ORDER_LIMIT_IN_ORDERS_PAGE,
+  });
 
   const [
     deleteOrder,
@@ -73,8 +72,6 @@ export const AdminOrdersTab = () => {
   React.useEffect(() => {
     if (!isDeleteOrderLoading && isDeleteOrderSuccess) {
       message.success("Заказ успешно удален");
-      refetchOrdersData();
-
       setTimeout(() => handleCloseEditModal(), 500);
     } else if (!isDeleteOrderLoading && isDeleteOrderError) {
       message.error("Произошла ошибка при удалении заказа");
@@ -137,7 +134,6 @@ export const AdminOrdersTab = () => {
         isOpenEditModal={isOpenEditModal}
         onCloseEditModal={handleCloseEditModal}
         certainOrderInModal={certainOrderInModal}
-        refetchOrdersData={refetchOrdersData}
       />
     </>
   );

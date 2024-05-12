@@ -15,24 +15,28 @@ export const typesApi = createApi({
     baseUrl: import.meta.env.VITE_BASE_URL,
     credentials: "include",
   }),
+  tagTypes: ["Types"],
   endpoints: (build) => ({
     addTypes: build.mutation<unknown, IAddTypesRequest>({
       query: (body) => ({
-        url: `/types`,
+        url: "/types",
         method: "POST",
         body: { ...body },
       }),
+      invalidatesTags: ["Types"],
     }),
 
     getTypes: build.query<IGetTypesResponse, IGetTypesRequest>({
       query: (body) => ({
-        url: `/types`,
+        url: "/types",
         params: { page: body.page, limit: body.limit },
       }),
+      providesTags: ["Types"],
     }),
 
     getCertainTypes: build.query<unknown, IGetCertainTypesRequest>({
       query: (body) => ({ url: `/types/${body.id}` }),
+      providesTags: ["Types"],
     }),
 
     editTypes: build.mutation<unknown, IEditTypesRequest>({
@@ -41,10 +45,12 @@ export const typesApi = createApi({
         method: "PATCH",
         body: { ...body },
       }),
+      invalidatesTags: ["Types"],
     }),
 
     deleteTypes: build.mutation<unknown, IDeleteTypesRequest>({
       query: (body) => ({ url: `/types/${body.id}`, method: "DELETE" }),
+      invalidatesTags: ["Types"],
     }),
   }),
 });

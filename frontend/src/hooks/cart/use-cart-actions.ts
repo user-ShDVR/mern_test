@@ -1,5 +1,4 @@
 import { message } from "antd";
-import { useSelector } from "react-redux";
 
 import {
   useClearCartsMutation,
@@ -10,7 +9,8 @@ import {
   useDeleteCartsProductsMutation,
   useEditCartsProductsMutation,
 } from "store/api/cartsProducts/carts-products-api";
-import { selectUser } from "store/features/userSlice";
+
+import { useGetUser } from "hooks/user/use-get-user";
 
 import { TButtonEvent } from "types/IProduct";
 
@@ -29,10 +29,10 @@ interface ICartActionArgs {
 }
 
 export const useCartActions = () => {
-  const { user } = useSelector(selectUser);
+  const { userData } = useGetUser();
 
   const { data: cartProductsData, refetch: refetchCartProductsData } =
-    useGetCertainCartsQuery({ id: user?.id }, { skip: !user });
+    useGetCertainCartsQuery({ id: userData?.id }, { skip: !userData });
 
   const [addToCart] = useAddCartsProductsMutation();
   const [deleteFromCart] = useDeleteCartsProductsMutation();
@@ -53,7 +53,7 @@ export const useCartActions = () => {
     if (action === ECartActions.ADD) {
       if (!getIsProductInCart(productId)) {
         await addToCart({
-          cart_id: user?.id,
+          cart_id: userData?.id,
           product_id: productId,
           quantity: 1,
         });
@@ -67,7 +67,7 @@ export const useCartActions = () => {
     if (action === ECartActions.DELETE) {
       if (getIsProductInCart(productId)) {
         await deleteFromCart({
-          user_id: user?.id,
+          user_id: userData?.id,
           product_id: productId,
         });
 
@@ -85,7 +85,7 @@ export const useCartActions = () => {
 
     if (action === ECartActions.PLUS) {
       await changeProductQuantity({
-        id: user?.id,
+        id: userData?.id,
         product_id: productId,
         quantity: quantity && quantity + 1,
       });
@@ -93,7 +93,7 @@ export const useCartActions = () => {
 
     if (action === ECartActions.MINUS) {
       await changeProductQuantity({
-        id: user?.id,
+        id: userData?.id,
         product_id: productId,
         quantity: quantity && quantity - 1,
       });
@@ -107,7 +107,7 @@ export const useCartActions = () => {
   };
 
   const handleClearCart = async () => {
-    await clearCart({ id: user?.id });
+    await clearCart({ id: userData?.id });
     refetchCartProductsData();
     message.success("Корзина очищена");
   };

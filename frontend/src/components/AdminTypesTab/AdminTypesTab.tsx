@@ -36,11 +36,7 @@ export const AdminTypesTab = () => {
 
   const { currentPage, PaginationBlock } = useGetPaginationBlock();
 
-  const {
-    data: typesData,
-    isLoading: isTypesLoading,
-    refetch: refetchTypesData,
-  } = useGetTypesQuery(
+  const { data: typesData, isLoading: isTypesLoading } = useGetTypesQuery(
     {
       page: currentPage,
       limit: DEFAULT_TYPES_LIMIT_IN_ADMIN_PANEL_PAGE,
@@ -89,7 +85,6 @@ export const AdminTypesTab = () => {
 
   const handleCloseAddModal = () => {
     setIsOpenAddModal(false);
-    refetchTypesData();
   };
 
   const handleOpenEditModal = (type: IType) => {
@@ -99,12 +94,10 @@ export const AdminTypesTab = () => {
 
   const handleCloseEditModal = () => {
     setIsOpenEditModal(false);
-    refetchTypesData();
   };
 
   const handleDeleteType = async (type: IType) => {
     await deleteType({ id: type.id });
-    refetchTypesData();
   };
 
   if (isTypesLoading) {
@@ -179,14 +172,12 @@ export const AdminTypesTab = () => {
       <AddTypeModal
         isOpenAddModal={isOpenAddModal}
         onCloseAddModal={handleCloseAddModal}
-        refetchTypesData={refetchTypesData}
       />
 
       <EditTypesModal
         isOpenEditModal={isOpenEditModal}
         onCloseEditModal={handleCloseEditModal}
         certainTypeInModal={certainTypeInModal}
-        refetchTypesData={refetchTypesData}
       />
     </>
   );

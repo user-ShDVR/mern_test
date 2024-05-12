@@ -15,16 +15,10 @@ interface IEditProductModalProps {
   isOpenEditModal: boolean;
   onCloseEditModal: () => void;
   certainProductInModal: IProduct;
-  refetchProductsData: () => void;
 }
 
 export const EditProductModal = (props: IEditProductModalProps) => {
-  const {
-    isOpenEditModal,
-    onCloseEditModal,
-    certainProductInModal,
-    refetchProductsData,
-  } = props;
+  const { isOpenEditModal, onCloseEditModal, certainProductInModal } = props;
 
   const [
     editProduct,
@@ -45,7 +39,7 @@ export const EditProductModal = (props: IEditProductModalProps) => {
     const editProductData = {
       ...formValues,
       id: certainProductInModal.id,
-      ...[formValues.image_id && { image_id: +formValues.image_id }],
+      ...(formValues.image_id && { image_id: +formValues.image_id }),
       characteristics,
     };
 
@@ -55,8 +49,6 @@ export const EditProductModal = (props: IEditProductModalProps) => {
   React.useEffect(() => {
     if (!isEditProductLoading && isEditProductSuccess) {
       message.success("Продукт успешно обновлен");
-      refetchProductsData();
-
       setTimeout(() => onCloseEditModal(), 500);
     } else if (!isEditProductLoading && isEditProductError) {
       message.error("Произошла ошибка при обновлении продукта");

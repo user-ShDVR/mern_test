@@ -14,11 +14,10 @@ import { getValidateErrorMessage } from "utils/get-validate-error-message";
 interface IRegisterFormProps {
   handleCloseModal: () => void;
   setIsHaveAccount: (isHaveAccount: boolean) => void;
-  setLogOut: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const RegisterForm = (props: IRegisterFormProps) => {
-  const { handleCloseModal, setIsHaveAccount, setLogOut } = props;
+  const { handleCloseModal, setIsHaveAccount } = props;
 
   const { FormItems } = useGetRegisterFields();
   const navigate = useNavigate();
@@ -32,7 +31,6 @@ export const RegisterForm = (props: IRegisterFormProps) => {
   React.useEffect(() => {
     if (isSuccess) {
       message.success("Профиль создан!");
-      setLogOut(false);
       setTimeout(() => handleCloseModal(), 600);
     }
 

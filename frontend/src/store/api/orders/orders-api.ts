@@ -16,6 +16,7 @@ export const ordersApi = createApi({
     baseUrl: import.meta.env.VITE_BASE_URL,
     credentials: "include",
   }),
+  tagTypes: ["Orders"],
   endpoints: (build) => ({
     addOrder: build.mutation<unknown, IAddOrderRequest>({
       query: (body) => ({
@@ -23,13 +24,14 @@ export const ordersApi = createApi({
         method: "POST",
         body: { ...body },
       }),
+      invalidatesTags: ["Orders"],
     }),
 
     getOrders: build.query<IGetOrdersResponse, IGetOrdersRequest>({
       query: (body) => ({
         url: `/orders?id=${body.id}&page=${body.page}&limit=${body.limit}`,
       }),
-      keepUnusedDataFor: 1,
+      providesTags: ["Orders"],
     }),
 
     getOrdersForAdmin: build.query<
@@ -39,6 +41,7 @@ export const ordersApi = createApi({
       query: (body) => ({
         url: `/orders/admin?page=${body.page}&limit=${body.limit}`,
       }),
+      providesTags: ["Orders"],
     }),
 
     editOrders: build.mutation<unknown, IEditOrderRequest>({
@@ -47,6 +50,7 @@ export const ordersApi = createApi({
         method: "PATCH",
         body: { ...body },
       }),
+      invalidatesTags: ["Orders"],
     }),
 
     deleteOrders: build.mutation<unknown, IDeleteOrderRequest>({
@@ -54,6 +58,7 @@ export const ordersApi = createApi({
         url: `/orders/${body.id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Orders"],
     }),
   }),
 });

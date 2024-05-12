@@ -17,11 +17,10 @@ import { IProduct } from "types/IProduct";
 interface IAddProductModalProps {
   isOpenAddModal: boolean;
   onCloseAddModal: () => void;
-  refetchProductsData: () => void;
 }
 
 export const AddProductModal = (props: IAddProductModalProps) => {
-  const { isOpenAddModal, onCloseAddModal, refetchProductsData } = props;
+  const { isOpenAddModal, onCloseAddModal } = props;
 
   const [
     addProduct,
@@ -55,8 +54,6 @@ export const AddProductModal = (props: IAddProductModalProps) => {
   React.useEffect(() => {
     if (!isAddProductLoading && isAddProductSuccess) {
       message.success("Продукт успешно добавлен");
-      refetchProductsData();
-
       setTimeout(() => onCloseAddModal(), 500);
     } else if (!isAddProductLoading && isAddProductError) {
       message.error("Произошла ошибка при добавлении продукта");

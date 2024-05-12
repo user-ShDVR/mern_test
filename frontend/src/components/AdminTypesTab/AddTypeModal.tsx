@@ -17,11 +17,10 @@ import { IType } from "types/IType";
 interface IAddTypeModalProps {
   isOpenAddModal: boolean;
   onCloseAddModal: () => void;
-  refetchTypesData: () => void;
 }
 
 export const AddTypeModal = (props: IAddTypeModalProps) => {
-  const { isOpenAddModal, onCloseAddModal, refetchTypesData } = props;
+  const { isOpenAddModal, onCloseAddModal } = props;
 
   const [
     addType,
@@ -48,8 +47,6 @@ export const AddTypeModal = (props: IAddTypeModalProps) => {
   React.useEffect(() => {
     if (!isAddTypeLoading && isAddTypeSuccess) {
       message.success("Категория успешно добавлена");
-      refetchTypesData();
-
       setTimeout(() => onCloseAddModal(), 500);
     } else if (!isAddTypeLoading && isAddTypeError) {
       message.error("Произошла ошибка валидации при добавлении категории");

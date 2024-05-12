@@ -8,11 +8,10 @@ import { RegisterForm } from "components/RegisterForm/RegisterForm";
 interface IAuthModalProps {
   isAuthModalOpen: boolean;
   setIsAuthModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setLogOut: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AuthModal = (props: IAuthModalProps) => {
-  const { isAuthModalOpen, setIsAuthModalOpen, setLogOut } = props;
+  const { isAuthModalOpen, setIsAuthModalOpen } = props;
 
   const [isHaveAccount, setIsHaveAccount] = React.useState(false);
 
@@ -26,14 +25,11 @@ export const AuthModal = (props: IAuthModalProps) => {
         <LoginForm
           handleCloseModal={handleCloseModal}
           setIsHaveAccount={setIsHaveAccount}
-          setLogOut={setLogOut}
         />
       ) : (
         <RegisterForm
           handleCloseModal={handleCloseModal}
           setIsHaveAccount={setIsHaveAccount}
-          setLogOut={setLogOut}
-
         />
       )}
     </Modal>

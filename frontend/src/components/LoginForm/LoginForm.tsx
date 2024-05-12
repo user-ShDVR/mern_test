@@ -13,11 +13,10 @@ import { getValidateErrorMessage } from "utils/get-validate-error-message";
 interface ILoginFormProps {
   handleCloseModal: () => void;
   setIsHaveAccount: (isHaveAccount: boolean) => void;
-  setLogOut: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const LoginForm = (props: ILoginFormProps) => {
-  const { handleCloseModal, setIsHaveAccount, setLogOut } = props;
+  const { handleCloseModal, setIsHaveAccount } = props;
 
   const { FormItems } = useGetLoginFields();
 
@@ -30,7 +29,6 @@ export const LoginForm = (props: ILoginFormProps) => {
   React.useEffect(() => {
     if (!isLoading && isSuccess) {
       message.success("Авторизация прошла успешно!");
-      setLogOut(false);
       setTimeout(() => handleCloseModal(), 600);
     }
 

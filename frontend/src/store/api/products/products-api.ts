@@ -16,19 +16,22 @@ export const productsApi = createApi({
     baseUrl: import.meta.env.VITE_BASE_URL,
     credentials: "include",
   }),
+  tagTypes: ["Products"],
   endpoints: (build) => ({
     addProducts: build.mutation<unknown, IAddProductsRequest>({
       query: (body) => ({
-        url: `/products`,
+        url: "/products",
         method: "POST",
         body: { ...body },
       }),
+      invalidatesTags: ["Products"],
     }),
 
     getProducts: build.query<IGetProductsResponse, IGetProductsRequest>({
       query: (body) => ({
         url: `/products?page=${body.page}&limit=${body.limit}&minPrice=${body.minPrice}&maxPrice=${body.maxPrice}&sortBy=${body.sortBy}&sortOrder=${body.sortOrder}&type=${body["type"]}&searchValue=${body.searchValue}`,
       }),
+      providesTags: ["Products"],
     }),
 
     getCertainProducts: build.query<
@@ -36,6 +39,7 @@ export const productsApi = createApi({
       IGetCertainProductsRequest
     >({
       query: (body) => ({ url: `/products/${body.id}` }),
+      providesTags: ["Products"],
     }),
 
     editProducts: build.mutation<unknown, IEditProductsRequest>({
@@ -44,6 +48,7 @@ export const productsApi = createApi({
         method: "PATCH",
         body: { ...body },
       }),
+      invalidatesTags: ["Products"],
     }),
 
     deleteProducts: build.mutation<unknown, IDeleteProductsRequest>({
@@ -51,6 +56,7 @@ export const productsApi = createApi({
         url: `/products/${body.id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Products"],
     }),
   }),
 });
