@@ -26,11 +26,25 @@ export class ImagesService {
   }
 
   async findAll() {
-    const images = await this.db.images.findMany();
+    const images = await this.db.images.findMany({
+      where: { deleted: false },
+      orderBy: { id: 'desc' },
+    });
 
     if (!images) {
       throw new NotFoundException('No images found');
     }
     return images;
+  }
+
+  async remove(id: number) {
+    const image = await this.findOne(id);
+    if (!image) {
+      throw new NotFoundException('такого изображения не существует.');
+    }
+    return this.db.images.update({
+      where: { id },
+      data: { deleted: true },
+    });
   }
 }

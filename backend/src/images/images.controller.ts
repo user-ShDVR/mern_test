@@ -7,6 +7,8 @@ import {
   MaxFileSizeValidator,
   UseGuards,
   Get,
+  Delete,
+  Param,
 } from '@nestjs/common';
 import { ImagesService } from './images.service';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -51,5 +53,11 @@ export class ImagesController {
   @Get()
   findAll() {
     return this.imagesService.findAll();
+  }
+
+  @Delete(':id')
+  @UseGuards(AdminGuard)
+  remove(@Param('id') id: number) {
+    return this.imagesService.remove(id);
   }
 }

@@ -72,6 +72,7 @@ model images {
   originalname String
   mimetype     String
   size         Int
+  deleted  Boolean  @default(false)
   product      products[]
   type         types[]
 }
