@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+// import { unlinkSync } from 'fs';
 import { PrismaService } from 'src/utils/db/prisma.service';
 
 @Injectable()
@@ -42,6 +43,9 @@ export class ImagesService {
     if (!image) {
       throw new NotFoundException('такого изображения не существует.');
     }
+    //delete file from uploads folder
+    // unlinkSync(`./uploads/${image.filename}`);
+
     return this.db.images.update({
       where: { id },
       data: { deleted: true },
