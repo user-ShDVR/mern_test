@@ -58,6 +58,6 @@ export class ImagesController {
   @Delete(':id')
   @UseGuards(AdminGuard)
   remove(@Param('id') id: number) {
-    return this.imagesService.remove(id);
+    return this.imagesService.remove(+id);
   }
 }
