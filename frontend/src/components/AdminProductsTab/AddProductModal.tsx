@@ -69,7 +69,7 @@ export const AddProductModal = (props: IAddProductModalProps) => {
       title="Добавить продукт"
     >
       <Form
-        className={styles.editForm}
+        className={styles.entityEditForm}
         layout="vertical"
         onFinish={onFinishAddProduct}
         onFinishFailed={onFinishFailedAddProduct}

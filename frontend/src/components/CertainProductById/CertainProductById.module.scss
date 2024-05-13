@@ -3,6 +3,11 @@
   gap: 10vw;
 }
 
+.productItemImage {
+  width: 20%;
+  height: 300px;
+}
+
 .productItemInfo {
   width: 60%;
 }
@@ -39,6 +44,13 @@
 @media screen and (max-width: 1200px) {
   .productItemWrapper {
     flex-wrap: wrap;
+    gap: 5vw;
+  }
+
+  .productItemImage {
+    width: 500px;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   .productItemInfo {

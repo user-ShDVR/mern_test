@@ -44,7 +44,7 @@ export const Filters = (props: IFiltersProps) => {
     <ShadowCard className={styles.filtersWrapper}>
       <Typography.Title level={4}>Фильтры</Typography.Title>
 
-      <div className={styles.container}>
+      <div className={styles.contentWrapper}>
         <div className={styles.header}>
           <Typography.Text>Цена</Typography.Text>
           <Button onClick={handleReset}>Очистить</Button>

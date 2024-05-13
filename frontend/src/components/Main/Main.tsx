@@ -1,5 +1,8 @@
-import { Typography } from "antd";
+import React from "react";
 
+import { Button, Typography } from "antd";
+
+import { AdaptiveDrawer } from "components/AdaptiveDrawer/AdaptiveDrawer";
 import { ProductCardsList } from "components/ProductCardsList/ProductCardsList";
 import { Spinner } from "components/Spinner/Spinner";
 
@@ -14,6 +17,16 @@ import { useSearchProducts } from "hooks/products/use-search-products";
 import styles from "./Main.module.scss";
 
 export const Main = () => {
+  const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
+
+  const handleOpenDrawer = () => {
+    setIsOpenDrawer(true);
+  };
+
+  const handleCloseDrawer = () => {
+    setIsOpenDrawer(false);
+  };
+
   const { currentPage, PaginationBlock } = useGetPaginationBlock();
   const { searchValue } = useSearchProducts();
 
@@ -38,11 +51,29 @@ export const Main = () => {
     <>
       <Typography.Title>Наши товары</Typography.Title>
 
+      <Button
+        className={styles.openFiltersMobileButton}
+        type="primary"
+        onClick={handleOpenDrawer}
+      >
+        Фильтры
+      </Button>
+
+      <AdaptiveDrawer
+        title="Фильтры"
+        drawerPlacement="right"
+        handleCloseDrawer={handleCloseDrawer}
+        isOpenDrawer={isOpenDrawer}
+        customWindowWidth={1200}
+      >
+        {FiltersAside}
+      </AdaptiveDrawer>
+
       {isProductsLoading ? (
         <Spinner />
       ) : (
-        <div className={styles.wrapper}>
-          {FiltersAside}
+        <div className={styles.mainWrapper}>
+          <div className={styles.filtersWrapper}>{FiltersAside}</div>
           <ProductCardsList productsData={productsData?.products} />
         </div>
       )}

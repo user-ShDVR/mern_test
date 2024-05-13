@@ -106,11 +106,11 @@ export const AdminTypesTab = () => {
 
   return (
     <>
-      <Typography.Text className={styles.countTitle}>
+      <Typography.Text className={styles.entityCountTitle}>
         В системе - <b>{declinationTypes}</b>
       </Typography.Text>
 
-      <p className={styles.createButton}>
+      <p className={styles.entityCreateButton}>
         <Button type="primary" onClick={handleOpenAddModal}>
           Создать новую категорию
         </Button>

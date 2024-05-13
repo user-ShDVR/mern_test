@@ -33,11 +33,11 @@ export const Catalog = () => {
     <>
       <Typography.Title>Каталог</Typography.Title>
 
-      <div className={styles.wrapper}>
+      <div className={styles.catalogWrapper}>
         {typesData?.types.map((catalogElement: IType) => {
           return (
             <Link
-              className={styles.link}
+              className={styles.catalogLink}
               to={catalogElement.url}
               key={catalogElement.id}
               state={{
@@ -46,9 +46,10 @@ export const Catalog = () => {
               }}
             >
               <ShadowCard
-                className={styles.card}
+                className={styles.catalogCard}
                 cover={
                   <img
+                    className={styles.catalogImage}
                     src={getImageUrl(catalogElement.image.filename)}
                     alt={catalogElement.name}
                   />

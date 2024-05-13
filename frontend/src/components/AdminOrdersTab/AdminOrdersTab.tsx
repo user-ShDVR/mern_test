@@ -80,7 +80,7 @@ export const AdminOrdersTab = () => {
 
   return (
     <>
-      <Typography.Text className={styles.countTitle}>
+      <Typography.Text className={styles.entityCountTitle}>
         В системе - <b>{declinationOrders}</b>
       </Typography.Text>
 

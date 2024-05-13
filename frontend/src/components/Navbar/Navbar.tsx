@@ -5,9 +5,10 @@ import {
   MenuOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { Badge, Button, Drawer, Input, Typography } from "antd";
+import { Badge, Button, Input, Typography } from "antd";
 import { Link } from "react-router-dom";
 
+import { AdaptiveDrawer } from "components/AdaptiveDrawer/AdaptiveDrawer";
 import { DropdownUser } from "components/DropdownUser/DropdownUser";
 
 import { RouterPath } from "configs/route-config";
@@ -18,40 +19,21 @@ import { useSearchProducts } from "hooks/products/use-search-products";
 import styles from "./Navbar.module.scss";
 
 export const Navbar = () => {
-  const [isOpenMenuDrawer, setIsOpenMenuDrawer] = React.useState(false);
-  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+  const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
 
   const { cartProductsData } = useCartActions();
   const { handleSearchProducts } = useSearchProducts();
 
   const handleOpenDrawer = () => {
-    setIsOpenMenuDrawer(true);
+    setIsOpenDrawer(true);
   };
 
   const handleCloseDrawer = () => {
-    setIsOpenMenuDrawer(false);
+    setIsOpenDrawer(false);
   };
 
-  const handleWindowResize = () => {
-    setWindowWidth(window.innerWidth);
-  };
-
-  React.useEffect(() => {
-    window.addEventListener("resize", handleWindowResize);
-
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  }, []);
-
-  React.useEffect(() => {
-    if (windowWidth > 760 && isOpenMenuDrawer) {
-      handleCloseDrawer();
-    }
-  }, [windowWidth, isOpenMenuDrawer]);
-
-  const desktopMenu = (
-    <div className={styles.desktopMenu}>
+  const MenuPoints = (
+    <div className={styles.menuPoints}>
       <Link to={RouterPath.catalog} onClick={handleCloseDrawer}>
         <Button type="primary">
           <MenuOutlined />
@@ -86,11 +68,13 @@ export const Navbar = () => {
     </div>
   );
 
-  const mobileMenu = <div className={styles.mobileMenu}>{desktopMenu}</div>;
+  const MenuMobileVersion = (
+    <div className={styles.menuMobileVersion}>{MenuPoints}</div>
+  );
 
   return (
     <>
-      <div className={styles.wrapper}>
+      <div className={styles.navbarWrapper}>
         <Button
           className={styles.openMenuDrawerButton}
           type="primary"
@@ -99,18 +83,19 @@ export const Navbar = () => {
           Меню
         </Button>
 
-        {desktopMenu}
+        {MenuPoints}
         <DropdownUser />
       </div>
 
-      <Drawer
+      <AdaptiveDrawer
         title="Меню"
-        placement="left"
-        onClose={handleCloseDrawer}
-        open={isOpenMenuDrawer}
+        drawerPlacement="left"
+        handleCloseDrawer={handleCloseDrawer}
+        isOpenDrawer={isOpenDrawer}
+        customWindowWidth={760}
       >
-        {mobileMenu}
-      </Drawer>
+        {MenuMobileVersion}
+      </AdaptiveDrawer>
     </>
   );
 };

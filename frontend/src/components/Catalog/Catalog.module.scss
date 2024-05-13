@@ -1,21 +1,21 @@
-.wrapper {
+.catalogWrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
 }
 
-.link {
+.catalogLink {
   text-decoration: none;
 }
 
-.card {
+.catalogCard {
   width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-img {
+.catalogImage {
   width: 100%;
   height: 150px;
 }

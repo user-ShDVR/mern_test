@@ -48,7 +48,7 @@ export const DynamicBreadCrumb = () => {
   ];
 
   return (
-    <Breadcrumb className={styles.wrapper} separator=">">
+    <Breadcrumb className={styles.breadcrumbWrapper} separator=">">
       {breadcrumbItems}
     </Breadcrumb>
   );

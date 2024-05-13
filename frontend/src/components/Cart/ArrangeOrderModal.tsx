@@ -56,7 +56,7 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
     try {
       const response = await addOrder(orderData);
       if ("data" in response && response.data) {
-        message.success("Заказ успешно добавлен");
+        message.success("Заказ успешно оформлен");
       } else if ("error" in response) {
         if ("status" in response.error) {
           message.error(

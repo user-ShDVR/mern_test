@@ -1,11 +1,10 @@
-// AdminPanelTabContent
-.countTitle {
+.entityCountTitle {
   display: block;
   font-size: 18px;
   margin-bottom: 20px;
 }
 
-.createButton {
+.entityCreateButton {
   margin-bottom: 25px;
 }
 
@@ -60,8 +59,7 @@
   white-space: normal;
 }
 
-// EditEntityModal
-.editForm {
+.entityEditForm {
   max-height: 70vh;
   overflow-y: scroll;
   margin-top: 20px;
@@ -76,7 +74,6 @@
   }
 }
 
-// imageOptions
 .imageOptionWrapper {
   display: flex;
   align-items: center;
@@ -88,12 +85,12 @@
   margin-right: 10px;
 }
 
-// orderStatus
 .ordersStatus {
   margin-top: 20px;
 }
 
 @media screen and (max-width: 1515px) {
+  .entityCardDeleteButton,
   .entityCardDeleteButton {
     top: 60px;
   }
@@ -102,9 +99,5 @@
 @media screen and (max-width: 1080px) {
   .entityCard {
     width: 100%;
-  }
-
-  .entityCardDeleteButton {
-    top: 10px;
   }
 }

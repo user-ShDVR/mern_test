@@ -1,6 +1,9 @@
-import { Typography } from "antd";
+import React from "react";
+
+import { Button, Typography } from "antd";
 import { useLocation } from "react-router-dom";
 
+import { AdaptiveDrawer } from "components/AdaptiveDrawer/AdaptiveDrawer";
 import { ProductCardsList } from "components/ProductCardsList/ProductCardsList";
 
 import { useGetProductsQuery } from "store/api/products/products-api";
@@ -14,6 +17,16 @@ import { useSearchProducts } from "hooks/products/use-search-products";
 import styles from "./CatalogItem.module.scss";
 
 export const CatalogItem = () => {
+  const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
+
+  const handleOpenDrawer = () => {
+    setIsOpenDrawer(true);
+  };
+
+  const handleCloseDrawer = () => {
+    setIsOpenDrawer(false);
+  };
+
   const { currentPage, PaginationBlock } = useGetPaginationBlock();
   const { searchValue } = useSearchProducts();
 
@@ -39,8 +52,26 @@ export const CatalogItem = () => {
     <>
       <Typography.Title>{location.state?.categoryTypeName}</Typography.Title>
 
-      <div className={styles.wrapper}>
+      <Button
+        className={styles.openFiltersMobileButton}
+        type="primary"
+        onClick={handleOpenDrawer}
+      >
+        Фильтры
+      </Button>
+
+      <AdaptiveDrawer
+        title="Фильтры"
+        drawerPlacement="right"
+        handleCloseDrawer={handleCloseDrawer}
+        isOpenDrawer={isOpenDrawer}
+        customWindowWidth={1200}
+      >
         {FiltersAside}
+      </AdaptiveDrawer>
+
+      <div className={styles.catalogItemWrapper}>
+        <div className={styles.filtersWrapper}>{FiltersAside}</div>
         <ProductCardsList productsData={productsData?.products} />
       </div>
 

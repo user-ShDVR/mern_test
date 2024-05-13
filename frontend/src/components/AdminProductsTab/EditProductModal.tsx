@@ -65,7 +65,7 @@ export const EditProductModal = (props: IEditProductModalProps) => {
       key={certainProductInModal.id}
     >
       <Form
-        className={styles.editForm}
+        className={styles.entityEditForm}
         layout="vertical"
         onFinish={onFinishEditProduct}
       >

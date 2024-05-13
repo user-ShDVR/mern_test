@@ -110,11 +110,11 @@ export const AdminProductsTab = () => {
 
   return (
     <>
-      <Typography.Text className={styles.countTitle}>
+      <Typography.Text className={styles.entityCountTitle}>
         В системе - <b>{declinationProducts}</b>
       </Typography.Text>
 
-      <p className={styles.createButton}>
+      <p className={styles.entityCreateButton}>
         <Button type="primary" onClick={handleOpenAddModal}>
           Создать новый товар
         </Button>

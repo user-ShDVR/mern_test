@@ -62,7 +62,7 @@ export const AddTypeModal = (props: IAddTypeModalProps) => {
       title="Добавить категорию"
     >
       <Form
-        className={styles.editForm}
+        className={styles.entityEditForm}
         layout="vertical"
         onFinish={onFinishAddType}
         onFinishFailed={onFinishFailedAddType}

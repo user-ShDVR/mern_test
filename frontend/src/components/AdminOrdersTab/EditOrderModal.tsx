@@ -60,7 +60,7 @@ export const EditOrderModal = (props: IEditOrderModalProps) => {
       key={certainOrderInModal.id}
     >
       <Form
-        className={styles.editForm}
+        className={styles.entityEditForm}
         layout="vertical"
         onFinish={onFinishEditOrder}
       >

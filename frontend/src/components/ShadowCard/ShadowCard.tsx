@@ -14,10 +14,7 @@ export const ShadowCard = (props: IShadowCardProps) => {
   const { children, className, cover } = props;
 
   return (
-    <Card
-      className={`${styles.wrapper} ${className}`}
-      cover={cover}
-    >
+    <Card className={`${styles.shadowCardWrapper} ${className}`} cover={cover}>
       {children}
     </Card>
   );

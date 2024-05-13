@@ -1,13 +1,19 @@
-.wrapper {
+.openFiltersMobileButton {
+  display: none;
+  margin-bottom: 25px;
+}
+
+.catalogItemWrapper {
   display: flex;
   gap: 40px;
 }
 
-@media (max-width: 1200px) {
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    align-items: center;
+@media screen and (max-width: 1200px) {
+  .openFiltersMobileButton {
+    display: block;
+  }
+
+  .filtersWrapper {
+    display: none;
   }
 }

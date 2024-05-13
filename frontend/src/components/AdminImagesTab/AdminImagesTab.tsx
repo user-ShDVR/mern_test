@@ -74,12 +74,12 @@ export const AdminImagesTab = () => {
 
   return (
     <>
-      <Typography.Text className={styles.countTitle}>
+      <Typography.Text className={styles.entityCountTitle}>
         В системе - <b>{declinationImages}</b>
       </Typography.Text>
 
       <Button
-        className={styles.createButton}
+        className={styles.entityCreateButton}
         type="primary"
         onClick={handleOpenAddModal}
       >

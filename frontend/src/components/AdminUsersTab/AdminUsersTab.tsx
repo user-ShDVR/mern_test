@@ -40,7 +40,7 @@ export const AdminUsersTab = () => {
 
   return (
     <>
-      <Typography.Text className={styles.countTitle}>
+      <Typography.Text className={styles.entityCountTitle}>
         В системе - <b>{declinationUsers}</b>
       </Typography.Text>
 

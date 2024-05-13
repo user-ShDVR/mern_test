@@ -57,7 +57,7 @@ export const EditTypesModal = (props: IEditTypesModalProps) => {
       key={certainTypeInModal.id}
     >
       <Form
-        className={styles.editForm}
+        className={styles.entityEditForm}
         layout="vertical"
         onFinish={onFinishEditType}
       >

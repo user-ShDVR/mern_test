@@ -1,4 +1,19 @@
-.wrapper {
+.openFiltersMobileButton {
+  display: none;
+  margin-bottom: 25px;
+}
+
+.mainWrapper {
   display: flex;
   gap: 40px;
+}
+
+@media screen and (max-width: 1200px) {
+  .openFiltersMobileButton {
+    display: block;
+  }
+
+  .filtersWrapper {
+    display: none;
+  }
 }

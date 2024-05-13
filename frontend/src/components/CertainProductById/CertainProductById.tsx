@@ -1,5 +1,5 @@
 import { ShareAltOutlined } from "@ant-design/icons";
-import { Button, Image, Table, Typography, message } from "antd";
+import { Button, Table, Typography, message } from "antd";
 import { useParams } from "react-router-dom";
 
 import { CartButtons } from "components/CartButtons/CartButtons";
@@ -7,7 +7,10 @@ import { ShadowCard } from "components/ShadowCard/ShadowCard";
 
 import { useGetCertainProductsQuery } from "store/api/products/products-api";
 
-import { adminProductCharacteristicsListColumns } from "constants/products-constants";
+import {
+  adminProductCharacteristicsListColumns,
+  emptyCharacteristicsText,
+} from "constants/products-constants";
 
 import { getImageUrl } from "utils/get-image-url";
 
@@ -22,7 +25,7 @@ export const CertainProductById = () => {
 
   const handleShared = () => {
     navigator.clipboard.writeText(window.location.href);
-    message.success("Ссылка скопирована в буфер обмена");
+    message.success("Ссылка на товар скопирована в буфер обмена");
   };
 
   return (
@@ -31,9 +34,10 @@ export const CertainProductById = () => {
 
       <ShadowCard>
         <div className={styles.productItemWrapper}>
-          <Image
+          <img
+            className={styles.productItemImage}
             src={getImageUrl(productData?.image.filename ?? "")}
-            preview={false}
+            alt=""
           />
 
           <div className={styles.productItemInfo}>
@@ -50,6 +54,7 @@ export const CertainProductById = () => {
               dataSource={productData?.characteristics}
               pagination={false}
               showHeader={false}
+              locale={{ emptyText: emptyCharacteristicsText }}
             />
           </div>
 

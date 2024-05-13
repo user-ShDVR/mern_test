@@ -7,12 +7,12 @@ import styles from "./Forbidden.module.scss";
 
 export const Forbidden = () => {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.forbiddenWrapper}>
       <Typography.Title>
         Недостаточно прав для просмотра страницы
       </Typography.Title>
 
-      <Link className={styles.backButton} to={RouterPath.main}>
+      <Link className={styles.backToMainPageButton} to={RouterPath.main}>
         <Button type="primary" size="large">
           Вернуться на главную страницу
         </Button>

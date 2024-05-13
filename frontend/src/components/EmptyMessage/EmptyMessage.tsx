@@ -11,7 +11,7 @@ export const EmptyMessage = (props: IEmptyMessageProps) => {
 
   return (
     <Empty
-      className={styles.wrapper}
+      className={styles.emptyMessageWrapper}
       image={Empty.PRESENTED_IMAGE_SIMPLE}
       description={description}
     />

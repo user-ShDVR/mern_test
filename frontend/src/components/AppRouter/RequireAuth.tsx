@@ -4,23 +4,21 @@ import { RouterPath } from "configs/route-config";
 
 import { useGetUser } from "hooks/user/use-get-user";
 
-interface RequireAuthProps {
+interface IRequireAuthProps {
   children: JSX.Element;
 }
 
-export function RequireAuth(props: RequireAuthProps) {
+export function RequireAuth(props: IRequireAuthProps) {
   const { children } = props;
 
   const { userData, isUserAdmin } = useGetUser();
 
-  const isAdminPanelPage = window.location.pathname === RouterPath.admin_panel;
+  if (!isUserAdmin && userData) {
+    return <Navigate to={RouterPath.forbidden} />;
+  }
 
   if (!userData) {
     return <Navigate to={RouterPath.main} />;
-  }
-
-  if (!isUserAdmin && isAdminPanelPage) {
-    return <Navigate to={RouterPath.forbidden} />;
   }
 
   return children;
