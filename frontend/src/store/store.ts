@@ -13,10 +13,12 @@ import { ordersApi } from "store/api/orders/orders-api";
 import { productsApi } from "store/api/products/products-api";
 import { typesApi } from "store/api/types/types-api";
 import { usersApi } from "store/api/users/users-api";
+import categoryInfoReducer from "store/features/categoryInfoSlice";
 import searchReducer from "store/features/searchSlice";
 
 const rootReducer = combineReducers({
   searchState: searchReducer,
+  categoryInfoState: categoryInfoReducer,
   [authApi.reducerPath]: authApi.reducer,
   [cartsApi.reducerPath]: cartsApi.reducer,
   [cartsProductsApi.reducerPath]: cartsProductsApi.reducer,

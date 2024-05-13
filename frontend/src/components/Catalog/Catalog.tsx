@@ -11,6 +11,7 @@ import {
   TYPES_COUNT_IN_CATALOG_PAGE,
 } from "constants/types-constants";
 
+import { useActions } from "hooks/general/use-actions";
 import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
 
 import { getImageUrl } from "utils/get-image-url";
@@ -20,12 +21,18 @@ import { IType } from "types/IType";
 import styles from "./Catalog.module.scss";
 
 export const Catalog = () => {
+  const { setCategoryTypeName, setCategoryTypeUrl } = useActions();
   const { currentPage, PaginationBlock } = useGetPaginationBlock();
 
   const { data: typesData } = useGetTypesQuery({
     page: currentPage,
     limit: DEFAULT_TYPES_LIMIT_IN_CATALOG_PAGE,
   });
+
+  const handleSetCategoryInfo = (catalogElement: IType) => {
+    setCategoryTypeName(catalogElement.name);
+    setCategoryTypeUrl(catalogElement.url);
+  };
 
   const isEmptyTypesData = typesData?.types?.length === 0;
 
@@ -40,10 +47,7 @@ export const Catalog = () => {
               className={styles.catalogLink}
               to={catalogElement.url}
               key={catalogElement.id}
-              state={{
-                categoryTypeName: catalogElement.name,
-                categoryTypeUrl: catalogElement.url,
-              }}
+              onClick={() => handleSetCategoryInfo(catalogElement)}
             >
               <ShadowCard
                 className={styles.catalogCard}

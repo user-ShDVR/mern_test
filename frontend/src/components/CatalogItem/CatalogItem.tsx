@@ -1,12 +1,13 @@
 import React from "react";
 
 import { Button, Typography } from "antd";
-import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { AdaptiveDrawer } from "components/AdaptiveDrawer/AdaptiveDrawer";
 import { ProductCardsList } from "components/ProductCardsList/ProductCardsList";
 
 import { useGetProductsQuery } from "store/api/products/products-api";
+import { selectCategoryInfo } from "store/features/categoryInfoSlice";
 
 import { PRODUCTS_COUNT_IN_CATALOG_ITEM_PAGE } from "constants/products-constants";
 
@@ -19,6 +20,14 @@ import styles from "./CatalogItem.module.scss";
 export const CatalogItem = () => {
   const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
 
+  const { currentPage, PaginationBlock } = useGetPaginationBlock();
+  const { searchValue } = useSearchProducts();
+
+  const { categoryTypeName, categoryTypeUrl } = useSelector(selectCategoryInfo);
+
+  const { FiltersAside, minValue, maxValue, sortOrder, sortBy } =
+    useGetProductsFilters();
+
   const handleOpenDrawer = () => {
     setIsOpenDrawer(true);
   };
@@ -27,20 +36,12 @@ export const CatalogItem = () => {
     setIsOpenDrawer(false);
   };
 
-  const { currentPage, PaginationBlock } = useGetPaginationBlock();
-  const { searchValue } = useSearchProducts();
-
-  const { FiltersAside, minValue, maxValue, sortOrder, sortBy } =
-    useGetProductsFilters();
-
-  const location = useLocation();
-
   const { data: productsData } = useGetProductsQuery({
     page: currentPage,
     limit: PRODUCTS_COUNT_IN_CATALOG_ITEM_PAGE,
     minPrice: minValue,
     maxPrice: maxValue,
-    type: location.state?.categoryTypeUrl,
+    type: categoryTypeUrl,
     sortBy,
     sortOrder,
     searchValue,
@@ -50,7 +51,7 @@ export const CatalogItem = () => {
 
   return (
     <>
-      <Typography.Title>{location.state?.categoryTypeName}</Typography.Title>
+      <Typography.Title>{categoryTypeName}</Typography.Title>
 
       <Button
         className={styles.openFiltersMobileButton}
