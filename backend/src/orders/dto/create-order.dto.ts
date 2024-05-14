@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 interface OrderProductItem {
-  productId: number;
+  product_id: number;
   quantity: number;
 }
 
