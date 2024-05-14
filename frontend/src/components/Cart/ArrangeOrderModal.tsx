@@ -38,6 +38,10 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
   const [addOrder, { isLoading: isAddOrderLoading }] = useAddOrderMutation();
 
   const onFinishAddOrder = async (formValues: IAdressFields) => {
+    if (productsCount === undefined || resultPriceCount === undefined || products === undefined) {
+      message.error("Ошибка: недостающие данные для оформления заказа");
+      return;
+    }
     const orderProducts = products?.map((product) => ({
       product_id: product.product_id,
       quantity: product.quantity,
