@@ -3,6 +3,7 @@ import React from "react";
 import { Button, Tag, Typography, message } from "antd";
 
 import styles from "components/AdminPanel/AdminPanelTab.module.scss";
+import { ImageInCard } from "components/ImageInCard/ImageInCard";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
 import { Spinner } from "components/Spinner/Spinner";
 
@@ -19,7 +20,6 @@ import {
 import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
 
 import { getDeclination } from "utils/get-declination";
-import { getImageUrl } from "utils/get-image-url";
 
 import { IType } from "types/IType";
 
@@ -140,10 +140,9 @@ export const AdminTypesTab = () => {
 
             <p className={styles.entityField}>
               Изображение:
-              <img
+              <ImageInCard
                 className={styles.entityImage}
-                src={getImageUrl(type.image.filename)}
-                alt=""
+                imageUrl={type.image.filename}
               />
             </p>
 

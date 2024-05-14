@@ -2,9 +2,8 @@ import { Card } from "antd";
 import { Link } from "react-router-dom";
 
 import { CartButtons } from "components/CartButtons/CartButtons";
+import { ImageInCard } from "components/ImageInCard/ImageInCard";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
-
-import { getImageUrl } from "utils/get-image-url";
 
 import { IProduct } from "types/IProduct";
 
@@ -22,9 +21,7 @@ export const ProductCard = (props: IProductCardProps) => {
       <ShadowCard
         className={styles.cardWrapper}
         key={product.id}
-        cover={
-          <img src={getImageUrl(product.image.filename)} alt={product.name} />
-        }
+        cover={<ImageInCard imageUrl={product.image.filename} />}
       >
         <Card.Meta
           title={

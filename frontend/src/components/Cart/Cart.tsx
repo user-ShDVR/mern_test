@@ -4,12 +4,12 @@ import { ClearOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Typography } from "antd";
 
 import { EmptyMessage } from "components/EmptyMessage/EmptyMessage";
+import { ImageInCard } from "components/ImageInCard/ImageInCard";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
 
 import { ECartActions, useCartActions } from "hooks/cart/use-cart-actions";
 
 import { getDeclination } from "utils/get-declination";
-import { getImageUrl } from "utils/get-image-url";
 
 import { IProductChangeQuantity } from "types/IProduct";
 
@@ -80,10 +80,9 @@ export const Cart = () => {
                 <ShadowCard className={styles.card} key={product.product.id}>
                   <div className={styles.productWrapper}>
                     <div className={styles.productImageWrapper}>
-                      <img
+                      <ImageInCard
                         className={styles.productImage}
-                        src={getImageUrl(product.product.image.filename)}
-                        alt={product.product.name}
+                        imageUrl={product.product.image.filename}
                       />
 
                       <div className={styles.productInfo}>

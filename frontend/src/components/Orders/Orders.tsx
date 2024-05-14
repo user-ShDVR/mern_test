@@ -1,6 +1,7 @@
 import { Card, Tag, Typography } from "antd";
 
 import { EmptyMessage } from "components/EmptyMessage/EmptyMessage";
+import { ImageInCard } from "components/ImageInCard/ImageInCard";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
 import { Spinner } from "components/Spinner/Spinner";
 
@@ -15,7 +16,6 @@ import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
 import { useGetUser } from "hooks/user/use-get-user";
 
 import { formattedDate } from "utils/formatted-date";
-import { getImageUrl } from "utils/get-image-url";
 
 import styles from "./Orders.module.scss";
 
@@ -86,10 +86,8 @@ export const Orders = () => {
                       className={styles.orderProductWrapper}
                       key={product.product.id}
                       cover={
-                        <img
-                          className={styles.orderProductImage}
-                          src={getImageUrl(product.product.image.filename)}
-                          alt=""
+                        <ImageInCard
+                          imageUrl={product.product.image.filename}
                         />
                       }
                     >

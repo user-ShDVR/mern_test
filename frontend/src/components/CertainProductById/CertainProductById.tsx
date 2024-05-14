@@ -3,6 +3,7 @@ import { Button, Table, Typography, message } from "antd";
 import { useParams } from "react-router-dom";
 
 import { CartButtons } from "components/CartButtons/CartButtons";
+import { ImageInCard } from "components/ImageInCard/ImageInCard";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
 
 import { useGetCertainProductsQuery } from "store/api/products/products-api";
@@ -11,8 +12,6 @@ import {
   adminProductCharacteristicsListColumns,
   emptyCharacteristicsText,
 } from "constants/products-constants";
-
-import { getImageUrl } from "utils/get-image-url";
 
 import styles from "./CertainProductById.module.scss";
 
@@ -34,10 +33,9 @@ export const CertainProductById = () => {
 
       <ShadowCard>
         <div className={styles.productItemWrapper}>
-          <img
+          <ImageInCard
             className={styles.productItemImage}
-            src={getImageUrl(productData?.image.filename ?? "")}
-            alt=""
+            imageUrl={productData?.image.filename ?? ""}
           />
 
           <div className={styles.productItemInfo}>

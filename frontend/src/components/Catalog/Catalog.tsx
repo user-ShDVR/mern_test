@@ -2,6 +2,7 @@ import { Card, Typography } from "antd";
 import { Link } from "react-router-dom";
 
 import { EmptyMessage } from "components/EmptyMessage/EmptyMessage";
+import { ImageInCard } from "components/ImageInCard/ImageInCard";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
 
 import { useGetTypesQuery } from "store/api/types/types-api";
@@ -13,8 +14,6 @@ import {
 
 import { useActions } from "hooks/general/use-actions";
 import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
-
-import { getImageUrl } from "utils/get-image-url";
 
 import { IType } from "types/IType";
 
@@ -51,13 +50,7 @@ export const Catalog = () => {
             >
               <ShadowCard
                 className={styles.catalogCard}
-                cover={
-                  <img
-                    className={styles.catalogImage}
-                    src={getImageUrl(catalogElement.image.filename)}
-                    alt={catalogElement.name}
-                  />
-                }
+                cover={<ImageInCard imageUrl={catalogElement.image.filename} />}
               >
                 <Card.Meta title={catalogElement.name} />
               </ShadowCard>

@@ -3,6 +3,7 @@ import { Form, Input, Select } from "antd";
 import { DefaultOptionType } from "antd/es/select";
 
 import styles from "components/AdminPanel/AdminPanelTab.module.scss";
+import { ImageInCard } from "components/ImageInCard/ImageInCard";
 
 import { useGetImagesQuery } from "store/api/images/images-api";
 
@@ -11,8 +12,6 @@ import {
   adminTypeFieldsDataIndexes,
   adminTypeFieldsLabels,
 } from "constants/types-constants";
-
-import { getImageUrl } from "utils/get-image-url";
 
 import { IType } from "types/IType";
 
@@ -37,10 +36,9 @@ export const useGetAddOrEditTypeFields = (
 
   const ImageOption = (imageOption: DefaultOptionType) => (
     <div className={styles.imageOptionWrapper} key={imageOption.value}>
-      <img
+      <ImageInCard
         className={styles.imageInOption}
-        src={getImageUrl(imageOption.data.label)}
-        alt=""
+        imageUrl={imageOption.data.label}
       />
       {imageOption.label}
     </div>

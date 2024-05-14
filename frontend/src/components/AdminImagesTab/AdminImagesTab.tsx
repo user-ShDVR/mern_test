@@ -3,6 +3,7 @@ import React from "react";
 import { Button, Tag, Typography, message } from "antd";
 
 import styles from "components/AdminPanel/AdminPanelTab.module.scss";
+import { ImageInCard } from "components/ImageInCard/ImageInCard";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
 import { Spinner } from "components/Spinner/Spinner";
 
@@ -16,7 +17,6 @@ import { IMAGES_COUNT_IN_ADMIN_PANEL_PAGE } from "constants/images-constants";
 import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
 
 import { getDeclination } from "utils/get-declination";
-import { getImageUrl } from "utils/get-image-url";
 
 import { IImage } from "types/IImage";
 
@@ -90,7 +90,7 @@ export const AdminImagesTab = () => {
         {imagesData?.images.map((image: IImage) => (
           <ShadowCard
             key={image.id}
-            cover={<img src={getImageUrl(image.filename)} />}
+            cover={<ImageInCard imageUrl={image.filename} />}
           >
             <Button
               className={styles.entityCardDeleteButton}

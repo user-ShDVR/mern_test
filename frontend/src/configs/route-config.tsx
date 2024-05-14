@@ -8,6 +8,7 @@ import { CatalogPage } from "pages/CatalogPage";
 import { CertainProductByIdPage } from "pages/CertainProductByIdPage";
 import { ForbiddenPage } from "pages/ForbiddenPage";
 import { MainPage } from "pages/MainPage";
+import { NotAuthorizedPage } from "pages/NotAuthorizedPage";
 import { OrdersPage } from "pages/OrdersPage";
 
 import { LazyLoadChunk } from "components/LazyLoadChunk/LazyLoadChunk";
@@ -28,6 +29,7 @@ export enum AppRoutes {
   ORDERS = "orders",
   ADMIN_PANEL = "admin_panel",
   FORBIDDEN = "forbidden",
+  NOT_AUTHORIZED = "not_authorized",
 }
 
 export const RouterPath: Record<AppRoutes, string> = {
@@ -41,6 +43,7 @@ export const RouterPath: Record<AppRoutes, string> = {
   [AppRoutes.ORDERS]: "/orders",
   [AppRoutes.ADMIN_PANEL]: "/admin_panel",
   [AppRoutes.FORBIDDEN]: "/forbidden",
+  [AppRoutes.NOT_AUTHORIZED]: "/not_authorized",
 };
 
 export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
@@ -100,6 +103,7 @@ export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
         <CartPage />
       </LazyLoadChunk>
     ),
+    authOnly: true,
   },
   [AppRoutes.ORDERS]: {
     path: RouterPath.orders,
@@ -124,6 +128,15 @@ export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
     element: (
       <LazyLoadChunk>
         <ForbiddenPage />
+      </LazyLoadChunk>
+    ),
+    authOnly: true,
+  },
+  [AppRoutes.NOT_AUTHORIZED]: {
+    path: RouterPath.not_authorized,
+    element: (
+      <LazyLoadChunk>
+        <NotAuthorizedPage />
       </LazyLoadChunk>
     ),
   },

@@ -9,6 +9,7 @@ const pathTranslations: Record<string, string> = {
   orders: "Заказы",
   admin_panel: "Админ-панель",
   forbidden: "Нет доступа к странице",
+  not_authorized: "Не авторизован",
   wine: "Вино",
   cognac: "Коньяк",
   sparkling_wine: "Игристое вино",

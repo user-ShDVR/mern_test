@@ -3,6 +3,7 @@ import React from "react";
 import { Button, Table, Tag, Typography, message } from "antd";
 
 import styles from "components/AdminPanel/AdminPanelTab.module.scss";
+import { ImageInCard } from "components/ImageInCard/ImageInCard";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
 import { Spinner } from "components/Spinner/Spinner";
 
@@ -26,7 +27,6 @@ import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
 import { useSearchProducts } from "hooks/products/use-search-products";
 
 import { getDeclination } from "utils/get-declination";
-import { getImageUrl } from "utils/get-image-url";
 
 import { IProduct } from "types/IProduct";
 
@@ -144,10 +144,9 @@ export const AdminProductsTab = () => {
 
             <p className={styles.entityField}>
               Изображение:
-              <img
+              <ImageInCard
                 className={styles.entityImage}
-                src={getImageUrl(product.image.filename)}
-                alt=""
+                imageUrl={product.image.filename}
               />
             </p>
 
