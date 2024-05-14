@@ -1,16 +1,16 @@
 import { Form, Input } from "antd";
 
-import { DEFAULT_VALIDATE_MESSAGE } from "constants/general-constants";
 import {
-  profileFieldsDataIndexes,
-  profileFieldsTitles,
-} from "constants/profile-constants";
+  accountFieldsDataIndexes,
+  accountFieldsTitles,
+} from "constants/account-constants";
+import { DEFAULT_VALIDATE_MESSAGE } from "constants/general-constants";
 
 export const useGetRegisterFields = () => {
   const registerFields = [
     {
-      label: profileFieldsTitles.name,
-      name: profileFieldsDataIndexes.name,
+      label: accountFieldsTitles.name,
+      name: accountFieldsDataIndexes.name,
       rules: [
         {
           required: true,
@@ -20,8 +20,8 @@ export const useGetRegisterFields = () => {
       node: <Input />,
     },
     {
-      label: profileFieldsTitles.surname,
-      name: profileFieldsDataIndexes.surname,
+      label: accountFieldsTitles.surname,
+      name: accountFieldsDataIndexes.surname,
       rules: [
         {
           required: true,
@@ -31,8 +31,8 @@ export const useGetRegisterFields = () => {
       node: <Input />,
     },
     {
-      label: profileFieldsTitles.lastname,
-      name: profileFieldsDataIndexes.lastname,
+      label: accountFieldsTitles.lastname,
+      name: accountFieldsDataIndexes.lastname,
       rules: [
         {
           required: true,
@@ -42,8 +42,8 @@ export const useGetRegisterFields = () => {
       node: <Input />,
     },
     {
-      label: profileFieldsTitles.email,
-      name: profileFieldsDataIndexes.email,
+      label: accountFieldsTitles.email,
+      name: accountFieldsDataIndexes.email,
       rules: [
         {
           required: true,
@@ -53,8 +53,8 @@ export const useGetRegisterFields = () => {
       node: <Input />,
     },
     {
-      label: profileFieldsTitles.password,
-      name: profileFieldsDataIndexes.password,
+      label: accountFieldsTitles.password,
+      name: accountFieldsDataIndexes.password,
       rules: [
         {
           required: true,

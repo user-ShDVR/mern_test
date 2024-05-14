@@ -15,6 +15,7 @@ export const usersApi = createApi({
     baseUrl: import.meta.env.VITE_BASE_URL,
     credentials: "include",
   }),
+  tagTypes: ["Users"],
   endpoints: (build) => ({
     addUsers: build.mutation<unknown, IAddUserRequest>({
       query: (body) => ({
@@ -22,6 +23,7 @@ export const usersApi = createApi({
         method: "POST",
         body: { ...body },
       }),
+      invalidatesTags: ["Users"],
     }),
 
     getUsers: build.query<IUserResponse, IGetUsersRequest>({
@@ -29,10 +31,12 @@ export const usersApi = createApi({
         url: `/users`,
         params: { page: body.page, limit: body.limit },
       }),
+      providesTags: ["Users"],
     }),
 
     getCertainUsers: build.query<unknown, IGetCertainUsersRequest>({
       query: (body) => ({ url: `/users/${body.id}` }),
+      providesTags: ["Users"],
     }),
 
     editUsers: build.mutation<unknown, IEditUsersRequest>({
@@ -41,10 +45,12 @@ export const usersApi = createApi({
         method: "PATCH",
         body: { ...body },
       }),
+      invalidatesTags: ["Users"],
     }),
 
     deleteUsers: build.mutation<unknown, IDeleteUsersRequest>({
       query: (body) => ({ url: `/users/${body.id}`, method: "DELETE" }),
+      invalidatesTags: ["Users"],
     }),
   }),
 });

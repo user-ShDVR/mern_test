@@ -1,4 +1,4 @@
-export const profileFieldsTitles = {
+export const accountFieldsTitles = {
   name: "Имя",
   surname: "Фамилия",
   lastname: "Отчество",
@@ -6,7 +6,7 @@ export const profileFieldsTitles = {
   password: "Пароль",
 };
 
-export const profileFieldsDataIndexes = {
+export const accountFieldsDataIndexes = {
   name: "name",
   surname: "surname",
   lastname: "lastname",

@@ -43,11 +43,21 @@ export const DropdownUser = () => {
     },
     {
       label: (
+        <Link to={RouterPath.account}>
+          <Button type="link" block>
+            <Typography.Text>Аккаунт</Typography.Text>
+          </Button>
+        </Link>
+      ),
+      key: "1",
+    },
+    {
+      label: (
         <Button type="link" block onClick={handleLogout}>
           <Typography.Text type="danger">Выйти</Typography.Text>
         </Button>
       ),
-      key: "1",
+      key: "2",
     },
   ] as TDropdownItems[];
 

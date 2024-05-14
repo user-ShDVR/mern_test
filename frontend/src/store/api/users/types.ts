@@ -10,7 +10,7 @@ export interface IAddUserRequest {
 }
 
 export interface IEditUsersRequest {
-  id?: string;
+  id?: number;
   email?: string;
   hash?: string;
   salt?: string;

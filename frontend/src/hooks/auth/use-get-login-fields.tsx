@@ -1,16 +1,16 @@
 import { Form, Input } from "antd";
 
-import { DEFAULT_VALIDATE_MESSAGE } from "constants/general-constants";
 import {
-  profileFieldsDataIndexes,
-  profileFieldsTitles,
-} from "constants/profile-constants";
+  accountFieldsDataIndexes,
+  accountFieldsTitles,
+} from "constants/account-constants";
+import { DEFAULT_VALIDATE_MESSAGE } from "constants/general-constants";
 
 export const useGetLoginFields = () => {
   const loginFields = [
     {
-      label: profileFieldsTitles.email,
-      name: profileFieldsDataIndexes.email,
+      label: accountFieldsTitles.email,
+      name: accountFieldsDataIndexes.email,
       rules: [
         {
           required: true,
@@ -20,8 +20,8 @@ export const useGetLoginFields = () => {
       node: <Input />,
     },
     {
-      label: profileFieldsTitles.password,
-      name: profileFieldsDataIndexes.password,
+      label: accountFieldsTitles.password,
+      name: accountFieldsDataIndexes.password,
       rules: [
         {
           required: true,
