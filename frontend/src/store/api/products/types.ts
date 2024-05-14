@@ -1,9 +1,10 @@
+import { ICharacteristicsInfoRow } from "types/ICharacteristicsInfoRow";
 import { IProduct } from "types/IProduct";
 
 export type IAddProductsRequest = {
   name: string;
   description: string;
-  characteristics: string[];
+  characteristics: ICharacteristicsInfoRow[];
   price: number;
   image_id: number;
   type_id: number;
@@ -35,7 +36,7 @@ export type IEditProductsRequest = {
   id: number;
   name: string;
   description: string;
-  characteristics: string[];
+  characteristics: ICharacteristicsInfoRow[];
   price: number;
   image_id: number;
   type_id: number;

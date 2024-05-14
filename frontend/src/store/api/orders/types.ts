@@ -1,10 +1,16 @@
-import { IOrder, IOrderProducts } from "types/IOrder";
+import { IOrder } from "types/IOrder";
 
 export interface IAddOrderRequest {
   user_id: number | undefined;
   quantity: number;
   summary: number;
-  products: IOrderProducts[];
+  products: IOrderProductss[];
+  address: string;
+}
+
+export interface IOrderProductss {
+  product_id: number;
+  quantity: number;
 }
 
 export interface IGetOrdersRequest {

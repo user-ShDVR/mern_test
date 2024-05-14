@@ -39,7 +39,7 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
 
   const onFinishAddOrder = async (formValues: IAdressFields) => {
     const orderProducts = products?.map((product) => ({
-      productId: product.product_id,
+      product_id: product.product_id,
       quantity: product.quantity,
     }));
 
@@ -50,7 +50,7 @@ export const ArrangeOrderModal = (props: IArrangeOrderModalProps) => {
       quantity: productsCount,
       summary: resultPriceCount,
       products: orderProducts,
-      address,
+      address: address,
     };
 
     try {
