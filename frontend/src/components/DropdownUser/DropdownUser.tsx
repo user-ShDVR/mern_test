@@ -72,6 +72,7 @@ export const DropdownUser = () => {
           key={userData.name}
           menu={{ items: dropdownItems }}
           placement="bottom"
+          trigger={["click"]}
         >
           <div className={styles.dropdownWrapper}>
             <Avatar>{userData.name.slice(0, 2)}</Avatar>
