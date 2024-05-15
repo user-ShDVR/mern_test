@@ -75,6 +75,14 @@ export const Navbar = () => {
   return (
     <>
       <div className={styles.navbarWrapper}>
+        <Link to={RouterPath.main}>
+          <img
+            className={styles.logo}
+            src="https://i.ibb.co/CnrWQbF/image.png"
+            alt=""
+          />
+        </Link>
+
         <Button
           className={styles.openMenuDrawerButton}
           type="primary"
