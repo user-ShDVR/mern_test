@@ -3,9 +3,10 @@ import {
   ArrowUpOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, Tooltip } from "antd";
 
 import { ECartActions, useCartActions } from "hooks/cart/use-cart-actions";
+import { useGetUser } from "hooks/user/use-get-user";
 
 import { TButtonEvent } from "types/IProduct";
 
@@ -15,6 +16,8 @@ interface ICartButtonsProps {
 
 export const CartButtons = (props: ICartButtonsProps) => {
   const { productId } = props;
+
+  const { userData } = useGetUser();
 
   const { handleActionCart, getIsProductInCart } = useCartActions();
 
@@ -35,14 +38,23 @@ export const CartButtons = (props: ICartButtonsProps) => {
   };
 
   return !getIsProductInCart(productId) ? (
-    <Button
-      type="primary"
-      onClick={(event) => handleAddToCart(event as unknown as TButtonEvent)}
-      block
+    <Tooltip
+      title={
+        !userData
+          ? "Добавлять товары в корзину может только авторизованный пользователь"
+          : ""
+      }
     >
-      <ArrowDownOutlined />
-      <ShoppingCartOutlined /> В корзину
-    </Button>
+      <Button
+        type="primary"
+        onClick={(event) => handleAddToCart(event as unknown as TButtonEvent)}
+        disabled={!userData}
+        block
+      >
+        <ArrowDownOutlined />
+        <ShoppingCartOutlined /> В корзину
+      </Button>
+    </Tooltip>
   ) : (
     <Button
       onClick={(event) =>
