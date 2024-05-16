@@ -15,6 +15,7 @@ import { LazyLoadChunk } from "components/LazyLoadChunk/LazyLoadChunk";
 
 export type TAppRouteProps = RouteProps & {
   authOnly?: boolean;
+  adminOnly?: boolean;
   element: JSX.Element;
 };
 
@@ -122,6 +123,7 @@ export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
       </LazyLoadChunk>
     ),
     authOnly: true,
+    adminOnly: true,
   },
   [AppRoutes.FORBIDDEN]: {
     path: RouterPath.forbidden,

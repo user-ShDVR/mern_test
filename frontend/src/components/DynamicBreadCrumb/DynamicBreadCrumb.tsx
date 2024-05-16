@@ -14,10 +14,16 @@ const pathTranslations: Record<string, string> = {
   wine: "Вино",
   cognac: "Коньяк",
   sparkling_wine: "Игристое вино",
-  whisky: "Виски",
+  whiskey: "Виски",
   brandy: "Бренди",
   beer: "Пиво",
   liquor: "Ликер",
+  Snacks: "Снеки",
+  Fish: "Рыба",
+  Meatsnacks: "Закуски",
+  Cheese: "Сыр",
+  Products: "Продукты на каждый день",
+  Beer: "Разливные напитки",
 };
 
 export const DynamicBreadCrumb = () => {
