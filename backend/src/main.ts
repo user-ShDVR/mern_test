@@ -13,7 +13,11 @@ async function bootstrap() {
     // production port
     // origin: ['http://localhost:4173'],
     // development port
-    origin: ['http://localhost:5173'],
+
+    // Frontend Mac
+    origin: ['http://127.0.0.1:5173'],
+    // Frontend Winfows
+    // origin: ['http://localhost:5173'],
     credentials: true,
   });
 
