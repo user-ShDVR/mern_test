@@ -1,39 +1,43 @@
-import { Card, Typography } from "antd";
+import { Card, Empty, Pagination, Typography } from "antd";
 import { Link } from "react-router-dom";
 
-import { EmptyMessage } from "components/EmptyMessage/EmptyMessage";
 import { ImageInCard } from "components/ImageInCard/ImageInCard";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
 
 import { useGetTypesQuery } from "store/api/types/types-api";
 
-import {
-  DEFAULT_TYPES_LIMIT_IN_CATALOG_PAGE,
-  TYPES_COUNT_IN_CATALOG_PAGE,
-} from "constants/types-constants";
+import { DEFAULT_PAGE_SIZE } from "constants/general-constants";
 
-import { useActions } from "hooks/general/use-actions";
-import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
+import { useContexts } from "hooks/general/use-contexts";
 
 import { IType } from "types/IType";
 
 import styles from "./Catalog.module.scss";
 
 export const Catalog = () => {
-  const { setCategoryTypeName, setCategoryTypeUrl } = useActions();
-  const { currentPage, PaginationBlock } = useGetPaginationBlock();
+  const {
+    currentPageContext: { currentPage, setCurrentPage },
+    catalogCategoryContext: {
+      setCatalogCategoryTypeName,
+      setCatalogCategoryTypeUrl,
+    },
+  } = useContexts();
 
   const { data: typesData } = useGetTypesQuery({
     page: currentPage,
-    limit: DEFAULT_TYPES_LIMIT_IN_CATALOG_PAGE,
+    limit: DEFAULT_PAGE_SIZE,
   });
 
   const handleSetCategoryInfo = (catalogElement: IType) => {
-    setCategoryTypeName(catalogElement.name);
-    setCategoryTypeUrl(catalogElement.url);
+    setCatalogCategoryTypeName(catalogElement.name);
+    setCatalogCategoryTypeUrl(catalogElement.url);
   };
 
   const isEmptyTypesData = typesData?.types?.length === 0;
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <>
@@ -59,12 +63,15 @@ export const Catalog = () => {
         })}
       </div>
 
-      {isEmptyTypesData && <EmptyMessage description="Категории не найдены" />}
+      {isEmptyTypesData && <Empty description="Категории не найдены." />}
 
       {!isEmptyTypesData && (
-        <PaginationBlock
-          totalCount={typesData?.totalCount}
-          countElementsOnPage={TYPES_COUNT_IN_CATALOG_PAGE}
+        <Pagination
+          className={styles.catalogPaginationWrapper}
+          pageSize={DEFAULT_PAGE_SIZE}
+          total={typesData?.totalCount}
+          onChange={handlePageChange}
+          current={currentPage}
         />
       )}
     </>

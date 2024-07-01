@@ -1,12 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import {
-  IAddUserRequest,
-  IDeleteUsersRequest,
   IEditUsersRequest,
-  IGetCertainUsersRequest,
   IGetUsersRequest,
-  IUserResponse,
+  IGetUsersResponse,
+  TEditUsersResponse,
 } from "./types";
 
 export const usersApi = createApi({
@@ -17,48 +15,22 @@ export const usersApi = createApi({
   }),
   tagTypes: ["Users"],
   endpoints: (build) => ({
-    addUsers: build.mutation<unknown, IAddUserRequest>({
+    getUsers: build.query<IGetUsersResponse, IGetUsersRequest>({
       query: (body) => ({
-        url: `/users`,
-        method: "POST",
-        body: { ...body },
-      }),
-      invalidatesTags: ["Users"],
-    }),
-
-    getUsers: build.query<IUserResponse, IGetUsersRequest>({
-      query: (body) => ({
-        url: `/users`,
-        params: { page: body.page, limit: body.limit },
+        url: `/users?page=${body.page}&limit=${body.limit}`,
       }),
       providesTags: ["Users"],
     }),
 
-    getCertainUsers: build.query<unknown, IGetCertainUsersRequest>({
-      query: (body) => ({ url: `/users/${body.id}` }),
-      providesTags: ["Users"],
-    }),
-
-    editUsers: build.mutation<unknown, IEditUsersRequest>({
+    editUsers: build.mutation<TEditUsersResponse, IEditUsersRequest>({
       query: (body) => ({
         url: `/users/${body.id}`,
         method: "PATCH",
-        body: { ...body },
+        body,
       }),
-      invalidatesTags: ["Users"],
-    }),
-
-    deleteUsers: build.mutation<unknown, IDeleteUsersRequest>({
-      query: (body) => ({ url: `/users/${body.id}`, method: "DELETE" }),
       invalidatesTags: ["Users"],
     }),
   }),
 });
 
-export const {
-  useAddUsersMutation,
-  useGetUsersQuery,
-  useGetCertainUsersQuery,
-  useEditUsersMutation,
-  useDeleteUsersMutation,
-} = usersApi;
+export const { useGetUsersQuery, useEditUsersMutation } = usersApi;

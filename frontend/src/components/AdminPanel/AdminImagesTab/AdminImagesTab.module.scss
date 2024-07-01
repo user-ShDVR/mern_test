@@ -1,0 +1,25 @@
+.adminImagesTabTitle {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.adminImagesTabAddImageButton {
+  margin-bottom: 20px;
+}
+
+.adminImagesTabImageWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.adminImagesTabDeleteImageButton {
+  margin-bottom: 20px;
+}
+
+.adminImagesTabPaginationWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}

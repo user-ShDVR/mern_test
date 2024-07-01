@@ -1,6 +1,3 @@
-export const DEFAULT_ORDER_LIMIT_IN_ORDERS_PAGE = 3;
-export const ORDERS_COUNT_IN_ADMIN_PANEL_PAGE = 4;
-
 export const addOrderDeliveryLabels = {
   locality: "Населенный пункт",
   street: "Улица",
@@ -65,4 +62,36 @@ export const adminOrderStatusOptions = [
 export const adminOrderStatuses = {
   paymentExpect: "Ожидается оплата",
   paid: "Оплачен",
+};
+
+export const ordersTableTitles = {
+  id: "ID",
+  address: "Адрес",
+  quantity: "Количество товара",
+  created: "Заказ оформлен",
+  status: "Статус",
+  summary: "Сумма заказа",
+  order_products: "Список заказанных товаров:",
+};
+
+export const ordersTableDataIndexes = {
+  id: "id",
+  address: "address",
+  quantity: "quantity",
+  created: "created",
+  status: "status",
+  summary: "summary",
+  order_products: "order_products",
+};
+
+export const ordersAdminTableTitles = {
+  id: "ID",
+  status: "Статус заказа",
+  actions: "Действия",
+};
+
+export const ordersAdminTableDataIndexes = {
+  id: "id",
+  status: "status",
+  actionsKey: "actionsKey",
 };

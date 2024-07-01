@@ -1,4 +1,4 @@
-import { CatalogItem } from "components/CatalogItem/CatalogItem";
+import { CatalogItem } from "components/Catalog/CatalogItem/CatalogItem";
 
 const CatalogItemPage = () => {
   return <CatalogItem />;

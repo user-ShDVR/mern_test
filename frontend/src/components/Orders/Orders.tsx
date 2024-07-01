@@ -1,125 +1,52 @@
-import { Card, Tag, Typography } from "antd";
-
-import { EmptyMessage } from "components/EmptyMessage/EmptyMessage";
-import { ImageInCard } from "components/ImageInCard/ImageInCard";
-import { ShadowCard } from "components/ShadowCard/ShadowCard";
-import { Spinner } from "components/Spinner/Spinner";
+import { Empty, Pagination, Spin, Typography } from "antd";
 
 import { useGetOrdersQuery } from "store/api/orders/orders-api";
 
-import {
-  DEFAULT_ORDER_LIMIT_IN_ORDERS_PAGE,
-  adminOrderStatuses,
-} from "constants/order-constants";
-
-import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
-import { useGetUser } from "hooks/user/use-get-user";
-
-import { formattedDate } from "utils/formatted-date";
+import { useContexts } from "hooks/general/use-contexts";
+import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
 import styles from "./Orders.module.scss";
+import { OrdersTable } from "./OrdersTable/OrdersTable";
 
 export const Orders = () => {
-  const { currentPage, PaginationBlock } = useGetPaginationBlock();
+  const { authUserData } = useGetAuthUser();
 
-  const { userData } = useGetUser();
+  const {
+    currentPageContext: { currentPage, setCurrentPage },
+  } = useContexts();
 
   const { data: ordersData, isLoading: isOrdersDataLoading } =
     useGetOrdersQuery({
-      id: userData?.id,
+      id: authUserData?.id,
       page: currentPage,
-      limit: DEFAULT_ORDER_LIMIT_IN_ORDERS_PAGE,
+      limit: 7,
     });
 
   const isEmptyOrdersData = ordersData?.orders?.length === 0;
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <>
       <Typography.Title>Заказы</Typography.Title>
 
       {isOrdersDataLoading ? (
-        <Spinner />
+        <Spin size="large" />
       ) : (
-        <div className={styles.orderWrapper}>
-          {ordersData?.orders?.map((order) => (
-            <div>
-              <Typography.Text>
-                Заказ оформлен: <b>{formattedDate(order.created)}</b>
-              </Typography.Text>
-
-              <div className={styles.orderDigitsInfoWrapper}>
-                <Typography.Text>
-                  Идентификатор заказа: <b>{order.id}</b>
-                </Typography.Text>
-                —
-                <Typography.Text>
-                  Количество товара: <b>{order.quantity}</b>
-                </Typography.Text>
-                —
-                <Typography.Text>
-                  Сумма заказа: <b>{order.summary} ₽</b>
-                </Typography.Text>
-              </div>
-
-              <div className={styles.orderStatusWrapper}>
-                <Typography.Text>Статус:</Typography.Text>
-                <Tag
-                  bordered={false}
-                  color={
-                    order.status === adminOrderStatuses.paymentExpect
-                      ? "warning"
-                      : "success"
-                  }
-                >
-                  {order.status}
-                </Tag>
-              </div>
-
-              <Typography.Text className={styles.orderTitle}>
-                <b>Список заказанных товаров:</b>
-              </Typography.Text>
-
-              <div className={styles.orderProductsScrollLine}>
-                <div className={styles.orderProductsListWrapper} key={order.id}>
-                  {order.order_products?.map((product) => (
-                    <ShadowCard
-                      className={styles.orderProductWrapper}
-                      key={product.product.id}
-                      cover={
-                        <ImageInCard
-                          imageUrl={product.product.image.filename}
-                        />
-                      }
-                    >
-                      <Card.Meta
-                        title={`${product.product.price} ₽ (В количестве ${product.quantity})`}
-                      />
-
-                      <Typography.Text className={styles.orderProductName}>
-                        {product.product.name}
-                      </Typography.Text>
-
-                      <Typography.Text
-                        className={styles.orderProductDescription}
-                      >
-                        {product.product.description}
-                      </Typography.Text>
-                    </ShadowCard>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <OrdersTable ordersData={ordersData?.orders ?? []} />
       )}
 
-      {isEmptyOrdersData && <EmptyMessage description="Заказы не найдены" />}
+      {isEmptyOrdersData && <Empty description="Заказы не найдены." />}
 
       {!isEmptyOrdersData && (
-        <PaginationBlock
-          countElementsOnPage={DEFAULT_ORDER_LIMIT_IN_ORDERS_PAGE}
-          totalCount={ordersData?.totalCount}
-          marginTop="5vh"
+        <Pagination
+          className={styles.ordersPaginationWrapper}
+          pageSize={7}
+          total={ordersData?.totalCount}
+          onChange={handlePageChange}
+          current={currentPage}
         />
       )}
     </>

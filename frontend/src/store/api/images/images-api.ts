@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import {
-  IAddImagesRequest,
   IDeleteImagesRequest,
+  TGetImagesRequest,
   IGetImagesResponse,
+  TDeleteImagesResponse,
 } from "./types";
 
 export const imagesApi = createApi({
@@ -14,22 +15,12 @@ export const imagesApi = createApi({
   }),
   tagTypes: ["Images"],
   endpoints: (build) => ({
-    getImages: build.query<IGetImagesResponse, unknown>({
+    getImages: build.query<IGetImagesResponse, TGetImagesRequest>({
       query: () => ({ url: "/images" }),
       providesTags: ["Images"],
     }),
 
-    addImages: build.mutation<unknown, IAddImagesRequest>({
-      query: (body) => ({
-        url: "/images",
-        method: "POST",
-        body: { ...body },
-        formData: true,
-      }),
-      invalidatesTags: ["Images"],
-    }),
-
-    deleteImages: build.mutation<unknown, IDeleteImagesRequest>({
+    deleteImages: build.mutation<TDeleteImagesResponse, IDeleteImagesRequest>({
       query: (body) => ({
         url: `/images/${body.id}`,
         method: "DELETE",
@@ -39,8 +30,4 @@ export const imagesApi = createApi({
   }),
 });
 
-export const {
-  useGetImagesQuery,
-  useAddImagesMutation,
-  useDeleteImagesMutation,
-} = imagesApi;
+export const { useGetImagesQuery, useDeleteImagesMutation } = imagesApi;

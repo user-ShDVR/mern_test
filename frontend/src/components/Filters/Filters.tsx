@@ -3,8 +3,8 @@ import { Button, Form, Typography } from "antd";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
 
 import {
-  DEFAULT_MAX_PRICE_VALUE,
-  DEFAULT_MIN_PRICE_VALUE,
+  DEFAULT_MAX_PRICE,
+  DEFAULT_MIN_PRICE,
 } from "constants/filters-constants";
 
 import { useGetFiltersFields } from "hooks/filters/use-get-filters-fields";
@@ -30,14 +30,13 @@ export const Filters = (props: IFiltersProps) => {
     handleSort,
   } = props;
 
-  const { FormItems } = useGetFiltersFields({ minValue, maxValue, handleSort });
-
   const [form] = Form.useForm();
+  const { FormItems } = useGetFiltersFields({ minValue, maxValue, handleSort });
 
   const handleReset = () => {
     form.resetFields();
-    setMinValue(DEFAULT_MIN_PRICE_VALUE);
-    setMaxValue(DEFAULT_MAX_PRICE_VALUE);
+    setMinValue(DEFAULT_MIN_PRICE);
+    setMaxValue(DEFAULT_MAX_PRICE);
   };
 
   return (

@@ -1,0 +1,24 @@
+.orderProductsWrapper {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.orderProductWrapper {
+  display: flex;
+  gap: 10px;
+  border-right: 2px solid #1677FF;
+  padding-right: 10px;
+}
+
+.orderProductImage {
+  width: 80px;
+  border-radius: 5px;
+}
+
+.orderProductTextInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}

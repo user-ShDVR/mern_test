@@ -1,10 +1,3 @@
-export const TYPES_COUNT_IN_CATALOG_PAGE = 4;
-export const TYPES_COUNT_IN_ADMIN_PANEL_PAGE = 4;
-
-export const DEFAULT_TYPES_CURRENT_PAGE_NUMBER_IN_ADMIN_PANEL = 1;
-export const DEFAULT_TYPES_LIMIT_IN_CATALOG_PAGE = 100000;
-export const DEFAULT_TYPES_LIMIT_IN_ADMIN_PANEL_PAGE = 100000;
-
 export const adminTypeFieldsLabels = {
   image: "Изображение категории",
   name: "Название категории",
@@ -15,4 +8,20 @@ export const adminTypeFieldsDataIndexes = {
   image_id: "image_id",
   name: "name",
   url: "url",
+};
+
+export const typesAdminTableTitles = {
+  id: "ID",
+  image: "Изображение",
+  name: "Название",
+  url: "Доступ по URL",
+  actions: "Действия",
+};
+
+export const typesAdminTableDataIndexes = {
+  id: "id",
+  image: "image",
+  name: "name",
+  url: "url",
+  actionsKey: "actionsKey",
 };

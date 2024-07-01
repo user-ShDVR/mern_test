@@ -7,6 +7,10 @@ import {
   IGetCertainTypesRequest,
   IGetTypesRequest,
   IGetTypesResponse,
+  TAddTypesResponse,
+  TDeleteTypesResponse,
+  TEditTypesResponse,
+  TGetCertainTypesResponse,
 } from "./types";
 
 export const typesApi = createApi({
@@ -17,38 +21,40 @@ export const typesApi = createApi({
   }),
   tagTypes: ["Types"],
   endpoints: (build) => ({
-    addTypes: build.mutation<unknown, IAddTypesRequest>({
+    addTypes: build.mutation<TAddTypesResponse, IAddTypesRequest>({
       query: (body) => ({
         url: "/types",
         method: "POST",
-        body: { ...body },
+        body,
       }),
       invalidatesTags: ["Types"],
     }),
 
     getTypes: build.query<IGetTypesResponse, IGetTypesRequest>({
       query: (body) => ({
-        url: "/types",
-        params: { page: body.page, limit: body.limit },
+        url: `/types?page=${body.page}&limit=${body.limit}`,
       }),
       providesTags: ["Types"],
     }),
 
-    getCertainTypes: build.query<unknown, IGetCertainTypesRequest>({
+    getCertainTypes: build.query<
+      TGetCertainTypesResponse,
+      IGetCertainTypesRequest
+    >({
       query: (body) => ({ url: `/types/${body.id}` }),
       providesTags: ["Types"],
     }),
 
-    editTypes: build.mutation<unknown, IEditTypesRequest>({
+    editTypes: build.mutation<TEditTypesResponse, IEditTypesRequest>({
       query: (body) => ({
         url: `/types/${body.id}`,
         method: "PATCH",
-        body: { ...body },
+        body,
       }),
       invalidatesTags: ["Types"],
     }),
 
-    deleteTypes: build.mutation<unknown, IDeleteTypesRequest>({
+    deleteTypes: build.mutation<TDeleteTypesResponse, IDeleteTypesRequest>({
       query: (body) => ({ url: `/types/${body.id}`, method: "DELETE" }),
       invalidatesTags: ["Types"],
     }),

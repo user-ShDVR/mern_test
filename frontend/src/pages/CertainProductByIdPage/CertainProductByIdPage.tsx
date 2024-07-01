@@ -1,4 +1,4 @@
-import { CertainProductById } from "components/CertainProductById/CertainProductById";
+import { CertainProductById } from "components/ProductCardsList/CertainProductById/CertainProductById";
 
 const CertainProductByIdPage = () => {
   return <CertainProductById />;

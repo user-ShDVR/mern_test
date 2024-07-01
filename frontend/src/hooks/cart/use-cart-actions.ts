@@ -10,7 +10,7 @@ import {
   useEditCartsProductsMutation,
 } from "store/api/cartsProducts/carts-products-api";
 
-import { useGetUser } from "hooks/user/use-get-user";
+import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
 import { TButtonEvent } from "types/IProduct";
 
@@ -29,10 +29,10 @@ interface ICartActionArgs {
 }
 
 export const useCartActions = () => {
-  const { userData } = useGetUser();
+  const { authUserData } = useGetAuthUser();
 
   const { data: cartProductsData, refetch: refetchCartProductsData } =
-    useGetCertainCartsQuery({ id: userData?.id }, { skip: !userData });
+    useGetCertainCartsQuery({ id: authUserData?.id }, { skip: !authUserData });
 
   const [addToCart] = useAddCartsProductsMutation();
   const [deleteFromCart] = useDeleteCartsProductsMutation();
@@ -53,7 +53,7 @@ export const useCartActions = () => {
     if (action === ECartActions.ADD) {
       if (!getIsProductInCart(productId)) {
         await addToCart({
-          cart_id: userData?.id,
+          cart_id: authUserData?.id,
           product_id: productId,
           quantity: 1,
         });
@@ -67,7 +67,7 @@ export const useCartActions = () => {
     if (action === ECartActions.DELETE) {
       if (getIsProductInCart(productId)) {
         await deleteFromCart({
-          user_id: userData?.id,
+          user_id: authUserData?.id,
           product_id: productId,
         });
 
@@ -85,7 +85,7 @@ export const useCartActions = () => {
 
     if (action === ECartActions.PLUS) {
       await changeProductQuantity({
-        id: userData?.id,
+        id: authUserData?.id,
         product_id: productId,
         quantity: quantity && quantity + 1,
       });
@@ -93,7 +93,7 @@ export const useCartActions = () => {
 
     if (action === ECartActions.MINUS) {
       await changeProductQuantity({
-        id: userData?.id,
+        id: authUserData?.id,
         product_id: productId,
         quantity: quantity && quantity - 1,
       });
@@ -107,7 +107,7 @@ export const useCartActions = () => {
   };
 
   const handleClearCart = async () => {
-    await clearCart({ id: userData?.id });
+    await clearCart({ id: authUserData?.id });
     refetchCartProductsData();
     message.success("Корзина очищена");
   };

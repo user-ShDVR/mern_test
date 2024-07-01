@@ -2,12 +2,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import {
   IAddProductsRequest,
+  IAddProductsResponse,
   IDeleteProductsRequest,
+  IDeleteProductsResponse,
+  IEditProductResponse,
   IEditProductsRequest,
   IGetCertainProductsRequest,
-  IGetCertainProductsResponse,
   IGetProductsRequest,
   IGetProductsResponse,
+  TGetCertainProductsResponse,
 } from "./types";
 
 export const productsApi = createApi({
@@ -18,11 +21,11 @@ export const productsApi = createApi({
   }),
   tagTypes: ["Products"],
   endpoints: (build) => ({
-    addProducts: build.mutation<unknown, IAddProductsRequest>({
+    addProducts: build.mutation<IAddProductsResponse, IAddProductsRequest>({
       query: (body) => ({
         url: "/products",
         method: "POST",
-        body: { ...body },
+        body,
       }),
       invalidatesTags: ["Products"],
     }),
@@ -35,23 +38,26 @@ export const productsApi = createApi({
     }),
 
     getCertainProducts: build.query<
-      IGetCertainProductsResponse,
+      TGetCertainProductsResponse,
       IGetCertainProductsRequest
     >({
       query: (body) => ({ url: `/products/${body.id}` }),
       providesTags: ["Products"],
     }),
 
-    editProducts: build.mutation<unknown, IEditProductsRequest>({
+    editProducts: build.mutation<IEditProductResponse, IEditProductsRequest>({
       query: (body) => ({
         url: `/products/${body.id}`,
         method: "PATCH",
-        body: { ...body },
+        body,
       }),
       invalidatesTags: ["Products"],
     }),
 
-    deleteProducts: build.mutation<unknown, IDeleteProductsRequest>({
+    deleteProducts: build.mutation<
+      IDeleteProductsResponse,
+      IDeleteProductsRequest
+    >({
       query: (body) => ({
         url: `/products/${body.id}`,
         method: "DELETE",

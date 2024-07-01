@@ -19,6 +19,7 @@
       "configs/*": ["configs/*"],
       "constants/*": ["constants/*"],
       "hooks/*": ["hooks/*"],
+      "providers/*": ["providers/*"],
       "store/*": ["store/*"],
       "types/*": ["types/*"],
       "utils/*": ["utils/*"]

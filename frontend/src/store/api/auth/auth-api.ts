@@ -1,6 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { ISignInFields, ISignUpFields, IUserResponse } from "./types";
+import {
+  TGetAuthUserRequest,
+  TGetAuthUserResponse,
+  TSignInRequest,
+  TSignInResponse,
+  TSignOutRequest,
+  TSignOutResponse,
+  TSignUpRequest,
+  TSignUpResponse,
+} from "./types";
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -10,25 +19,25 @@ export const authApi = createApi({
   }),
   tagTypes: ["Auth"],
   endpoints: (build) => ({
-    signUp: build.mutation<IUserResponse, ISignUpFields>({
+    signUp: build.mutation<TSignUpResponse, TSignUpRequest>({
       query: (body) => ({
         url: "/auth/sign-up",
         method: "POST",
-        body: { ...body },
+        body,
       }),
       invalidatesTags: ["Auth"],
     }),
 
-    signIn: build.mutation<IUserResponse, ISignInFields>({
+    signIn: build.mutation<TSignInResponse, TSignInRequest>({
       query: (body) => ({
         url: "/auth/sign-in",
         method: "POST",
-        body: { ...body },
+        body,
       }),
       invalidatesTags: ["Auth"],
     }),
 
-    signOut: build.mutation<unknown, void>({
+    signOut: build.mutation<TSignOutResponse, TSignOutRequest>({
       query: () => ({ url: "/auth/sign-out", method: "POST" }),
       invalidatesTags: ["Auth"],
       onQueryStarted(_args, { dispatch, queryFulfilled }) {
@@ -38,7 +47,7 @@ export const authApi = createApi({
       },
     }),
 
-    getAuthUser: build.query<ISignUpFields, void>({
+    getAuthUser: build.query<TGetAuthUserResponse, TGetAuthUserRequest>({
       query: () => ({ url: "/auth/session" }),
       providesTags: ["Auth"],
     }),

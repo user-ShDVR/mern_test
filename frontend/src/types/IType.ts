@@ -6,4 +6,5 @@ export interface IType {
   url: string;
   image_id: number;
   image: IImage;
+  key?: string;
 }

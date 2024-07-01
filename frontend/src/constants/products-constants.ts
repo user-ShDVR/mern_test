@@ -1,7 +1,3 @@
-export const PRODUCTS_COUNT_IN_MAIN_PAGE = 4;
-export const PRODUCTS_COUNT_IN_CATALOG_ITEM_PAGE = 4;
-export const PRODUCTS_COUNT_IN_ADMIN_PANEL_PAGE = 4;
-
 export const adminProductCharacteristicsListColumns = [
   {
     dataIndex: "key",
@@ -16,7 +12,7 @@ export const adminProductCharacteristicsDataIndexes = {
   value: "value",
 };
 
-export const emptyCharacteristicsText = "Нет характеристик товара";
+export const emptyCharacteristicsText = "Нет характеристик товара.";
 
 export const adminProductCharacteristicsPlaceholders = {
   key: "Введите поле",
@@ -38,4 +34,26 @@ export const adminProductFieldsDataIndexes = {
   description: "description",
   price: "price",
   type_id: "type_id",
+};
+
+export const productsAdminTableTitles = {
+  id: "ID",
+  image: "Изображение",
+  name: "Название",
+  description: "Описание",
+  price: "Цена в ₽",
+  type: "Категория",
+  characteristics: "Характеристики",
+  actions: "Действия",
+};
+
+export const productsAdminTableDataIndexes = {
+  id: "id",
+  image: "image",
+  name: "name",
+  description: "description",
+  price: "price",
+  type: "type",
+  characteristics: "characteristics",
+  actionsKey: "actionsKey",
 };

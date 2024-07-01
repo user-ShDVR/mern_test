@@ -1,16 +1,16 @@
-import { IOrder } from "types/IOrder";
+import { IOrder, IOrderProducts } from "types/IOrder";
 
+export type IAddOrderResponse = IOrder;
 export interface IAddOrderRequest {
   user_id: number | undefined;
   quantity: number;
   summary: number;
-  products: IOrderProductss[];
+  products: IOrderProducts[];
   address: string;
 }
-
-export interface IOrderProductss {
-  product_id: number;
-  quantity: number;
+export interface IGetOrdersResponse {
+  totalCount: number;
+  orders: IOrder[];
 }
 
 export interface IGetOrdersRequest {
@@ -19,26 +19,22 @@ export interface IGetOrdersRequest {
   limit: number;
 }
 
-export interface IGetOrdersResponse {
+export interface IGetOrdersForAdminResponse {
   totalCount: number;
   orders: IOrder[];
 }
+export interface IGetOrdersForAdminRequest {
+  page: number;
+  limit: number;
+}
 
+export type IEditOrdersResponse = IOrder;
 export interface IEditOrderRequest {
   id: number;
   status: string;
 }
 
-export interface IGetCertainOrdersRequest {
-  page: number;
-  limit: number;
-}
-
-export interface IGetCertainOrdersResponse {
-  totalCount: number;
-  orders: IOrder[];
-}
-
+export type IDeleteOrderResponse = void;
 export interface IDeleteOrderRequest {
   id: number;
 }

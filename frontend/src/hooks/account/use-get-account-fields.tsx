@@ -8,40 +8,40 @@ import {
 import { IUser } from "types/IUser";
 
 interface IUseGetProfileFieldsArgs {
-  userData?: IUser;
+  authUserData?: IUser;
   isEditAccount: boolean;
 }
 
 export const useGetAccountFields = (args: IUseGetProfileFieldsArgs) => {
-  const { userData, isEditAccount } = args;
+  const { authUserData, isEditAccount } = args;
 
   const accountFields = [
     {
       name: accountFieldsDataIndexes.name,
       label: accountFieldsTitles.name,
-      node: <Input defaultValue={userData?.name} disabled={isEditAccount} />,
+      node: <Input defaultValue={authUserData?.name} disabled={isEditAccount} />,
     },
     {
       name: accountFieldsDataIndexes.lastname,
       label: accountFieldsTitles.lastname,
       node: (
-        <Input defaultValue={userData?.lastname} disabled={isEditAccount} />
+        <Input defaultValue={authUserData?.lastname} disabled={isEditAccount} />
       ),
     },
     {
       name: accountFieldsDataIndexes.surname,
       label: accountFieldsTitles.surname,
-      node: <Input defaultValue={userData?.surname} disabled={isEditAccount} />,
+      node: <Input defaultValue={authUserData?.surname} disabled={isEditAccount} />,
     },
     {
       name: accountFieldsDataIndexes.email,
       label: accountFieldsTitles.email,
-      node: <Input defaultValue={userData?.email} disabled={isEditAccount} />,
+      node: <Input defaultValue={authUserData?.email} disabled={isEditAccount} />,
     },
     {
       name: accountFieldsDataIndexes.role,
       label: accountFieldsTitles.role,
-      node: <Input defaultValue={userData?.role} disabled />,
+      node: <Input defaultValue={authUserData?.role} disabled />,
     },
   ];
 

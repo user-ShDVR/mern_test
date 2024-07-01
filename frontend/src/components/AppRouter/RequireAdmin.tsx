@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 
 import { RouterPath } from "configs/route-config";
 
-import { useGetUser } from "hooks/user/use-get-user";
+import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
 interface IRequireAdminProps {
   children: JSX.Element;
@@ -11,13 +11,13 @@ interface IRequireAdminProps {
 export function RequireAdmin(props: IRequireAdminProps) {
   const { children } = props;
 
-  const { userData, isUserDataLoading, isUserAdmin } = useGetUser();
+  const { authUserData, isUserDataLoading, isUserAdmin } = useGetAuthUser();
 
-  if (!isUserDataLoading && userData && !isUserAdmin) {
+  if (!isUserDataLoading && authUserData && !isUserAdmin) {
     return <Navigate to={RouterPath.forbidden} />;
   }
 
-  if (!isUserDataLoading && !userData) {
+  if (!isUserDataLoading && !authUserData) {
     return <Navigate to={RouterPath.not_authorized} />;
   }
 

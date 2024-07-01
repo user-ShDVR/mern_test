@@ -1,21 +1,19 @@
 import React from "react";
 
 import { EditOutlined } from "@ant-design/icons";
-import { Button, Form, Typography, message } from "antd";
-
-import { Spinner } from "components/Spinner/Spinner";
+import { Button, Form, Spin, Typography, message } from "antd";
 
 import { useEditUsersMutation } from "store/api/users/users-api";
 
 import { useGetAccountFields } from "hooks/account/use-get-account-fields";
-import { useGetUser } from "hooks/user/use-get-user";
+import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
 import styles from "./Account.module.scss";
 
 export const Account = () => {
   const [isEditAccount, setIsEditAccount] = React.useState(false);
 
-  const { userData, isUserDataLoading } = useGetUser();
+  const { authUserData, isUserDataLoading } = useGetAuthUser();
 
   const [
     editAccount,
@@ -27,14 +25,14 @@ export const Account = () => {
   ] = useEditUsersMutation();
 
   const { FormItems } = useGetAccountFields({
-    userData,
+    authUserData,
     isEditAccount: !isEditAccount,
   });
 
   const loadedAccountFields = !isUserDataLoading && FormItems;
 
   const handleEditAccount = async (formValues: Record<string, string>) => {
-    await editAccount({ id: userData?.id, ...formValues });
+    await editAccount({ id: authUserData?.id, ...formValues });
   };
 
   React.useEffect(() => {
@@ -59,7 +57,7 @@ export const Account = () => {
       <Typography.Title>Ваш аккаунт</Typography.Title>
 
       {isUserDataLoading ? (
-        <Spinner />
+        <Spin size="large" />
       ) : (
         <Form layout="vertical" onFinish={handleEditAccount}>
           {loadedAccountFields}

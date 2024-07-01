@@ -14,10 +14,7 @@ async function bootstrap() {
     // origin: ['http://localhost:4173'],
     // development port
 
-    // Frontend Mac
-    origin: ['http://127.0.0.1:5173'],
-    // Frontend Winfows
-    // origin: ['http://localhost:5173'],
+    origin: ['http://localhost:5173'],
     credentials: true,
   });
 

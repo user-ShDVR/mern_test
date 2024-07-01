@@ -2,10 +2,13 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import {
   IAddOrderRequest,
+  IAddOrderResponse,
   IDeleteOrderRequest,
+  IDeleteOrderResponse,
   IEditOrderRequest,
-  IGetCertainOrdersRequest,
-  IGetCertainOrdersResponse,
+  IEditOrdersResponse,
+  IGetOrdersForAdminRequest,
+  IGetOrdersForAdminResponse,
   IGetOrdersRequest,
   IGetOrdersResponse,
 } from "./types";
@@ -18,11 +21,11 @@ export const ordersApi = createApi({
   }),
   tagTypes: ["Orders"],
   endpoints: (build) => ({
-    addOrder: build.mutation<unknown, IAddOrderRequest>({
+    addOrder: build.mutation<IAddOrderResponse, IAddOrderRequest>({
       query: (body) => ({
         url: "/orders",
         method: "POST",
-        body: { ...body },
+        body,
       }),
       invalidatesTags: ["Orders"],
     }),
@@ -35,8 +38,8 @@ export const ordersApi = createApi({
     }),
 
     getOrdersForAdmin: build.query<
-      IGetCertainOrdersResponse,
-      IGetCertainOrdersRequest
+      IGetOrdersForAdminResponse,
+      IGetOrdersForAdminRequest
     >({
       query: (body) => ({
         url: `/orders/admin?page=${body.page}&limit=${body.limit}`,
@@ -44,16 +47,16 @@ export const ordersApi = createApi({
       providesTags: ["Orders"],
     }),
 
-    editOrders: build.mutation<unknown, IEditOrderRequest>({
+    editOrders: build.mutation<IEditOrdersResponse, IEditOrderRequest>({
       query: (body) => ({
         url: `/orders/${body.id}`,
         method: "PATCH",
-        body: { ...body },
+        body,
       }),
       invalidatesTags: ["Orders"],
     }),
 
-    deleteOrders: build.mutation<unknown, IDeleteOrderRequest>({
+    deleteOrders: build.mutation<IDeleteOrderResponse, IDeleteOrderRequest>({
       query: (body) => ({
         url: `/orders/${body.id}`,
         method: "DELETE",

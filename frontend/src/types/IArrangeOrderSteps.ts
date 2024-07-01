@@ -1,5 +1,5 @@
-export interface IArrangeOrderSteps {
-  arrangeOrderValues: {
+export interface ICreateOrderSteps {
+  createOrderValues: {
     locality: string;
     street: string;
     house: string;

@@ -16,7 +16,7 @@ interface IUploadButtonProps {
 export const UploadButton = (props: IUploadButtonProps) => {
   const { onCloseAddImageModal } = props;
 
-  const { refetch: refetchImagesData } = useGetImagesQuery(null);
+  const { refetch: refetchImagesData } = useGetImagesQuery();
 
   const [loading, setLoading] = React.useState(false);
   const [imageUrl, setImageUrl] = React.useState<string | null>(null);

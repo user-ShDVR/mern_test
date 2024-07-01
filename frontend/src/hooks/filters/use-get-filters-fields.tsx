@@ -1,9 +1,9 @@
 import { Form, Input, Select } from "antd";
 
 import {
-  DEFAULT_MAX_PRICE_VALUE,
-  DEFAULT_MIN_PRICE_VALUE,
-  DEFAULT_SELECT_SORT_VALUE,
+  DEFAULT_MAX_PRICE,
+  DEFAULT_MIN_PRICE,
+  DEFAULT_SELECT_SORT,
   productsFiltersDataIndexes,
   productsFiltersLabels,
   sortOptions,
@@ -22,18 +22,18 @@ export const useGetFiltersFields = (args: IFiltersFieldsArgs) => {
     {
       name: productsFiltersDataIndexes.from,
       label: productsFiltersLabels.from,
-      node: <Input value={minValue} defaultValue={DEFAULT_MIN_PRICE_VALUE} />,
+      node: <Input value={minValue} defaultValue={DEFAULT_MIN_PRICE} />,
     },
     {
       name: productsFiltersDataIndexes.to,
       label: productsFiltersLabels.to,
-      node: <Input value={maxValue} defaultValue={DEFAULT_MAX_PRICE_VALUE} />,
+      node: <Input value={maxValue} defaultValue={DEFAULT_MAX_PRICE} />,
     },
     {
       label: productsFiltersLabels.sort,
       node: (
         <Select
-          defaultValue={DEFAULT_SELECT_SORT_VALUE}
+          defaultValue={DEFAULT_SELECT_SORT}
           options={sortOptions}
           onChange={handleSort}
         />

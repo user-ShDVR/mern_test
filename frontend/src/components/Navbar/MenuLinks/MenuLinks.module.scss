@@ -1,0 +1,24 @@
+.menuLinksSearchInput {
+  width: 40vw;
+  max-width: 90%;
+}
+
+.menuLinksIconsWrapper {
+  display: flex;
+  align-items: end;
+  gap: 20px;
+}
+
+.menuLinksIconWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.menuLinksIcon {
+  font-size: 20px;
+}

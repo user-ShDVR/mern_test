@@ -1,5 +1,10 @@
 import { IProduct } from "./IProduct";
 
+export interface IOrderProducts {
+  product_id: number;
+  quantity: number;
+}
+
 export interface IOrder {
   id: number;
   user_id: number;
@@ -8,6 +13,8 @@ export interface IOrder {
   order_products: IOrderProducts[];
   created: string;
   status: string;
+  key?: string;
+  address?: string;
 }
 
 export interface IOrderProducts {

@@ -27,7 +27,7 @@ export const useGetAddOrEditTypeFields = (
 
   const isRequired = isEdit ? false : true;
 
-  const { data: imagesData } = useGetImagesQuery(null);
+  const { data: imagesData } = useGetImagesQuery();
 
   const imageOptions = imagesData?.images.map((image) => ({
     label: image.filename,

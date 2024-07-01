@@ -1,10 +1,10 @@
 import { Tabs, Typography } from "antd";
 
-import { AdminImagesTab } from "components/AdminImagesTab/AdminImagesTab";
-import { AdminOrdersTab } from "components/AdminOrdersTab/AdminOrdersTab";
-import { AdminProductsTab } from "components/AdminProductsTab/AdminProductsTab";
-import { AdminTypesTab } from "components/AdminTypesTab/AdminTypesTab";
-import { AdminUsersTab } from "components/AdminUsersTab/AdminUsersTab";
+import { AdminImagesTab } from "components/AdminPanel/AdminImagesTab/AdminImagesTab";
+import { AdminOrdersTab } from "components/AdminPanel/AdminOrdersTab/AdminOrdersTab";
+import { AdminProductsTab } from "components/AdminPanel/AdminProductsTab/AdminProductsTab";
+import { AdminTypesTab } from "components/AdminPanel/AdminTypesTab/AdminTypesTab";
+import { AdminUsersTab } from "components/AdminPanel/AdminUsersTab/AdminUsersTab";
 
 export const AdminPanel = () => {
   const items = [
@@ -20,7 +20,7 @@ export const AdminPanel = () => {
     },
     {
       key: "3",
-      label: "Каталоги товаров",
+      label: "Категории товаров",
       children: <AdminTypesTab />,
     },
     {
@@ -37,7 +37,7 @@ export const AdminPanel = () => {
 
   return (
     <>
-      <Typography.Title>Админ панель</Typography.Title>
+      <Typography.Title>Управление магазином</Typography.Title>
       <Tabs defaultActiveKey="1" items={items} />
     </>
   );

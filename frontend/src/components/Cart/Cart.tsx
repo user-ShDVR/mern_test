@@ -1,9 +1,8 @@
 import React from "react";
 
 import { ClearOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Typography } from "antd";
+import { Button, Empty, Typography } from "antd";
 
-import { EmptyMessage } from "components/EmptyMessage/EmptyMessage";
 import { ImageInCard } from "components/ImageInCard/ImageInCard";
 import { ShadowCard } from "components/ShadowCard/ShadowCard";
 
@@ -13,11 +12,11 @@ import { getDeclination } from "utils/get-declination";
 
 import { IProductChangeQuantity } from "types/IProduct";
 
-import { ArrangeOrderModal } from "./ArrangeOrderModal";
 import styles from "./Cart.module.scss";
+import { CreateOrderModal } from "./CreateOrderModal/CreateOrderModal";
 
 export const Cart = () => {
-  const [isOpenArrangeOrderModal, setIsOpenArrangeOrderModal] =
+  const [isOpenCreateOrderModal, setIsOpenCreateOrderModal] =
     React.useState(false);
 
   const { cartProductsData, handleChangeProductQuantity, handleClearCart } =
@@ -46,12 +45,12 @@ export const Cart = () => {
     return acc + product.product.price * product.quantity;
   }, 0);
 
-  const handleOpenArrangeOrderModal = () => {
-    setIsOpenArrangeOrderModal(true);
+  const handleOpenCreateOrderModal = () => {
+    setIsOpenCreateOrderModal(true);
   };
 
-  const handleCloseArrangeOrderModal = () => {
-    setIsOpenArrangeOrderModal(false);
+  const handleCloseCreateOrderModal = () => {
+    setIsOpenCreateOrderModal(false);
   };
 
   const resultPriceCount = products ? reducedProducts : 0;
@@ -143,23 +142,19 @@ export const Cart = () => {
                 </Typography.Text>
               </div>
 
-              <Button
-                type="primary"
-                onClick={handleOpenArrangeOrderModal}
-                block
-              >
+              <Button type="primary" onClick={handleOpenCreateOrderModal} block>
                 Оформить заказ
               </Button>
             </div>
           </div>
         </>
       ) : (
-        <EmptyMessage description="Корзина пуста" />
+        <Empty description="Корзина пуста." />
       )}
 
-      <ArrangeOrderModal
-        isOpenArrangeOrderModal={isOpenArrangeOrderModal}
-        onCloseArrangeOrderModal={handleCloseArrangeOrderModal}
+      <CreateOrderModal
+        isOpenCreateOrderModal={isOpenCreateOrderModal}
+        onCloseCreateOrderModal={handleCloseCreateOrderModal}
         products={products}
         productsCount={productsCount}
         resultPriceCount={resultPriceCount}

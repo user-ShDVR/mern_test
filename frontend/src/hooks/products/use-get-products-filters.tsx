@@ -3,22 +3,22 @@ import React from "react";
 import { Filters } from "components/Filters/Filters";
 
 import {
-  DEFAULT_MAX_PRICE_VALUE,
-  DEFAULT_MIN_PRICE_VALUE,
-  DEFAULT_PRODUCTS_FILED_SORT_BY,
-  DEFAULT_PRODUCTS_SORT_ORDER,
+  DEFAULT_MAX_PRICE,
+  DEFAULT_MIN_PRICE,
+  DEFAULT_SORT_BY,
+  DEFAULT_SORT_ORDER,
 } from "constants/filters-constants";
 
 export const useGetProductsFilters = () => {
-  const [minValue, setMinValue] = React.useState(DEFAULT_MIN_PRICE_VALUE);
-  const [maxValue, setMaxValue] = React.useState(DEFAULT_MAX_PRICE_VALUE);
+  const [minValue, setMinValue] = React.useState(DEFAULT_MIN_PRICE);
+  const [maxValue, setMaxValue] = React.useState(DEFAULT_MAX_PRICE);
 
-  const [sortOrder, setSortOrder] = React.useState(DEFAULT_PRODUCTS_SORT_ORDER);
-  const [sortBy, setSortBy] = React.useState(DEFAULT_PRODUCTS_FILED_SORT_BY);
+  const [sortOrder, setSortOrder] = React.useState(DEFAULT_SORT_ORDER);
+  const [sortBy, setSortBy] = React.useState(DEFAULT_SORT_BY);
 
   const handleFilter = (values: Record<string, number>) => {
-    setMinValue(values.minValue || DEFAULT_MIN_PRICE_VALUE);
-    setMaxValue(values.maxValue || DEFAULT_MAX_PRICE_VALUE);
+    setMinValue(values.minValue || DEFAULT_MIN_PRICE);
+    setMaxValue(values.maxValue || DEFAULT_MAX_PRICE);
   };
 
   const handleSort = (value: string) => {

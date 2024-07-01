@@ -1,10 +1,10 @@
-export const DEFAULT_MIN_PRICE_VALUE = 1;
-export const DEFAULT_MAX_PRICE_VALUE = 10000000;
+export const DEFAULT_MIN_PRICE = 1;
+export const DEFAULT_MAX_PRICE = 10000000;
 
-export const DEFAULT_PRODUCTS_FILED_SORT_BY = "price";
-export const DEFAULT_PRODUCTS_SORT_ORDER = "asc";
+export const DEFAULT_SORT_BY = "price";
+export const DEFAULT_SORT_ORDER = "asc";
 
-export const DEFAULT_SELECT_SORT_VALUE = "name asc";
+export const DEFAULT_SELECT_SORT = "name asc";
 
 export const productsFiltersLabels = {
   from: "От",

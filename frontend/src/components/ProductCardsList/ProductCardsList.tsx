@@ -1,5 +1,7 @@
-import { EmptyMessage } from "components/EmptyMessage/EmptyMessage";
-import { ProductCard } from "components/ProductCard/ProductCard";
+import { Empty } from "antd";
+
+
+import { ProductCard } from "components/ProductCardsList/ProductCard/ProductCard";
 
 import { IProduct } from "types/IProduct";
 
@@ -15,7 +17,7 @@ export const ProductCardsList = (props: IProductCardsListProps) => {
   return (
     <div className={styles.productsWrapper}>
       {productsData?.length === 0 && (
-        <EmptyMessage description="Товары не найдены" />
+        <Empty description="Товары не найдены." />
       )}
 
       {productsData?.map((product: IProduct) => (

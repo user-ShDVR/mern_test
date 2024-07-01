@@ -1,14 +1,19 @@
-import { ICharacteristicsInfoRow } from "types/ICharacteristicsInfoRow";
-import { IProduct } from "types/IProduct";
+import { IProduct, IProductCharacteristics } from "types/IProduct";
 
+export type IAddProductsResponse = IProduct;
 export type IAddProductsRequest = {
   name: string;
   description: string;
-  characteristics: ICharacteristicsInfoRow[];
+  characteristics: IProductCharacteristics[];
   price: number;
   image_id: number;
   type_id: number;
 };
+
+export interface IGetProductsResponse {
+  products: IProduct[];
+  totalCount: number;
+}
 
 export interface IGetProductsRequest {
   page: number;
@@ -21,27 +26,23 @@ export interface IGetProductsRequest {
   searchValue: string;
 }
 
-export interface IGetProductsResponse {
-  products: IProduct[];
-  totalCount: number;
-}
-
+export type TGetCertainProductsResponse = IProduct;
 export interface IGetCertainProductsRequest {
   id: string | undefined;
 }
 
-export interface IGetCertainProductsResponse extends IProduct {}
-
-export type IEditProductsRequest = {
+export type IEditProductResponse = IProduct;
+export interface IEditProductsRequest {
   id: number;
   name: string;
   description: string;
-  characteristics: ICharacteristicsInfoRow[];
+  characteristics: IProductCharacteristics[];
   price: number;
   image_id: number;
   type_id: number;
-};
+}
 
+export type IDeleteProductsResponse = void;
 export interface IDeleteProductsRequest {
   id: number;
 }

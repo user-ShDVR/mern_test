@@ -1,29 +1,13 @@
-export interface IUserResponse {
-  id?: number;
-  email: string;
-  password: string;
-  surname: string;
-  name: string;
-  lastname: string;
-  role: string;
-}
+import { IUser } from "types/IUser";
 
-export type ISignUpFields = {
-  id?: number;
-  email: string;
-  password: string;
-  surname: string;
-  name: string;
-  lastname: string;
-  role: string;
-};
+export type TSignUpResponse = IUser;
+export type TSignUpRequest = Omit<IUser, "id">;
 
-export type ISignInFields = {
-  id?: number;
-  email: string;
-  password: string;
-  surname: string;
-  name: string;
-  lastname: string;
-  role: string;
-};
+export type TSignInResponse = IUser;
+export type TSignInRequest = Omit<IUser, "id">;
+
+export type TSignOutResponse = void;
+export type TSignOutRequest = void;
+
+export type TGetAuthUserResponse = IUser;
+export type TGetAuthUserRequest = void;

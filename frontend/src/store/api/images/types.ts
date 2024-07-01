@@ -5,10 +5,9 @@ export interface IGetImagesResponse {
   totalCount: number;
 }
 
-export interface IAddImagesRequest {
-  file?: Blob;
-}
+export type TGetImagesRequest = void;
 
+export type TDeleteImagesResponse = void;
 export interface IDeleteImagesRequest {
   id: number;
 }

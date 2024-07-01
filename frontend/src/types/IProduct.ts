@@ -27,6 +27,7 @@ export interface IProduct {
     product_id: number;
     value: string;
   }[];
+  key?: string;
 }
 
 export type TButtonEvent = MouseEvent<HTMLButtonElement, MouseEvent>;
@@ -43,4 +44,10 @@ export interface IProductsInCart {
   product: IProduct;
   product_id: number;
   quantity: number;
+}
+
+export interface IProductCharacteristics {
+  rowKey?: string;
+  key?: string;
+  value?: string;
 }

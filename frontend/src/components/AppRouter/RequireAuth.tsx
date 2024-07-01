@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 
 import { RouterPath } from "configs/route-config";
 
-import { useGetUser } from "hooks/user/use-get-user";
+import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
 interface IRequireAuthProps {
   children: JSX.Element;
@@ -11,9 +11,9 @@ interface IRequireAuthProps {
 export function RequireAuth(props: IRequireAuthProps) {
   const { children } = props;
 
-  const { userData, isUserDataLoading } = useGetUser();
+  const { authUserData, isUserDataLoading } = useGetAuthUser();
 
-  if (!isUserDataLoading && !userData) {
+  if (!isUserDataLoading && !authUserData) {
     return <Navigate to={RouterPath.not_authorized} />;
   }
 

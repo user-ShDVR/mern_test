@@ -1,21 +1,17 @@
 import React from "react";
 
-import { Button, Typography } from "antd";
+import { Button, Pagination, Spin, Typography } from "antd";
 
 import { AdaptiveDrawer } from "components/AdaptiveDrawer/AdaptiveDrawer";
-import { EventsBlock } from "components/EventsBlock/EventsBlock";
 import { ProductCardsList } from "components/ProductCardsList/ProductCardsList";
-import { Spinner } from "components/Spinner/Spinner";
 
 import { useGetProductsQuery } from "store/api/products/products-api";
 
-import { PRODUCTS_COUNT_IN_MAIN_PAGE } from "constants/products-constants";
-
-import { useGetPaginationBlock } from "hooks/general/use-get-pagination-block";
+import { useContexts } from "hooks/general/use-contexts";
 import { useGetProductsFilters } from "hooks/products/use-get-products-filters";
-import { useSearchProducts } from "hooks/products/use-search-products";
 
 import styles from "./Main.module.scss";
+import { MainEventsBlock } from "./MainEventsBlock/MainEventsBlock";
 
 export const Main = () => {
   const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
@@ -28,8 +24,10 @@ export const Main = () => {
     setIsOpenDrawer(false);
   };
 
-  const { currentPage, PaginationBlock } = useGetPaginationBlock();
-  const { searchValue } = useSearchProducts();
+  const {
+    currentPageContext: { currentPage, setCurrentPage },
+    searchValueContext: { searchValue },
+  } = useContexts();
 
   const { FiltersAside, minValue, maxValue, sortOrder, sortBy } =
     useGetProductsFilters();
@@ -37,7 +35,7 @@ export const Main = () => {
   const { data: productsData, isLoading: isProductsLoading } =
     useGetProductsQuery({
       page: currentPage,
-      limit: PRODUCTS_COUNT_IN_MAIN_PAGE,
+      limit: 3,
       minPrice: minValue,
       maxPrice: maxValue,
       type: "",
@@ -48,9 +46,13 @@ export const Main = () => {
 
   const isEmptyProductsData = productsData?.products.length === 0;
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <>
-      <EventsBlock />
+      <MainEventsBlock />
 
       <Typography.Title className={styles.mainTitle}>
         Наши товары
@@ -75,7 +77,7 @@ export const Main = () => {
       </AdaptiveDrawer>
 
       {isProductsLoading ? (
-        <Spinner />
+        <Spin size="large" />
       ) : (
         <div className={styles.mainWrapper}>
           <div className={styles.filtersWrapper}>{FiltersAside}</div>
@@ -84,9 +86,12 @@ export const Main = () => {
       )}
 
       {!isEmptyProductsData && (
-        <PaginationBlock
-          countElementsOnPage={PRODUCTS_COUNT_IN_MAIN_PAGE}
-          totalCount={productsData?.totalCount}
+        <Pagination
+          className={styles.paginationWrapper}
+          pageSize={3}
+          total={productsData?.totalCount}
+          onChange={handlePageChange}
+          current={currentPage}
         />
       )}
     </>

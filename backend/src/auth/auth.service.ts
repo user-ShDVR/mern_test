@@ -50,13 +50,13 @@ export class AuthService {
     const user = await this.usersService.findOneByEmail(email);
 
     if (!user) {
-      throw new UnauthorizedException('Почта или пароль указаны не верно.');
+      throw new UnauthorizedException('Почта или пароль указаны неверно..');
     }
 
     const hash = await this.passwordService.getHash(password, user.salt);
 
     if (hash !== user.hash) {
-      throw new UnauthorizedException('Почта или пароль указаны не верно.');
+      throw new UnauthorizedException('Почта или пароль указаны неверно..');
     }
 
     const token = await this.jwtService.signAsync({

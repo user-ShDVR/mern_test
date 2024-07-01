@@ -1,0 +1,25 @@
+.openFiltersMobileButton {
+  display: none;
+  margin-bottom: 25px;
+}
+
+.catalogItemWrapper {
+  display: flex;
+  gap: 40px;
+}
+
+.catalogItemPaginationWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .openFiltersMobileButton {
+    display: block;
+  }
+
+  .filtersWrapper {
+    display: none;
+  }
+}

@@ -1,4 +1,4 @@
-export const sliderImagesInEventsBlock = [
+export const sliderImagesInMainEventsBlock = [
   {
     key: 0,
     src: "https://i.ibb.co/6FJq51m/image.png",
@@ -11,7 +11,7 @@ export const sliderImagesInEventsBlock = [
   },
 ];
 
-export const featuresInEventsBlock = [
+export const featuresInMainEventsBlock = [
   {
     key: 0,
     text: "300+ магазинов работает для тебя по УРФО",
@@ -30,7 +30,7 @@ export const featuresInEventsBlock = [
   },
 ];
 
-export const assortmentProductsInEventsBlock = [
+export const assortmentProductsInMainEventsBlock = [
   {
     key: 0,
     src: "https://i.1.creatium.io/d2/42/ae/644911f2a9f071f063adf8e330efd0d34f/520x783q8/1_220.jpg",

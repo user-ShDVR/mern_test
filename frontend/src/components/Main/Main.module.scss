@@ -2,14 +2,21 @@
   margin-top: 40px;
 }
 
-.openFiltersMobileButton {
-  display: none;
-  margin-bottom: 25px;
-}
 
 .mainWrapper {
   display: flex;
   gap: 40px;
+}
+
+.paginationWrapper {
+  margin: 40px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.openFiltersMobileButton {
+  display: none;
+  margin-bottom: 25px;
 }
 
 @media screen and (max-width: 1200px) {
