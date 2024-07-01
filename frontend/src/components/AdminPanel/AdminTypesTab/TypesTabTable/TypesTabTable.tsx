@@ -10,7 +10,9 @@ import {
 } from "constants/types-constants";
 
 import { addKeysToObjectInArray } from "utils/add-keys-to-object-in-array";
+import { getImageUrl } from "utils/get-image-url";
 
+import { IImage } from "types/IImage";
 import { IType } from "types/IType";
 
 import styles from "./TypesTabTable.module.scss";
@@ -82,6 +84,13 @@ export const TypesTabTable = (props: ITypesTabTableProps) => {
       title: typesAdminTableTitles.image,
       dataIndex: typesAdminTableDataIndexes.image,
       key: typesAdminTableDataIndexes.image,
+      render: (record: IImage) => (
+        <img
+          className={styles.typeImage}
+          src={getImageUrl(record.filename)}
+          alt=""
+        />
+      ),
     },
     {
       title: typesAdminTableTitles.url,

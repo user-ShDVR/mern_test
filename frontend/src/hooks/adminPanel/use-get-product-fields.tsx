@@ -25,14 +25,14 @@ import { searchedOptions } from "utils/searched-option";
 import { IProduct, IProductCharacteristics } from "types/IProduct";
 import { IType } from "types/IType";
 
-interface IProductFieldsProps {
+interface IUseGetProductFieldsArgs {
   productFields: IProduct;
   isEdit: boolean;
   styles: Record<string, string>;
 }
 
-export const useGetProductFields = (props: IProductFieldsProps) => {
-  const { productFields, isEdit, styles } = props;
+export const useGetProductFields = (args: IUseGetProductFieldsArgs) => {
+  const { productFields, isEdit, styles } = args;
 
   const isRequired = isEdit ? false : true;
 
@@ -61,18 +61,14 @@ export const useGetProductFields = (props: IProductFieldsProps) => {
   }));
 
   const renderImageOption = (imageOption: DefaultOptionType) => (
-    <div className={styles.imageOptionWrapper} key={imageOption.value}>
+    <div className={styles.adminTabImageOptionWrapper} key={imageOption.value}>
       <ImageInCard
-        className={styles.imageInOption}
+        className={styles.adminTabImageInOptionWrapper}
         imageUrl={imageOption.data.label}
       />
       {imageOption.label}
     </div>
   );
-
-  const InputNumberStyles = {
-    width: "100%",
-  };
 
   const productsFields = [
     {
@@ -121,8 +117,8 @@ export const useGetProductFields = (props: IProductFieldsProps) => {
       label: adminProductFieldsLabels.price,
       node: (
         <InputNumber
+          className={styles.adminTabNumberInput}
           defaultValue={productFields?.price}
-          style={InputNumberStyles}
         />
       ),
       rules: [

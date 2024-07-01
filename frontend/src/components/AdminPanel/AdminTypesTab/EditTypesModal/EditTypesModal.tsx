@@ -7,7 +7,7 @@ import styles from "components/AdminPanel/AdminPanelTab.module.scss";
 import { IEditTypesRequest } from "store/api/types/types";
 import { useEditTypesMutation } from "store/api/types/types-api";
 
-import { useGetAddOrEditTypeFields } from "hooks/adminPanel/use-get-add-or-edit-type-fields";
+import { useGetTypeFields } from "hooks/adminPanel/use-get-type-fields";
 
 import { IType } from "types/IType";
 
@@ -29,7 +29,7 @@ export const EditTypesModal = (props: IEditTypesModalProps) => {
     },
   ] = useEditTypesMutation();
 
-  const { FormItems } = useGetAddOrEditTypeFields({
+  const { FormItems } = useGetTypeFields({
     typeFields: typeDataInModal,
     isEdit: true,
   });
@@ -57,7 +57,7 @@ export const EditTypesModal = (props: IEditTypesModalProps) => {
       key={typeDataInModal.id}
     >
       <Form
-        className={styles.entityEditForm}
+        className={styles.editFormAdminTab}
         layout="vertical"
         onFinish={onFinishEditType}
       >

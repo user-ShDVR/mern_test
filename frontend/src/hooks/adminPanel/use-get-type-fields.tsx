@@ -15,15 +15,13 @@ import {
 
 import { IType } from "types/IType";
 
-interface IUseGetAddOrEditTypeFieldsProps {
+interface IUseGetTypeFieldsArgs {
   typeFields: IType;
   isEdit: boolean;
 }
 
-export const useGetAddOrEditTypeFields = (
-  props: IUseGetAddOrEditTypeFieldsProps
-) => {
-  const { typeFields, isEdit } = props;
+export const useGetTypeFields = (args: IUseGetTypeFieldsArgs) => {
+  const { typeFields, isEdit } = args;
 
   const isRequired = isEdit ? false : true;
 
@@ -35,9 +33,9 @@ export const useGetAddOrEditTypeFields = (
   }));
 
   const ImageOption = (imageOption: DefaultOptionType) => (
-    <div className={styles.imageOptionWrapper} key={imageOption.value}>
+    <div className={styles.adminTabImageOptionWrapper} key={imageOption.value}>
       <ImageInCard
-        className={styles.imageInOption}
+        className={styles.adminTabImageInOptionWrapper}
         imageUrl={imageOption.data.label}
       />
       {imageOption.label}

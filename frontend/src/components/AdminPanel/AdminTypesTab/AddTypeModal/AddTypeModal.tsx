@@ -8,7 +8,7 @@ import styles from "components/AdminPanel/AdminPanelTab.module.scss";
 import { IAddTypesRequest } from "store/api/types/types";
 import { useAddTypesMutation } from "store/api/types/types-api";
 
-import { useGetAddOrEditTypeFields } from "hooks/adminPanel/use-get-add-or-edit-type-fields";
+import { useGetTypeFields } from "hooks/adminPanel/use-get-type-fields";
 
 import { getValidateErrorMessage } from "utils/get-validate-error-message";
 
@@ -31,7 +31,7 @@ export const AddTypeModal = (props: IAddTypeModalProps) => {
     },
   ] = useAddTypesMutation();
 
-  const { FormItems } = useGetAddOrEditTypeFields({
+  const { FormItems } = useGetTypeFields({
     typeFields: {} as IType,
     isEdit: false,
   });
@@ -62,7 +62,7 @@ export const AddTypeModal = (props: IAddTypeModalProps) => {
       title="Добавить категорию"
     >
       <Form
-        className={styles.entityEditForm}
+        className={styles.editFormAdminTab}
         layout="vertical"
         onFinish={onFinishAddType}
         onFinishFailed={onFinishFailedAddType}

@@ -69,7 +69,7 @@ export const AdminTypesTab = () => {
         В системе - <b>{declinationTypes}</b>
       </Typography.Text>
 
-      <Tooltip title="Добавить новую категорию.">
+      <Tooltip title="Добавить категорию.">
         <Button
           className={styles.adminTypesTabAddTypeButton}
           onClick={handleOpenAddModal}
