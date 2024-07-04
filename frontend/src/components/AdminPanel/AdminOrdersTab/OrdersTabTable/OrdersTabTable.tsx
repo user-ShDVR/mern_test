@@ -4,10 +4,11 @@ import { Popconfirm, Table, Typography, message } from "antd";
 
 import { useDeleteOrdersMutation } from "store/api/orders/orders-api";
 
+import { EMPTY_ADMIN_TAB_TABLE_TEXT } from "constants/general-constants";
 import {
   ordersAdminTableDataIndexes,
   ordersAdminTableTitles,
-} from "constants/order-constants";
+} from "constants/orders-constants";
 
 import { addKeysToObjectInArray } from "utils/add-keys-to-object-in-array";
 
@@ -102,6 +103,7 @@ export const OrdersTabTable = (props: IOrdersTabTableProps) => {
       dataSource={tableData}
       pagination={false}
       bordered
+      locale={{ emptyText: EMPTY_ADMIN_TAB_TABLE_TEXT }}
     />
   );
 };

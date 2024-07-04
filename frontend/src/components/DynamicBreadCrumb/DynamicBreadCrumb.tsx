@@ -1,13 +1,16 @@
 import { Breadcrumb } from "antd";
 import { Link, useLocation } from "react-router-dom";
 
+import { TObjWithStringValues } from "types/TObjWithStringValues";
+
 import styles from "./DynamicBreadCrumb.module.scss";
 
-const pathTranslations: Record<string, string> = {
+const pathTranslations: TObjWithStringValues = {
   catalog: "Каталог",
   cart: "Корзина",
   orders: "Заказы",
   admin_panel: "Админ-панель",
+  search_result: "Результаты поиска",
   account: "Аккаунт",
   forbidden: "Нет доступа к странице",
   not_authorized: "Не авторизован",

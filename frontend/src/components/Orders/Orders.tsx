@@ -1,19 +1,18 @@
-import { Empty, Pagination, Spin, Typography } from "antd";
+import React from "react";
+
+import { Pagination, Spin, Typography } from "antd";
 
 import { useGetOrdersQuery } from "store/api/orders/orders-api";
 
-import { useContexts } from "hooks/general/use-contexts";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
 import styles from "./Orders.module.scss";
 import { OrdersTable } from "./OrdersTable/OrdersTable";
 
 export const Orders = () => {
-  const { authUserData } = useGetAuthUser();
+  const [currentPage, setCurrentPage] = React.useState(1);
 
-  const {
-    currentPageContext: { currentPage, setCurrentPage },
-  } = useContexts();
+  const { authUserData } = useGetAuthUser();
 
   const { data: ordersData, isLoading: isOrdersDataLoading } =
     useGetOrdersQuery({
@@ -37,8 +36,6 @@ export const Orders = () => {
       ) : (
         <OrdersTable ordersData={ordersData?.orders ?? []} />
       )}
-
-      {isEmptyOrdersData && <Empty description="Заказы не найдены." />}
 
       {!isEmptyOrdersData && (
         <Pagination

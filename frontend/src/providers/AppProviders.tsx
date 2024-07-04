@@ -1,6 +1,5 @@
 import { CatalogCategoryProvider } from "./CatalogCategoryProvider";
-import { CurrentPageProvider } from "./CurrentPageProvider";
-import { SearchValueProvider } from "./SearchValueProvider";
+import { SearchDataProvider } from "./SearchDataProvider";
 
 interface IAppProvidersProps {
   children: React.ReactNode;
@@ -10,10 +9,8 @@ export const AppProviders = (props: IAppProvidersProps) => {
   const { children } = props;
 
   return (
-    <CurrentPageProvider>
-      <SearchValueProvider>
-        <CatalogCategoryProvider>{children}</CatalogCategoryProvider>
-      </SearchValueProvider>
-    </CurrentPageProvider>
+    <SearchDataProvider>
+      <CatalogCategoryProvider>{children}</CatalogCategoryProvider>
+    </SearchDataProvider>
   );
 };

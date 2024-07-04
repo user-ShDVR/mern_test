@@ -95,3 +95,5 @@ export const ordersAdminTableDataIndexes = {
   status: "status",
   actionsKey: "actionsKey",
 };
+
+export const EMPTY_ORDERS_TABLE_TEXT = "Заказы отсутствуют.";

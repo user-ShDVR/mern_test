@@ -9,6 +9,8 @@ import {
   DEFAULT_SORT_ORDER,
 } from "constants/filters-constants";
 
+import { TObjWithNumberValues } from "types/TObjWithNumberValues";
+
 export const useGetProductsFilters = () => {
   const [minValue, setMinValue] = React.useState(DEFAULT_MIN_PRICE);
   const [maxValue, setMaxValue] = React.useState(DEFAULT_MAX_PRICE);
@@ -16,7 +18,7 @@ export const useGetProductsFilters = () => {
   const [sortOrder, setSortOrder] = React.useState(DEFAULT_SORT_ORDER);
   const [sortBy, setSortBy] = React.useState(DEFAULT_SORT_BY);
 
-  const handleFilter = (values: Record<string, number>) => {
+  const handleFilter = (values: TObjWithNumberValues) => {
     setMinValue(values.minValue || DEFAULT_MIN_PRICE);
     setMaxValue(values.maxValue || DEFAULT_MAX_PRICE);
   };

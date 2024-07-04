@@ -5,8 +5,6 @@ import { Button, Pagination, Spin, Tooltip, Typography } from "antd";
 
 import { useGetTypesQuery } from "store/api/types/types-api";
 
-import { useContexts } from "hooks/general/use-contexts";
-
 import { getDeclination } from "utils/get-declination";
 
 import { IType } from "types/IType";
@@ -19,12 +17,8 @@ import { TypesTabTable } from "./TypesTabTable/TypesTabTable";
 export const AdminTypesTab = () => {
   const [isOpenAddModal, setIsOpenAddModal] = React.useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = React.useState(false);
-
   const [typeDataInModal, setTypeDataInModal] = React.useState({} as IType);
-
-  const {
-    currentPageContext: { currentPage, setCurrentPage },
-  } = useContexts();
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const { data: typesData, isLoading: isTypesLoading } = useGetTypesQuery(
     {

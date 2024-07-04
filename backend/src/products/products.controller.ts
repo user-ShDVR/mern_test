@@ -40,7 +40,6 @@ export class ProductsController {
     @Query('sortBy') sortBy?: string,
     @Query('sortOrder') sortOrder?: string,
     @Query('type') type?: string,
-    @Query('searchValue') searchValue?: string,
   ) {
     return this.productsService.findAll(
       page,
@@ -50,7 +49,6 @@ export class ProductsController {
       sortBy,
       sortOrder,
       type,
-      searchValue,
     );
   }
 

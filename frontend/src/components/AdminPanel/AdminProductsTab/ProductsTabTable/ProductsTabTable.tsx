@@ -4,9 +4,10 @@ import { Popconfirm, Table, Typography, message } from "antd";
 
 import { useDeleteProductsMutation } from "store/api/products/products-api";
 
+import { EMPTY_ADMIN_TAB_TABLE_TEXT } from "constants/general-constants";
 import {
   adminProductCharacteristicsListColumns,
-  emptyCharacteristicsText,
+  EMPTY_CHARACTERISTICS_TEXT,
   productsAdminTableDataIndexes,
   productsAdminTableTitles,
 } from "constants/products-constants";
@@ -135,6 +136,7 @@ export const ProductsTabTable = (props: IProductsTabTableProps) => {
       dataSource={tableData}
       pagination={false}
       bordered
+      locale={{ emptyText: EMPTY_ADMIN_TAB_TABLE_TEXT }}
       expandable={{
         expandedRowRender: (record) => (
           <>
@@ -143,7 +145,7 @@ export const ProductsTabTable = (props: IProductsTabTableProps) => {
             <Table
               className={styles.characteristicsProductTable}
               columns={adminProductCharacteristicsListColumns}
-              locale={{ emptyText: emptyCharacteristicsText }}
+              locale={{ emptyText: EMPTY_CHARACTERISTICS_TEXT }}
               dataSource={record.characteristics}
               pagination={false}
               showHeader={false}

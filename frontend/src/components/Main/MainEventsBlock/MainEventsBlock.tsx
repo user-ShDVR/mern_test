@@ -39,11 +39,7 @@ export const MainEventsBlock = () => {
               Мы всегда на связи.
             </Typography.Text>
 
-            <Button className={styles.feedbackButton}>
-              <a href="https://t.me/BodyaBilder007" target="_blank">
-                Обратная связь
-              </a>
-            </Button>
+            <Button className={styles.feedbackButton}>Обратная связь</Button>
           </div>
 
           <div className={styles.lookingForWorkWrapper}>
@@ -56,9 +52,7 @@ export const MainEventsBlock = () => {
             </Typography.Text>
 
             <Button className={styles.lookingForWorkButton}>
-              <a href="https://hh.ru/" target="_blank">
-                Наши вакансии
-              </a>
+              Наши вакансии
             </Button>
           </div>
         </div>

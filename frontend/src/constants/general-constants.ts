@@ -9,3 +9,11 @@ export const tableRowWidths = {
 
 export const DEFAULT_CURRENT_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 4;
+
+export const EMPTY_ADMIN_TAB_TABLE_TEXT = "Данные отсутствуют.";
+
+export const DEFAULT_SEARCH_DATA = {
+  products: [],
+  types: [],
+  orders: [],
+};

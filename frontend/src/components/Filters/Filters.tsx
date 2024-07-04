@@ -9,6 +9,8 @@ import {
 
 import { useGetFiltersFields } from "hooks/filters/use-get-filters-fields";
 
+import { TObjWithNumberValues } from "types/TObjWithNumberValues";
+
 import styles from "./Filters.module.scss";
 
 interface IFiltersProps {
@@ -16,7 +18,7 @@ interface IFiltersProps {
   maxValue: number;
   setMinValue: (value: number) => void;
   setMaxValue: (value: number) => void;
-  handleFilter: (values: Record<string, number>) => void;
+  handleFilter: (values: TObjWithNumberValues) => void;
   handleSort: (values: string) => void;
 }
 
@@ -41,19 +43,19 @@ export const Filters = (props: IFiltersProps) => {
 
   return (
     <ShadowCard className={styles.filtersWrapper}>
-      <Typography.Title level={4}>Фильтры</Typography.Title>
+      <div className={styles.filtersHeaderWrapper}>
+        <Typography.Title level={4}>Фильтры</Typography.Title>
+        <Button onClick={handleReset}>Очистить</Button>
+      </div>
 
-      <div className={styles.contentWrapper}>
-        <div className={styles.header}>
-          <Typography.Text>Цена</Typography.Text>
-          <Button onClick={handleReset}>Очистить</Button>
-        </div>
+      <div className={styles.filtersButtonsWrapper}>
+        <Typography.Text>Цена</Typography.Text>
 
         <Form onFinish={handleFilter} form={form} layout="vertical">
           {FormItems}
 
           <Button
-            className={styles.confirmButton}
+            className={styles.filtersConfirmButton}
             type="primary"
             htmlType="submit"
           >

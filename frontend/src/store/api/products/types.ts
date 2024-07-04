@@ -1,6 +1,6 @@
 import { IProduct, IProductCharacteristics } from "types/IProduct";
 
-export type IAddProductsResponse = IProduct;
+export type TAddProductsResponse = IProduct;
 export type IAddProductsRequest = {
   name: string;
   description: string;
@@ -23,7 +23,6 @@ export interface IGetProductsRequest {
   sortBy: string;
   sortOrder: string;
   type: string;
-  searchValue: string;
 }
 
 export type TGetCertainProductsResponse = IProduct;

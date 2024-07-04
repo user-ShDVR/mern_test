@@ -13,6 +13,7 @@ import { CookieService } from './utils/cookie/cookie.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { MailService } from './utils/mailer/mailer';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { MailService } from './utils/mailer/mailer';
     OrdersModule,
     CartsProductsModule,
     AuthModule,
+    SearchModule,
   ],
   controllers: [],
   providers: [

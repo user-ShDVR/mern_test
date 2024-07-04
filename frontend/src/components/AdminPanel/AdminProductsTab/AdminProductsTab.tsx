@@ -12,8 +12,6 @@ import {
   DEFAULT_SORT_ORDER,
 } from "constants/filters-constants";
 
-import { useContexts } from "hooks/general/use-contexts";
-
 import { getDeclination } from "utils/get-declination";
 
 import { IProduct } from "types/IProduct";
@@ -27,14 +25,9 @@ export const AdminProductsTab = () => {
   const [productDataInModal, setProductDataInModal] = React.useState(
     {} as IProduct
   );
-
   const [isOpenAddModal, setIsOpenAddModal] = React.useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = React.useState(false);
-
-  const {
-    currentPageContext: { currentPage, setCurrentPage },
-    searchValueContext: { searchValue },
-  } = useContexts();
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const { data: productsData, isLoading: isProductsLoading } =
     useGetProductsQuery({
@@ -45,7 +38,6 @@ export const AdminProductsTab = () => {
       sortBy: DEFAULT_SORT_BY,
       sortOrder: DEFAULT_SORT_ORDER,
       type: "",
-      searchValue,
     });
 
   const isEmptyProductsData = productsData?.products.length === 0;

@@ -6,6 +6,7 @@ import {
   accountAdminTableDataIndexes,
   accountAdminTableTitles,
 } from "constants/account-constants";
+import { EMPTY_ADMIN_TAB_TABLE_TEXT } from "constants/general-constants";
 
 import { addKeysToObjectInArray } from "utils/add-keys-to-object-in-array";
 
@@ -65,6 +66,7 @@ export const UsersTabTable = (props: IUsersTabTableProps) => {
       dataSource={tableData}
       pagination={false}
       bordered
+      locale={{ emptyText: EMPTY_ADMIN_TAB_TABLE_TEXT }}
     />
   );
 };

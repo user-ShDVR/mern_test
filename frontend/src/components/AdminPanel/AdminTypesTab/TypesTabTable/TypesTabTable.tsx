@@ -4,6 +4,7 @@ import { Popconfirm, Table, Typography, message } from "antd";
 
 import { useDeleteTypesMutation } from "store/api/types/types-api";
 
+import { EMPTY_ADMIN_TAB_TABLE_TEXT } from "constants/general-constants";
 import {
   typesAdminTableDataIndexes,
   typesAdminTableTitles,
@@ -129,6 +130,7 @@ export const TypesTabTable = (props: ITypesTabTableProps) => {
       dataSource={tableData}
       pagination={false}
       bordered
+      locale={{ emptyText: EMPTY_ADMIN_TAB_TABLE_TEXT }}
     />
   );
 };

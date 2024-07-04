@@ -14,11 +14,7 @@ import styles from "./CatalogItem.module.scss";
 
 export const CatalogItem = () => {
   const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
-
-  const {
-    currentPageContext: { currentPage, setCurrentPage },
-    searchValueContext: { searchValue },
-  } = useContexts();
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const {
     catalogCategoryContext: { catalogCategoryTypeName, catalogCategoryTypeUrl },
@@ -43,7 +39,6 @@ export const CatalogItem = () => {
     type: catalogCategoryTypeUrl,
     sortBy,
     sortOrder,
-    searchValue,
   });
 
   const isEmptyProductsData = productsData?.products.length === 0;

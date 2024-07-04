@@ -2,19 +2,19 @@
   max-height: 100%;
 }
 
-.contentWrapper {
+.filtersHeaderWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filtersButtonsWrapper {
   margin-top: 30px;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.confirmButton {
+.filtersConfirmButton {
   width: 100%;
 }

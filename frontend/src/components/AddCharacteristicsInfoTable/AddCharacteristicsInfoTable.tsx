@@ -6,7 +6,7 @@ import { Button, Form, Table, Tooltip, Typography } from "antd";
 import { tableRowWidths } from "constants/general-constants";
 import {
   adminProductCharacteristicsDataIndexes,
-  emptyCharacteristicsText,
+  EMPTY_CHARACTERISTICS_TEXT,
 } from "constants/products-constants";
 
 import { generateUniqueId } from "utils/generate-unique-Id";
@@ -203,7 +203,7 @@ export const AddCharacteristicsInfoTable = (
         columns={mergedColumns}
         pagination={false}
         showHeader={false}
-        locale={{ emptyText: emptyCharacteristicsText }}
+        locale={{ emptyText: EMPTY_CHARACTERISTICS_TEXT }}
       />
     </Form>
   );

@@ -5,7 +5,7 @@ import {
   citiesOptions,
   addOrderDeliveryDataIndexes,
   addOrderDeliveryLabels,
-} from "constants/order-constants";
+} from "constants/orders-constants";
 
 import { searchedOptions } from "utils/searched-option";
 

@@ -24,11 +24,12 @@ import { searchedOptions } from "utils/searched-option";
 
 import { IProduct, IProductCharacteristics } from "types/IProduct";
 import { IType } from "types/IType";
+import { TObjWithStringValues } from "types/TObjWithStringValues";
 
 interface IUseGetProductFieldsArgs {
   productFields: IProduct;
   isEdit: boolean;
-  styles: Record<string, string>;
+  styles: TObjWithStringValues;
 }
 
 export const useGetProductFields = (args: IUseGetProductFieldsArgs) => {

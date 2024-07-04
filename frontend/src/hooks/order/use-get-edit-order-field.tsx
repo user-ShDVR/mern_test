@@ -4,7 +4,7 @@ import {
   adminOrderFieldsDataIndexes,
   adminOrderFieldsLabels,
   adminOrderStatusOptions,
-} from "constants/order-constants";
+} from "constants/orders-constants";
 
 import { IOrder } from "types/IOrder";
 

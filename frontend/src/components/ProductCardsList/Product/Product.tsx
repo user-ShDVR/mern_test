@@ -10,18 +10,18 @@ import { useGetCertainProductsQuery } from "store/api/products/products-api";
 
 import {
   adminProductCharacteristicsListColumns,
-  emptyCharacteristicsText,
+  EMPTY_CHARACTERISTICS_TEXT,
 } from "constants/products-constants";
 
-import styles from "./CertainProductById.module.scss";
+import styles from "./Product.module.scss";
 
-export const CertainProductById = () => {
+export const Product = () => {
   const { id } = useParams();
   const { data: productData } = useGetCertainProductsQuery({ id });
 
-  const handleShared = () => {
+  const handleSharedLink = () => {
     navigator.clipboard.writeText(window.location.href);
-    message.success("Ссылка на товар скопирована в буфер обмена");
+    message.success("Ссылка на товар скопирована в буфер обмена.");
   };
 
   return (
@@ -49,7 +49,7 @@ export const CertainProductById = () => {
               dataSource={productData?.characteristics}
               pagination={false}
               showHeader={false}
-              locale={{ emptyText: emptyCharacteristicsText }}
+              locale={{ emptyText: EMPTY_CHARACTERISTICS_TEXT }}
             />
           </div>
 
@@ -60,7 +60,7 @@ export const CertainProductById = () => {
               {productData?.description}
             </Typography.Text>
 
-            <Button className={styles.shareButton} onClick={handleShared}>
+            <Button className={styles.shareButton} onClick={handleSharedLink}>
               <ShareAltOutlined /> Поделиться
             </Button>
           </div>

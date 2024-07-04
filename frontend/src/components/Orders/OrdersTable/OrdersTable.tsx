@@ -3,9 +3,10 @@ import React from "react";
 import { Table, Typography } from "antd";
 
 import {
+  EMPTY_ORDERS_TABLE_TEXT,
   ordersTableDataIndexes,
   ordersTableTitles,
-} from "constants/order-constants";
+} from "constants/orders-constants";
 
 import { addKeysToObjectInArray } from "utils/add-keys-to-object-in-array";
 import { formattedDate } from "utils/formatted-date";
@@ -69,6 +70,7 @@ export const OrdersTable = (props: IOrdersTableProps) => {
       columns={columns}
       dataSource={tableData}
       pagination={false}
+      locale={{ emptyText: EMPTY_ORDERS_TABLE_TEXT }}
       expandable={{
         expandedRowRender: (record) => (
           <>

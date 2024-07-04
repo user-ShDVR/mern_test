@@ -12,7 +12,7 @@ export const adminProductCharacteristicsDataIndexes = {
   value: "value",
 };
 
-export const emptyCharacteristicsText = "Нет характеристик товара.";
+export const EMPTY_CHARACTERISTICS_TEXT = "Нет характеристик товара.";
 
 export const adminProductCharacteristicsPlaceholders = {
   key: "Введите поле",

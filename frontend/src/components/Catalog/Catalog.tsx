@@ -1,38 +1,27 @@
-import { Card, Empty, Pagination, Typography } from "antd";
-import { Link } from "react-router-dom";
+import React from "react";
 
-import { ImageInCard } from "components/ImageInCard/ImageInCard";
-import { ShadowCard } from "components/ShadowCard/ShadowCard";
+import { Empty, Pagination, Typography } from "antd";
 
 import { useGetTypesQuery } from "store/api/types/types-api";
 
 import { DEFAULT_PAGE_SIZE } from "constants/general-constants";
 
-import { useContexts } from "hooks/general/use-contexts";
+import { useSetCategoryInfo } from "hooks/catalog/use-set-category-info";
 
 import { IType } from "types/IType";
 
 import styles from "./Catalog.module.scss";
+import { CatalogCard } from "./CatalogCard/CatalogCard";
 
 export const Catalog = () => {
-  const {
-    currentPageContext: { currentPage, setCurrentPage },
-    catalogCategoryContext: {
-      setCatalogCategoryTypeName,
-      setCatalogCategoryTypeUrl,
-    },
-  } = useContexts();
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const { data: typesData } = useGetTypesQuery({
     page: currentPage,
     limit: DEFAULT_PAGE_SIZE,
   });
 
-  const handleSetCategoryInfo = (catalogElement: IType) => {
-    setCatalogCategoryTypeName(catalogElement.name);
-    setCatalogCategoryTypeUrl(catalogElement.url);
-  };
-
+  const { handleSetCategoryInfo } = useSetCategoryInfo();
   const isEmptyTypesData = typesData?.types?.length === 0;
 
   const handlePageChange = (page: number) => {
@@ -44,23 +33,13 @@ export const Catalog = () => {
       <Typography.Title>Каталог</Typography.Title>
 
       <div className={styles.catalogWrapper}>
-        {typesData?.types.map((catalogElement: IType) => {
-          return (
-            <Link
-              className={styles.catalogLink}
-              to={catalogElement.url}
-              key={catalogElement.id}
-              onClick={() => handleSetCategoryInfo(catalogElement)}
-            >
-              <ShadowCard
-                className={styles.catalogCard}
-                cover={<ImageInCard imageUrl={catalogElement.image.filename} />}
-              >
-                <Card.Meta title={catalogElement.name} />
-              </ShadowCard>
-            </Link>
-          );
-        })}
+        {typesData?.types.map((catalogElement: IType) => (
+          <CatalogCard
+            catalogElement={catalogElement}
+            handleSetCategoryInfo={handleSetCategoryInfo}
+            navigationUrl={catalogElement.url}
+          />
+        ))}
       </div>
 
       {isEmptyTypesData && <Empty description="Категории не найдены." />}

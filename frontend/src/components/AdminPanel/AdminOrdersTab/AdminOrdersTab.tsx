@@ -4,8 +4,6 @@ import { Pagination, Typography } from "antd";
 
 import { useGetOrdersForAdminQuery } from "store/api/orders/orders-api";
 
-import { useContexts } from "hooks/general/use-contexts";
-
 import { getDeclination } from "utils/get-declination";
 
 import { IOrder } from "types/IOrder";
@@ -16,12 +14,8 @@ import { OrdersTabTable } from "./OrdersTabTable/OrdersTabTable";
 
 export const AdminOrdersTab = () => {
   const [orderDataInModal, setOrderDataInModal] = React.useState({} as IOrder);
-
   const [isOpenEditModal, setIsOpenEditModal] = React.useState(false);
-
-  const {
-    currentPageContext: { currentPage, setCurrentPage },
-  } = useContexts();
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const { data: ordersData } = useGetOrdersForAdminQuery({
     page: currentPage,

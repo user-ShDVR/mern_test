@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import {
   IAddProductsRequest,
-  IAddProductsResponse,
+  TAddProductsResponse,
   IDeleteProductsRequest,
   IDeleteProductsResponse,
   IEditProductResponse,
@@ -21,7 +21,7 @@ export const productsApi = createApi({
   }),
   tagTypes: ["Products"],
   endpoints: (build) => ({
-    addProducts: build.mutation<IAddProductsResponse, IAddProductsRequest>({
+    addProducts: build.mutation<TAddProductsResponse, IAddProductsRequest>({
       query: (body) => ({
         url: "/products",
         method: "POST",
@@ -32,7 +32,7 @@ export const productsApi = createApi({
 
     getProducts: build.query<IGetProductsResponse, IGetProductsRequest>({
       query: (body) => ({
-        url: `/products?page=${body.page}&limit=${body.limit}&minPrice=${body.minPrice}&maxPrice=${body.maxPrice}&sortBy=${body.sortBy}&sortOrder=${body.sortOrder}&type=${body["type"]}&searchValue=${body.searchValue}`,
+        url: `/products?page=${body.page}&limit=${body.limit}&minPrice=${body.minPrice}&maxPrice=${body.maxPrice}&sortBy=${body.sortBy}&sortOrder=${body.sortOrder}&type=${body["type"]}`,
       }),
       providesTags: ["Products"],
     }),

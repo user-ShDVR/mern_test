@@ -48,7 +48,6 @@ export class ProductsService {
     sortBy?: string,
     sortOrder?: string,
     type?: string,
-    searchValue?: string,
   ) {
     const offset = (page - 1) * limit;
     const whereClause: any = { deleted: false };
@@ -71,24 +70,9 @@ export class ProductsService {
       orderBy[sortBy] = sortOrder;
     }
 
-    let totalCount = await this.db.products.count({
+    const totalCount = await this.db.products.count({
       where: whereClause,
     });
-
-    if (searchValue) {
-      whereClause.OR = [
-        {
-          name: {
-            contains: searchValue,
-            mode: 'insensitive',
-          },
-        },
-      ];
-
-      totalCount = await this.db.products.count({
-        where: whereClause,
-      });
-    }
 
     const products = await this.db.products.findMany({
       where: whereClause,

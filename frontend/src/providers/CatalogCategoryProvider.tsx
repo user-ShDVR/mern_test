@@ -19,9 +19,11 @@ interface ICatalogCategoryProviderProps {
   children: React.ReactNode;
 }
 
-export const CatalogCategoryProvider = ({
-  children,
-}: ICatalogCategoryProviderProps) => {
+export const CatalogCategoryProvider = (
+  props: ICatalogCategoryProviderProps
+) => {
+  const { children } = props;
+
   const [catalogCategoryTypeName, setCatalogCategoryTypeName] =
     React.useState("");
 

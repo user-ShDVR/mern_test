@@ -5,11 +5,12 @@ import { AdminPanelPage } from "pages/AdminPanelPage";
 import { CartPage } from "pages/CartPage";
 import { CatalogItemPage } from "pages/CatalogItemPage";
 import { CatalogPage } from "pages/CatalogPage";
-import { CertainProductByIdPage } from "pages/CertainProductByIdPage";
 import { ForbiddenPage } from "pages/ForbiddenPage";
 import { MainPage } from "pages/MainPage";
 import { NotAuthorizedPage } from "pages/NotAuthorizedPage";
 import { OrdersPage } from "pages/OrdersPage";
+import { ProductPage } from "pages/ProductPage";
+import { SearchResultPage } from "pages/SearchResultPage";
 
 import { LazyLoadChunk } from "components/LazyLoadChunk/LazyLoadChunk";
 
@@ -21,28 +22,30 @@ export type TAppRouteProps = RouteProps & {
 
 export enum AppRoutes {
   MAIN = "main",
-  CERTAIN_PRODUCT_BY_ID_IN_MAIN = "certain_product_by_id_in_main",
+  PRODUCT = "product",
   ACCOUNT = "account",
   CATALOG = "catalog",
   CATALOG_ITEM = "catalog_item",
-  CERTAIN_PRODUCT_BY_ID_IN_CATALOG_ITEM = "certain_product_by_id_in_catalog_item",
+  CATALOG_ITEM_PRODUCT = "catalog_item_product",
   CART = "cart",
   ORDERS = "orders",
   ADMIN_PANEL = "admin_panel",
+  SEARCH_RESULT = "search_result",
   FORBIDDEN = "forbidden",
   NOT_AUTHORIZED = "not_authorized",
 }
 
 export const RouterPath: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: "/",
-  [AppRoutes.CERTAIN_PRODUCT_BY_ID_IN_MAIN]: "/:id",
+  [AppRoutes.PRODUCT]: "/:id",
   [AppRoutes.ACCOUNT]: "/account",
   [AppRoutes.CATALOG]: "/catalog",
   [AppRoutes.CATALOG_ITEM]: "/catalog/:url",
-  [AppRoutes.CERTAIN_PRODUCT_BY_ID_IN_CATALOG_ITEM]: "/catalog/:url/:id",
+  [AppRoutes.CATALOG_ITEM_PRODUCT]: "/catalog/:url/:id",
   [AppRoutes.CART]: "/cart",
   [AppRoutes.ORDERS]: "/orders",
   [AppRoutes.ADMIN_PANEL]: "/admin_panel",
+  [AppRoutes.SEARCH_RESULT]: "/search_result",
   [AppRoutes.FORBIDDEN]: "/forbidden",
   [AppRoutes.NOT_AUTHORIZED]: "/not_authorized",
 };
@@ -56,11 +59,11 @@ export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
       </LazyLoadChunk>
     ),
   },
-  [AppRoutes.CERTAIN_PRODUCT_BY_ID_IN_MAIN]: {
-    path: RouterPath.certain_product_by_id_in_main,
+  [AppRoutes.PRODUCT]: {
+    path: RouterPath.product,
     element: (
       <LazyLoadChunk>
-        <CertainProductByIdPage />
+        <ProductPage />
       </LazyLoadChunk>
     ),
   },
@@ -89,11 +92,11 @@ export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
       </LazyLoadChunk>
     ),
   },
-  [AppRoutes.CERTAIN_PRODUCT_BY_ID_IN_CATALOG_ITEM]: {
-    path: RouterPath.certain_product_by_id_in_catalog_item,
+  [AppRoutes.CATALOG_ITEM_PRODUCT]: {
+    path: RouterPath.catalog_item_product,
     element: (
       <LazyLoadChunk>
-        <CertainProductByIdPage />
+        <ProductPage />
       </LazyLoadChunk>
     ),
   },
@@ -124,6 +127,14 @@ export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
     ),
     authOnly: true,
     adminOnly: true,
+  },
+  [AppRoutes.SEARCH_RESULT]: {
+    path: RouterPath.search_result,
+    element: (
+      <LazyLoadChunk>
+        <SearchResultPage />
+      </LazyLoadChunk>
+    ),
   },
   [AppRoutes.FORBIDDEN]: {
     path: RouterPath.forbidden,

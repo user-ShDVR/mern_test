@@ -21,7 +21,6 @@ import {
 
 import { DEFAULT_PAGE_SIZE } from "constants/general-constants";
 
-import { useContexts } from "hooks/general/use-contexts";
 import { useGetPaginatedData } from "hooks/general/use-get-paginated-data";
 
 import { getDeclination } from "utils/get-declination";
@@ -33,11 +32,8 @@ import styles from "./AdminImagesTab.module.scss";
 
 export const AdminImagesTab = () => {
   const [isOpenAddModal, setIsOpenAddModal] = React.useState(false);
-
-  const {
-    currentPageContext: { currentPage, setCurrentPage },
-  } = useContexts();
-
+  const [currentPage, setCurrentPage] = React.useState(1);
+  
   const { data: imagesData, isLoading: isImagesDataLoading } =
     useGetImagesQuery();
 

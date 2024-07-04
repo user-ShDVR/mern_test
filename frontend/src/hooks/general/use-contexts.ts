@@ -1,18 +1,14 @@
 import React from "react";
 
-import { CurrentPageContext } from "providers/CurrentPageProvider";
-import { SearchValueContext } from "providers/SearchValueProvider";
-
 import { CatalogCategoryContext } from "./../../providers/CatalogCategoryProvider";
+import { SearchDataContext } from "./../../providers/SearchDataProvider";
 
 export const useContexts = () => {
-  const currentPageContext = React.useContext(CurrentPageContext);
-  const searchValueContext = React.useContext(SearchValueContext);
+  const searchDataContext = React.useContext(SearchDataContext);
   const catalogCategoryContext = React.useContext(CatalogCategoryContext);
 
   return {
-    currentPageContext,
-    searchValueContext,
+    searchDataContext,
     catalogCategoryContext,
   };
 };

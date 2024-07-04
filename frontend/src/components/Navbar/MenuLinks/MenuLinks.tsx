@@ -3,14 +3,13 @@ import {
   ShoppingCartOutlined,
   InboxOutlined,
 } from "@ant-design/icons";
-import { Badge, Button, Input, Typography } from "antd";
+import { Badge, Button, Typography } from "antd";
 import { Link } from "react-router-dom";
 
 import { RouterPath } from "configs/route-config";
 
-import { useContexts } from "hooks/general/use-contexts";
-
 import styles from "./MenuLinks.module.scss";
+import { SearchInput } from "../SearchInput/SearchInput";
 
 interface IMenuLinksProps {
   cartProductsDataCount?: number;
@@ -21,14 +20,6 @@ interface IMenuLinksProps {
 export const MenuLinks = (props: IMenuLinksProps) => {
   const { cartProductsDataCount, handleCloseDrawer, className } = props;
 
-  const {
-    searchValueContext: { setSearchValue },
-  } = useContexts();
-
-  const handleSearchProducts = (searchValue: string) => {
-    setSearchValue(searchValue);
-  };
-
   return (
     <div className={className}>
       <Link to={RouterPath.catalog} onClick={handleCloseDrawer}>
@@ -38,11 +29,7 @@ export const MenuLinks = (props: IMenuLinksProps) => {
         </Button>
       </Link>
 
-      <Input.Search
-        className={styles.menuLinksSearchInput}
-        placeholder="Найти..."
-        onSearch={handleSearchProducts}
-      />
+      <SearchInput />
 
       <div className={styles.menuLinksIconsWrapper} onClick={handleCloseDrawer}>
         <Link className={styles.menuLinksIconWrapper} to={RouterPath.orders}>

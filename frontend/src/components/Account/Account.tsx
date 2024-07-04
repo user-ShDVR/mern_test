@@ -8,6 +8,8 @@ import { useEditUsersMutation } from "store/api/users/users-api";
 import { useGetAccountFields } from "hooks/account/use-get-account-fields";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
+import { IUser } from "types/IUser";
+
 import styles from "./Account.module.scss";
 
 export const Account = () => {
@@ -31,8 +33,13 @@ export const Account = () => {
 
   const loadedAccountFields = !isUserDataLoading && FormItems;
 
-  const handleEditAccount = async (formValues: Record<string, string>) => {
-    await editAccount({ id: authUserData?.id, ...formValues });
+  const handleEditAccount = async (formValues: IUser) => {
+    const editedData = {
+      ...formValues,
+      id: authUserData?.id,
+    };
+
+    await editAccount(editedData);
   };
 
   React.useEffect(() => {

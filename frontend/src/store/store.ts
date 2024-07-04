@@ -14,6 +14,8 @@ import { productsApi } from "store/api/products/products-api";
 import { typesApi } from "store/api/types/types-api";
 import { usersApi } from "store/api/users/users-api";
 
+import { searchApi } from "./api/search/search-api";
+
 const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [cartsApi.reducerPath]: cartsApi.reducer,
@@ -23,6 +25,7 @@ const rootReducer = combineReducers({
   [productsApi.reducerPath]: productsApi.reducer,
   [typesApi.reducerPath]: typesApi.reducer,
   [usersApi.reducerPath]: usersApi.reducer,
+  [searchApi.reducerPath]: searchApi.reducer,
 });
 
 const setupStore = () => {
@@ -38,6 +41,7 @@ const setupStore = () => {
         typesApi.middleware,
         productsApi.middleware,
         usersApi.middleware,
+        searchApi.middleware,
       ]),
   });
 };

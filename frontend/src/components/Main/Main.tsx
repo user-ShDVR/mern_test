@@ -7,7 +7,6 @@ import { ProductCardsList } from "components/ProductCardsList/ProductCardsList";
 
 import { useGetProductsQuery } from "store/api/products/products-api";
 
-import { useContexts } from "hooks/general/use-contexts";
 import { useGetProductsFilters } from "hooks/products/use-get-products-filters";
 
 import styles from "./Main.module.scss";
@@ -15,6 +14,7 @@ import { MainEventsBlock } from "./MainEventsBlock/MainEventsBlock";
 
 export const Main = () => {
   const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const handleOpenDrawer = () => {
     setIsOpenDrawer(true);
@@ -23,11 +23,6 @@ export const Main = () => {
   const handleCloseDrawer = () => {
     setIsOpenDrawer(false);
   };
-
-  const {
-    currentPageContext: { currentPage, setCurrentPage },
-    searchValueContext: { searchValue },
-  } = useContexts();
 
   const { FiltersAside, minValue, maxValue, sortOrder, sortBy } =
     useGetProductsFilters();
@@ -41,7 +36,6 @@ export const Main = () => {
       type: "",
       sortBy,
       sortOrder,
-      searchValue,
     });
 
   const isEmptyProductsData = productsData?.products.length === 0;

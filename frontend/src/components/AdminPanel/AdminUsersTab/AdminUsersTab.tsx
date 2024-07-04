@@ -1,8 +1,8 @@
+import React from "react";
+
 import { Pagination, Spin, Typography } from "antd";
 
 import { useGetUsersQuery } from "store/api/users/users-api";
-
-import { useContexts } from "hooks/general/use-contexts";
 
 import { getDeclination } from "utils/get-declination";
 
@@ -10,9 +10,7 @@ import styles from "./AdminUsersTab.module.scss";
 import { UsersTabTable } from "./UsersTabTable/UsersTabTable";
 
 export const AdminUsersTab = () => {
-  const {
-    currentPageContext: { currentPage, setCurrentPage },
-  } = useContexts();
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const { data: usersData, isLoading: isUsersLoading } = useGetUsersQuery({
     page: currentPage,
