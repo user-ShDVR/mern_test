@@ -3,7 +3,7 @@ import React from "react";
 import { Button, Pagination, Typography } from "antd";
 
 import { AdaptiveDrawer } from "components/AdaptiveDrawer/AdaptiveDrawer";
-import { ProductCardsList } from "components/ProductCardsList/ProductCardsList";
+import { ProductCard } from "components/Product/ProductCard/ProductCard";
 
 import { useGetProductsQuery } from "store/api/products/products-api";
 
@@ -71,7 +71,15 @@ export const CatalogItem = () => {
 
       <div className={styles.catalogItemWrapper}>
         <div className={styles.filtersWrapper}>{FiltersAside}</div>
-        <ProductCardsList productsData={productsData?.products} />
+
+        <div className={styles.catalogItemProductsWrapper}>
+          {productsData?.products.map((product) => (
+            <ProductCard
+              productData={product}
+              navigationUrl={`${product.id}`}
+            />
+          ))}
+        </div>
       </div>
 
       {!isEmptyProductsData && (

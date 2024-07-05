@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Popconfirm, Table, Typography, message } from "antd";
+import { Popconfirm, Table, Typography } from "antd";
 
 import { useDeleteTypesMutation } from "store/api/types/types-api";
 
@@ -9,6 +9,8 @@ import {
   typesAdminTableDataIndexes,
   typesAdminTableTitles,
 } from "constants/types-constants";
+
+import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 
 import { addKeysToObjectInArray } from "utils/add-keys-to-object-in-array";
 import { getImageUrl } from "utils/get-image-url";
@@ -38,10 +40,10 @@ export const TypesTabTable = (props: ITypesTabTableProps) => {
   const [
     deleteType,
     {
-      isSuccess: isDeleteTypeSuccess,
-      isError: isDeleteTypeError,
-      error: errorDeleteTypeData,
       isLoading: isDeleteTypeLoading,
+      isSuccess: isDeleteTypeSuccess,
+      status: deleteTypeStatus,
+      error: errorDeleteTypeData,
     },
   ] = useDeleteTypesMutation();
 
@@ -49,21 +51,14 @@ export const TypesTabTable = (props: ITypesTabTableProps) => {
     await deleteType({ id: type.id });
   };
 
-  React.useEffect(() => {
-    if (!isDeleteTypeLoading && isDeleteTypeSuccess) {
-      message.success("Категория успешно удален");
-    } else if (
-      !isDeleteTypeLoading &&
-      isDeleteTypeError &&
-      "code" in errorDeleteTypeData &&
-      errorDeleteTypeData.code === "404"
-    ) {
-      message.error("Категория не найден");
-    } else if (isDeleteTypeError) {
-      message.error("Произошла ошибка при удалении категории");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDeleteTypeSuccess, isDeleteTypeError]);
+  useGetQueryMessages({
+    isLoading: isDeleteTypeLoading,
+    isSuccess: isDeleteTypeSuccess,
+    status: deleteTypeStatus,
+    error: errorDeleteTypeData,
+    successMessage: "Категория успешно удалена.",
+    errorMessage: "Произошла ошибка при удалении категории.",
+  })
 
   const handleOpenEditModal = (type: IType) => {
     setIsOpenEditModal(true);
@@ -126,6 +121,7 @@ export const TypesTabTable = (props: ITypesTabTableProps) => {
 
   return (
     <Table
+      className={styles.typesTabTableWrapper}
       columns={columns}
       dataSource={tableData}
       pagination={false}

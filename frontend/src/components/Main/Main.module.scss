@@ -8,8 +8,8 @@
   gap: 40px;
 }
 
-.paginationWrapper {
-  margin-top: 40px;
+.mainPaginationWrapper {
+  margin-top: 20px;
   display: flex;
   justify-content: center;
 }
@@ -17,6 +17,12 @@
 .openFiltersMobileButton {
   display: none;
   margin-bottom: 25px;
+}
+
+.mainProductsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 @media screen and (max-width: 1200px) {

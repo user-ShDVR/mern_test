@@ -58,9 +58,9 @@ export const useCartActions = () => {
           quantity: 1,
         });
 
-        message.success("Товар добавлен в корзину");
+        message.success("Товар добавлен в корзину.");
       } else {
-        message.error("Товар уже есть в корзине");
+        message.error("Товар уже есть в корзине.");
       }
     }
 
@@ -71,9 +71,9 @@ export const useCartActions = () => {
           product_id: productId,
         });
 
-        message.success("Товар удален из корзины");
+        message.success("Товар удален из корзины.");
       } else {
-        message.error("Товар не найден в корзине");
+        message.error("Товар не найден в корзине.");
       }
     }
 
@@ -108,6 +108,7 @@ export const useCartActions = () => {
 
   const handleClearCart = async () => {
     await clearCart({ id: authUserData?.id });
+
     refetchCartProductsData();
     message.success("Корзина очищена");
   };

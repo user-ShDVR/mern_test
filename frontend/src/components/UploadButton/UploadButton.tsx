@@ -55,9 +55,9 @@ export const UploadButton = (props: IUploadButtonProps) => {
         setLoading(false);
         setImageUrl(url);
 
-        message.success(`Изображение ${info.file.name} загружено успешно`);
+        message.success("Изображение загружено успешно.");
         refetchImagesData();
-        setTimeout(() => onCloseAddImageModal(), 500);
+        setTimeout(() => onCloseAddImageModal(), 1000);
       });
     }
   };

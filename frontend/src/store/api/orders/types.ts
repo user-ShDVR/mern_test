@@ -8,6 +8,7 @@ export interface IAddOrderRequest {
   products: IOrderProducts[];
   address: string;
 }
+
 export interface IGetOrdersResponse {
   totalCount: number;
   orders: IOrder[];
@@ -23,6 +24,7 @@ export interface IGetOrdersForAdminResponse {
   totalCount: number;
   orders: IOrder[];
 }
+
 export interface IGetOrdersForAdminRequest {
   page: number;
   limit: number;

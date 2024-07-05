@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Popconfirm, Table, Typography, message } from "antd";
+import { Popconfirm, Table, Typography } from "antd";
 
 import { useDeleteProductsMutation } from "store/api/products/products-api";
 
@@ -11,6 +11,8 @@ import {
   productsAdminTableDataIndexes,
   productsAdminTableTitles,
 } from "constants/products-constants";
+
+import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 
 import { addKeysToObjectInArray } from "utils/add-keys-to-object-in-array";
 import { getImageUrl } from "utils/get-image-url";
@@ -46,9 +48,10 @@ export const ProductsTabTable = (props: IProductsTabTableProps) => {
   const [
     deleteProduct,
     {
-      isSuccess: isDeleteProductSuccess,
-      isError: isDeleteProductError,
       isLoading: isDeleteProductLoading,
+      isSuccess: isDeleteProductSuccess,
+      status:deleteProductStatus,
+      error: deleteProductError,
     },
   ] = useDeleteProductsMutation();
 
@@ -56,14 +59,14 @@ export const ProductsTabTable = (props: IProductsTabTableProps) => {
     await deleteProduct({ id: product.id });
   };
 
-  React.useEffect(() => {
-    if (!isDeleteProductLoading && isDeleteProductSuccess) {
-      message.success("Товар успешно удален");
-    } else if (!isDeleteProductLoading && isDeleteProductError) {
-      message.error("Произошла ошибка при удалении товара");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDeleteProductSuccess, isDeleteProductError]);
+  useGetQueryMessages({
+    isLoading: isDeleteProductLoading,
+    isSuccess: isDeleteProductSuccess,
+    status: deleteProductStatus,
+    error: deleteProductError,
+    successMessage: "Товар успешно удален.",
+    errorMessage: "Произошла ошибка при удалении товара.",
+  })
 
   const columns = [
     {
@@ -132,6 +135,7 @@ export const ProductsTabTable = (props: IProductsTabTableProps) => {
 
   return (
     <Table
+      className={styles.productsTabTableWrapper}
       columns={columns}
       dataSource={tableData}
       pagination={false}

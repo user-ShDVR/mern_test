@@ -2,6 +2,12 @@
   margin-top: 20px;
 }
 
+.searchResultProductsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
 .searchResultPaginationWrapper {
   display: flex;
   justify-content: center;
@@ -10,5 +16,6 @@
 
 .catalogCardsWrapper {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }

@@ -17,3 +17,9 @@ export const DEFAULT_SEARCH_DATA = {
   types: [],
   orders: [],
 };
+
+export const queryStatuses = {
+  fulfilled: "fulfilled",
+  pending: "pending",
+  rejected: "rejected",
+}

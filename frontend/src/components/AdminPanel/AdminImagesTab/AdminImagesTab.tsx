@@ -4,11 +4,11 @@ import { PlusOutlined } from "@ant-design/icons";
 import {
   Button,
   Pagination,
+  Popconfirm,
   Spin,
   Tag,
   Tooltip,
   Typography,
-  message,
 } from "antd";
 
 import { ImageInCard } from "components/ImageInCard/ImageInCard";
@@ -22,6 +22,7 @@ import {
 import { DEFAULT_PAGE_SIZE } from "constants/general-constants";
 
 import { useGetPaginatedData } from "hooks/general/use-get-paginated-data";
+import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 
 import { getDeclination } from "utils/get-declination";
 
@@ -33,7 +34,7 @@ import styles from "./AdminImagesTab.module.scss";
 export const AdminImagesTab = () => {
   const [isOpenAddModal, setIsOpenAddModal] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState(1);
-  
+
   const { data: imagesData, isLoading: isImagesDataLoading } =
     useGetImagesQuery();
 
@@ -50,7 +51,8 @@ export const AdminImagesTab = () => {
     {
       isLoading: isDeleteImageLoading,
       isSuccess: isDeleteImageSuccess,
-      isError: isDeleteImageError,
+      status: deleteImageStatus,
+      error: deleteImageError,
     },
   ] = useDeleteImagesMutation();
 
@@ -58,13 +60,14 @@ export const AdminImagesTab = () => {
     await deleteImage({ id: image.id });
   };
 
-  React.useEffect(() => {
-    if (!isDeleteImageLoading && isDeleteImageSuccess) {
-      message.success("Изображение успешно удалено");
-    } else if (!isDeleteImageLoading && isDeleteImageError) {
-      message.error("Произошла ошибка при удалении изображения");
-    }
-  }, [isDeleteImageSuccess, isDeleteImageError, isDeleteImageLoading]);
+  useGetQueryMessages({
+    isSuccess: isDeleteImageSuccess,
+    isLoading: isDeleteImageLoading,
+    status: deleteImageStatus,
+    error: deleteImageError,
+    successMessage: "Изображение успешно удалено.",
+    errorMessage: "Произошла ошибка при удалении изображения.",
+  });
 
   const handleOpenAddModal = () => {
     setIsOpenAddModal(true);
@@ -109,12 +112,16 @@ export const AdminImagesTab = () => {
             key={image.id}
             cover={<ImageInCard imageUrl={image.filename} />}
           >
-            <Button
-              className={styles.adminImagesTabDeleteImageButton}
-              onClick={() => handleDeleteImage(image)}
+            <Popconfirm
+              title="Вы действительно хотите удалить изображение?"
+              onConfirm={() => handleDeleteImage(image)}
+              okText="Да"
+              cancelText="Нет"
             >
-              Удалить
-            </Button>
+              <Button className={styles.adminImagesTabDeleteImageButton}>
+                Удалить
+              </Button>
+            </Popconfirm>
 
             <p>
               Идентификатор: <Tag>{image.id}</Tag>

@@ -1,14 +1,14 @@
-import React from "react";
-
-import { Button, Form, Typography, message } from "antd";
+import { Button, Form, Typography } from "antd";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 
 import { useSignInMutation } from "store/api/auth/auth-api";
-import { ISignInFields } from "store/api/auth/types";
 
 import { useGetLoginFields } from "hooks/auth/use-get-login-fields";
+import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 
 import { getValidateErrorMessage } from "utils/get-validate-error-message";
+
+import { IUser } from "types/IUser";
 
 interface ILoginFormProps {
   handleCloseModal: () => void;
@@ -20,27 +20,33 @@ export const LoginForm = (props: ILoginFormProps) => {
 
   const { FormItems } = useGetLoginFields();
 
-  const [login, { isSuccess, isLoading, isError }] = useSignInMutation();
+  const [
+    login,
+    {
+      isLoading: isLoginLoading,
+      isSuccess: isLoginSuccess,
+      status: loginStatus,
+      error: loginError,
+    },
+  ] = useSignInMutation();
 
-  const onFinishCreateQuestionnaire = (formValues: ISignInFields) => {
-    login({ ...formValues });
+  const onFinishCreateQuestionnaire = (formValues: IUser) => {
+    login(formValues);
+    setTimeout(() => handleCloseModal(), 1000);
   };
-
-  React.useEffect(() => {
-    if (!isLoading && isSuccess) {
-      message.success("Авторизация прошла успешно!");
-      setTimeout(() => handleCloseModal(), 600);
-    }
-
-    if (isError) {
-      message.error("Неверный логин или пароль!");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isError, isLoading, isSuccess]);
 
   const onFailedCreateQuestionnaire = (formValues: ValidateErrorEntity) => {
     getValidateErrorMessage(formValues);
   };
+
+  useGetQueryMessages({
+    isLoading: isLoginLoading,
+    isSuccess: isLoginSuccess,
+    status: loginStatus,
+    error: loginError,
+    successMessage: "Авторизация прошла успешно.",
+    errorMessage: "Неверный логин или пароль.",
+  });
 
   return (
     <>

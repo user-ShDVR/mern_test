@@ -1,6 +1,4 @@
-import React from "react";
-
-import { Modal, Form, Button, message } from "antd";
+import { Modal, Form, Button } from "antd";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 
 import styles from "components/AdminPanel/AdminPanelTab.module.scss";
@@ -9,6 +7,7 @@ import { IAddTypesRequest } from "store/api/types/types";
 import { useAddTypesMutation } from "store/api/types/types-api";
 
 import { useGetTypeFields } from "hooks/adminPanel/use-get-type-fields";
+import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 
 import { getValidateErrorMessage } from "utils/get-validate-error-message";
 
@@ -25,9 +24,10 @@ export const AddTypeModal = (props: IAddTypeModalProps) => {
   const [
     addType,
     {
-      isSuccess: isAddTypeSuccess,
-      isError: isAddTypeError,
       isLoading: isAddTypeLoading,
+      isSuccess: isAddTypeSuccess,
+      status: addTypeStatus,
+      error: addTypeError,
     },
   ] = useAddTypesMutation();
 
@@ -38,21 +38,21 @@ export const AddTypeModal = (props: IAddTypeModalProps) => {
 
   const onFinishAddType = async (formValues: IAddTypesRequest) => {
     await addType(formValues);
+    setTimeout(() => onCloseAddModal(), 1000);
   };
 
   const onFinishFailedAddType = (formValues: ValidateErrorEntity) => {
     getValidateErrorMessage(formValues);
   };
 
-  React.useEffect(() => {
-    if (!isAddTypeLoading && isAddTypeSuccess) {
-      message.success("Категория успешно добавлена");
-      setTimeout(() => onCloseAddModal(), 500);
-    } else if (!isAddTypeLoading && isAddTypeError) {
-      message.error("Произошла ошибка валидации при добавлении категории");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAddTypeSuccess, isAddTypeError, isAddTypeLoading]);
+  useGetQueryMessages({
+    isLoading: isAddTypeLoading,
+    isSuccess: isAddTypeSuccess,
+    status: addTypeStatus,
+    error: addTypeError,
+    successMessage: "Категория успешно добавлена.",
+    errorMessage: "Произошла ошибка при добавлении категории.",
+  });
 
   return (
     <Modal

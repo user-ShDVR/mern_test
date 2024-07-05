@@ -67,6 +67,7 @@ export const OrdersTable = (props: IOrdersTableProps) => {
 
   return (
     <Table
+      className={styles.ordersTableWrapper}
       columns={columns}
       dataSource={tableData}
       pagination={false}

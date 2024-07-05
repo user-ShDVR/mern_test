@@ -4,6 +4,7 @@ import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 import { useAddOrderMutation } from "store/api/orders/orders-api";
 
 import { useCartActions } from "hooks/cart/use-cart-actions";
+import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 import { useGetCreateOrderFields } from "hooks/order/use-get-create-order-fields";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
@@ -35,13 +36,26 @@ export const CreateOrderModal = (props: ICreateOrderModalProps) => {
 
   const { refetchCartProductsData } = useCartActions();
 
-  const [addOrder, { isLoading: isAddOrderLoading }] = useAddOrderMutation();
+  const [
+    addOrder,
+    {
+      isLoading: isAddOrderLoading,
+      isSuccess: isAddOrderSuccess,
+      status: addOrderStatus,
+      error: addOrderError,
+    },
+  ] = useAddOrderMutation();
 
   const onFinishAddOrder = async (formValues: IAdressFields) => {
-    if (productsCount === undefined || resultPriceCount === undefined || products === undefined) {
-      message.error("Ошибка: недостающие данные для оформления заказа");
+    if (
+      productsCount === undefined ||
+      resultPriceCount === undefined ||
+      products === undefined
+    ) {
+      message.error("Недостающие данные для оформления заказа.");
       return;
     }
+
     const orderProducts = products?.map((product) => ({
       product_id: product.product_id,
       quantity: product.quantity,
@@ -57,33 +71,23 @@ export const CreateOrderModal = (props: ICreateOrderModalProps) => {
       address,
     };
 
-    try {
-      const response = await addOrder(orderData);
-      if ("data" in response && response.data) {
-        message.success("Заказ успешно оформлен");
-      } else if ("error" in response) {
-        if ("status" in response.error) {
-          message.error(
-            "Произошла ошибка при добавлении заказа: " + response.error.status
-          );
-        } else if ("message" in response.error) {
-          message.error("Произошла ошибка: " + response.error.message);
-        } else {
-          message.error("Произошла неизвестная ошибка при добавлении заказа");
-        }
-      }
-    } catch (error) {
-      console.error(error);
-      message.error("Произошла ошибка при обработке запроса");
-    }
-
-    setTimeout(() => onCloseCreateOrderModal(), 500);
+    await addOrder(orderData);
+    setTimeout(() => onCloseCreateOrderModal(), 1000);
     refetchCartProductsData();
   };
 
   const onFinishAddOrderFailed = (formValues: ValidateErrorEntity) => {
     getValidateErrorMessage(formValues);
   };
+
+  useGetQueryMessages({
+    isLoading: isAddOrderLoading,
+    isSuccess: isAddOrderSuccess,
+    status: addOrderStatus,
+    error: addOrderError,
+    successMessage: "Заказ успешно оформлен.",
+    errorMessage: "Произошла ошибка при добавлении заказа.",
+  });
 
   return (
     <Modal

@@ -3,7 +3,7 @@ import React from "react";
 import { Empty, Pagination, Tabs, Typography } from "antd";
 
 import { CatalogCard } from "components/Catalog/CatalogCard/CatalogCard";
-import { ProductCardsList } from "components/ProductCardsList/ProductCardsList";
+import { ProductCard } from "components/Product/ProductCard/ProductCard";
 
 import { RouterPath } from "configs/route-config";
 
@@ -18,7 +18,7 @@ export const SearchResult = () => {
   const [typesCurrentPage, setTypesCurrentPage] = React.useState(1);
 
   const {
-    searchDataContext: { searchData },
+    searchDataContext: { searchData, searchQueryString },
   } = useContexts();
 
   const { paginatedData: productsSearchPaginatedData } = useGetPaginatedData({
@@ -30,7 +30,7 @@ export const SearchResult = () => {
   const { paginatedData: typesSearchPaginatedData } = useGetPaginatedData({
     data: searchData?.types,
     currentPage: typesCurrentPage,
-    pageSize: 3,
+    pageSize: 4,
   });
 
   const handleProductsPageChange = (page: number) => {
@@ -49,7 +49,14 @@ export const SearchResult = () => {
       label: "Товары",
       children: (
         <div className={styles.searchResultWrapper}>
-          <ProductCardsList productsData={productsSearchPaginatedData} />
+          <div className={styles.searchResultProductsWrapper}>
+            {productsSearchPaginatedData?.map((product) => (
+              <ProductCard
+                productData={product}
+                navigationUrl={`${RouterPath.main}${product.id}`}
+              />
+            ))}
+          </div>
 
           {!!searchData?.products?.length && (
             <Pagination
@@ -98,7 +105,10 @@ export const SearchResult = () => {
 
   return (
     <>
-      <Typography.Title>Результаты поиска</Typography.Title>
+      <Typography.Title>
+        Результаты поиска по запросу {searchQueryString}
+      </Typography.Title>
+
       <Tabs defaultActiveKey="1" items={tabsItems} />
     </>
   );

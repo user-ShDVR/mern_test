@@ -1,12 +1,11 @@
-import React from "react";
-
-import { Modal, Form, Button, message } from "antd";
+import { Modal, Form, Button } from "antd";
 
 import styles from "components/AdminPanel/AdminPanelTab.module.scss";
 
 import { useEditOrdersMutation } from "store/api/orders/orders-api";
 import { IEditOrderRequest } from "store/api/orders/types";
 
+import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 import { useGetEditOrderFields } from "hooks/order/use-get-edit-order-field";
 
 import { IOrder } from "types/IOrder";
@@ -23,9 +22,10 @@ export const EditOrderModal = (props: IEditOrderModalProps) => {
   const [
     editOrder,
     {
-      isSuccess: isEditOrderSuccess,
-      isError: isEditOrderError,
       isLoading: isEditOrderLoading,
+      isSuccess: isEditOrderSuccess,
+      status: editOrderStatus,
+      error: isEditOrderError,
     },
   ] = useEditOrdersMutation();
 
@@ -40,16 +40,17 @@ export const EditOrderModal = (props: IEditOrderModalProps) => {
     };
 
     editOrder(editOrderData);
+    setTimeout(() => onCloseEditModal(), 1000);
   };
 
-  React.useEffect(() => {
-    if (!isEditOrderLoading && isEditOrderSuccess) {
-      message.success("Статус заказа успешно обновлен");
-      setTimeout(() => onCloseEditModal(), 500);
-    } else if (!isEditOrderLoading && isEditOrderError) {
-      message.error("Произошла ошибка при обновлении статуса заказа");
-    }
-  }, [isEditOrderSuccess, isEditOrderError, isEditOrderLoading]);
+  useGetQueryMessages({
+    isLoading: isEditOrderLoading,
+    isSuccess: isEditOrderSuccess,
+    status: editOrderStatus,
+    error: isEditOrderError,
+    successMessage: "Статус заказа успешно обновлен.",
+    errorMessage: "Произошла ошибка при обновлении статуса заказа.",
+  });
 
   return (
     <Modal

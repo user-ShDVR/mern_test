@@ -1,6 +1,4 @@
-import React from "react";
-
-import { Modal, Form, Button, message } from "antd";
+import { Modal, Form, Button } from "antd";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 
 import styles from "components/AdminPanel/AdminPanelTab.module.scss";
@@ -9,6 +7,7 @@ import { useAddProductsMutation } from "store/api/products/products-api";
 import { IAddProductsRequest } from "store/api/products/types";
 
 import { useGetProductFields } from "hooks/adminPanel/use-get-product-fields";
+import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 
 import { getValidateErrorMessage } from "utils/get-validate-error-message";
 
@@ -25,9 +24,10 @@ export const AddProductModal = (props: IAddProductModalProps) => {
   const [
     addProduct,
     {
-      isSuccess: isAddProductSuccess,
-      isError: isAddProductError,
       isLoading: isAddProductLoading,
+      isSuccess: isAddProductSuccess,
+      status: addProductStatus,
+      error: addProductError,
     },
   ] = useAddProductsMutation();
 
@@ -46,21 +46,21 @@ export const AddProductModal = (props: IAddProductModalProps) => {
     };
 
     await addProduct(addProductData);
+    setTimeout(() => onCloseAddModal(), 1000);
   };
 
   const onFinishFailedAddProduct = (formValues: ValidateErrorEntity) => {
     getValidateErrorMessage(formValues);
   };
 
-  React.useEffect(() => {
-    if (!isAddProductLoading && isAddProductSuccess) {
-      message.success("Продукт успешно добавлен");
-      setTimeout(() => onCloseAddModal(), 500);
-    } else if (!isAddProductLoading && isAddProductError) {
-      message.error("Произошла ошибка при добавлении продукта");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAddProductSuccess, isAddProductError, isAddProductLoading]);
+  useGetQueryMessages({
+    isLoading: isAddProductLoading,
+    isSuccess: isAddProductSuccess,
+    status: addProductStatus,
+    error: addProductError,
+    successMessage: "Продукт успешно добавлен.",
+    errorMessage: "Произошла ошибка при добавлении продукта.",
+  })
 
   return (
     <Modal

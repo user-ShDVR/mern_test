@@ -10,27 +10,28 @@ import { IProduct } from "types/IProduct";
 import styles from "./ProductCard.module.scss";
 
 interface IProductCardProps {
-  product: IProduct;
+  productData: IProduct;
+  navigationUrl: string;
 }
 
 export const ProductCard = (props: IProductCardProps) => {
-  const { product } = props;
+  const { productData, navigationUrl } = props;
 
   return (
-    <Link className={styles.link} to={`${product.id}`} key={product.id}>
+    <Link className={styles.link} to={navigationUrl} key={productData.id}>
       <ShadowCard
         className={styles.cardWrapper}
-        key={product.id}
-        cover={<ImageInCard imageUrl={product.image.filename} />}
+        key={productData.id}
+        cover={<ImageInCard imageUrl={productData.image.filename} />}
       >
         <Card.Meta
           title={
             <>
-              <p className={styles.cardText}>{product.price} ₽</p>
-              <p className={styles.cardText}>{product.name}</p>
+              <p className={styles.cardText}>{productData.price} ₽</p>
+              <p className={styles.cardText}>{productData.name}</p>
             </>
           }
-          description={<CartButtons productId={product.id} />}
+          description={<CartButtons productId={productData.id} />}
         />
       </ShadowCard>
     </Link>

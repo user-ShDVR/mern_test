@@ -19,7 +19,7 @@ export const SearchInput = () => {
   const navigate = useNavigate();
 
   const {
-    searchDataContext: { setSearchData },
+    searchDataContext: { setSearchData, setSearchQueryString },
   } = useContexts();
 
   const { data: searchData } = useGetSearchDataQuery({
@@ -28,6 +28,7 @@ export const SearchInput = () => {
 
   React.useEffect(() => {
     setSearchData(searchData ?? DEFAULT_SEARCH_DATA);
+    setSearchQueryString(searchValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchData]);
 

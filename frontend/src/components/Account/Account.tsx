@@ -1,11 +1,12 @@
 import React from "react";
 
 import { EditOutlined } from "@ant-design/icons";
-import { Button, Form, Spin, Typography, message } from "antd";
+import { Button, Form, Spin, Typography } from "antd";
 
 import { useEditUsersMutation } from "store/api/users/users-api";
 
 import { useGetAccountFields } from "hooks/account/use-get-account-fields";
+import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
 import { IUser } from "types/IUser";
@@ -22,7 +23,8 @@ export const Account = () => {
     {
       isLoading: isEditAccountLoading,
       isSuccess: isEditAccountSuccess,
-      isError: isEditAccountError,
+      status: editAccountStatus,
+      error: editAccountError,
     },
   ] = useEditUsersMutation();
 
@@ -42,14 +44,14 @@ export const Account = () => {
     await editAccount(editedData);
   };
 
-  React.useEffect(() => {
-    if (!isEditAccountLoading && isEditAccountSuccess) {
-      message.success("Данные об аккаунте успешно обновлены");
-      setIsEditAccount(false);
-    } else if (!isEditAccountLoading && isEditAccountError) {
-      message.error("Произошла ошибка при обновлении данных об аккаунте");
-    }
-  }, [isEditAccountSuccess, isEditAccountError, isEditAccountLoading]);
+  useGetQueryMessages({
+    isLoading: isEditAccountLoading,
+    isSuccess: isEditAccountSuccess,
+    status: editAccountStatus,
+    error: editAccountError,
+    successMessage: "Данные об аккаунте успешно обновлены.",
+    errorMessage: "Произошла ошибка при обновлении данных об аккаунте.",
+  });
 
   const handleEdit = () => {
     setIsEditAccount(true);

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Popconfirm, Table, Typography, message } from "antd";
+import { Popconfirm, Table, Typography } from "antd";
 
 import { useDeleteOrdersMutation } from "store/api/orders/orders-api";
 
@@ -9,6 +9,8 @@ import {
   ordersAdminTableDataIndexes,
   ordersAdminTableTitles,
 } from "constants/orders-constants";
+
+import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 
 import { addKeysToObjectInArray } from "utils/add-keys-to-object-in-array";
 
@@ -36,9 +38,10 @@ export const OrdersTabTable = (props: IOrdersTabTableProps) => {
   const [
     deleteOrder,
     {
-      isSuccess: isDeleteOrderSuccess,
-      isError: isDeleteOrderError,
       isLoading: isDeleteOrderLoading,
+      isSuccess: isDeleteOrderSuccess,
+      status: deleteOrderStatus,
+      error: deleteOrderError,
     },
   ] = useDeleteOrdersMutation();
 
@@ -51,14 +54,14 @@ export const OrdersTabTable = (props: IOrdersTabTableProps) => {
     setOrderDataInModal(order);
   };
 
-  React.useEffect(() => {
-    if (!isDeleteOrderLoading && isDeleteOrderSuccess) {
-      message.success("Заказ успешно удален");
-    } else if (!isDeleteOrderLoading && isDeleteOrderError) {
-      message.error("Произошла ошибка при удалении заказа");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDeleteOrderSuccess, isDeleteOrderError]);
+  useGetQueryMessages({
+    isLoading: isDeleteOrderLoading,
+    isSuccess: isDeleteOrderSuccess,
+    status: deleteOrderStatus,
+    error: deleteOrderError,
+    successMessage: "Заказ успешно удален.",
+    errorMessage: "Произошла ошибка при удалении заказа.",
+  });
 
   const columns = [
     {
@@ -99,6 +102,7 @@ export const OrdersTabTable = (props: IOrdersTabTableProps) => {
 
   return (
     <Table
+      className={styles.ordersTabTableWrapper}
       columns={columns}
       dataSource={tableData}
       pagination={false}

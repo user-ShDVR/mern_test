@@ -12,6 +12,8 @@ import { addKeysToObjectInArray } from "utils/add-keys-to-object-in-array";
 
 import { IUser } from "types/IUser";
 
+import styles from "./UsersTabTable.module.scss";
+
 interface IUsersTabTableProps {
   usersData: IUser[];
 }
@@ -62,6 +64,7 @@ export const UsersTabTable = (props: IUsersTabTableProps) => {
 
   return (
     <Table
+      className={styles.usersTabTableWrapper}
       columns={columns}
       dataSource={tableData}
       pagination={false}

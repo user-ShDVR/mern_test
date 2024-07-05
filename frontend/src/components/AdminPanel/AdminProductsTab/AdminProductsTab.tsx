@@ -32,7 +32,7 @@ export const AdminProductsTab = () => {
   const { data: productsData, isLoading: isProductsLoading } =
     useGetProductsQuery({
       page: currentPage,
-      limit: 2,
+      limit: 3,
       minPrice: DEFAULT_MIN_PRICE,
       maxPrice: DEFAULT_MAX_PRICE,
       sortBy: DEFAULT_SORT_BY,
@@ -92,7 +92,7 @@ export const AdminProductsTab = () => {
       {!isEmptyProductsData && (
         <Pagination
           className={styles.adminProductsTabPaginationWrapper}
-          pageSize={2}
+          pageSize={3}
           total={productsData?.totalCount}
           onChange={handlePageChange}
           current={currentPage}

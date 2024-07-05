@@ -1,7 +1,7 @@
 import React from "react";
 
-import { CatalogCategoryContext } from "./../../providers/CatalogCategoryProvider";
-import { SearchDataContext } from "./../../providers/SearchDataProvider";
+import { CatalogCategoryContext } from "providers/CatalogCategoryProvider";
+import { SearchDataContext } from "providers/SearchDataProvider";
 
 export const useContexts = () => {
   const searchDataContext = React.useContext(SearchDataContext);
